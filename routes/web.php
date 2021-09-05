@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,4 @@ Route::get('/strava_auth',[AuthController::class, 'strava'])->name('strava_login
 Route::get('/strava_auth_callback',[AuthController::class, 'StravaCallBack'])->name('strava_callback');
 
 
+Route::get('/test',[TestController::class, 'index']);

@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Activity;
+use Strava;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -42,4 +45,33 @@ class User extends Authenticatable
      */
     protected $casts = [
     ];
+
+    public function importActivities() : void {
+
+        $lastImportedActivity = Activity::where('user_id',$this->id)
+            ->orderBy('start_date', 'desc')->select('start_date')->first();
+        $after = $lastImportedActivity->start_date ?? null;
+        var_dump($after);
+
+        $perPage=200; // похоже что это максимальное число, которое разрешает страва. Выбрано с целью экономии вызовов к api
+        $page=1;
+
+        do { echo $page; echo('<br/>');
+            $acts = Strava::activities($this->access_token,$page,$perPage,null,$after);
+
+            foreach ($acts as $a) {
+                $activity = Activity::where('strava_id',$a->id)->first();
+                if ($activity != null) continue;
+
+                $activity = Activity::create([
+                    'user_id' => $this->id,
+                    'strava_id' => $a->id,
+                    'start_date' => Carbon::parse($a->start_date),
+                    'summary_polyline' => $a->map->summary_polyline
+                ]);
+                $activity->save();
+            }
+            $page += 1;
+        } while (count($acts) ?? 0 > 0);
+    }
 }
