@@ -20,7 +20,7 @@ class CreateActivitiesTable extends Migration
             $table->unsignedBigInteger('strava_id')->unique();
             $table->datetime('start_date');
             $table->text('summary_polyline');
-            $table->integer('max_sight_verivied')->default(0);
+            $table->integer('max_sight_verified')->default(0);
             $table->index(['user_id','start_date']);
         });
     }

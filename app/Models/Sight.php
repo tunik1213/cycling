@@ -23,7 +23,7 @@ class Sight extends Model
 
     public function activities()
     {
-        return $this->belongsToMany(Activity::class);
+        //return $this->belongsToMany(Activity::class);
     }
 
     public static function import_google_maps($data) : void

@@ -19,7 +19,7 @@ class Activity extends Model
 
     public function sights()
     {
-        return $this->belongsToMany(Sight::class);
+        //return $this->belongsToMany(Sight::class);
     }
 
 }

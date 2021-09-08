@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\CrontabController;
+use App\Http\Controllers\SightController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +26,8 @@ Route::get('/strava_auth_callback',[AuthController::class, 'StravaCallBack'])->n
 
 
 Route::get('/test',[TestController::class, 'index']);
+Route::get('/sight/import/{location}',[SightController::class, 'import']);
+
+Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites']);
+
+
