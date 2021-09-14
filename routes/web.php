@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\CrontabController;
 use App\Http\Controllers\SightController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,5 @@ Route::get('/sight/import/{location}',[SightController::class, 'import']);
 Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites']);
 
 
+Route::get('/home', [UserController::class, 'home'])->name('home');
+Route::get('/user/getAvatarImage/{id?}', [UserController::class, 'getAvatarImage'])->name('userAvatar');

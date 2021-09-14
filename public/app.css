@@ -1,37 +1,36 @@
-// Variables
-@import 'variables';
-
-
 html {
   position: relative;
   min-height: 100%;
 }
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
-  line-height: 60px; /* Vertically center the text there */
-  background-color: $background-light;
-}
-a {
-	color: $font-color-link; 
-	text-decoration: auto;
-}
-a:hover{
-	color: $background-dark;
+  line-height: 60px;
+  /* Vertically center the text there */
+  background-color: #f5f5f5;
 }
 
+a {
+  color: #c45911;
+  text-decoration: auto;
+}
+
+a:hover {
+  color: #333;
+}
 
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
-
 body > .container {
   padding: 60px 15px 0;
 }
@@ -40,56 +39,70 @@ body > .container {
   padding-right: 15px;
   padding-left: 15px;
 }
+
 .header {
-	background-color: $background-dark;
+  background-color: #333;
 }
+
 .header a {
-	color: $font-color-bright;
+  color: #ffc220;
 }
-a.navbar-brand{
-	font-size: 3rem;
+
+a.navbar-brand {
+  font-size: 3rem;
 }
+
 #right-header {
-	float: right;
-	font-size: 1.5rem;
-    padding: 1rem;
+  float: right;
+  font-size: 1.5rem;
+  padding: 1rem;
 }
 
 .user-avatar {
-	border-radius: 50%;
-	max-height: 2rem;
+  border-radius: 50%;
+  max-height: 2rem;
 }
+
 #footer-links {
-	list-style: none;
-	display: flex;
-	font-size: 1rem;
+  list-style: none;
+  display: flex;
+  font-size: 1rem;
 }
+
 #footer-links > li {
-	padding-right: 2rem;
+  padding-right: 2rem;
 }
 
 #auth-link-place {
-	padding-top: 10%;
+  padding-top: 10%;
 }
+
 .font-color-strava {
-	color: $strava-color;
+  color: #f23f35;
 }
+
 .login-strava-btn {
-	border: 1px solid $background-dark;
-	font-size: 1.5rem;
+  border: 1px solid #333;
+  font-size: 1.5rem;
 }
+
 #right-header .fas {
-	padding-right: 0.5rem;
+  padding-right: 0.5rem;
 }
+
 .dropdown ul.dropdown-menu {
-	background-color: $background-dark;
+  background-color: #333;
 }
+
 #userMenu {
-	color: $font-color-bright;
-	outline: none;
-	border: 0;
+  color: #ffc220;
+  outline: none;
+  border: 0;
 }
+
 #userMenu:focus {
-	outline: none;
-	border: 0;
+  outline: none;
+  border: 0;
 }
+
+/*# sourceMappingURL=app.css.map */

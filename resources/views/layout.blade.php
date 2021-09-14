@@ -18,28 +18,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    @if(env('APP_DEBUG'))
-        <script src="{{ asset('js/lib/jquery.js') }}"></script>
-        <script src="{{ asset('js/lib/bootstrap.bundle.js') }}"></script>
-        <script src="{{ asset('js/lib/popper.min.js') }}"></script>
-        <script src="{{ asset('js/lib/mdb.js') }}"></script>
-        <script src="{{ asset('js/lib/jquery.jgrowl.js') }}"></script>
-        <script src="{{asset('js/lib/tinymce.js')}}" referrerpolicy="origin"></script>
-        <script src="{{ asset('js/engine.js') }}"></script>
-
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/lib/mdb.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/lib/jquery.jgrowl.css') }}" rel="stylesheet">
-    @else
-        @include('layouts.production_asserts')
-    @endif
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-
-    <!-- jQuery Modal -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
 
     @yield('head')
 
@@ -49,33 +30,54 @@
 
     @yield('markup')
 
+    <link rel="stylesheet" href="/app.css">
+
 </head>
 <body>
 
-    <div id="#header">
-        <div id="left-header">
-            <a id="header-logo" href="/">Лого</a>
-        </div>
+    <div class="header">
+      <div class="container">
+        <a class="navbar-brand" href="/">Лого</a>
         <div id="right-header">
-            <a href="{{route('strava_login')}}">Вхiд</a>
+            @guest
+                <a href="{{route('strava_login')}}">Вхід</a>
+            @else
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" id="userMenu" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="user-avatar" src="{{route('userAvatar')}}" />
+                    {{ $user->firstname }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="userMenu">
+                    <li><a class="dropdown-item" href="{{route('home')}}"><i class="fas fa-user"></i>Мій профіль</a></li>
+                    <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i>Вийти</a></li>
+                </ul>
+            </div>
+            @endguest
         </div>
+      </div>
     </div>
 
-    <div id="#body">
-
-<hr/><br/>
-        @php(var_dump($user))
-
-        <hr/><br/>
+    <!-- Begin page content -->
+    <main role="main" class="container">
         @yield('content')
+    </main>
 
-    </div>
+    <footer class="footer">
+      <div class="container">
+        <ul id="footer-links">
+            <li><a href="/">На головну</a></li>
+            <li><a href="#">Про проєкт</a></li>
+            <li><a href="#">Залишити відгук</a></li>
+        </ul>
+      </div>
+    </footer>
 
-    <div id="#footer">
+<script
+  src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+  integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+  crossorigin="anonymous"></script>
 
-    </div>
-
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
