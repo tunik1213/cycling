@@ -6,6 +6,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\CrontabController;
 use App\Http\Controllers\SightController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AreaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,8 @@ Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites']);
 
 Route::get('/home', [UserController::class, 'home'])->name('home');
 Route::get('/user/getAvatarImage/{id?}', [UserController::class, 'getAvatarImage'])->name('userAvatar');
+
+
+Route::resource('areas', AreaController::class);
+Route::get('/areas/{id}/image', [AreaController::class, 'getImage'])->name('areas.image');
+
