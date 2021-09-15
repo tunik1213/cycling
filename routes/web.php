@@ -7,6 +7,7 @@ use App\Http\Controllers\CrontabController;
 use App\Http\Controllers\SightController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\DistrictController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,5 @@ Route::get('/user/getAvatarImage/{id?}', [UserController::class, 'getAvatarImage
 Route::resource('areas', AreaController::class);
 Route::get('/areas/{id}/image', [AreaController::class, 'getImage'])->name('areas.image');
 
+Route::resource('districts', DistrictController::class);
+Route::get('/districts/{id}/image', [DistrictController::class, 'getImage'])->name('districts.image');

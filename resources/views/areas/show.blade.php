@@ -20,5 +20,12 @@
             </div>
         </div>
 
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <strong>Герб:</strong>
+        </div>
+        <img src="{{ route('areas.image',$area->id) }}" alt="Герб {{$area->name}} область"/>
+        
+        
+
     </div>
 @endsection

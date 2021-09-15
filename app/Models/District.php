@@ -4,17 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Area;
 
-class Area extends Model
+class District extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-      'name', 'image'
+      'name', 'image', 'area_id'
     ];
 
-    public function districts()
+    public function area()
     {
-        return $this->hasMany('App\District');
+        return $this->belongsTo(Area::class);
     }
 }
