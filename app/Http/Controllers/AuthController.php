@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function Strava(request $request) {
+    public function Strava(Request $request) 
+    {
         return Strava::authenticate($scope='read,profile:read_all,activity:read');
     }
 
-    public function StravaCallBack(request $request) {
+    public function StravaCallBack(Request $request) 
+    {
         $token = Strava::token($request->code);
         $user = $this->findOrCreateUser($token->athlete);
 
@@ -44,5 +46,17 @@ class AuthController extends Controller
                  ->encode('jpg', 75)
         ]);
         return $newUser;
+    }
+
+    public function logout(request $request) 
+    {
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

@@ -47,3 +47,4 @@ Route::get('/districts/{id}/image', [DistrictController::class, 'getImage'])->na
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
