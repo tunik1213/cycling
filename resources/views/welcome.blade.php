@@ -16,7 +16,7 @@
     
     @else
 
-
+        
 
     @endguest
     </div>
