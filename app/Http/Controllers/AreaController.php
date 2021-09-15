@@ -12,6 +12,11 @@ class AreaController extends Controller
             'name' => 'required',
             'area_image' => 'required|max:1024',
         ];
+
+    public function __construct()
+    {
+        $this->middleware('moderator')->except(['index', 'show', 'getImage']);
+    }
     /**
      * Display a listing of the resource.
      *

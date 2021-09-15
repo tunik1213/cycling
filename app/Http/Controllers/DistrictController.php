@@ -9,6 +9,11 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class DistrictController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('moderator')->except(['index', 'show', 'getImage']);
+    }
+
     private function areas() {
         return Area::orderBy('name')->get();
     }
