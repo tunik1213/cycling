@@ -7,6 +7,7 @@
 	<ul>
 		<li><a href="{{route('areas.index')}}">Областi</a></li>
 		<li><a href="{{route('districts.index')}}">Райони</a></li>
+		<li><a href="{{route('sights.index')}}">Пам'ятки</a></li>
 	</ul>
 
 @endsection

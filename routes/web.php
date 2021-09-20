@@ -45,6 +45,9 @@ Route::get('/areas/{id}/image', [AreaController::class, 'getImage'])->name('area
 Route::resource('districts', DistrictController::class);
 Route::get('/districts/{id}/image', [DistrictController::class, 'getImage'])->name('districts.image');
 
+Route::resource('sights', SightController::class);
+Route::get('/sights/{id}/image', [SightController::class, 'getImage'])->name('sights.image');
+
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

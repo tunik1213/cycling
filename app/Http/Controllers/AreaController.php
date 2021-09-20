@@ -109,9 +109,9 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Area $a)
+    public function destroy(int $id)
     {
-         $a->first()->delete();
+         Area::find($id)->delete();
 
          return redirect()->route('areas.index')
                        ->with('success','Область успiшно видалено');

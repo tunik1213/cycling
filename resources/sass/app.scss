@@ -97,3 +97,14 @@ a.navbar-brand{
 	outline: none;
 	border: 0;
 }
+.page-item > .page-link {
+	border-color: $border-color-light;
+	color: $background-dark;
+}
+.page-item.active > .page-link{
+	background-color: $background-dark;
+}
+.alert-warning a {
+	color: black;
+	font-size: 1.5rem;
+}

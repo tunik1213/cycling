@@ -110,4 +110,18 @@ a.navbar-brand {
   border: 0;
 }
 
+.page-item > .page-link {
+  border-color: #dee2e6;
+  color: #333;
+}
+
+.page-item.active > .page-link {
+  background-color: #333;
+}
+
+.alert-warning a {
+  color: black;
+  font-size: 1.5rem;
+}
+
 /*# sourceMappingURL=app.css.map */

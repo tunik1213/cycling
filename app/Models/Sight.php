@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Activity;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Models\District;
 
 class Sight extends Model
 {
@@ -21,9 +22,9 @@ class Sight extends Model
         'image'
     ];
 
-    public function activities()
+    public function district()
     {
-        //return $this->belongsToMany(Activity::class);
+        return $this->belongsTo(District::class);
     }
 
     public static function import_google_maps($data) : void
@@ -36,7 +37,7 @@ class Sight extends Model
             $loc = $point->geometry->location;
             $lat = $loc->lat;
             $lng = $loc->lng;
-            $approx = (string)round($lat,3).':'.(string)round($lng,3);
+            $approx = Self::getApprox($lat, $lng);
             $found = Self::where('approx_location',$approx)->count();
             if ($found > 0) continue;
 
@@ -55,5 +56,10 @@ class Sight extends Model
 
             $newSight->save();
         }
+    }
+
+    public static function getApprox($lat, $lng)
+    {
+        return (string)round($lat,3).':'.(string)round($lng,3);
     }
 }
