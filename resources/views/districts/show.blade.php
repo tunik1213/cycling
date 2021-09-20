@@ -1,6 +1,13 @@
 @extends('layout')
 @section('content')
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('areas.show',$district->area->id) }}">{{ $district->area->name }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ $district->name }}</li>
+  </ol>
+</nav>
+
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
