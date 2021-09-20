@@ -124,4 +124,26 @@ a.navbar-brand {
   font-size: 1.5rem;
 }
 
+#scroll-top-button {
+  display: none;
+  background-color: #333;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  border-radius: 4px;
+  margin: 30px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color 0.3s;
+  z-index: 1000;
+  color: #fff;
+}
+
+#scroll-top-button > i {
+  font-size: 3rem;
+  line-height: 60px;
+}
+
 /*# sourceMappingURL=app.css.map */
