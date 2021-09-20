@@ -14,9 +14,9 @@
             <div class="pull-left">
                 <h2>{{ $sight->name }}</h2>
             </div>
-            <div class="pull-right">
+{{--             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('sights.index') }}">← Назад</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 

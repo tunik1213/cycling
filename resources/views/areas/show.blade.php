@@ -6,9 +6,9 @@
             <div class="pull-left">
                 <h2>{{ $area->name }} область</h2>
             </div>
-            <div class="pull-right">
+            {{-- <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('areas.index') }}">← Назад</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 

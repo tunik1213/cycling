@@ -13,9 +13,9 @@
             <div class="pull-left">
                 <h2>{{ $district->name }} район</h2>
             </div>
-            <div class="pull-right">
+            {{-- <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('districts.index') }}">← Назад</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 
