@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\District;
 
 class Area extends Model
 {
@@ -15,6 +16,6 @@ class Area extends Model
 
     public function districts()
     {
-        return $this->hasMany('App\District');
+        return $this->hasMany(District::class)->orderBy('name');
     }
 }

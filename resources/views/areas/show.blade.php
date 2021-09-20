@@ -20,12 +20,24 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <strong>Герб:</strong>
+        <div class="col-sm-6 col-xs-12">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <strong>Герб:</strong>
+            </div>
+            <img src="{{ route('areas.image',$area->id) }}" alt="Герб {{$area->name}} область"/>
+            
         </div>
-        <img src="{{ route('areas.image',$area->id) }}" alt="Герб {{$area->name}} область"/>
-        
-        
+
+        <div class="col-sm-6 col-xs-12">
+            <strong>Райони:</strong>
+            <div class="list-group">
+            @foreach($area->districts as $d)
+            <a href="{{ route('districts.show',$d->id) }}" class="list-group-item list-group-item-action">
+                {{$d->name}}
+            </a>
+            @endforeach
+            </div>
+        </div>
 
     </div>
 @endsection
