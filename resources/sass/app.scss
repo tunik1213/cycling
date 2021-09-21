@@ -9,6 +9,10 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  background-color: $background-light;
+}
+main {
+	 background-color: $background-white;
 }
 .footer {
   position: absolute;
@@ -127,4 +131,23 @@ a.navbar-brand{
 #scroll-top-button>i {
     font-size: 3rem;
     line-height: 60px;
+}
+.link-secondary {
+	color: $background-dark;
+}
+
+/* info block */
+.info-block {
+	//border: 1px solid $border-color-light;
+	padding: 1rem;
+}
+.info-block-body {
+		display: flex;
+}
+.info-block-body > .card {
+		margin: 1rem;
+		padding: 1rem;
+}
+.info-block-footer {
+		padding: 1rem;
 }

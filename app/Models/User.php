@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Activity;
 use Strava;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -73,5 +74,21 @@ class User extends Authenticatable
             }
             $page += 1;
         } while (count($acts) ?? 0 > 0);
+    }
+
+    public function topSightsVisited()
+    {
+        $result = DB::select('
+        select s.id, s.name, count(*) count
+        from sights s
+        join visits v on v.sight_id = s.id
+        join activities a on a.id = v.act_id
+        where a.user_id = ?
+        group by id,name
+        order by count(*) desc
+        limit 10
+        ',[$this->id]);
+
+        return $result;
     }
 }
