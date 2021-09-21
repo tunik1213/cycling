@@ -8,6 +8,7 @@ use App\Models\User;
 use Intervention\Image\ImageManagerStatic as Image;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\CheckInvites;
 
 class AuthController extends Controller
 {
@@ -25,7 +26,11 @@ class AuthController extends Controller
         $user->refresh_token = $token->refresh_token;
         $user->save();
 
+        $user->importActivities();
+
         Auth::login($user, $remember = true);
+
+        CheckInvites::dispatchAfterResponse();
 
         return redirect('/');
     }
