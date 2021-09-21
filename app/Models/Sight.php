@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Activity;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\District;
+use App\Models\User;
 
 class Sight extends Model
 {
@@ -25,6 +26,10 @@ class Sight extends Model
     public function district()
     {
         return $this->belongsTo(District::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public static function import_google_maps($data) : void

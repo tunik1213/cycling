@@ -37,6 +37,7 @@ Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites'])->n
 
 Route::get('/home', [UserController::class, 'home'])->name('home');
 Route::get('/user/getAvatarImage/{id?}', [UserController::class, 'getAvatarImage'])->name('userAvatar');
+Route::get('/profile/{id?}', [UserController::class, 'profile'])->name('userProfile');
 
 
 Route::resource('areas', AreaController::class);

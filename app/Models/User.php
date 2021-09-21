@@ -47,6 +47,11 @@ class User extends Authenticatable
     protected $casts = [
     ];
 
+    public function sights()
+    {
+        return $this->hasMany(Sight::class)->orderBy('name');
+    }
+
     public function importActivities() : void {
 
         $lastImportedActivity = Activity::where('user_id',$this->id)

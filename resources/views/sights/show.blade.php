@@ -30,6 +30,15 @@
             </div>
         </div>
 
+        @if($sight->user)
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Автор:</strong>
+                <a href="{{route('userProfile',$sight->user->id)}}">{{ $sight->user->firstname }}</a>
+            </div>
+        </div>   
+        @endif
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <strong>Фото:</strong>
         </div>
