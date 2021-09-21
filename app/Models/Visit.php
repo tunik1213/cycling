@@ -33,12 +33,6 @@ class Visit extends Model
 
         $match = \GeometryLibrary\PolyUtil::isLocationOnPath($point,$pairedPoly,$tolerance = 10);
 
-        $act->max_sight_verified = $sight->id;
-        $act->save();
-
-        $sight->max_activity_verified = $act->id;
-        $sight->save();
-
         if ($match) {
             Visit::create([
                 'act_id'=> $act->id,

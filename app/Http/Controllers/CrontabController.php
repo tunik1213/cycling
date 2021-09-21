@@ -34,6 +34,9 @@ class CrontabController extends Controller
                 Visit::searchInvites($act,$sight);
             }
         }
+
+        DB::statement("update activities set max_sight_verified = $maxSigEver");
+        DB::statement("update sights set max_activity_verified = $maxActivityEver");
     }
 
    

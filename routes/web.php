@@ -32,7 +32,7 @@ Route::get('/strava_auth_callback',[AuthController::class, 'StravaCallBack'])->n
 Route::get('/test',[TestController::class, 'index'])->middleware('moderator');
 Route::get('/sight/import/{location}',[SightController::class, 'import'])->middleware('moderator');
 
-Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites']);
+Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites'])->middleware('localhost');
 
 
 Route::get('/home', [UserController::class, 'home'])->name('home');
@@ -51,3 +51,7 @@ Route::get('/sights/{id}/image', [SightController::class, 'getImage'])->name('si
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+
+
