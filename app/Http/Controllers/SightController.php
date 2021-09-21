@@ -71,6 +71,9 @@ class SightController extends Controller
             'lng' => 'required'
         ]);
 
+        //var_dump($_POST);exit;
+
+
         $approx = Sight::getApprox($request->lat,$request->lng);
         $found = Sight::where('approx_location',$approx)->first();
 
@@ -90,7 +93,7 @@ class SightController extends Controller
         }
 
         Sight::create([
-            'district_id' => $request->district_id,
+            'district_id' => (int)$request->district_id,
             'name' => $request->name,
             'image'=> $image,
             'lat' => $request->lat,

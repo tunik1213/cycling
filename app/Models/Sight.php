@@ -20,7 +20,8 @@ class Sight extends Model
         'lat',
         'lng',
         'approx_location',
-        'image'
+        'image',
+        'district_id'
     ];
 
     public function district()
