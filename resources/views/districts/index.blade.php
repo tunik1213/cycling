@@ -29,10 +29,10 @@
             <td><a href="{{ route('areas.show',$d->area->id) }}">{{ $d->area->name }}</a></td>
             <td><a href="{{ route('districts.show',$d->id) }}">{{ $d->name }}</a></td>
             <td><img src="{{ route('districts.image',$d->id) }}"/></td>
-            <td>
+            <td width="1">
                 <a class="btn btn-primary" href="{{ route('districts.edit',$d->id) }}"><i class="fas fa-edit"></i></a>
             </td>
-            <td>
+            <td width="1">
                 <form action="{{ route('districts.destroy',$d->id) }}" method="POST">
    
                     @csrf

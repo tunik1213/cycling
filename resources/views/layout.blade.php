@@ -43,10 +43,10 @@
                 <a href="{{route('strava_login')}}">Вхід</a>
             @else
             <div class="dropdown">
-                <button class="btn dropdown-toggle" id="userMenu" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="btn dropdown-toggle" id="userMenu" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="user-avatar" src="{{route('userAvatar')}}" />
                     {{ $user->firstname }}
-                </button>
+                </div>
                 <ul class="dropdown-menu" aria-labelledby="userMenu">
                     <li><a class="dropdown-item" href="{{route('userProfile')}}"><i class="fas fa-user"></i>Мій профіль</a></li>
                     <li><a class="dropdown-item" href="{{route('home')}}"><i class="fas fa-user"></i>Мої налаштування</a></li>
