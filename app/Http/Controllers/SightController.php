@@ -7,6 +7,7 @@ use App\Models\Sight;
 use App\Models\District;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Jobs\CheckInvites;
 
 class SightController extends Controller
 {
@@ -102,6 +103,8 @@ class SightController extends Controller
             'description' => $request->description,
             'user_id' => Auth::user()->id
         ]);
+
+        CheckInvites::dispatchAfterResponse();
 
         return redirect()->route('sights.index')->with('success','Пам\'ятка успiшно створена.');
     }
