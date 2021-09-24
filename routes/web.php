@@ -30,7 +30,7 @@ Route::get('/strava_auth_callback',[AuthController::class, 'StravaCallBack'])->n
 
 
 Route::get('/test',[TestController::class, 'index'])->middleware('moderator');
-Route::get('/sight/import/{location}',[SightController::class, 'import'])->middleware('moderator');
+Route::get('/sight/import/{location}/{district_id?}',[SightController::class, 'import'])->middleware('moderator');
 
 Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites'])->name('checkInvites')->middleware('localhost');
 

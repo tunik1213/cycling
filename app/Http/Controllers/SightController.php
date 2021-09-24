@@ -17,7 +17,7 @@ class SightController extends Controller
         $this->middleware('moderator')->only(['destroy','edit','update']);
     }
 
-    public function import(Request $request, string $loc) {
+    public function import(Request $request, string $loc, ?int $district_id) {
 
         //var_dump($loc);return;
 
@@ -34,7 +34,7 @@ class SightController extends Controller
         ])->get();
 
         $data =  json_decode($result);
-        Sight::import_google_maps($data);
+        Sight::import_google_maps($data,$district_id);
     }
 
     /**

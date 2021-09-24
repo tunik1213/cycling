@@ -33,7 +33,7 @@ class Sight extends Model
         return $this->belongsTo(User::class);
     }
 
-    public static function import_google_maps($data) : void
+    public static function import_google_maps($data,$district_id) : void
     {
         foreach($data->results as $point) {
 
@@ -49,7 +49,7 @@ class Sight extends Model
 
             $photoRef=$point->photos[0]->photo_reference;
             $apikey = config('googlemaps.key');
-            $imgPath = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photo_reference=$photoRef&key=$apikey";
+            $imgPath = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photo_reference=$photoRef&key=$apikey";
 
             $newSight = Self::create([
                 'user_id'=>0,
@@ -57,7 +57,8 @@ class Sight extends Model
                 'lat'=>$lat,
                 'lng'=>$lng,
                 'approx_location'=>$approx,
-                'image'=>Image::make($imgPath)->encode('jpg', 75)
+                'image'=>Image::make($imgPath)->encode('jpg', 75),
+                'district_id'=>$district_id
             ]);
 
             $newSight->save();
