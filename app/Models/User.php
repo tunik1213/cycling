@@ -91,7 +91,7 @@ class User extends Authenticatable
         where a.user_id = ?
         group by id,name
         order by count(*) desc
-        limit 10
+        limit 3
         ',[$this->id]);
 
         return $result;
