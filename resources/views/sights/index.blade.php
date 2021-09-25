@@ -1,3 +1,7 @@
+@php
+    $areas = App\Models\Area::orderBy('name')->get();
+@endphp
+
 @extends('layout')
 @section('content')
 
@@ -6,9 +10,21 @@
             <div class="pull-left">
                 <h2>Список пам'яток</h2>
             </div>
+
             <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('sights.create') }}">Додати</a>
             </div>
+
+            <br />
+
+            <div class="form-group">
+                <strong>Вiдбiр по областi:</strong>
+                <input type="text" name="area" id="area" class="form-control" placeholder="Уведiть назву областi" value="{{ $area->name ?? '' }}">
+            </div>
+
+            <br />
+            
+
         </div>
     </div>
 
@@ -52,4 +68,33 @@
 
     {{ $sights->links('vendor.pagination.bootstrap-4') }}
 
+@endsection
+
+
+@section('javascript')
+<script type="text/javascript">
+    $(function() {
+
+        var areas = [
+            @foreach($areas as $a)
+                {label: "{{ $a->name }}", id: "{{ $a->id }}"}, 
+            @endforeach
+            ];
+
+        $('#area').autocomplete({
+            source: areas,
+            minLength: 0,
+            select: function(e, ui) {
+                var url = new URL(window.location.href);
+                var search_params = url.searchParams;
+                search_params.set('area', ui.item.id);
+                url.search = search_params.toString();
+                window.location.href = url.toString();
+            }
+        });
+            
+        
+
+    });
+</script>
 @endsection

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Area;
 use App\Models\Sight;
 use App\Models\District;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Jobs\CheckInvites;
+use Illuminate\Support\Facades\DB;
 
 class SightController extends Controller
 {
@@ -42,10 +44,21 @@ class SightController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sights = Sight::orderBy('name')->paginate(10);
-        return view('sights.index', compact('sights'));
+
+        $area_id = $request->input('area') ?? null;
+        $area = Area::find($area_id);
+
+        $sights = Sight::join('districts','districts.id','=','sights.district_id')
+            ->select(['sights.id','sights.name','sights.district_id'])
+            ->when($area, function ($query, $area) {
+                return $query->where('districts.area_id', $area->id);
+            })
+            ->paginate(10)
+            ->appends(request()->query());
+
+        return view('sights.index', ['sights'=>$sights, 'area'=>$area]);
     }
     /**
      * Show the form for creating a new resource.
