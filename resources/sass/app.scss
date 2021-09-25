@@ -46,6 +46,7 @@ body > .container {
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
+  background-color: $background-light; 
 }
 .header {
 	background-color: $background-dark;
@@ -142,6 +143,7 @@ a.navbar-brand{
 }
 .info-block-body {
 		display: flex;
+		flex-wrap: wrap;
 }
 .info-block-body > .card {
 		margin: 1rem;
@@ -150,3 +152,15 @@ a.navbar-brand{
 .info-block-footer {
 		padding: 1rem;
 }
+
+
+
+
+
+@media screen and (max-width: 767px) {
+	ul#footer-links {
+  	flex-direction: column;
+	}
+}
+
+

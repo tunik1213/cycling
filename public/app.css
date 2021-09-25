@@ -47,6 +47,7 @@ body > .container {
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
+  background-color: #f5f5f5;
 }
 
 .header {
@@ -161,6 +162,7 @@ a.navbar-brand {
 
 .info-block-body {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .info-block-body > .card {
@@ -170,6 +172,12 @@ a.navbar-brand {
 
 .info-block-footer {
   padding: 1rem;
+}
+
+@media screen and (max-width: 767px) {
+  ul#footer-links {
+    flex-direction: column;
+  }
 }
 
 /*# sourceMappingURL=app.css.map */
