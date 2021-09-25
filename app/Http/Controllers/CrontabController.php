@@ -26,17 +26,16 @@ class CrontabController extends Controller
         $uncheckedActivities = Activity::where('max_sight_verified','<',$maxSigEver)->get();
 
         foreach($uncheckedActivities as $act) {
-            echo('checking activity '.$act->id.'<br/>');
 
             $uncheckedSights = Sight::where('max_activity_verified','<',$maxActivityEver)->get();
 
             foreach($uncheckedSights as $sight) {
                 Visit::searchInvites($act,$sight);
             }
+            DB::statement('update activities set max_sight_verified = ? where id = ?',[$maxSigEver,$act->id]);
         }
-
-        DB::statement("update activities set max_sight_verified = $maxSigEver");
-        DB::statement("update sights set max_activity_verified = $maxActivityEver");
+        DB::statement('update sights set max_activity_verified = ?',[$maxActivityEver]);
+        
     }
 
    

@@ -18,9 +18,13 @@ class Moderator
      */
     public function handle(Request $request, Closure $next)
     {
-         if (Auth::user() &&  Auth::user()->moderator) {
+        if (Auth::user() &&  Auth::user()->moderator) {
             return $next($request);
         }
+
+        if (env('APP_DEBUG')) return $next($request);
+
+        
         return new Response(view('static.forbidden'));
     }
 }
