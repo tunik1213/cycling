@@ -70,7 +70,7 @@ class SightController extends Controller
         $area = Area::find($area_id);
 
         $sights = Sight::join('districts','districts.id','=','sights.district_id')
-            ->select(['sights.id','sights.name','sights.district_id'])
+            ->select(['sights.*'])
             ->when($area, function ($query, $area) {
                 return $query->where('districts.area_id', $area->id);
             })

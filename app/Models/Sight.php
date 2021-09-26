@@ -71,4 +71,11 @@ class Sight extends Model
     {
         return (string)round($lat,3).':'.(string)round($lng,3);
     }
+
+    public function gm_link()
+    {
+        $lat=number_format($this->lat,7,'.','');
+        $lng=number_format($this->lng,7,'.','');
+        return 'http://www.google.com/maps/place/'.$lat.','.$lng;
+    }
 }

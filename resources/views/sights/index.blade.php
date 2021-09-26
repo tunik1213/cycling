@@ -49,6 +49,8 @@
                     <br />
                     Область: <a href="{{ route('areas.show',$s->district->area->id) }}">{{$s->district->area->name}}</a>
                 @endif
+                <br />
+                Вiдкрити <a class="link-secondary" target="_blank" href="{{$s->gm_link()}}">google maps</a>
             </td>
             <td><img src="{{ route('sights.image',$s->id) }}"/></td>
             <td width="1">
