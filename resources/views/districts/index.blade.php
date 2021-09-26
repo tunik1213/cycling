@@ -32,14 +32,14 @@
             <td width="1">
                 <a class="btn btn-primary" href="{{ route('districts.edit',$d->id) }}"><i class="fas fa-edit"></i></a>
             </td>
-            <td width="1">
+{{--             <td width="1">
                 <form action="{{ route('districts.destroy',$d->id) }}" method="POST">
    
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </form>
-            </td>
+            </td> --}}
         </tr>
         @endforeach
     </table>

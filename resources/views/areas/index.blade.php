@@ -30,14 +30,14 @@
             <td width="1">
                 <a class="btn btn-primary" href="{{ route('areas.edit',$a->id) }}"><i class="fas fa-edit"></i></a>
             </td>
-            <td width="1">
+            {{-- <td width="1">
                 <form action="{{ route('areas.destroy',$a->id) }}" method="POST">
    
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </form>
-            </td>
+            </td> --}}
         </tr>
         @endforeach
     </table>
