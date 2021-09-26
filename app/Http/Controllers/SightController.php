@@ -39,6 +39,25 @@ class SightController extends Controller
         Sight::import_google_maps($data,$district_id);
     }
 
+    public function importAll(Request $request)
+    {
+        $districts = District::has('sights','=',0)->get();
+        foreach($districts as $d) {
+
+            $result = \GoogleMaps::load('textsearch')
+             ->setParam([
+                'query' =>$d->name.' район',
+                'type'=>'tourist_attraction',
+                'radius'=>20000,
+                'region'=>'ua',
+                'language'=> 'uk',
+            ])->get();
+
+            $data =  json_decode($result);
+            Sight::import_google_maps($data,$d->id);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *

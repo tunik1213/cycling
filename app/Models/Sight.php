@@ -49,7 +49,7 @@ class Sight extends Model
 
             $photoRef=$point->photos[0]->photo_reference;
             $apikey = config('googlemaps.key');
-            $imgPath = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photo_reference=$photoRef&key=$apikey";
+            $imgPath = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&maxheight=300&photo_reference=$photoRef&key=$apikey";
 
             $newSight = Self::create([
                 'user_id'=>0,

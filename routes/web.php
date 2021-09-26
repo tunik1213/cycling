@@ -28,9 +28,11 @@ Route::get('/', function () {
 Route::get('/strava_auth',[AuthController::class, 'strava'])->name('strava_login');
 Route::get('/strava_auth_callback',[AuthController::class, 'StravaCallBack'])->name('strava_callback');
 
-
-Route::get('/test',[TestController::class, 'index'])->middleware('moderator');
-Route::get('/sight/import/{location}/{district_id?}',[SightController::class, 'import'])->middleware('moderator');
+Route::middleware('moderator')->group(function () {
+    Route::get('/test',[TestController::class, 'index']);
+    Route::get('/sight/import/{location}/{district_id?}',[SightController::class, 'import']);
+    Route::get('/sight/importAll',[SightController::class,'importAll']);
+});
 
 Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites'])->name('checkInvites')->middleware('localhost');
 
