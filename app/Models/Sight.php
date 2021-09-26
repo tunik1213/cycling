@@ -41,8 +41,10 @@ class Sight extends Model
             if (count($point->photos) == 0) continue;
 
             $loc = $point->geometry->location;
-            $lat = $loc->lat;
-            $lng = $loc->lng;
+            $lat = (float)$loc->lat;
+            if (($lat < 44) || ($lat > 53)) continue;
+            $lng = (float)$loc->lng;
+            if (($lng < 21) || ($lng > 41)) continue;
             $approx = Self::getApprox($lat, $lng);
             $found = Self::where('approx_location',$approx)->count();
             if ($found > 0) continue;
