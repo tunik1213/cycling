@@ -136,7 +136,7 @@ class SightController extends Controller
             'user_id' => Auth::user()->id
         ]);
 
-        CheckInvites::dispatchAfterResponse();
+        //CheckInvites::dispatchAfterResponse();
 
         return redirect()->route('sights.index')->with('success','Пам\'ятка успiшно створена.');
     }

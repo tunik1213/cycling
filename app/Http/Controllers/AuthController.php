@@ -30,7 +30,7 @@ class AuthController extends Controller
 
         Auth::login($user, $remember = true);
 
-        CheckInvites::dispatchAfterResponse();
+        //CheckInvites::dispatchAfterResponse();
 
         return redirect('/');
     }
