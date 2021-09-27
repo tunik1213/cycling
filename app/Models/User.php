@@ -57,7 +57,6 @@ class User extends Authenticatable
         $lastImportedActivity = Activity::where('user_id',$this->id)
             ->orderBy('start_date', 'desc')->select('start_date')->first();
         $after = $lastImportedActivity->start_date ?? null;
-        var_dump($after);
 
         $perPage=200; // похоже что это максимальное число, которое разрешает страва. Выбрано с целью экономии вызовов к api
         $page=1;
@@ -68,6 +67,7 @@ class User extends Authenticatable
             foreach ($acts as $a) {
                 $activity = Activity::where('strava_id',$a->id)->first();
                 if ($activity != null) continue;
+                if (empty($a->map->summary_polyline)) continue;
 
                 $activity = Activity::create([
                     'user_id' => $this->id,
