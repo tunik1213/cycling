@@ -21,8 +21,19 @@ class Sight extends Model
         'lng',
         'approx_location',
         'image',
-        'district_id'
+        'district_id',
+        'map_image'
     ];
+
+    public static function boot() {
+  
+        parent::boot();
+
+        static::saving(function($sight) {            
+            $sight->map_image = $sight->map_image();
+        });
+
+    }
 
     public function district()
     {
@@ -67,15 +78,33 @@ class Sight extends Model
         }
     }
 
-    public static function getApprox($lat, $lng)
+    public static function getApprox($lat, $lng) : string
     {
         return (string)round($lat,3).':'.(string)round($lng,3);
     }
 
-    public function gm_link()
+    public function string_coordinates() : string
     {
         $lat=number_format($this->lat,7,'.','');
         $lng=number_format($this->lng,7,'.','');
-        return 'http://www.google.com/maps/place/'.$lat.','.$lng;
+        return $lat.','.$lng;
+    }
+
+    public function gm_link() : string
+    {
+        return 'http://www.google.com/maps/place/'.$this->string_coordinates();
+    }
+
+    public function map_image()
+    {
+        $imagePath = 
+            'https://maps.googleapis.com/maps/api/staticmap?key='
+            .env('GOOGLE_MAPS_SERVICE_KEY')
+            .'&size=400x400&zoom=14&markers=|'
+            .$this->string_coordinates();
+        $img = Image::make($imagePath)
+                ->encode('jpg', 75);
+
+        return $img;
     }
 }

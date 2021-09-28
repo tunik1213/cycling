@@ -104,9 +104,6 @@ class SightController extends Controller
             'lng' => 'required'
         ]);
 
-        //var_dump($_POST);exit;
-
-
         $approx = Sight::getApprox($request->lat,$request->lng);
         $found = Sight::where('approx_location',$approx)->first();
 
