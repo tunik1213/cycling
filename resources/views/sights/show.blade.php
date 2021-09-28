@@ -22,29 +22,27 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Назва:</strong>
-                {{ $sight->name }}
-            </div>
-        </div>
 
-        @if($sight->user)
+    @if($sight->user)
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Автор:</strong>
                 <a href="{{route('userProfile',$sight->user->id)}}">{{ $sight->user->firstname }}</a>
             </div>
         </div>   
-        @endif
+    @endif
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <strong>Фото:</strong>
+    <div id="sight-images-container">
+        <div>
+            <img class="float-left" src="data:image/jpeg;base64,{{base64_encode($sight->image)}}" alt="Фото {{$sight->name}}">
         </div>
-        <img src="{{ route('sights.image',$sight->id) }}" alt="Фото {{$sight->name}}"/>
+        <div>
+            <img class="float-right" src="data:image/jpeg;base64,{{base64_encode($sight->map_image)}}" alt="Мапа {{$sight->name}}"> 
+        </div>
+    </div>  
+        
+
         
         
 
-    </div>
 @endsection
