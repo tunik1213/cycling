@@ -15,7 +15,7 @@
         </div>
     @else
 
-        @include('sights.top')
+        @include('sights.top',['user'=>Auth::user()])
 
     @endguest
 

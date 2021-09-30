@@ -1,11 +1,11 @@
 @php
-	$sights = Auth::user()->topSightsVisited();
+	$sights = $user->topSightsVisited();
 @endphp
 
 <br />
 
 <div class="container info-block">
-<h2 class="info-block-header">Топ визначних мiсць, якi Ви вiдвiдали</h2>
+<h2 class="info-block-header">Топ вiдвiданих визначних мiсць</h2>
 <div class="info-block-body">
 @foreach($sights as $s)
 	<div class="card" style="width: 18rem;">
