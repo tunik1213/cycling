@@ -37,7 +37,9 @@
             <img class="float-left" src="data:image/jpeg;base64,{{base64_encode($sight->image)}}" alt="Фото {{$sight->name}}">
         </div>
         <div>
-            <img class="float-right" src="data:image/jpeg;base64,{{base64_encode($sight->map_image)}}" alt="Мапа {{$sight->name}}"> 
+            <a href="{{$sight->gm_link()}}" target="_blank" rel="nofollow">
+                <img class="float-right" src="data:image/jpeg;base64,{{base64_encode($sight->map_image)}}" alt="Мапа {{$sight->name}}"> 
+            </a>
         </div>
     </div>  
         
