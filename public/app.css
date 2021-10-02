@@ -68,7 +68,7 @@ a.navbar-brand {
 
 #right-header #userMenu {
   padding: 1rem;
-  margin-top: 5px;
+  margin-top: 8px;
 }
 
 .user-avatar {
@@ -99,12 +99,17 @@ a.navbar-brand {
 }
 
 .login-strava-btn {
-  border: 1px solid #2ab5d3;
+  border: 1px solid #f23f35;
   font-size: 1.5rem;
 }
 
 #right-header {
   background: rgba(255, 255, 255, 0.3);
+}
+
+#right-header-login-link {
+  display: block;
+  padding: 1rem;
 }
 
 #right-header .fas {

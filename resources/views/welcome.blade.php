@@ -6,13 +6,7 @@
     <h3>Коротка інформація про нашу діяльність</h3>
 
     @guest
-        <div class="d-flex justify-content-center text-center">
-            <div id="auth-link-place">
-                <a class="btn login-strava-btn" href="{{route('strava_login')}}" role="button">
-                    Увійти через <span class="font-color-strava">STRAVA</span>
-                </a>
-            </div>
-        </div>
+        @include('user.login_btn')
     @else
 
         @include('sights.top',['user'=>Auth::user()])

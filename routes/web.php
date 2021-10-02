@@ -25,7 +25,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login',[AuthController::class, 'strava'])->name('login');
+Route::get('/login',function(){
+    return view('user.login');
+})->name('login');
 Route::get('/strava_auth',[AuthController::class, 'strava'])->name('strava_login');
 Route::get('/strava_auth_callback',[AuthController::class, 'StravaCallBack'])->name('strava_callback');
 

@@ -40,7 +40,7 @@
         <a class="navbar-brand" href="/">Лого</a>
         <div id="right-header">
             @guest
-                <a href="{{route('strava_login')}}">Вхід</a>
+                <a id="right-header-login-link" href="{{route('strava_login')}}"><i class="fas fa-user"></i>Вхід</a>
             @else
             <div class="dropdown">
                 <div class="btn dropdown-toggle" id="userMenu" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
