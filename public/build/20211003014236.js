@@ -1,0 +1,1 @@
+$(document).ready(function(){scrollTopButton()});var scrollTopButton=function(){$(window).scroll(function(){$(this).scrollTop()?$("#scroll-top-button").fadeIn():$("#scroll-top-button").fadeOut()}),$("#scroll-top-button").click(function(){$("html").scrollTop(0)})};

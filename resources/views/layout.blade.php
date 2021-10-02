@@ -30,7 +30,11 @@
 
     @yield('markup')
 
-    <link rel="stylesheet" href="/app.css">
+    @if(env('APP_DEBUG'))
+        <link rel="stylesheet" href="/app.css">
+    @else
+        @include('production_asserts',['type' => 'css'])
+    @endif
 
 </head>
 <body>
@@ -86,7 +90,13 @@
 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="/app.js"></script>
+
+
+@if(env('APP_DEBUG'))
+    <script src="/app.js"></script>
+@else
+    @include('production_asserts',['type' => 'js'])
+@endif
 
 @yield('javascript')
 
