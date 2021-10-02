@@ -47,12 +47,12 @@
                     <img class="user-avatar" src="{{route('userAvatar')}}" />
                     {{ $user->firstname }}
                 </div>
-                <ul class="dropdown-menu" aria-labelledby="userMenu">
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                     <li><a class="dropdown-item" href="{{route('userProfile')}}"><i class="fas fa-user"></i>Мій профіль</a></li>
                     <li><a class="dropdown-item" href="{{route('home')}}"><i class="fas fa-user"></i>Мої налаштування</a></li>
                     <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i>Вийти</a></li>
                     @if($user->moderator)
-                        <li><a class="dropdown-item text-danger" href="{{route('admin')}}"><i class="fas fa-users-cog"></i></i>Адмiнiстратор</a></li>
+                        <li><a class="dropdown-item text-warning" href="{{route('admin')}}"><i class="fas fa-users-cog"></i></i>Адмiнiстратор</a></li>
                     @endif
                 </ul>
             </div>

@@ -1,23 +1,32 @@
-// Body
-$body-bg: #f8fafc;
-
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 // background
-$background-dark: #333;
-$background-light: #f5f5f5;
-$border-color-light: #dee2e6;
-$background-white: #fff;
+$background-header-left: #2ab5d3;
+$background-header-right: #57cfb0;
+$background-header-gradient: linear-gradient(-45deg,$background-header-right,$background-header-left);
+$background-header: #2ab5d3;
+$background-body: #f6fafb;
+$background-footer: rgb(89, 102, 104);
+$background-light: #fff;
 
-// font
+// border
+$border-color-light: #dee2e6;
+
+// font 
 $font-color-light: #fff;
-$font-color-bright: #ffc220;
-$font-color-link: #c45911;
+$font-color-bright: $background-header;
+$font-color-link: $background-header;
 
 
 // other
 $strava-color: #f23f35;
 
+
+
+%bg-header {
+	background: $background-header;
+	background: $background-header-gradient;
+}
