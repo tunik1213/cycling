@@ -8,7 +8,7 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 12rem;
 }
 html,body {
 	 background-color: $background-body;
@@ -17,8 +17,6 @@ html,body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
   line-height: 60px; /* Vertically center the text there */
   background-color: $background-footer;
 }
@@ -149,8 +147,10 @@ a.navbar-brand{
 
 /* info block */
 .info-block {
-	//border: 1px solid $border-color-light;
+	background-color: $background-light;
 	padding: 1rem;
+	border: 1px solid #ddd;
+  border-radius: 10px;
 }
 .info-block-body {
 		display: flex;
@@ -176,6 +176,10 @@ a.navbar-brand{
 }
 
 
+/* card */
+div.card {
+		box-shadow: 0 15px 10px -15px rgb(0 0 0 / 30%);
+}
 
 
 
