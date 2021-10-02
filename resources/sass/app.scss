@@ -167,16 +167,13 @@ a.navbar-brand{
 .info-block-footer {
 		padding: 1rem;
 }
-#sight-images-container {
-		padding-top: 1rem;
-		display: flex;
-		flex-flow: wrap;
-}
-#sight-images-container img {
-		height: 100%;
-		padding-right: 1rem;
-		padding-bottom: 1rem;	
-		display: block;
+
+/* sight */
+img.sight-image {
+	max-width: 100%;
+	min-width: 100%;
+	width: auto;
+	padding-bottom: 1rem;
 }
 
 
