@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <h1>Назва сайту</h1>
-    <h3>Коротка інформація про нашу діяльність</h3>
+    <h1 class="title-main">Сайт для веломандрівників</h1>
+    <h4 class="title-secondary">Лосем можеш і не бути, але туристом бути зобов'язаний!</h3>
 
     @guest
         @include('user.login_btn')

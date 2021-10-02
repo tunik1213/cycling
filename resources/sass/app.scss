@@ -1,10 +1,15 @@
 // Variables
 @import 'variables';
 
+@font-face {
+  font-family: 'logo';
+  src: url('/fonts/Pamela want a Bike to Ride.ttf');
+ }
 
 html {
   position: relative;
   min-height: 100%;
+  color: $font-color-default;
 }
 body {
   /* Margin bottom by footer height */
@@ -32,13 +37,20 @@ a:hover{
 	background-color: $background-header;
 	border-color: $background-header;
 }
+.title-main{
+	padding: 1rem 0;
+}
+.title-secondary {
+	color: $font-color-title-secondary;
+	padding: 0.5rem 0;
+}
 
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
 body > .container {
-  padding: 60px 15px 0;
+  padding: 1rem;
 }
 
 .footer > .container {
@@ -46,18 +58,30 @@ body > .container {
   padding-left: 15px;
   background-color: $background-footer; 
 }
-.header {
+#header {
 	@extend %bg-header;
 }
-.header a {
+#header a {
 	color: $font-color-light;
 }
+#header-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
 a.navbar-brand{
-	font-size: 3rem;
+		font-size: 4rem;
+    font-family: "logo";
+    margin-top: 0.5rem;
+    line-height: 4rem;
+    display: inline-block;
+    margin-bottom: -0.5rem;
 }
 #right-header {
 	float: right;
 	font-size: 1.5rem;
+	display: flex;
+	align-items: center;
 }
 #right-header #userMenu{
 	padding: 1rem;
@@ -136,7 +160,7 @@ a.navbar-brand{
     margin: 30px;
     position: fixed;
     bottom: 30px;
-    right: 30px;
+    right: 0;
     transition: background-color .3s;
     z-index: 1000;
     color: #fff;

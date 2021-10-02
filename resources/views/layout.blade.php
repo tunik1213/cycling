@@ -35,9 +35,9 @@
 </head>
 <body>
 
-    <div class="header">
-      <div class="container">
-        <a class="navbar-brand" href="/">Лого</a>
+    <div id="header">
+      <div class="container" id="header-container">
+        <a class="navbar-brand" href="/">Velocian</a>
         <div id="right-header">
             @guest
                 <a id="right-header-login-link" href="{{route('strava_login')}}"><i class="fas fa-user"></i>Вхід</a>
