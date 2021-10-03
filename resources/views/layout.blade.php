@@ -28,6 +28,8 @@
 
     <link rel="shortcut icon" href="{{asset('/favicon.ico')}}">
 
+    <meta name="theme-color" content="#2ab5d3">
+
     @yield('markup')
 
     @if(env('APP_DEBUG'))
