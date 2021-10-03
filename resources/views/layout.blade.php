@@ -13,8 +13,6 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <meta name="theme-color" content="">
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -28,7 +26,7 @@
 
     <link rel="shortcut icon" href="{{asset('/favicon.ico')}}">
 
-    <meta name="theme-color" content="#2ab5d3">
+    <meta name="theme-color" content="#f3fdff">
 
     @yield('markup')
 
