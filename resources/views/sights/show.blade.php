@@ -1,6 +1,13 @@
 @extends('layout')
 @section('content')
 
+@if (Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{Session::get('success')}}</p>
+        <a class="link-secondary" href="{{route('sights.index')}}">← Повернутись до списку</a>
+    </div>
+@endif
+
 <div class="row">
     <div class="col-sm-4 col-xs-12">
         <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->image)}}" alt="Фото {{$sight->name}}">
@@ -27,6 +34,10 @@
                 Google
             @endif
         </div>
+
+        <p id="sight-description">
+            {{$sight->description}}
+        </p>
     </div>
 
 

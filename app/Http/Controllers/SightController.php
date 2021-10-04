@@ -122,7 +122,7 @@ class SightController extends Controller
             $image = null;
         }
 
-        Sight::create([
+        $s = Sight::create([
             'district_id' => (int)$request->district_id,
             'name' => $request->name,
             'image'=> $image,
@@ -135,7 +135,7 @@ class SightController extends Controller
 
         //CheckInvites::dispatchAfterResponse();
 
-        return redirect()->route('sights.index')->with('success','Пам\'ятка успiшно створена.');
+        return redirect()->route('sights.show',['sight'=>$s])->with('success','Пам\'ятка успiшно створена.');
     }
 
     /**
@@ -200,7 +200,7 @@ class SightController extends Controller
         $sight->district_id = $request->district_id;
         $sight->save();
 
-        return redirect()->route('sights.index')->with('success','Пам\'ятку успiшно змiнено');
+        return redirect()->route('sights.show',['sight'=>$sight])->with('success','Пам\'ятку успiшно змiнено');
     }
 
     /**
