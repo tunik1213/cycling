@@ -86,7 +86,7 @@ class SightController extends Controller
      */
     public function create()
     {
-        return view('sights.create',['districts'=>District::orderBy('name')->get()]);
+        return view('sights.create');
     }
 
     /**
@@ -122,6 +122,8 @@ class SightController extends Controller
             $image = null;
         }
 
+        $descr = prepare_external_links($request->description);
+
         $s = Sight::create([
             'district_id' => (int)$request->district_id,
             'name' => $request->name,
@@ -129,7 +131,7 @@ class SightController extends Controller
             'lat' => $request->lat,
             'lng' => $request->lng,
             'approx_location' => $approx,
-            'description' => $request->description,
+            'description' => $descr,
             'user_id' => Auth::user()->id
         ]);
 
@@ -157,7 +159,7 @@ class SightController extends Controller
      */
     public function edit(int $id)
     {
-        return view('sights.edit',['sight'=>Sight::find($id),'districts'=>District::orderBy('name')->get()]);
+        return view('sights.edit',['sight'=>Sight::find($id)]);
     }
 
     /**
@@ -196,7 +198,7 @@ class SightController extends Controller
         }
         $sight->lat = $request->lat;
         $sight->lng = $request->lng;
-        $sight->description = $request->description;
+        $sight->description = prepare_external_links($request->description);
         $sight->district_id = $request->district_id;
         $sight->save();
 

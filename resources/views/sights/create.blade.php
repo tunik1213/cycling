@@ -7,7 +7,7 @@
             <h2>Додати нову пам'ятку</h2>
         </div>
         <div class="pull-right">
-            <a href="{{ route('districts.index') }}">← Назад</a>
+            <a href="{{ route('sights.index') }}">← Назад</a>
         </div>
     </div>
 </div>
@@ -82,31 +82,5 @@
 @endsection
 
 @section('javascript')
-<script type="text/javascript">
-    $(function() {
-
-        var districts = [
-            @foreach($districts as $d)
-                {label: "{{ $d->name }}", id: "{{ $d->id }}"}, 
-            @endforeach
-            ];
-
-        $('#district').autocomplete({
-            source: districts,
-            minLength: 0,
-            select: function(e, ui) {
-                $("#district_id").val(ui.item.id);
-            }
-        });
-
-        $('#latitude').on('paste', function(e){
-            e.preventDefault();
-            cl_text = e.originalEvent.clipboardData.getData('text');
-            coords = cl_text.split(',');
-            $('#latitude').val(coords[0].trim());
-            $('#longitude').val(coords[1].trim());
-        });
-        
-    });
-</script>
+    @include('sights.edit_js')
 @endsection

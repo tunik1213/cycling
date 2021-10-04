@@ -36,7 +36,7 @@
         </div>
 
         <p id="sight-description">
-            {{$sight->description}}
+            {!! $sight->description !!}
         </p>
     </div>
 
