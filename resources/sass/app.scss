@@ -32,6 +32,9 @@ a {
 a:hover{
 	color: $background-footer;
 }
+table {
+	background-color: $background-light;
+}
 
 .btn-primary {
 	background-color: $background-header;
@@ -89,7 +92,8 @@ a.navbar-brand{
 }
 .user-avatar {
 	border-radius: 50%;
-	max-height: 2rem;
+	max-height: 3rem;
+  padding-right: 0.5rem;
 }
 #footer-links {
 	list-style: none;
@@ -141,6 +145,7 @@ a.navbar-brand{
 .page-item > .page-link {
 	border-color: $border-color-light;
 	color: $background-light;
+	background-color: $background-footer;
 }
 .page-item.active > .page-link{
 	background-color: $background-header;

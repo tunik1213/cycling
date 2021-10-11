@@ -35,9 +35,9 @@
         tinymce.init({
                 selector: '#description',
                 language: 'uk',
-                plugins: 'link, emoticons, lists, charmap, paste',
+                plugins: 'link, emoticons, lists, charmap, paste, textcolor',
                 paste_as_text: true,
-                toolbar: 'undo redo | bold italic removeformat | bullist numlist | charmap emoticons link image media',
+                toolbar: 'undo redo | bold italic removeformat | forecolor backcolor | bullist numlist | charmap emoticons link image media',
                 menubar: false,
                 setup: function(editor) {
                     editor.on('init', fillEditorContent);

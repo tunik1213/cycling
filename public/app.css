@@ -40,6 +40,10 @@ a:hover {
   color: #596668;
 }
 
+table {
+  background-color: #fff;
+}
+
 .btn-primary {
   background-color: #2ab5d3;
   border-color: #2ab5d3;
@@ -100,7 +104,8 @@ a.navbar-brand {
 
 .user-avatar {
   border-radius: 50%;
-  max-height: 2rem;
+  max-height: 3rem;
+  padding-right: 0.5rem;
 }
 
 #footer-links {
@@ -165,6 +170,7 @@ a.navbar-brand {
 .page-item > .page-link {
   border-color: #dee2e6;
   color: #fff;
+  background-color: #596668;
 }
 
 .page-item.active > .page-link {
