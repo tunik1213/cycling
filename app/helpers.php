@@ -1,6 +1,6 @@
 <?php
 
-function prepare_external_links(string $html) : string
+function prepare_external_links(?string $html) : string
 {
     $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
 
