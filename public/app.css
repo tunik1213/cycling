@@ -221,11 +221,6 @@ a.navbar-brand {
   flex-wrap: wrap;
 }
 
-.info-block-body > .card {
-  margin: 1rem;
-  padding: 1rem;
-}
-
 .info-block-footer {
   padding: 1rem;
 }
@@ -241,6 +236,8 @@ img.sight-image {
 /* card */
 div.card {
   box-shadow: 0 15px 10px -15px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  margin: 0.5rem;
 }
 
 @media screen and (max-width: 767px) {

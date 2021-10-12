@@ -18,5 +18,5 @@
 @endforeach
 </div>
 <div class="info-block-footer">
-	<a class="link-secondary" href="">Переглянути всi</a>
+	<a class="link-secondary" href="{{route('userSights',['id'=>$user->id])}}">Переглянути всi</a>
 </div>

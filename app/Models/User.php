@@ -96,4 +96,13 @@ class User extends Authenticatable
 
         return $result;
     }
+
+    public function getLinkAttribute()
+    {
+        return view('user.link',['user'=>$this]);
+    }
+    public function getfullNameAttribute()
+    {
+        return $this->firstname.' '.$this->lastname;
+    }
 }

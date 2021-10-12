@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -36,4 +37,22 @@ class UserController extends Controller
         return view('user.profile',['user'=>$user]);
 
     }
+
+    public function sightsVisited(int $id)
+    {
+        $user = User::find($id);
+        $sights = DB::table('sights as s')
+            ->join('visits as v','v.sight_id','=','s.id')
+            ->join('activities as a','a.id','=','v.act_id')
+            ->where('a.user_id',$id)
+            ->selectRaw('s.id,s.name,count(v.id) as count')
+            ->groupBy('s.id','s.name')
+            ->having('count','>',0)
+            ->orderByRaw('count desc,s.name')
+            ->paginate(12);
+
+        
+        return view('sights.list',['sights'=>$sights,'user'=>$user]);
+    }
+
 }

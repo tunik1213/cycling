@@ -189,10 +189,6 @@ a.navbar-brand{
 		display: flex;
 		flex-wrap: wrap;
 }
-.info-block-body > .card {
-		margin: 1rem;
-		padding: 1rem;
-}
 .info-block-footer {
 		padding: 1rem;
 }
@@ -209,6 +205,8 @@ img.sight-image {
 /* card */
 div.card {
 		box-shadow: 0 15px 10px -15px rgb(0 0 0 / 30%);
+		padding: 1rem;
+    margin: 0.5rem;
 }
 
 

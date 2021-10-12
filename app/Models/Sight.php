@@ -25,6 +25,8 @@ class Sight extends Model
         'map_image'
     ];
 
+    //public int $visitsCount;
+
     public static function boot() {
   
         parent::boot();
