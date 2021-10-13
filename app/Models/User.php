@@ -73,7 +73,8 @@ class User extends Authenticatable
                     'user_id' => $this->id,
                     'strava_id' => $a->id,
                     'start_date' => Carbon::parse($a->start_date),
-                    'summary_polyline' => $a->map->summary_polyline
+                    'summary_polyline' => $a->map->summary_polyline,
+                    'name' => $a->name
                 ]);
                 $activity->save();
             }
@@ -105,4 +106,5 @@ class User extends Authenticatable
     {
         return $this->firstname.' '.$this->lastname;
     }
+
 }
