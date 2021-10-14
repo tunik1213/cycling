@@ -14,7 +14,8 @@ class Activity extends Model
         'strava_id',
         'user_id',
         'start_date',
-        'summary_polyline'
+        'summary_polyline',
+        'name'
     ];
 
     public function sights()
