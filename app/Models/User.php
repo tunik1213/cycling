@@ -28,7 +28,8 @@ class User extends Authenticatable
         'sex',
         'avatar',
         'premium',
-        'strava_created_at'
+        'strava_created_at',
+        'name'
     ];
 
     /**
