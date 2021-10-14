@@ -23,7 +23,7 @@ class Activity extends Model
         //return $this->belongsToMany(Sight::class);
     }
 
-    public function getNameAttribute()
+    public function getDisplayNameAttribute()
     {
         $name = (empty($this->name)) ? 'Заїзд' : $this->name;
         $dt = \Carbon\Carbon::createFromTimeStamp(strtotime($this->start_date))->locale('uk_UK')->diffForHumans();
