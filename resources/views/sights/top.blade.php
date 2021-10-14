@@ -12,7 +12,9 @@
 	  <img class="card-img-top" src="{{route('sights.image',$s->id)}}">
 	  <div class="card-body">
 	    <h5 class="card-title"><a href="{{route('sights.show',$s->id)}}">{{$s->name}}</a></h5>
-	    <p class="card-text">{{$s->count}} вiдвiдувань</p>
+	    <div class="card-text">
+	    	<a class="link-secondary" href="{{\App\Models\Activity::link($user->id,$s->id)}}">{{$s->count}} вiдвiдувань</a>
+	    </div>
 	  </div>
 	</div>
 @endforeach

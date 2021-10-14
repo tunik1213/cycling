@@ -20,7 +20,7 @@
             </div>
             @if($s->count)
             <div class="row">
-                <a class="link-secondary" href="#">{{$s->count}} вiдвiдувань</a>
+                <a class="link-secondary" href="{{\App\Models\Activity::link($user->id,$s->id)}}">{{$s->count}} вiдвiдувань</a>
             </div>
             @endif
           </div>

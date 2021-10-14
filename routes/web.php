@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,8 @@ Route::get('/home', [UserController::class, 'home'])->name('home');
 Route::get('/user/getAvatarImage/{id?}', [UserController::class, 'getAvatarImage'])->name('userAvatar');
 Route::get('/user/{id?}', [UserController::class, 'profile'])->name('userProfile');
 Route::get('/user/{id}/sights', [UserController::class, 'sightsVisited'])->name('userSights');
+
+Route::get('/activities', [ActivityController::class, 'list'])->name('activities');
 
 
 Route::resource('areas', AreaController::class);

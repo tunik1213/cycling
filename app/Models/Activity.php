@@ -24,12 +24,18 @@ class Activity extends Model
 
     public function getNameAttribute()
     {
-        if(empty($this->name)) {
-            $dt = \Carbon\Carbon::createFromTimeStamp(strtotime($this->start_date))->locale('uk_UK')->diffForHumans();
-            return 'Заїзд '.$dt;
-        }
+        $name = (empty($this->name)) ? 'Заїзд' : $this->name;
+        $dt = \Carbon\Carbon::createFromTimeStamp(strtotime($this->start_date))->locale('uk_UK')->diffForHumans();
 
-        return $this->name;
+        return $name.' '.$dt;
+    }
+
+    public static function link($user_id=null,$sight_id=null)
+    {
+        $url = '/activities?';
+        if ($user_id) $url .= 'user='.$user_id.'&';
+        if ($sight_id) $url .= 'sight='.$sight_id.'&';
+        return preg_replace('/&$/', '', $url);
     }
 
 }
