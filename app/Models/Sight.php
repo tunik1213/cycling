@@ -8,6 +8,7 @@ use App\Models\Activity;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\District;
 use App\Models\User;
+use App\Models\SightCategory;
 
 class Sight extends Model
 {
@@ -22,7 +23,8 @@ class Sight extends Model
         'approx_location',
         'image',
         'district_id',
-        'map_image'
+        'map_image',
+        'category_id'
     ];
 
     //public int $visitsCount;
@@ -44,6 +46,10 @@ class Sight extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(SightCategory::class);
     }
 
     public static function import_google_maps($data,$district_id) : void

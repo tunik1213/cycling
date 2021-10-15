@@ -97,11 +97,13 @@ class SightController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'district_id' => 'required',
             'lat' => 'required',
-            'lng' => 'required'
+            'lng' => 'required',
+            'category' => 'required|integer|min:1'
         ]);
 
         $approx = Sight::getApprox($request->lat,$request->lng);
@@ -132,7 +134,8 @@ class SightController extends Controller
             'lng' => $request->lng,
             'approx_location' => $approx,
             'description' => $descr,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'category_id' => $request->category
         ]);
 
         //CheckInvites::dispatchAfterResponse();
@@ -175,7 +178,8 @@ class SightController extends Controller
             'name' => 'required',
             'district_id' => 'required',
             'lat' => 'required',
-            'lng' => 'required'
+            'lng' => 'required',
+            'category' => 'required|integer|min:1'
         ]);
 
         $approx = Sight::getApprox($request->lat,$request->lng);
@@ -200,6 +204,7 @@ class SightController extends Controller
         $sight->lng = $request->lng;
         $sight->description = prepare_external_links($request->description);
         $sight->district_id = $request->district_id;
+        $sight->category_id = $request->category;
         $sight->save();
 
         return redirect()->route('sights.show',['sight'=>$sight])->with('success','Пам\'ятку успiшно змiнено');

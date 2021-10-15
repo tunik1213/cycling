@@ -33,6 +33,29 @@
     @method('PUT')
 
      <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Категорiя:</strong>
+                <select name="category" class="form-select" aria-label="Категорiя">
+                    @if(empty($sight->category))
+                        <option selected value="0">Виберiть категорiю</option>
+                    @endif
+
+                    @foreach(\App\Models\SightCategory::all() as $cat)
+                        @php
+                            $selected = ($cat->id == ($sight->category->id ?? null)) ? 'selected' : '';
+                        @endphp
+                        <option {{$selected}} value="{{$cat->id}}">
+                           {{$cat->name}}
+                        </option>
+
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Район:</strong>
