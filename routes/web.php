@@ -36,6 +36,7 @@ Route::middleware('moderator')->group(function () {
     Route::get('/test',[TestController::class, 'index']);
     Route::get('/sight/import/{location}/{district_id?}',[SightController::class, 'import']);
     Route::get('/sight/importAll',[SightController::class,'importAll']);
+    Route::get('/user/index',[UserController::class,'index'])->name('users.index');
 });
 
 Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites'])->name('checkInvites')->middleware('localhost');

@@ -102,6 +102,11 @@ class User extends Authenticatable
     {
         return view('user.link',['user'=>$this]);
     }
+    public function getStravaLinkAttribute()
+    {
+        return view('user.stravaLink',['user'=>$this]);
+    }
+
     public function getfullNameAttribute()
     {
         return $this->firstname.' '.$this->lastname;

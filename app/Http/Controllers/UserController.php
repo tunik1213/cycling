@@ -55,4 +55,12 @@ class UserController extends Controller
         return view('sights.list',['sights'=>$sights,'user'=>$user]);
     }
 
+    public function index(Request $request)
+    {
+        $users = User::orderBy('created_at')
+            ->paginate(24);
+        return view('user.index',['users'=>$users]);
+
+    }
+
 }
