@@ -115,4 +115,12 @@ class Sight extends Model
 
         return $img;
     }
+
+    public function getCategoryLinkAttribute()
+    {
+        if ($this->category)
+            return view('sight_categories.link',['category'=>$this->category]);
+        else
+            return '';
+    }
 }

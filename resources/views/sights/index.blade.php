@@ -43,8 +43,10 @@
         <tr>
             <td>
                 <a href="{{ route('sights.show',$s->id) }}">{{ $s->name }}</a>
+                <div class="row">
+                    {{$s->categoryLink}}
+                </div>
                 @if($s->district)
-                    <br />
                     Район: <a href="{{ route('districts.show',$s->district->id) }}">{{$s->district->name}}</a>
                     <br />
                     Область: <a href="{{ route('areas.show',$s->district->area->id) }}">{{$s->district->area->name}}</a>

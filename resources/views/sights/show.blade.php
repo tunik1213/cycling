@@ -16,12 +16,7 @@
     <div class="col-xl-4 col-sm-8 col-xs-12">
         <h2>{{ $sight->name }}</h2>
 
-        @if($sight->category)
-            <a class="link-secondary" href="#">
-                <i class="fas {{$sight->category->icon}}"></i>
-                {{$sight->category->name}}
-            </a> 
-        @endif
+        {{$sight->categoryLink}}
 
         @if($sight->district)
             <nav aria-label="breadcrumb">
