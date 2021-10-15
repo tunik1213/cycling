@@ -1,6 +1,8 @@
 @php
 	$sights = $user->topSightsVisited();
-	$loading = !$user->allSightsVerified();
+	$loading = false;
+	if ($user->id == Auth::user()->id)
+		$loading = !$user->allSightsVerified();
 @endphp
 
 <br />
