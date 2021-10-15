@@ -223,6 +223,8 @@ a.navbar-brand {
 
 .info-block-footer {
   padding: 1rem;
+  display: flex;
+  align-items: center;
 }
 
 /* sight */
