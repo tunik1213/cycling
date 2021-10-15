@@ -39,6 +39,7 @@ Route::middleware('moderator')->group(function () {
 });
 
 Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites'])->name('checkInvites')->middleware('localhost');
+Route::get('/crontab/parseActivityNames',[CrontabController::class,'parseActivityNames'])->middleware('localhost');
 
 
 Route::get('/home', [UserController::class, 'home'])->name('home');

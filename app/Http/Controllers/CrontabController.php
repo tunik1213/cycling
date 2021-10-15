@@ -38,6 +38,25 @@ class CrontabController extends Controller
         
     }
 
+    public function parseActivityNames() : void
+    {
+	$acts = Activity::whereNull('name')->get();
+
+         foreach($acts as $a) {
+            $url = 'https://www.strava.com/activities/'.$a->strava_id;
+            try {
+                $html = file_get_contents($url);
+            } catch (\Throwable $e) {
+                echo    $e->getMessage();
+                exit;
+            }
+            $matches = [];
+            preg_match('/<meta content=\'(.*?)\' property=\'twitter:title\'>/mi', $html, $matches);
+            $a->name = $matches[1];
+            $a->save();
+
+         }
+    }
    
 }
 
