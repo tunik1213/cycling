@@ -25,8 +25,11 @@ class AuthController extends Controller
         $user->access_token = $token->access_token;
         $user->refresh_token = $token->refresh_token;
         $user->save();
-
-        $user->importActivities();
+        try {
+            $user->importActivities();
+        } catch (\Throwable $e) {
+            report($e);
+        }
 
         Auth::login($user, $remember = true);
 
