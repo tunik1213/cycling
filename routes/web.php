@@ -10,6 +10,7 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,8 @@ Route::get('/districts/{id}/image', [DistrictController::class, 'getImage'])->na
 
 Route::resource('sights', SightController::class);
 Route::get('/sights/{id}/image', [SightController::class, 'getImage'])->name('sights.image');
+
+Route::get('/category/{id}', [CategoryController::class, 'show'])->name('sightCategory');
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 

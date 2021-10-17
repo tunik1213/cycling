@@ -12,6 +12,6 @@ class SightCategory extends Model
 
     public function sights()
     {
-        return $this->hasMany(Sight::class)->orderBy('name');
+        return $this->hasMany(Sight::class, 'category_id')->orderBy('name');
     }
 }
