@@ -74,7 +74,7 @@ class SightController extends Controller
             ->when($area, function ($query, $area) {
                 return $query->where('districts.area_id', $area->id);
             })
-            ->paginate(10)
+            ->paginate(20)
             ->appends(request()->query());
 
         return view('sights.index', ['sights'=>$sights, 'area'=>$area]);

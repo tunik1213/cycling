@@ -34,6 +34,8 @@
         </div>
     @endif
 
+    {{ $sights->links('vendor.pagination.bootstrap-4') }}
+
     <table class="table table-bordered">
         <tr>
             <th>Назва</th>
@@ -54,7 +56,7 @@
                 <br />
                 Вiдкрити <a class="link-secondary" target="_blank" href="{{$s->gm_link()}}">google maps</a>
             </td>
-            <td><img src="{{ route('sights.image',$s->id) }}"/></td>
+            <td><img src="data:image/jpeg;base64,{{base64_encode($s->image)}}" /></td>
             <td width="1">
                 <a class="btn btn-primary" href="{{ route('sights.edit',$s->id) }}"><i class="fas fa-edit"></i></a>
             </td>
