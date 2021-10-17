@@ -44,7 +44,8 @@
                 },
                 contextmenu: false,
                 browser_spellcheck: true,
-                relative_urls: false
+                relative_urls: false,
+                height : '250'
             });
         
     });

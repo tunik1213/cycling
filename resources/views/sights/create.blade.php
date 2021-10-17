@@ -31,8 +31,9 @@
 <form action="{{ route('sights.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
-     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <strong>Категорiя:</strong>
                 <select name="category" class="form-select" aria-label="Категорiя">
@@ -51,27 +52,20 @@
                     @endforeach
                 </select>
             </div>
-        </div>
 
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Район:</strong>
                 <input type="text" name="district" id="district" class="form-control" placeholder="Почнiть набирати назву району" value="{{ old('district') }}" autocomplete="off">
             </div>
-        </div>
 
-        <input name="district_id" id="district_id" type="hidden" value="{{ old('district_id') }}" />
+            <input name="district_id" id="district_id" type="hidden" value="{{ old('district_id') }}" />
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Назва:</strong>
                 <input type="text" name="name" class="form-control" placeholder="наприклад, Пейзажна алея" value="{{ old('name') }}" autocomplete="off">
             </div>
-        </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group row col-xs-12 col-sm-9 col-md-6">
+            <div class="form-group row">
                 <strong>Координати (Ctrl+V):</strong>
                 <div class="col">
                     <input type="text" id="latitude" name="lat" value="{{ old('lat') }}" class="form-control" placeholder="Широта" autocomplete="off">
@@ -87,19 +81,24 @@
                 </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="description">Опис:</label>
-                    <textarea class="form-control" name="description" id="description" rows="3"></textarea>
-                </div>
+            </div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <div class="form-group">
+                <label for="description">Опис:</label>
+                <textarea class="form-control" name="description" id="description"></textarea>
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <br />
-            <button type="submit" class="btn btn-primary">Зберегти</button>
-            <br />
-        </div>
     </div>
+
+<br />
+    <div class="row">
+        <p><button type="submit" class="btn btn-primary">Зберегти</button></p>
+    </div>
+
 </form>
 @endsection
 
