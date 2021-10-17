@@ -1,8 +1,8 @@
 @php
 	$sights = $user->topSightsVisited();
 	$loading = false;
-	if ($user->id == Auth::user()->id)
-		$loading = !$user->allSightsVerified();
+	$itsMe = ($user->id == Auth::user()->id);
+	if ($itsMe)	$loading = !$user->allSightsVerified();
 @endphp
 
 <br />
@@ -24,17 +24,21 @@
 	@endforeach
 	</div>
 	<div class="info-block-footer">
-		@if($loading)
-			<span class="spinner-border spinner-border-sm" role="status"></span>
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			<span>Наразi проводиться аналiз Ваших заїздiв</span>
-			<script>
-				setTimeout(function(){
-				   window.location.reload(1);
-				}, 5000);
-			</script>
+		@if($user->activities->count() == 0)
+			<p>Не вдалося iмпортувати данi @if($itsMe) по Вашим заїздам@endif зi Strava</p>
 		@else
-			<a class="link-secondary" href="{{route('userSights',['id'=>$user->id])}}">Переглянути всi</a>
+			@if($loading)
+				<span class="spinner-border spinner-border-sm" role="status"></span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span>Наразi проводиться аналiз Ваших заїздiв</span>
+				<script>
+					setTimeout(function(){
+					   window.location.reload(1);
+					}, 5000);
+				</script>
+			@else
+				<a class="link-secondary" href="{{route('userSights',['id'=>$user->id])}}">Переглянути всi</a>
+			@endif
 		@endif
 	</div>
 </div>
