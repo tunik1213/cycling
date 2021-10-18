@@ -18,4 +18,9 @@ class Area extends Model
     {
         return $this->hasMany(District::class)->orderBy('name');
     }
+
+    public function getLinkAttribute()
+    {
+        return view('areas.link',['area'=>$this]);
+    }
 }
