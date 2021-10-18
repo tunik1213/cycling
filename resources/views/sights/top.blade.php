@@ -13,7 +13,7 @@
 	<div class="info-block-body">
 	@foreach($sights as $s)
 		<div class="card" style="width: 18rem;">
-		  <img class="card-img-top" src="{{route('sights.image',$s->id)}}">
+		  <img class="card-img-top" src="data:image/jpeg;base64,{{base64_encode($s->image)}}"">
 		  <div class="card-body">
 		    <h5 class="card-title"><a href="{{route('sights.show',$s->id)}}">{{$s->name}}</a></h5>
 		    <div class="card-text">

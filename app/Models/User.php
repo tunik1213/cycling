@@ -90,17 +90,26 @@ class User extends Authenticatable
     public function topSightsVisited()
     {
         $result = DB::select('
-        select s.id, s.name, count(*) count
+        select s.id, count(*) count
         from sights s
         join visits v on v.sight_id = s.id
         join activities a on a.id = v.act_id
         where a.user_id = ?
-        group by id,name
+        group by id
         order by count(*) desc
-        limit 3
+        limit 4
         ',[$this->id]);
 
-        return $result;
+        $sights = [];
+
+
+        foreach ($result as $entry) {
+            $s = Sight::find($entry->id);
+            $s->count = $entry->count;
+            array_push($sights,$s);
+        }
+
+        return $sights;
     }
 
     public function getLinkAttribute()

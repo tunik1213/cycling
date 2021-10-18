@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Sight;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -45,12 +46,21 @@ class UserController extends Controller
             ->join('visits as v','v.sight_id','=','s.id')
             ->join('activities as a','a.id','=','v.act_id')
             ->where('a.user_id',$id)
-            ->selectRaw('s.id,s.name,count(v.id) as count')
-            ->groupBy('s.id','s.name')
+            ->selectRaw('s.id,count(v.id) as count')
+            ->groupBy('s.id')
             ->having('count','>',0)
             ->orderByRaw('count desc,s.name')
             ->paginate(12);
 
+        $collection = $sights->getCollection()->all();
+
+        foreach($collection as &$entry) {
+            $s = Sight::find($entry->id);
+            $s->count = $entry->count;
+            $entry = $s;
+        }
+        
+        $sights->setCollection(collect($collection));
         
         return view('sights.list',['sights'=>$sights,'user'=>$user]);
     }

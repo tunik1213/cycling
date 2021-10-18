@@ -2,11 +2,7 @@
 
     @foreach ($sights as $s)
     <div class="card" style="width: 18rem;">
-        @if(isset($s->image))
-            <img src="data:image/jpeg;base64,{{base64_encode($s->image)}}"/>
-        @else
-            <img src="{{ route('sights.image',$s->id) }}"/>
-        @endif
+        <img src="data:image/jpeg;base64,{{base64_encode($s->image)}}"/>
         <div class="card-body">
             <div class="row">
                 <a href="{{ route('sights.show',$s->id) }}">{{ $s->name }}</a>
