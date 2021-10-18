@@ -14,8 +14,7 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 12rem;
+  margin-bottom: 5rem;
 }
 
 html, body {
@@ -247,6 +246,10 @@ div.card {
 @media screen and (max-width: 767px) {
   ul#footer-links {
     flex-direction: column;
+  }
+
+  body {
+    margin-bottom: 12rem;
   }
 }
 

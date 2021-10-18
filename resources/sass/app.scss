@@ -12,8 +12,7 @@ html {
   color: $font-color-default;
 }
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 12rem;
+  margin-bottom: 5rem;
 }
 html,body {
 	 background-color: $background-body;
@@ -219,6 +218,10 @@ div.card {
 	ul#footer-links {
   	flex-direction: column;
 	}
+	body {
+	  margin-bottom: 12rem;
+	}
+
 }
 
 
