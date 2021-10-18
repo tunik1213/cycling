@@ -31,7 +31,7 @@
         <div id="sight-author">
             <strong>Автор:</strong>
             @if($sight->user)
-                <a href="{{route('userProfile',$sight->user->id)}}">{{ $sight->user->firstname }}</a>
+                <a href="{{route('userProfile',$sight->user->id)}}">{{ $sight->user->fullname }}</a>
             @else
                 Google
             @endif
