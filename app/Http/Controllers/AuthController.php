@@ -31,7 +31,7 @@ class AuthController extends Controller
             report($e);
         }
 
-        Auth::login($user, $remember = true);
+        Auth::login($user, $remember = env('APP_DEBUG'));
 
         //CheckInvites::dispatchAfterResponse();
 
