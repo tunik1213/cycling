@@ -1,0 +1,1 @@
+<span>Зареєстрован {{\Carbon\Carbon::createFromTimeStamp(strtotime($user->created_at))->locale('uk_UK')->diffForHumans()}}</span>

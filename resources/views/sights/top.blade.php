@@ -34,7 +34,7 @@
 				<script>
 					setTimeout(function(){
 					   window.location.reload(1);
-					}, 5000);
+					}, 20000);
 				</script>
 			@else
 				<a class="link-secondary" href="{{route('userSights',['id'=>$user->id])}}">Переглянути всi</a>

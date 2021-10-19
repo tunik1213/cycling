@@ -1,0 +1,1 @@
+<a class="link-secondary" href="#">{{$count}} пам'яток вiдвiдано</a>

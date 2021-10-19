@@ -13,4 +13,6 @@
 
     @endguest
 
+    @include('user.top')
+
 @endsection

@@ -53,13 +53,11 @@ class UserController extends Controller
             ->paginate(12);
 
         $collection = $sights->getCollection()->all();
-
         foreach($collection as &$entry) {
             $s = Sight::find($entry->id);
             $s->count = $entry->count;
             $entry = $s;
         }
-        
         $sights->setCollection(collect($collection));
         
         return view('sights.list',['sights'=>$sights,'user'=>$user]);
@@ -69,6 +67,13 @@ class UserController extends Controller
     {
         $users = User::orderBy('created_at')
             ->paginate(24);
+
+        $collection = $users->getCollection();
+        foreach($collection as &$u) {
+            $u->dopInformation = $u->registeredAt;
+        }
+        $users->setCollection($collection);
+
         return view('user.index',['users'=>$users]);
 
     }

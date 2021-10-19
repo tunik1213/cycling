@@ -136,4 +136,29 @@ class User extends Authenticatable
         return ($minSigVerified==$maxSigEver);
     }
 
+    public function getRegisteredAtAttribute() {
+        return view('user.registered_at',['user'=>$this]);
+    }
+    private static function allTravelersQuery()
+    {
+        return DB::table('visits as v')
+            ->join('activities as a','a.id','=','v.act_id')
+            ->selectRaw('a.user_id as id,count(distinct(v.sight_id)) as count')
+            ->groupBy('a.user_id')
+            ->orderByRaw('2 desc');
+    }
+
+    public static function topTravelers() 
+    {
+        $result = Self::allTravelersQuery()->limit(4)->get();
+
+        $users = $result->all();
+        foreach($users as &$entry) {
+            $u = User::find($entry->id);
+            $u->dopInformation = view('visits.count_link',['user'=>$u,'count'=>$entry->count]);
+            $entry = $u;
+        }
+
+        return $users;
+    }
 }
