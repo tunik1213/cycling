@@ -106,7 +106,22 @@ a.navbar-brand {
   max-height: 3rem;
   max-width: 3rem;
   padding: 0;
-  margin-right: 0.5rem;
+  margin: 0 0 1rem 0;
+}
+
+.card .user-avatar {
+  max-height: 6rem;
+  max-width: 6rem;
+}
+
+.user-card .card-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-card .card-body {
+  line-height: 2rem;
 }
 
 #footer-links {
