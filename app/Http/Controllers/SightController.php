@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Jobs\CheckInvites;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use StepanDalecky\KmlParser\Parser;
 
 class SightController extends Controller
 {
@@ -55,6 +57,111 @@ class SightController extends Controller
 
             $data =  json_decode($result);
             Sight::import_google_maps($data,$d->id);
+        }
+    }
+
+    public function importKML()
+    {
+        $parser = Parser::fromFile('/var/www/html/cycling/tmp/tech-sights.kml');
+        
+        $kml = $parser->getKml();
+        $document = $kml->getDocument();
+        
+        $folders = $document->getFolders();
+        foreach($folders as $folder) {
+            $sights = $folder->getPlacemarks();
+            foreach($sights as $s) {
+
+                $name = $s->getName();
+                echo '<hr/><br/>importing '.$name.'<br/><br/>';
+                $descr = $s->getDescription();
+
+                preg_match('/<img.*?>/im', $descr, $matches);
+                $img=$matches[0] ?? '';
+                $descr = str_replace($img, '', $descr);
+                preg_match('/src="(.*?)"/im',$img,$matches);
+                $img_path = $matches[1] ?? '';
+
+                try {
+                    $p = $s->getPoint();
+                } catch(\Throwable $e) {
+                    echo 'error importing '.$name.'<br/>';
+                    echo    $e->getMessage().'<br/>';
+                    continue;
+                }
+                $raw_coord = $p->getCoordinates();
+
+                preg_match('/(\d+\.\d+,\d+\.\d+)/im',$raw_coord,$matches);
+                $coordinates = explode(',',$matches[0]);
+                $lat = max($coordinates);
+                $lng = min($coordinates);
+
+                $approx = Sight::getApprox($lat,$lng);
+                $found = Sight::where('approx_location',$approx)->first();
+                if ($found != null) {
+                    echo('found '.$found->id);
+                    continue;
+                }
+
+                
+                $google_data = json_decode(file_get_contents(
+                    'https://maps.google.com/maps/api/geocode/json?latlng='
+                    .$lat.','.$lng
+                    .'&sensor=false&language=uk&key='
+                    .env('GOOGLE_MAPS_SERVICE_KEY')
+                ));
+
+                $area='';$district='';
+                foreach($google_data->results as $r) {
+                    foreach($r->address_components as $a) {
+                        foreach($a->types as $t) {
+                            if($t == 'administrative_area_level_2') $district = $a->short_name;
+                            if($t == 'administrative_area_level_1') $area = $a->short_name;
+                        }
+                    }
+                }
+
+
+                $district = trim(str_replace('район','',$district));
+                $district_id = District::where('name',$district)->first()->id ?? null;
+                if($district_id==null) {
+                    $area = trim(str_replace('область','',$area));
+                    $area_id = Area::where('name',$area)->first()->id ?? null;
+                    if($area_id == null) {
+                        echo'area does not exist: '.$area.'<br />';
+                        continue;
+                    }
+
+                    echo 'creating district: '.$district.'<br />';
+                    $new_district = District::create([
+                        'area_id'=>$area_id,
+                        'name'=>$district
+                    ]);
+                    $district_id = $new_district->id;
+                }
+
+                $image = Image::make($img_path)
+                    ->fit(300)
+                    ->encode('jpg', 75);
+
+
+                $s = Sight::create([
+                            'district_id' => $district_id,
+                            'name' => $name,
+                            'image'=> $image,
+                            'lat' => $lat,
+                            'lng' => $lng,
+                            'approx_location' => $approx,
+                            'description' => $descr,
+                            'user_id' => 0,
+                            'category_id' => 3
+                        ]);
+                
+
+
+                echo 'created '.$s->id;
+
+            }
         }
     }
 
