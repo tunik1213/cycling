@@ -72,6 +72,8 @@ class SightController extends Controller
             $sights = $folder->getPlacemarks();
             foreach($sights as $s) {
 
+                try {
+
                 $name = $s->getName();
                 echo '<hr/><br/>importing '.$name.'<br/><br/>';
                 $descr = $s->getDescription();
@@ -82,13 +84,9 @@ class SightController extends Controller
                 preg_match('/src="(.*?)"/im',$img,$matches);
                 $img_path = $matches[1] ?? '';
 
-                try {
-                    $p = $s->getPoint();
-                } catch(\Throwable $e) {
-                    echo 'error importing '.$name.'<br/>';
-                    echo    $e->getMessage().'<br/>';
-                    continue;
-                }
+                
+                $p = $s->getPoint();
+                
                 $raw_coord = $p->getCoordinates();
 
                 preg_match('/(\d+\.\d+,\d+\.\d+)/im',$raw_coord,$matches);
@@ -123,33 +121,37 @@ class SightController extends Controller
 
 
                 $district = trim(str_replace('район','',$district));
+                if (empty($district)) {
+                    echo 'empty district<br/>';
+                    continue;
+                }
                 $district_id = District::where('name',$district)->first()->id ?? null;
                 if($district_id==null) {
                     $area = trim(str_replace('область','',$area));
                     $area_id = Area::where('name',$area)->first()->id ?? null;
                     if($area_id == null) {
-                        echo'area does not exist: '.$area.'<br />';
-                        continue;
+                        if($area=='Київська обл.' || $area == 'місто Київ') {
+                            $area_id = 33;
+                            $district_id = 126;
+                        } else {
+                            echo'area does not exist: '.$area.'<br />';
+                            continue;
+                        }
                     }
 
-                    echo 'creating district: '.$district.'<br />';
-                    $new_district = District::create([
-                        'area_id'=>$area_id,
-                        'name'=>$district
-                    ]);
-                    $district_id = $new_district->id;
+                    if (empty($district_id)) {
+                        echo 'creating district: '.$district.'<br />';
+                        $new_district = District::create([
+                            'area_id'=>$area_id,
+                            'name'=>$district
+                        ]);
+                        $district_id = $new_district->id;
+                    }
                 }
 
-                try {
-                    $image = Image::make($img_path)
-                        ->fit(300)
-                        ->encode('jpg', 75);
-                } catch(\Throwable $e) {
-                    echo 'error importing '.$name.'<br/>';
-                    echo    $e->getMessage().'<br/>';
-                    continue;
-                }
-
+                $image = Image::make($img_path)
+                    ->fit(300)
+                    ->encode('jpg', 75);
 
                 $s = Sight::create([
                             'district_id' => $district_id,
@@ -162,10 +164,14 @@ class SightController extends Controller
                             'user_id' => 0,
                             'category_id' => 3
                         ]);
-                
-
 
                 echo 'created '.$s->id;
+                
+                } catch(\Throwable $e) {
+                    echo 'error importing '.$name.'<br/>';
+                    echo    $e->getMessage().'<br/>';
+                    continue;
+                }
 
             }
         }
