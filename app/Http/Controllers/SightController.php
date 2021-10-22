@@ -140,9 +140,15 @@ class SightController extends Controller
                     $district_id = $new_district->id;
                 }
 
-                $image = Image::make($img_path)
-                    ->fit(300)
-                    ->encode('jpg', 75);
+                try {
+                    $image = Image::make($img_path)
+                        ->fit(300)
+                        ->encode('jpg', 75);
+                } catch(\Throwable $e) {
+                    echo 'error importing '.$name.'<br/>';
+                    echo    $e->getMessage().'<br/>';
+                    continue;
+                }
 
 
                 $s = Sight::create([
