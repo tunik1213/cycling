@@ -97,8 +97,12 @@ a.navbar-brand {
 }
 
 #right-header #userMenu {
-  padding: 1rem;
   margin-top: 8px;
+}
+
+#right-header .user-avatar {
+  margin-right: 0.5rem;
+  margin-bottom: 0.1rem;
 }
 
 .user-avatar {
