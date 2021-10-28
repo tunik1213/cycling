@@ -5,6 +5,8 @@
 <script type="text/javascript">
     $(function() {
 
+        window.onbeforeunload = function(e){return true;}
+
         var districts = [
             @foreach($districts as $d)
                 {label: "{{ $d->name }}", id: "{{ $d->id }}"}, 
