@@ -78,4 +78,13 @@ class UserController extends Controller
 
     }
 
+    public function top(Request $request)
+    {
+        $users = User::topTravelersAll();
+        return view('user.index',[
+            'users'=>$users,
+            'list_title'=>'Топ мандрiвникiв'
+        ]);
+    }
+
 }

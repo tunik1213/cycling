@@ -148,10 +148,10 @@ class User extends Authenticatable
             ->orderByRaw('2 desc');
     }
 
-    public static function topTravelers() 
+    public static function topTravelers(int $limit) 
     {
-        $result = Self::allTravelersQuery()->limit(4)->get();
-
+        $result = Self::allTravelersQuery()->limit($limit)->get();
+        
         $users = $result->all();
         foreach($users as &$entry) {
             $u = User::find($entry->id);
@@ -161,6 +161,21 @@ class User extends Authenticatable
 
         return $users;
     }
+
+    public static function topTravelersAll()
+    {
+        $result = User::allTravelersQuery()->paginate(24);
+        $collection = $result->getCollection()->all();
+        foreach($collection as &$entry) {
+            $u = User::find($entry->id);
+            $u->dopInformation = view('visits.count_link',['user'=>$u,'count'=>$entry->count]);
+            $entry = $u;
+        }
+        $result->setCollection(collect($collection));
+        return $result;
+
+    }
+
     public function gender($male,$female)
     {
         return ($this->sex == 'F') ? $female : $male;

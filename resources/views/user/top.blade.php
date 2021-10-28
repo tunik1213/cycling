@@ -1,6 +1,6 @@
 @php
 	if(!isset($users))
-		$users = App\Models\User::topTravelers();
+		$users = App\Models\User::topTravelers(4);
 @endphp
 
 <div id="top-travelers">
@@ -10,6 +10,6 @@
 		@include('user.list_partial',['users'=>$users])
 	</div>
 	<div class="info-block-footer">
-		<a class="link-secondary" href="#">Переглянути всi</a>
+		<a class="link-secondary" href="{{route('users.top')}}">Переглянути всi</a>
 	</div>
 </div>

@@ -1,1 +1,1 @@
-<a class="link-secondary" href="#">{{$count}} пам'яток вiдвiдано</a>
+<a class="link-secondary" href="{{route('userSights',['id'=>$user->id])}}">{{$count}} пам'яток вiдвiдано</a>

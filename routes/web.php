@@ -47,6 +47,7 @@ Route::get('/crontab/parseActivityNames',[CrontabController::class,'parseActivit
 
 Route::get('/home', [UserController::class, 'home'])->name('home');
 Route::get('/user/getAvatarImage/{id?}', [UserController::class, 'getAvatarImage'])->name('userAvatar');
+Route::get('/user/top', [UserController::class, 'top'])->name('users.top');
 Route::get('/user/{id?}', [UserController::class, 'profile'])->name('userProfile');
 Route::get('/user/{id}/sights', [UserController::class, 'sightsVisited'])->name('userSights');
 
