@@ -161,4 +161,8 @@ class User extends Authenticatable
 
         return $users;
     }
+    public function gender($male,$female)
+    {
+        return ($this->sex == 'F') ? $female : $male;
+    }
 }
