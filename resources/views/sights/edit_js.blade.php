@@ -32,6 +32,27 @@
             this.setContent(`{!! $sight->description ?? '' !!}`);
         }
 
+        $('select#category').change(function(e){
+            var id = $(this).find(":selected").attr('value');
+            $.ajax({
+                url: "/export/subcategories",
+                data:"id="+id ,
+                success: function(data){
+                    var s = $('select#subcategory');
+                    s.removeAttr('disabled').find('option').remove();
+
+                    s.append('<option value="">Виберіть підкатегорію</option>');
+                    $.each(data,function(i,cat) {
+                        selected=(cat.id=={{$sight->subcategory->id ?? 'null'}})?'selected':'';
+                        s.append('<option '+selected+' value="'+cat.id+'">'+cat.name+'</option>');
+                    });
+                    s.append('<option value="0">Інше (Важко відповісти)</option>');
+                }
+            });
+        });
+
+        if($('select#category').find(":selected").length>0) $('select#category').trigger('change');
+
         tinymce.init({
                 selector: '#description',
                 language: 'uk',

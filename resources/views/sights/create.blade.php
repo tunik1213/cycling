@@ -36,7 +36,7 @@
         <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <strong>Категорiя:</strong>
-                <select name="category" class="form-select" aria-label="Категорiя">
+                <select id="category" name="category" class="form-select" aria-label="Категорiя">
                     @if(empty(old('category')))
                         <option selected value="0">Виберiть категорiю</option>
                     @endif
@@ -50,6 +50,13 @@
                         </option>
 
                     @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <strong>Пiдкатегорiя:</strong>
+                <select disabled id="subcategory" name="subcategory" class="form-select" aria-label="Пiдкатегорiя">
+                    <option selected value="0">Виберiть пiдкатегорiю</option>
                 </select>
             </div>
 

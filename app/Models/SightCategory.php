@@ -14,4 +14,9 @@ class SightCategory extends Model
     {
         return $this->hasMany(Sight::class, 'category_id')->orderBy('name');
     }
+
+    public function subCategories()
+    {
+        return $this->hasMany(SightSubCategory::class);
+    }
 }

@@ -24,7 +24,8 @@ class Sight extends Model
         'image',
         'district_id',
         'map_image',
-        'category_id'
+        'category_id',
+        'sub_category_id'
     ];
 
     //public int $visitsCount;
@@ -50,6 +51,10 @@ class Sight extends Model
     public function category()
     {
         return $this->belongsTo(SightCategory::class);
+    }
+    public function subcategory()
+    {
+        return $this->belongsTo(SightSubCategory::class,'sub_category_id');
     }
 
     public static function import_google_maps($data,$district_id) : void
@@ -119,7 +124,7 @@ class Sight extends Model
     public function getCategoryLinkAttribute()
     {
         if ($this->category)
-            return view('sight_categories.link',['category'=>$this->category]);
+            return view('sights.category_link',['sight'=>$this]);
         else
             return '';
     }

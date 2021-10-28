@@ -254,7 +254,8 @@ class SightController extends Controller
             'approx_location' => $approx,
             'description' => $descr,
             'user_id' => Auth::user()->id,
-            'category_id' => $request->category
+            'category_id' => (int)$request->category,
+            'sub_category_id' => $request->subcategory ?? null
         ]);
 
         //CheckInvites::dispatchAfterResponse();
@@ -324,6 +325,7 @@ class SightController extends Controller
         $sight->description = prepare_external_links($request->description);
         $sight->district_id = $request->district_id;
         $sight->category_id = $request->category;
+        $sight->sub_category_id = $request->subcategory ?? null;
         $sight->save();
 
         return redirect()->route('sights.show',['sight'=>$sight])->with('success','Пам\'ятку успiшно змiнено');
