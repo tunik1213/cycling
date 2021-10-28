@@ -4,7 +4,7 @@
         <div class="card user-card" style="width: 18rem;">
             <div class="card-title d-flex justify-content-center">
                 <img class="user-avatar" src="data:image/jpeg;base64,{{base64_encode($u->avatar)}}"/>
-                <a href={{route('userProfile',$u->id)}}>{{$u->fullName}}</a>
+                {{$u->link}}
             </div>
           
           <div class="card-body">
