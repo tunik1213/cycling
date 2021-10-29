@@ -89,27 +89,10 @@ class User extends Authenticatable
 
     public function topSightsVisited()
     {
-        $result = DB::select('
-        select s.id, count(*) count
-        from sights s
-        join visits v on v.sight_id = s.id
-        join activities a on a.id = v.act_id
-        where a.user_id = ?
-        group by id
-        order by count(*) desc
-        limit 4
-        ',[$this->id]);
-
-        $sights = [];
-
-
-        foreach ($result as $entry) {
-            $s = Sight::find($entry->id);
-            $s->count = $entry->count;
-            array_push($sights,$s);
-        }
-
-        return $sights;
+        $top = new Top;
+        $top->user = $this;
+        $top->limit = 4;
+        return $top->sights();
     }
 
     public function getLinkAttribute()
@@ -138,42 +121,6 @@ class User extends Authenticatable
 
     public function getRegisteredAtAttribute() {
         return view('user.registered_at',['user'=>$this]);
-    }
-    private static function allTravelersQuery()
-    {
-        return DB::table('visits as v')
-            ->join('activities as a','a.id','=','v.act_id')
-            ->selectRaw('a.user_id as id,count(distinct(v.sight_id)) as count')
-            ->groupBy('a.user_id')
-            ->orderByRaw('2 desc');
-    }
-
-    public static function topTravelers(int $limit) 
-    {
-        $result = Self::allTravelersQuery()->limit($limit)->get();
-        
-        $users = $result->all();
-        foreach($users as &$entry) {
-            $u = User::find($entry->id);
-            $u->dopInformation = view('visits.count_link',['user'=>$u,'count'=>$entry->count]);
-            $entry = $u;
-        }
-
-        return $users;
-    }
-
-    public static function topTravelersAll()
-    {
-        $result = User::allTravelersQuery()->paginate(24);
-        $collection = $result->getCollection()->all();
-        foreach($collection as &$entry) {
-            $u = User::find($entry->id);
-            $u->dopInformation = view('visits.count_link',['user'=>$u,'count'=>$entry->count]);
-            $entry = $u;
-        }
-        $result->setCollection(collect($collection));
-        return $result;
-
     }
 
     public function gender($male,$female)

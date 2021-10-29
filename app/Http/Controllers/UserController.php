@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Sight;
+use App\Models\Top;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -42,23 +43,9 @@ class UserController extends Controller
     public function sightsVisited(int $id)
     {
         $user = User::find($id);
-        $sights = DB::table('sights as s')
-            ->join('visits as v','v.sight_id','=','s.id')
-            ->join('activities as a','a.id','=','v.act_id')
-            ->where('a.user_id',$id)
-            ->selectRaw('s.id,count(v.id) as count')
-            ->groupBy('s.id')
-            ->having('count','>',0)
-            ->orderByRaw('count desc,s.name')
-            ->paginate(12);
-
-        $collection = $sights->getCollection()->all();
-        foreach($collection as &$entry) {
-            $s = Sight::find($entry->id);
-            $s->count = $entry->count;
-            $entry = $s;
-        }
-        $sights->setCollection(collect($collection));
+        $top = new Top;
+        $top->user = $user;
+        $sights = $top->sights();
         
         return view('sights.list',['sights'=>$sights,'user'=>$user]);
     }
@@ -80,7 +67,8 @@ class UserController extends Controller
 
     public function top(Request $request)
     {
-        $users = User::topTravelersAll();
+        $top = new Top;
+        $users = $top->users();
         return view('user.index',[
             'users'=>$users,
             'list_title'=>'Топ мандрiвникiв'

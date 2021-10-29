@@ -1,6 +1,7 @@
 @php
-	if(!isset($users))
-		$users = App\Models\User::topTravelers(4);
+	$top = new App\Models\Top;
+	$top->limit = 4;
+    $users = $top->users();
 @endphp
 
 <div id="top-travelers">
