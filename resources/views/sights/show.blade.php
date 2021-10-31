@@ -40,6 +40,10 @@
         <p id="sight-description">
             {!! $sight->description !!}
         </p>
+
+        @if(Auth::user()->moderator ?? false)
+            <a class="btn btn-primary" href="{{ route('sights.edit',$sight->id) }}"><i class="fas fa-edit"></i> Редагувати</a>
+        @endif
     </div>
 
 
