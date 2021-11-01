@@ -62,7 +62,7 @@ class SightController extends Controller
 
     public function importKML()
     {
-        $parser = Parser::fromFile('/var/www/html/cycling/tmp/tech-sights.kml');
+        $parser = Parser::fromFile('/var/www/html/cycling/tmp/sights.kml');
         
         $kml = $parser->getKml();
         $document = $kml->getDocument();
@@ -171,6 +171,8 @@ class SightController extends Controller
                         ]);
 
                 echo 'created '.$s->id;
+
+                if(env('APP_DEBUG')) exit;
                 
                 } catch(\Throwable $e) {
                     echo 'error importing '.$name.'<br/>';
