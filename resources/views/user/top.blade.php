@@ -1,7 +1,11 @@
 @php
-	$top = new App\Models\Top;
-	$top->limit = 4;
-    $users = $top->users();
+	if(!isset($users)) {
+		$top = new App\Models\Top;
+		$top->limit = 4;
+	    $users = $top->users();
+	}
+	$getParams = [];
+	if(isset($sight)) $getParams['sight'] = $sight->id;
 @endphp
 
 <div id="top-travelers">
@@ -11,6 +15,6 @@
 		@include('user.list_partial',['users'=>$users])
 	</div>
 	<div class="info-block-footer">
-		<a class="link-secondary" href="{{route('users.top')}}">Переглянути всi</a>
+		<a class="link-secondary" href="{{route('users.top',$getParams)}}">Переглянути всi</a>
 	</div>
 </div>

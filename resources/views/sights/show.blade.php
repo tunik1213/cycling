@@ -1,3 +1,11 @@
+@php
+    $top = new App\Models\Top;
+    $top->limit = 4;
+    $top->sight = $sight;
+    $topUsers = $top->users();
+@endphp
+
+
 @extends('layout')
 @section('content')
 
@@ -52,6 +60,10 @@
         <a href="{{$sight->gm_link()}}" target="_blank" rel="nofollow">
             <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->map_image)}}" alt="Мапа {{$sight->name}}"> 
         </a>
+    </div>
+
+    <div class="row">
+        @include('user.top',['users'=>$topUsers, 'sight'=>$sight])
     </div>
 
 </div>

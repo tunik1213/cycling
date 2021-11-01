@@ -18,22 +18,21 @@ class Top
     public Sight $sight;
     public int $limit;
 
-    public function test()
-    {
-        dd($this->limit);
-
-    }   
-
 
     public function users()
     {
         $users = DB::table('visits as v')
             ->join('activities as a','a.id','=','v.act_id')
-            ->selectRaw('a.user_id as id,count(distinct(v.sight_id)) as count')
+            ->selectRaw('a.user_id as id')
             ->groupBy('a.user_id')
             ->orderByRaw('2 desc');
-        if(!empty($this->sight))
-            $users = $users->where('a.user_id',$this->user->id);
+
+        if(empty($this->sight)) {
+            $users = $users->selectRaw('count(distinct(v.sight_id)) as count');
+        } else {
+            $users = $users->where('v.sight_id',$this->sight->id);
+            $users = $users->selectRaw('count(v.sight_id) as count');
+        }
 
         if(empty($this->limit)) {
             $users = $users->paginate(24);
@@ -44,7 +43,11 @@ class Top
         $collection = $users->getCollection()->all();
         foreach($collection as &$entry) {
             $u = User::find($entry->id);
-            $u->dopInformation = view('visits.count_link',['user'=>$u,'count'=>$entry->count]);
+            if(empty($this->sight)) {
+                $u->dopInformation = view('user.count_link',['user'=>$u,'count'=>$entry->count]);
+            } else {
+                $u->dopInformation = view('activities.count_link',['user'=>$u,'count'=>$entry->count, 'sight'=>$this->sight]);
+            }
             $entry = $u;
         }
         $users->setCollection(collect($collection));

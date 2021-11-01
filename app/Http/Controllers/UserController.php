@@ -40,7 +40,7 @@ class UserController extends Controller
 
     }
 
-    public function sightsVisited(int $id)
+    public function sightsVisited(Request $request,int $id)
     {
         $user = User::find($id);
         $top = new Top;
@@ -68,6 +68,8 @@ class UserController extends Controller
     public function top(Request $request)
     {
         $top = new Top;
+        $sight = Sight::find($request->input('sight')) ?? null;
+        if($sight) $top->sight = $sight;
         $users = $top->users();
         return view('user.index',[
             'users'=>$users,

@@ -22,6 +22,5 @@
 
     </div>
 
-@if(gettype($users)!='array')
-    {{ $users->links('vendor.pagination.bootstrap-4') }}
-@endif
+{{ $users->links('vendor.pagination.bootstrap-4') }}
+

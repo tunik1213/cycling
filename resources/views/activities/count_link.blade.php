@@ -1,0 +1,1 @@
+<a class="link-secondary" href="{{\App\Models\Activity::link($user->id,$sight->id)}}">{{$count}} вiдвiдувань</a>

@@ -84,6 +84,11 @@ class SightController extends Controller
                 preg_match('/src="(.*?)"/im',$img,$matches);
                 $img_path = $matches[1] ?? '';
 
+                if (empty($img_path)) {
+                    echo 'no image, skipping';
+                    continue;
+                } 
+
                 
                 $p = $s->getPoint();
                 
