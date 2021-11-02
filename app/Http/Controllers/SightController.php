@@ -167,7 +167,8 @@ class SightController extends Controller
                             'approx_location' => $approx,
                             'description' => $descr,
                             'user_id' => 0,
-                            'category_id' => 3
+                            'category_id' => 4,
+                            'sub_category_id' => 72
                         ]);
 
                 echo 'created '.$s->id;
