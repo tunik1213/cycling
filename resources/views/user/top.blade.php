@@ -9,12 +9,18 @@
 @endphp
 
 <div id="top-travelers">
-	<div class="container info-block">
-	<h2 class="info-block-header">Топ мандрiвникiв</h2>
-	<div class="info-block-body">
-		@include('user.list_partial',['users'=>$users])
-	</div>
-	<div class="info-block-footer">
-		<a class="link-secondary" href="{{route('users.top',$getParams)}}">Переглянути всi</a>
-	</div>
+	@if($users->count()>0)
+		<div class="container info-block">
+		<h2 class="info-block-header">Топ мандрiвникiв</h2>
+		<div class="info-block-body">
+			@include('user.list_partial',['users'=>$users])
+		</div>
+		<div class="info-block-footer">
+			<a class="link-secondary" href="{{route('users.top',$getParams)}}">Переглянути всi</a>
+		</div>
+	@else
+		@if(isset($sight))
+			{{-- <h2>Стань першим, хто вiдвiдає пам'ятку {{$sight->name}}</h2> --}}
+		@endif
+	@endif
 </div>
