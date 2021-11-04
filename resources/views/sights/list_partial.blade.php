@@ -1,3 +1,7 @@
+@php
+    if(!isset($filters)) $filters['user'] = $user->id;
+@endphp
+
 <div class="row">
 
     @foreach ($sights as $s)
@@ -9,7 +13,8 @@
             </div>
             @if($s->count)
             <div class="row">
-                <a class="link-secondary" href="{{route('activities',['user'=>$user->id,'sight'=>$s->id])}}">{{$s->count}} вiдвiдувань</a>
+                @php($filters['sight']=$s->id)
+                <a class="link-secondary" href="{{route('activities',$filters)}}">{{$s->count}} вiдвiдувань</a>
             </div>
             @endif
         </div>
