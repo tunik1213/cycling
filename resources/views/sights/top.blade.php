@@ -1,5 +1,5 @@
 @php
-	$sights = $user->topSightsVisited();
+	$user = $topSights->user;
 	$loading = false;
 	$itsMe = ($user->id == Auth::user()->id);
 	if ($itsMe)	$loading = !$user->allSightsVerified();
@@ -11,7 +11,7 @@
 	<div class="container info-block">
 	<h2 class="info-block-header">Топ вiдвiданих визначних мiсць</h2>
 	<div class="info-block-body">
-		@include('sights.list_partial',['sights'=>$sights])
+		@include('sights.list_partial',['sightList'=>$topSights])
 	</div>
 	<div class="info-block-footer">
 		@if($user->activities->count() == 0)
@@ -27,7 +27,7 @@
 					}, 20000);
 				</script>
 			@else
-				<a class="link-secondary" href="{{route('userSights',['id'=>$user->id])}}">Переглянути всi</a>
+				<a class="link-secondary" href="{{route('sights.list',$topSights->filters())}}">Переглянути всi</a>
 			@endif
 		@endif
 	</div>

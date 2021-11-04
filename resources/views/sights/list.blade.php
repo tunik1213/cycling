@@ -1,8 +1,9 @@
 @php
 
-    $title='Список пам\'яток';
+    $title=$sightList->title();
     $h1 = $title;
-    if(isset($user)){
+    if(!empty($sightList->user)){
+        $user = $sightList->user;
         $add = ', якi вiдвiда'.$user->gender('в','ла') . ' ';
         $title .= $add . $user->fullname;
         $h1 .= $add . $user->link;
@@ -20,7 +21,7 @@
 
     <h1>{!! $h1 !!}</h1>
 
-    @include('sights.list_partial',['sights'=>$sights]) 
+    @include('sights.list_partial',['sightList'=>$sightList]) 
 
 @endsection
 

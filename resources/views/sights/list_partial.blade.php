@@ -1,5 +1,5 @@
 @php
-    if(!isset($filters)) $filters['user'] = $user->id;
+    $sights = $sightList->index();
 @endphp
 
 <div class="row">
@@ -13,8 +13,8 @@
             </div>
             @if($s->count)
             <div class="row">
-                @php($filters['sight']=$s->id)
-                <a class="link-secondary" href="{{route('activities',$filters)}}">{{$s->count}} вiдвiдувань</a>
+                @php($getParams = $sightList->filters(['sight'=>$s->id]))
+                <a class="link-secondary" href="{{route('activities',$getParams)}}">{{$s->count}} вiдвiдувань</a>
             </div>
             @endif
         </div>

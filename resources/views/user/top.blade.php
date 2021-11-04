@@ -1,13 +1,5 @@
 @php
-	if(!isset($users)) {
-		$top = new App\Models\Top;
-		$top->limit = 4;
-	    $users = $top->users();
-	}
-	$getParams = [];
-	if(isset($sight)) $getParams['sight'] = $sight->id;
-	if(isset($district)) $getParams['district'] = $district->id;
-	if(isset($area)) $getParams['area'] = $area->id;
+	$users = $userList->index();
 @endphp
 
 <div id="top-travelers">
@@ -18,11 +10,9 @@
 			@include('user.list_partial',['users'=>$users])
 		</div>
 		<div class="info-block-footer">
-			<a class="link-secondary" href="{{route('users.top',$getParams)}}">Переглянути всi</a>
+			<a class="link-secondary" href="{{route('users.list',$userList->filters())}}">Переглянути всi</a>
 		</div>
 	@else
-		@if(isset($sight))
-			{{-- <h2>Стань першим, хто вiдвiдає пам'ятку {{$sight->name}}</h2> --}}
-		@endif
+		{{-- <h2>Стань першим, хто вiдвiдає пам'ятку {{$sight->name}}</h2> --}}
 	@endif
 </div>

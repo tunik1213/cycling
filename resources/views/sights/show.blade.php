@@ -1,11 +1,3 @@
-@php
-    $top = new App\Models\Top;
-    $top->limit = 4;
-    $top->sight = $sight;
-    $topUsers = $top->users();
-@endphp
-
-
 @extends('layout')
 @section('content')
 
@@ -63,7 +55,7 @@
     </div>
 
     <div class="row">
-        @include('user.top',['users'=>$topUsers, 'sight'=>$sight])
+        @include('user.top',['userList'=>$topUsers])
     </div>
 
 </div>

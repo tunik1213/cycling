@@ -9,10 +9,10 @@
         @include('user.login_btn')
     @else
 
-        @include('sights.top',['user'=>Auth::user()])
+        @include('sights.top',['sightList'=>$topSights])
 
     @endguest
 
-    @include('user.top')
+    @include('user.top',['userList'=>$topUsers])
 
 @endsection

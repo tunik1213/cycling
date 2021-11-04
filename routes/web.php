@@ -11,6 +11,7 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +24,7 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MainController::class, 'main'])->name('main');
 
 Route::get('/login',function(){
     return view('user.login');
@@ -47,9 +46,10 @@ Route::get('/crontab/parseActivityNames',[CrontabController::class,'parseActivit
 
 Route::get('/home', [UserController::class, 'home'])->name('home');
 Route::get('/user/getAvatarImage/{id?}', [UserController::class, 'getAvatarImage'])->name('userAvatar');
-Route::get('/user/top', [UserController::class, 'top'])->name('users.top');
+Route::get('/user/list', [UserController::class, 'list'])->name('users.list');
 Route::get('/user/{id?}', [UserController::class, 'profile'])->name('userProfile');
 Route::get('/user/{id}/sights', [UserController::class, 'sightsVisited'])->name('userSights');
+Route::get('/sights/list', [SightController::class, 'list'])->name('sights.list');
 
 Route::get('/activities', [ActivityController::class, 'list'])->name('activities');
 

@@ -12,6 +12,8 @@ use App\Jobs\CheckInvites;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use StepanDalecky\KmlParser\Parser;
+use App\Models\SightList;
+use App\Models\UserList;
 
 class SightController extends Controller
 {
@@ -277,9 +279,15 @@ class SightController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Sight $sight)
+    public function show(Request $request,Sight $sight)
     {
-        return view('sights.show',['sight'=>$sight]);
+        $topUsers = new UserList($request);
+        $topUsers->sight = $sight;
+
+        return view('sights.show',[
+            'sight'=>$sight,
+            'topUsers'=>$topUsers
+        ]);
     }
 
     /**
@@ -361,5 +369,14 @@ class SightController extends Controller
         header("Content-Length: " . strlen($img));
 
         echo($img);
+    }
+
+    public function list(Request $request)
+    {
+        $list = new SightList($request);
+
+        return view('sights.list',[
+            'sightList'=>$list
+        ]);
     }
 }

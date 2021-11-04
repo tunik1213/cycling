@@ -10,6 +10,8 @@ use App\Models\District;
 use App\Models\Area;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\UserList;
+use App\Models\SightList;
 
 class UserController extends Controller
 {
@@ -35,21 +37,19 @@ class UserController extends Controller
         exit;
     }
 
-    public function profile(?int $id=null)
+    public function profile(Request $request, ?int $id=null)
     {
         $user = ($id==null) ? Auth::user() : User::find($id);
-        return view('user.profile',['user'=>$user]);
 
-    }
+        $topSights = new SightList($request);
+        $topSights->user = $user;
+        $topSights->limit = 4;
 
-    public function sightsVisited(Request $request,int $id)
-    {
-        $user = User::find($id);
-        $top = new Top;
-        $top->user = $user;
-        $sights = $top->sights();
-        
-        return view('sights.list',['sights'=>$sights,'user'=>$user]);
+        return view('user.profile',[
+            'user'=>$user,
+            'topSights'=>$topSights
+        ]);
+
     }
 
     public function index(Request $request)
@@ -67,24 +67,12 @@ class UserController extends Controller
 
     }
 
-    public function top(Request $request)
+    public function list(Request $request)
     {
-        $top = new Top;
+        $list = new UserList($request);
 
-        $sight = Sight::find($request->input('sight')) ?? null;
-        if($sight) $top->sight = $sight;
-
-        $district = District::find($request->input('district')) ?? null;
-        if($district) $top->district = $district;
-
-        $area = Area::find($request->input('area')) ?? null;
-        if($area) $top->area = $area;
-
-        $users = $top->users();
         return view('user.index',[
-            'users'=>$users,
-            'list_title'=>'Топ мандрiвникiв',
-            'top'=>$top
+            'userList'=>$list
         ]);
     }
 

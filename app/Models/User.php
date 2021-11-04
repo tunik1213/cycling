@@ -11,6 +11,7 @@ use App\Models\Activity;
 use Strava;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Models\SightList;
 
 class User extends Authenticatable
 {
@@ -89,10 +90,10 @@ class User extends Authenticatable
 
     public function topSightsVisited()
     {
-        $top = new Top;
+        $top = new SightList;
         $top->user = $this;
         $top->limit = 4;
-        return $top->sights();
+        return $top->index();
     }
 
     public function getLinkAttribute()
