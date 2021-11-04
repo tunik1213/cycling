@@ -59,7 +59,7 @@ class Top
             if(empty($this->sight)) {
                 $u->dopInformation = view('user.count_link',['user'=>$u,'count'=>$entry->count]);
             } else {
-                $u->dopInformation = view('activities.count_link',['user'=>$u,'count'=>$entry->count, 'sight'=>$this->sight]);
+                $u->dopInformation = view('activities.count_link',['user'=>$u,'count'=>$entry->count, 'filters'=>$this->filters()]);
             }
             $entry = $u;
         }
@@ -99,7 +99,7 @@ class Top
         return $sights;
     }
 
-    private function params()
+    private function filters()
     {
         $result = [];
         if (!empty($this->user)) $result['user_id'] = $this->user->id;

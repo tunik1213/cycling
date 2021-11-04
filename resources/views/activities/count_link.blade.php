@@ -1,1 +1,1 @@
-<a class="link-secondary" href="{{\App\Models\Activity::link($user->id,$sight->id)}}">{{$count}} вiдвiдувань</a>
+<a class="link-secondary" href="{{route('activities',$filters)}}">{{$count}} вiдвiдувань</a>

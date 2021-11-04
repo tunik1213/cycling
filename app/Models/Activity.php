@@ -31,12 +31,4 @@ class Activity extends Model
         return $name.' '.$dt;
     }
 
-    public static function link($user_id=null,$sight_id=null)
-    {
-        $url = '/activities?';
-        if ($user_id) $url .= 'user='.$user_id.'&';
-        if ($sight_id) $url .= 'sight='.$sight_id.'&';
-        return preg_replace('/&$/', '', $url);
-    }
-
 }
