@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Sight;
 use App\Models\Visit;
+use App\Models\District;
+use App\Models\Area;
 use Illuminate\Support\Facades\DB;
 
 class Top
@@ -17,12 +19,16 @@ class Top
     public User $user;
     public Sight $sight;
     public int $limit;
+    public District $district;
+    public Area $area;
 
 
     public function users()
     {
         $users = DB::table('visits as v')
             ->join('activities as a','a.id','=','v.act_id')
+            ->join('sights as s','s.id','=','v.sight_id')
+            ->join('districts as d','d.id','=','s.district_id')
             ->selectRaw('a.user_id as id')
             ->groupBy('a.user_id')
             ->orderByRaw('2 desc');
@@ -32,6 +38,13 @@ class Top
         } else {
             $users = $users->where('v.sight_id',$this->sight->id);
             $users = $users->selectRaw('count(v.sight_id) as count');
+        }
+
+        if(!empty($this->district)) {
+            $users = $users->where('d.id',$this->district->id);
+        }
+        if(!empty($this->area)) {
+            $users = $users->where('d.area_id',$this->area->id);
         }
 
         if(empty($this->limit)) {
@@ -91,6 +104,8 @@ class Top
         $result = [];
         if (!empty($this->user)) $result['user_id'] = $this->user->id;
         if (!empty($this->sight)) $result['sight_id'] = $this->sight->id;
+        if (!empty($this->district)) $result['district_id'] = $this->district->id;
+        if (!empty($this->area)) $result['area_id'] = $this->area->id;
 
         return $result;
     }

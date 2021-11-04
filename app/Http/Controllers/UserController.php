@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Sight;
 use App\Models\Top;
+use App\Models\District;
+use App\Models\Area;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -68,12 +70,21 @@ class UserController extends Controller
     public function top(Request $request)
     {
         $top = new Top;
+
         $sight = Sight::find($request->input('sight')) ?? null;
         if($sight) $top->sight = $sight;
+
+        $district = District::find($request->input('district')) ?? null;
+        if($district) $top->district = $district;
+
+        $area = Area::find($request->input('area')) ?? null;
+        if($area) $top->area = $area;
+
         $users = $top->users();
         return view('user.index',[
             'users'=>$users,
-            'list_title'=>'Топ мандрiвникiв'
+            'list_title'=>'Топ мандрiвникiв',
+            'top'=>$top
         ]);
     }
 

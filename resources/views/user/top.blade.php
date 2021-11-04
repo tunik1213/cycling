@@ -6,6 +6,8 @@
 	}
 	$getParams = [];
 	if(isset($sight)) $getParams['sight'] = $sight->id;
+	if(isset($district)) $getParams['district'] = $district->id;
+	if(isset($area)) $getParams['area'] = $area->id;
 @endphp
 
 <div id="top-travelers">
