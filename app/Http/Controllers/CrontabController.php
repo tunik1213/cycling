@@ -50,9 +50,28 @@ class CrontabController extends Controller
                 echo    $e->getMessage();
                 exit;
             }
-            $matches = [];
-            preg_match('/<meta content=\'(.*?)\' property=\'twitter:title\'>/mi', $html, $matches);
-            $a->name = $matches[1];
+            // $matches = [];
+            // preg_match('/<meta content=\'(.*?)\' property=\'twitter:title\'>/mi', $html, $matches);
+
+            $doc = new \DOMDocument();
+            libxml_use_internal_errors(true);
+            $doc->loadHTML($html);
+            libxml_use_internal_errors(false);
+
+
+            $metas = $doc->getElementsByTagName('meta');
+
+            foreach($metas as $m) {
+                $ats = $m->attributes;
+                if(($ats->getNamedItem('property')->value ?? '') == 'twitter:title') {
+                    $h1 = $ats->getNamedItem('content')->value;
+                    break;
+                }
+                
+            }
+
+
+            $a->name = $h1;
             $a->save();
 
          }
