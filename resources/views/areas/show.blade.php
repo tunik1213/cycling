@@ -1,10 +1,3 @@
-@php
-    $top = new App\Models\Top;
-    $top->limit = 4;
-    $top->area = $area;
-    $topUsers = $top->users();
-@endphp
-
 @extends('layout')
 @section('content')
 
@@ -49,6 +42,6 @@
     </div>
 
     <div class="row">
-        @include('user.top',['users'=>$topUsers, 'area'=>$area])
+        @include('user.top',['userList'=>$topUsers])
     </div>
 @endsection

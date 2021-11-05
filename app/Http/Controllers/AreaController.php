@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Area;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Models\UserList;
 
 class AreaController extends Controller
 {
@@ -66,9 +67,15 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Area $area)
+    public function show(Request $request, Area $area)
     {
-        return view('areas.show',compact('area'));
+        $topUsers = new UserList($request);
+        $topUsers->limit = 4;
+        $topUsers->area = $area;
+        return view('areas.show',[
+            'area'=>$area,
+            'topUsers'=>$topUsers
+        ]);
     }
 
     /**

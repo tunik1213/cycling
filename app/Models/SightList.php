@@ -26,12 +26,22 @@ class SightList extends ListModel
         $sights = DB::table('sights as s')
             ->join('visits as v','v.sight_id','=','s.id')
             ->join('activities as a','a.id','=','v.act_id')
+            ->join('users as u','u.id','=','a.user_id')
+            ->join('districts as d','d.id','=','s.district_id')
             ->selectRaw('s.id,count(v.id) as count')
             ->groupBy('s.id')
             ->having('count','>',0)
             ->orderByRaw('count desc,s.name');
+
         if(!empty($this->user))
             $sights = $sights->where('a.user_id',$this->user->id);
+
+        if(!empty($this->district)) {
+            $sights = $sights->where('d.id',$this->district->id);
+        }
+        if(!empty($this->area)) {
+            $sights = $sights->where('d.area_id',$this->area->id);
+        }
 
         if(empty($this->limit)) {
             $sights = $sights->paginate(12);

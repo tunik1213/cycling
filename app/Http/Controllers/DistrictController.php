@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Area;
 use App\Models\District;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Models\UserList;
 
 class DistrictController extends Controller
 {
@@ -68,9 +69,15 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(District $district)
+    public function show(Request $request, District $district)
     {
-        return view('districts.show',compact('district'));
+        $topUsers = new UserList($request);
+        $topUsers->limit = 4;
+        $topUsers->district = $district;
+        return view('districts.show',[
+            'district'=>$district,
+            'topUsers'=>$topUsers
+        ]);
     }
 
     /**
