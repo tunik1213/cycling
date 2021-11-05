@@ -57,13 +57,7 @@ class UserController extends Controller
         $users = User::orderBy('created_at')
             ->paginate(24);
 
-        $collection = $users->getCollection();
-        foreach($collection as &$u) {
-            $u->dopInformation = $u->registeredAt;
-        }
-        $users->setCollection($collection);
-
-        return view('user.index',['users'=>$users]);
+        return view('user.adminIndex',['users'=>$users]);
 
     }
 

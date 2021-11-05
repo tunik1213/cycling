@@ -1,7 +1,3 @@
-@php
-    
-@endphp
-
 @extends('layout')
 @section('content')
 
@@ -13,8 +9,4 @@
 
     @include('user.list_partial',['userList'=>$userList])
 
-@endsection
-
-
-@section('javascript')
 @endsection
