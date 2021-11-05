@@ -7,6 +7,7 @@ use App\Models\Area;
 use App\Models\District;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\UserList;
+use App\Models\SightList;
 
 class DistrictController extends Controller
 {
@@ -74,9 +75,15 @@ class DistrictController extends Controller
         $topUsers = new UserList($request);
         $topUsers->limit = 4;
         $topUsers->district = $district;
+
+        $topSights = new SightList($request);
+        $topSights->limit = 4;
+        $topSights->district = $district;
+
         return view('districts.show',[
             'district'=>$district,
-            'topUsers'=>$topUsers
+            'topUsers'=>$topUsers,
+            'topSights'=>$topSights,
         ]);
     }
 

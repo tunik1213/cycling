@@ -18,11 +18,20 @@ class ListModel
 
     public function __construct(Request $request)
     {
-        $district = District::find($request->input('district')) ?? null;
-        if($district) $this->district = $district;
+        $this->district = null;
+        if($request->input('district')) {
+            $district = District::find($request->input('district')) ?? null;
+            if($district) $this->district = $district;
+        }
 
-        $area = Area::find($request->input('area')) ?? null;
-        if($area) $this->area = $area;
+        $this->area = null;
+        if($request->input('area')) {
+            $area = Area::find($request->input('area')) ?? null;
+            if($area) $this->area = $area;
+        }
+
+        $this->user = null;
+        $this->sight = null;
     }
 
     public function filters($arr=[])

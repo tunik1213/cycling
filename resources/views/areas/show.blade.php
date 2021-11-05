@@ -13,17 +13,9 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Назва:</strong>
-                {{ $area->name }}
-            </div>
-        </div>
 
         <div class="col-sm-6 col-xs-12">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <strong>Герб:</strong>
-            </div>
+
             <img src="{{ route('areas.image',$area->id) }}" alt="Герб {{$area->name}} область"/>
             
         </div>
@@ -41,7 +33,14 @@
 
     </div>
 
+    <br />
+
+    <div class="row">
+        @include('sights.top',['sightList'=>$topSights])
+    </div>
+
     <div class="row">
         @include('user.top',['userList'=>$topUsers])
     </div>
+
 @endsection

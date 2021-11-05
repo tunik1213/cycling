@@ -20,41 +20,15 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Назва:</strong>
-                {{ $district->name }}
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Область:</strong>
-                <a href="{{ route('areas.show',$district->area->id) }}">{{ $district->area->name }}</a>
-            </div>
-        </div>
 
         <div class="col-sm-6 col-xs-12">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-            <strong>Герб:</strong>
-            </div>
             <img src="{{ route('districts.image',$district->id) }}" alt="Герб {{$district->name}} район"/>
-
         </div>
 
-        <div class="col-sm-6 col-xs-12">
-            <strong>Пам'ятки:</strong>
-            <div class="list-group">
-            @foreach($district->sights as $s)
-            <a href="{{ route('sights.show',$s->id) }}" class="list-group-item list-group-item-action">
-                {{$s->name}}
-            </a>
-            @endforeach
-            </div>
-        </div>
-
-
-
+    </div>
+    <br/>
+    <div class="row">
+        @include('sights.top',['sightList'=>$topSights])
     </div>
 
     <div class="row">

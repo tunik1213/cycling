@@ -16,8 +16,10 @@ class SightList extends ListModel
     {
         parent::__construct($request);
 
-        $user = User::find($request->input('user')) ?? null;
-        if($user) $this->user = $user;
+        if($request->input('user')) {
+            $user = User::find($request->input('user')) ?? null;
+            if($user) $this->user = $user;
+        }
 
     }
 

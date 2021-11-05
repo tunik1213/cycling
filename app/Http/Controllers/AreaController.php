@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Area;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\UserList;
+use App\Models\SightList;
 
 class AreaController extends Controller
 {
@@ -72,9 +73,15 @@ class AreaController extends Controller
         $topUsers = new UserList($request);
         $topUsers->limit = 4;
         $topUsers->area = $area;
+
+        $topSights = new SightList($request);
+        $topSights->limit = 4;
+        $topSights->area = $area;
+
         return view('areas.show',[
             'area'=>$area,
-            'topUsers'=>$topUsers
+            'topUsers'=>$topUsers,
+            'topSights'=>$topSights,
         ]);
     }
 
