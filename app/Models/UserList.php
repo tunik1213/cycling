@@ -17,7 +17,7 @@ class UserList extends ListModel
         parent::__construct($request);
 
         $sight = Sight::find($request->input('sight')) ?? null;
-        if($sight) $list->sight = $sight;
+        if($sight) $this->sight = $sight;
 
     }
 
