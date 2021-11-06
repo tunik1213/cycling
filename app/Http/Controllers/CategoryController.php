@@ -15,7 +15,7 @@ class CategoryController extends Controller
         if ($cat == null) abort(404);
 
         $sights = new SightList($request);
-        $sights->Category = $cat;
+        $sights->category = $cat;
 
         return view('sight_categories.show',[
             'category' => $cat,
