@@ -49,16 +49,16 @@ class SightList extends ListModel
 
     }
 
-    public function index()
+    private function query()
     {
         $sights = DB::table('sights as s')
-            ->join('visits as v','v.sight_id','=','s.id')
-            ->join('activities as a','a.id','=','v.act_id')
-            ->join('users as u','u.id','=','a.user_id')
-            ->join('districts as d','d.id','=','s.district_id')
+            ->leftjoin('visits as v','v.sight_id','=','s.id')
+            ->leftjoin('activities as a','a.id','=','v.act_id')
+            ->leftjoin('users as u','u.id','=','a.user_id')
+            ->leftjoin('districts as d','d.id','=','s.district_id')
             ->selectRaw('s.id,count(v.id) as count')
             ->groupBy('s.id')
-            ->having('count','>',0)
+            //->having('count','>',0)
             ->orderByRaw('count desc,s.name');
 
         if(!empty($this->user))
@@ -80,8 +80,21 @@ class SightList extends ListModel
             $sights = $sights->where('s.user_id',$this->author->id);
         }
 
+        return $sights;
+    }
+
+    public function isNotEmpty()
+    {
+        $result = $this->query()->limit(1)->first();
+        return (!empty($result));
+    }
+
+    public function index()
+    {
+        $sights = $this->query();
+
         if(empty($this->limit)) {
-            $sights = $sights->paginate(12)->appends($this->request->query());
+            $sights = $sights->paginate(24)->appends($this->request->query());
         } else {
             $sights = $sights->limit($this->limit)->get();
             $sights = new \Illuminate\Pagination\LengthAwarePaginator($sights,$this->limit,$this->limit);

@@ -7,8 +7,10 @@
 		@include('sights.top',['topSights'=>$topSightsVisited])
 	</div>
 
+	@if($topSightsAuthor->isNotEmpty())
 	<div class="row">
 		@include('sights.top',['topSights'=>$topSightsAuthor])
 	</div>
+	@endif
 
 @endsection
