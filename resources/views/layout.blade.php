@@ -48,7 +48,7 @@
             @else
             <div class="dropdown">
                 <div class="btn dropdown-toggle" id="userMenu" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="user-avatar" src="{{route('userAvatar')}}" />
+                    <img class="user-avatar" src="data:image/jpeg;base64,{{base64_encode($user->avatar)}}" />
                     {{ $user->firstname }}
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">

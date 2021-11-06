@@ -57,6 +57,11 @@ table {
   padding: 0.5rem 0;
 }
 
+.page-title {
+  display: flex;
+  align-items: baseline;
+}
+
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
