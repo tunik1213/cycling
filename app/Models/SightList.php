@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\ListModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\SightCategory;
+use App\Models\SightSubCategory;
 
 class SightList extends ListModel
 {
     use HasFactory;
+
+    public SightCategory $category;
+    public SightSubCategory $subcategory;
 
     public function __construct(Request $request)
     {
@@ -19,6 +24,18 @@ class SightList extends ListModel
         if($request->input('user')) {
             $user = User::find($request->input('user')) ?? null;
             if($user) $this->user = $user;
+        }
+
+        $category = null;
+        if($request->input('category')) {
+            $category = Category::find($request->input('category')) ?? null;
+            if($category) $this->category = $category;
+        }
+
+        $subcategory = null;
+        if($request->input('subcategory')) {
+            $subcategory = SubCategory::find($request->input('subcategory')) ?? null;
+            if($subcategory) $this->subcategory = $subcategory;
         }
 
     }
@@ -43,6 +60,12 @@ class SightList extends ListModel
         }
         if(!empty($this->area)) {
             $sights = $sights->where('d.area_id',$this->area->id);
+        }
+        if(!empty($this->category)) {
+            $sights = $sights->where('s.category_id',$this->category->id);
+        }
+        if(!empty($this->subcategory)) {
+            $sights = $sights->where('s.sub_category_id',$this->subcategory->id);
         }
 
         if(empty($this->limit)) {

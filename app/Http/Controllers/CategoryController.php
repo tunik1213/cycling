@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SightCategory as Category;
 use App\Models\SightSubCategory as SubCategory;
+use App\Models\SightList;
 
 class CategoryController extends Controller
 {
-    public function show(int $id)
+    public function show(Request $request, int $id)
     {
         $cat = Category::find($id);
         if ($cat == null) abort(404);
 
-        return view('sight_categories.show',['category'=>$cat]);
+        $sights = new SightList($request);
+        $sights->Category = $cat;
+
+        return view('sight_categories.show',[
+            'category' => $cat,
+            'sightList'=> $sights
+        ]);
     }
     public function exportSubCategories(Request $request)
     {
