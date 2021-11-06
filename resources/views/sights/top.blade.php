@@ -4,12 +4,15 @@
 	if(!empty($user)) {
 		$itsMe = ($user->id == Auth::user()->id);
 		if ($itsMe) $loading = !$user->allSightsVerified();
-	}	
+	}
+
+	$wich = (empty($topSights->author)? 'вiдвiданих' : 'створених') . ' ';
+	$title = 'Топ '.$wich.'пам\'яток'	
 @endphp
 
 <div id="top-sights-visited">
 	<div class="container info-block">
-	<h2 class="info-block-header">Топ вiдвiданих визначних мiсць</h2>
+	<h2 class="info-block-header">{{$title}}</h2>
 	<div class="info-block-body">
 		@include('sights.list_partial',['sightList'=>$topSights])
 	</div>

@@ -10,6 +10,8 @@ class ListModel
 {
     use HasFactory;
 
+    protected Request $request; 
+
     public ?int $limit;
     public ?User $user;
     public ?Sight $sight;
@@ -18,6 +20,8 @@ class ListModel
 
     public function __construct(Request $request)
     {
+        $this->request = $request;
+
         $this->district = null;
         if($request->input('district')) {
             $district = District::find($request->input('district')) ?? null;

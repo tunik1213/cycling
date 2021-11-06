@@ -48,7 +48,7 @@ class UserList extends ListModel
         }
 
         if(empty($this->limit)) {
-            $users = $users->paginate(24);
+            $users = $users->paginate(24)->appends($this->request->query());
         } else {
             $users = $users->limit($this->limit)->get();
             $users = new \Illuminate\Pagination\LengthAwarePaginator($users,$this->limit,$this->limit);

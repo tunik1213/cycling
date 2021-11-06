@@ -9,13 +9,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\SightCategory;
 use App\Models\SightSubCategory;
+use App\Models\User;
 
 class SightList extends ListModel
 {
     use HasFactory;
 
-    public SightCategory $category;
-    public SightSubCategory $subcategory;
+    public ?SightCategory $category;
+    public ?SightSubCategory $subcategory;
+    public ?User $author;
 
     public function __construct(Request $request)
     {
@@ -26,17 +28,24 @@ class SightList extends ListModel
             if($user) $this->user = $user;
         }
 
-        $category = null;
+        $this->category = null;
         if($request->input('category')) {
             $category = Category::find($request->input('category')) ?? null;
             if($category) $this->category = $category;
         }
 
-        $subcategory = null;
+        $this->subcategory = null;
         if($request->input('subcategory')) {
             $subcategory = SubCategory::find($request->input('subcategory')) ?? null;
             if($subcategory) $this->subcategory = $subcategory;
         }
+
+        $this->author = null;
+        if($request->input('author')) {
+            $author = User::find($request->input('author')) ?? null;
+            if($author) $this->author = $author;
+        }
+
 
     }
 
@@ -67,9 +76,12 @@ class SightList extends ListModel
         if(!empty($this->subcategory)) {
             $sights = $sights->where('s.sub_category_id',$this->subcategory->id);
         }
+        if(!empty($this->author)) {
+            $sights = $sights->where('s.user_id',$this->author->id);
+        }
 
         if(empty($this->limit)) {
-            $sights = $sights->paginate(12);
+            $sights = $sights->paginate(12)->appends($this->request->query());
         } else {
             $sights = $sights->limit($this->limit)->get();
             $sights = new \Illuminate\Pagination\LengthAwarePaginator($sights,$this->limit,$this->limit);
@@ -86,8 +98,31 @@ class SightList extends ListModel
         return $sights;
     }
 
-    public function title()
+    public function title(bool $links=true) : string
     {
+        if(!empty($this->user)) {
+            return 'Список пам\'яток, якi вiдвiда'
+                .$this->user->gender('в','ла').' '
+                .(($links) ? $this->user->link : $this->user->fullname);
+        }
+
+        if(!empty($this->author)) {
+            return 'Список пам\'яток, якi створи'
+                .$this->author->gender('в','ла').' '
+                .(($links) ? $this->author->link : $this->author->fullname);
+        }
+
         return 'Список пам\'яток';
+    }
+
+    public function filters($arr=[])
+    {
+        $result = parent::filters($arr);
+
+        if (!empty($this->category)) $result['category'] = $this->category->id;
+        if (!empty($this->subcategory)) $result['subcategory'] = $this->subcategory->id;
+        if (!empty($this->author)) $result['author'] = $this->author->id;
+
+        return $result;
     }
 }

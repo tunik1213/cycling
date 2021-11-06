@@ -41,13 +41,18 @@ class UserController extends Controller
     {
         $user = ($id==null) ? Auth::user() : User::find($id);
 
-        $topSights = new SightList($request);
-        $topSights->user = $user;
-        $topSights->limit = 4;
+        $topSightsVisited = new SightList($request);
+        $topSightsVisited->user = $user;
+        $topSightsVisited->limit = 4;
+
+        $topSightsAuthor = new SightList($request);
+        $topSightsAuthor->author = $user;
+        $topSightsAuthor->limit = 4;
 
         return view('user.profile',[
             'user'=>$user,
-            'topSights'=>$topSights
+            'topSightsVisited'=>$topSightsVisited,
+            'topSightsAuthor'=>$topSightsAuthor
         ]);
 
     }
