@@ -46,9 +46,8 @@ table {
 	color: $font-color-title-secondary;
 	padding: 0.5rem 0;
 }
-.page-title {
-	  display: flex;
-    align-items: baseline;
+.page-title img {
+	  max-width: 100%;
 }
 
 /* Custom page CSS

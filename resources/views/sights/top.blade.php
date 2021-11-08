@@ -2,7 +2,7 @@
 	$user = $topSights->user;
 	$loading = false; $itsMe = false;
 	if(!empty($user)) {
-		$itsMe = ($user->id == Auth::user()->id);
+		$itsMe = ($user->id == (Auth::user()->id ?? null));
 		if ($itsMe) $loading = !$user->allSightsVerified();
 	}
 
