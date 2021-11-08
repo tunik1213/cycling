@@ -48,7 +48,6 @@ Route::get('/home', [UserController::class, 'home'])->name('home');
 Route::get('/user/getAvatarImage/{id?}', [UserController::class, 'getAvatarImage'])->name('userAvatar');
 Route::get('/user/list', [UserController::class, 'list'])->name('users.list');
 Route::get('/user/{id?}', [UserController::class, 'profile'])->name('userProfile');
-Route::get('/user/{id}/sights', [UserController::class, 'sightsVisited'])->name('userSights');
 Route::get('/sights/list', [SightController::class, 'list'])->name('sights.list');
 
 Route::get('/activities', [ActivityController::class, 'list'])->name('activities');
