@@ -9,6 +9,11 @@
 			<div class="col col-lg-9">
 				<h1>{{$user->fullname}}</h1>
 				{{$user->stravaLink}}
+				@php($act_count = $user->activities->count())
+				@if($act_count>0)
+					<br/>
+					<a class="link-secondary" href="{{route('activities',['user'=>$user->id])}}">{{$act_count}} заїздів</a>
+				@endif
 			</div>
 		</div>
 	</div>

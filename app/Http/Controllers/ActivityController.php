@@ -14,7 +14,7 @@ class ActivityController extends Controller
         $sight_id = $request->input('sight');
         $user_id = $request->input('user');
 
-        $acts = Activity::join('visits','visits.act_id','=','activities.id')
+        $acts = Activity::leftJoin('visits','visits.act_id','=','activities.id')
             ->when($sight_id, function ($query, $sight_id) {
                 return $query->where('visits.sight_id', $sight_id);
             })
@@ -22,6 +22,8 @@ class ActivityController extends Controller
                 return $query->where('activities.user_id', $user_id);
             })
             ->orderBy('activities.start_date','desc')
+            ->select('activities.*')
+            ->distinct()
             ->paginate(40)
             ->appends(request()->query());
 
