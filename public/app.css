@@ -59,6 +59,8 @@ table {
 
 .page-title img {
   max-width: 100%;
+  border-radius: 50%;
+  margin-bottom: 1rem;
 }
 
 /* Custom page CSS
