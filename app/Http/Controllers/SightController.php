@@ -282,6 +282,7 @@ class SightController extends Controller
     public function show(Request $request,Sight $sight)
     {
         $topUsers = new UserList($request);
+        $topUsers->limit = 4;
         $topUsers->sight = $sight;
 
         return view('sights.show',[
