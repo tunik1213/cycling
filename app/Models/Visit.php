@@ -35,7 +35,7 @@ class Visit extends Model
             array_push($pairedPoly,['lat'=>$poly[$i],'lng'=>$poly[$i+1]]);
         }
 
-        $match = \GeometryLibrary\PolyUtil::isLocationOnPath($point,$pairedPoly,$tolerance = 25);
+        $match = \GeometryLibrary\PolyUtil::isLocationOnPath($point,$pairedPoly,$tolerance = 25,$geodesic = false);
 
         if ($match) {
             Visit::create([
