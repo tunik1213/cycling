@@ -32,11 +32,10 @@ class Visit extends Model
         $poly = \Polyline::decode($act->summary_polyline);
         $pairedPoly = [];
         for ($i=0;$i<(count($poly));$i=$i+2) {
-            // внимание! здесь намерено перепутаны местами широта и долгота, т.к. только в этом случае либа работает правильно
-            array_push($pairedPoly,['lat'=>$poly[$i+1],'lng'=>$poly[$i]]);
+            array_push($pairedPoly,['lat'=>$poly[$i],'lng'=>$poly[$i+1]]);
         }
 
-        $match = \GeometryLibrary\PolyUtil::isLocationOnPath($point,$pairedPoly,$tolerance = 10);
+        $match = \GeometryLibrary\PolyUtil::isLocationOnPath($point,$pairedPoly,$tolerance = 25);
 
         if ($match) {
             Visit::create([
