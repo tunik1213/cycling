@@ -21,8 +21,13 @@ class Visit extends Model
     // и если да - то проставляет им соответствие 
     public static function searchInvites(Activity $act, Sight $sight) : void 
     {
-        $point['lng'] = $sight->lat;
-        $point['lat'] = $sight->lng;
+        $v = Visit::where('act_id',$act->id)
+            ->where('sight_id',$sight->id)
+            ->first();
+        if($v != null) return;
+
+        $point['lat'] = $sight->lat;
+        $point['lng'] = $sight->lng;
 
         $poly = \Polyline::decode($act->summary_polyline);
         $pairedPoly = [];
