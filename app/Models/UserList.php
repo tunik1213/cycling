@@ -29,6 +29,7 @@ class UserList extends ListModel
             ->join('activities as a','a.id','=','v.act_id')
             ->join('sights as s','s.id','=','v.sight_id')
             ->join('districts as d','d.id','=','s.district_id')
+            ->join('users as u','u.id','=','a.user_id')
             ->selectRaw('a.user_id as id')
             ->groupBy('a.user_id')
             ->orderByRaw('2 desc');
