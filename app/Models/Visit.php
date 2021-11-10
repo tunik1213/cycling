@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Sight;
 use App\Models\Activity;
+use Illuminate\Support\Facades\DB;
 
 class Visit extends Model
 {
@@ -43,5 +44,20 @@ class Visit extends Model
                 'sight_id'=> $sight->id
             ]);
         }
+    }
+
+    public static function removeDuplicates()
+    {
+        $res = DB::select('select act_id,sight_id,count(*) as count
+from visits
+group by act_id,sight_id
+having count(*) > 1');
+        
+        foreach($res as $r) {
+            $q = 'delete from visits where act_id = '.$r->act_id.' and sight_id = '.$r->sight_id.' limit '.($r->count-1).';';
+            echo $q.'<br/>';
+            DB::statement($q);
+        }
+
     }
 }

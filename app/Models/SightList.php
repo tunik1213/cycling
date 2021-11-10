@@ -79,7 +79,7 @@ class SightList extends ListModel
         if(!empty($this->author)) {
             $sights = $sights->where('s.user_id',$this->author->id);
         }
-
+        
         return $sights;
     }
 
