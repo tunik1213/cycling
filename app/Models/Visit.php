@@ -17,6 +17,20 @@ class Visit extends Model
         'sight_id'
     ];
     
+    public static function checkInvite(Activity $act, Sight $sight) : bool
+    {
+        $point['lat'] = $sight->lat;
+        $point['lng'] = $sight->lng;
+
+        $poly = \Polyline::decode($act->summary_polyline);
+        $pairedPoly = [];
+        for ($i=0;$i<(count($poly));$i=$i+2) {
+            array_push($pairedPoly,['lat'=>$poly[$i],'lng'=>$poly[$i+1]]);
+        }
+
+        return \GeometryLibrary\PolyUtil::isLocationOnPath($point,$pairedPoly,$tolerance = 25,$geodesic = false);
+
+    }
 
     // проверяет расположены ли координаты $sight на маршруте $act
     // и если да - то проставляет им соответствие 
@@ -27,16 +41,7 @@ class Visit extends Model
             ->first();
         if($v != null) return;
 
-        $point['lat'] = $sight->lat;
-        $point['lng'] = $sight->lng;
-
-        $poly = \Polyline::decode($act->summary_polyline);
-        $pairedPoly = [];
-        for ($i=0;$i<(count($poly));$i=$i+2) {
-            array_push($pairedPoly,['lat'=>$poly[$i],'lng'=>$poly[$i+1]]);
-        }
-
-        $match = \GeometryLibrary\PolyUtil::isLocationOnPath($point,$pairedPoly,$tolerance = 25,$geodesic = false);
+        $match = Self::checkInvite($act, $sight);
 
         if ($match) {
             Visit::create([

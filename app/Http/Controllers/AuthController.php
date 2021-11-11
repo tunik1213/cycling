@@ -33,8 +33,6 @@ class AuthController extends Controller
 
         Auth::login($user, $remember = env('APP_DEBUG'));
 
-        //CheckInvites::dispatchAfterResponse();
-
         return redirect('/');
     }
 

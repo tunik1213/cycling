@@ -268,8 +268,6 @@ class SightController extends Controller
             'sub_category_id' => $request->subcategory ?? null
         ]);
 
-        //CheckInvites::dispatchAfterResponse();
-
         return redirect()->route('sights.show',['sight'=>$s])->with('success','Пам\'ятка успiшно створена.');
     }
 
@@ -344,6 +342,8 @@ class SightController extends Controller
         $sight->category_id = $request->category;
         $sight->sub_category_id = $request->subcategory ?? null;
         $sight->save();
+
+        CheckInvites::dispatchAfterResponse($sight);
 
         return redirect()->route('sights.show',['sight'=>$sight])->with('success','Пам\'ятку успiшно змiнено');
     }
