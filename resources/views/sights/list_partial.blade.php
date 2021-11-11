@@ -5,7 +5,7 @@
 <div class="row">
 
     @foreach ($sights as $s)
-    <div class="card" style="width: 18rem;">
+    <div class="card sight-card" style="width: 18rem;">
         <img src="data:image/jpeg;base64,{{base64_encode($s->image)}}"/>
         <div class="card-body">
             <div class="row">

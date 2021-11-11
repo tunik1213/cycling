@@ -128,8 +128,10 @@ a.navbar-brand {
   max-width: 6rem;
 }
 
-.card img {
+.sight-card img {
   max-height: 20rem;
+  min-height: 10rem;
+  border: 1px solid lightgray;
 }
 
 .user-card .card-title {

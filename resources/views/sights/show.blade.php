@@ -10,7 +10,11 @@
 
 <div class="row">
     <div class="col-sm-4 col-xs-12">
-        <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->image)}}" alt="Фото {{$sight->name}}">
+        @if(!empty($sight->image))
+            <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->image)}}" alt="Фото {{$sight->name}}">
+        @else
+            <span>Фото вiдсутнє</span>
+        @endif
     </div>
 
     <div class="col-xl-4 col-sm-8 col-xs-12">
