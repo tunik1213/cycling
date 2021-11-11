@@ -80,12 +80,16 @@
                 <div class="col">
                     <input type="text" id="longitude" name="lng" value="{{ old('lng') }}" class="form-control" placeholder="Довгота" autocomplete="off">
                 </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Фото:</strong>
-                    <input type="file" name="sight_image" id="sight_image" class="form-control">
+                <div class="col-12">
+                    <strong>Радiус, м</strong>
+                    <input type="number" id="radius" name="radius" value="{{ old('radius') ?? 25 }}" class="form-control" placeholder="Радiус" autocomplete="off">
                 </div>
+
+                <div class="col-12">
+                    <div class="form-group">
+                        <strong>Фото:</strong>
+                        <input type="file" name="sight_image" id="sight_image" class="form-control">
+                    </div>
                 </div>
 
             </div>

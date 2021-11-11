@@ -265,7 +265,8 @@ class SightController extends Controller
             'description' => $descr,
             'user_id' => Auth::user()->id,
             'category_id' => (int)$request->category,
-            'sub_category_id' => $request->subcategory ?? null
+            'sub_category_id' => $request->subcategory ?? null,
+            'radius' => $request->radius
         ]);
 
         return redirect()->route('sights.show',['sight'=>$s])->with('success','Пам\'ятка успiшно створена.');
@@ -341,6 +342,7 @@ class SightController extends Controller
         $sight->district_id = $request->district_id;
         $sight->category_id = $request->category;
         $sight->sub_category_id = $request->subcategory ?? null;
+        $sight->radius = $request->radius;
         $sight->save();
 
         CheckInvites::dispatchAfterResponse($sight);

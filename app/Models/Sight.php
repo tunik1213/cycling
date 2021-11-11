@@ -25,7 +25,8 @@ class Sight extends Model
         'district_id',
         'map_image',
         'category_id',
-        'sub_category_id'
+        'sub_category_id',
+        'radius'
     ];
 
     //public int $visitsCount;

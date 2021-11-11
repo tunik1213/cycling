@@ -28,7 +28,7 @@ class Visit extends Model
             array_push($pairedPoly,['lat'=>$poly[$i],'lng'=>$poly[$i+1]]);
         }
 
-        return \GeometryLibrary\PolyUtil::isLocationOnPath($point,$pairedPoly,$tolerance = 25,$geodesic = false);
+        return \GeometryLibrary\PolyUtil::isLocationOnPath($point,$pairedPoly,$tolerance = $sight->radius,$geodesic = false);
 
     }
 

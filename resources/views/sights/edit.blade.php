@@ -80,6 +80,10 @@
                 <div class="col">
                     <input type="text" id="longitude" name="lng" value="{{ $sight->lng }}" class="form-control" placeholder="Довгота" autocomplete="off">
                 </div>
+                <div class="col-12">
+                    <strong>Радiус, м</strong>
+                    <input type="number" id="radius" name="radius" value="{{ $sight->radius }}" class="form-control" placeholder="Радiус" autocomplete="off">
+                </div>
 
                 <div class="form-group">
                     <strong>Знiнити фото:</strong>
