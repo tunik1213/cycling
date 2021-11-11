@@ -4,8 +4,10 @@
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script type="text/javascript">
     $(function() {
-
         window.onbeforeunload = function(e){return true;}
+        $(document).on("submit", "form", function(event){
+            window.onbeforeunload = null;
+        });
 
         var districts = [
             @foreach($districts as $d)
