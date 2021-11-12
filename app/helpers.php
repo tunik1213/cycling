@@ -27,3 +27,21 @@ function url_is_internal(string $url) : bool
 
     return false;
 }
+function nouns_declension($num, $str_one, $str_two, $str_five)
+{
+    $num = $num%100;
+    if ($num >= 5 && $num <= 20) {
+        return $str_five;
+    }
+
+    $num = $num%10;
+    if ($num == 1) {
+        return $str_one;
+    }
+
+    if ($num >= 2 && $num <= 4){
+        return $str_two;
+    }
+
+    return $str_five;
+}

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\Sight;
+use App\Models\User;
 
 class ActivityList extends ListModel
 {
@@ -21,6 +22,10 @@ class ActivityList extends ListModel
         if($request->input('sight')){
             $sight = Sight::find($request->input('sight')) ?? null;
             if($sight) $this->sight = $sight;
+        }
+        if($request->input('user')){
+            $user = User::find($request->input('user')) ?? null;
+            if($user) $this->user = $user;
         }
 
     }

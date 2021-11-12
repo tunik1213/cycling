@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Sight;
+use App\Models\User;
 
 class Activity extends Model
 {
@@ -18,17 +19,14 @@ class Activity extends Model
         'name'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function sights()
     {
         //return $this->belongsToMany(Sight::class);
-    }
-
-    public function getDisplayNameAttribute()
-    {
-        $name = (empty($this->name)) ? 'Заїзд' : $this->name;
-        $dt = \Carbon\Carbon::createFromTimeStamp(strtotime($this->start_date))->locale('uk_UK')->diffForHumans();
-
-        return $name.' '.$dt;
     }
 
 }

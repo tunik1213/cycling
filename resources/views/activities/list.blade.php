@@ -17,11 +17,9 @@
 
     <div class="list-group">
     @foreach ($activities as $a)
-    <div class="row">
 
         @include('activities.link',['activity'=>$a,'class'=>'list-group-item list-group-item-action'])
 
-    </div>
     @endforeach
     </div>
 

@@ -105,11 +105,11 @@ a.navbar-brand{
 	max-height: 3rem;
 	max-width: 3rem;
   padding: 0;
-  margin: 0 0 1rem 0;
 }
 .card .user-avatar {
 	max-height: 6rem;
 	max-width: 6rem;
+	margin: 0 0 1rem 0;
 }
 .sight-card img {
 	max-height: 20rem;
@@ -225,6 +225,10 @@ a.navbar-brand{
 		display: flex;
     align-items: center;
 }
+.badge {
+	border-radius: 10rem;
+	background-color: $background-header;
+}
 
 /* sight */
 img.sight-image {
@@ -240,6 +244,13 @@ div.card {
 		box-shadow: 0 15px 10px -15px rgb(0 0 0 / 30%);
 		padding: 1rem;
     margin: 0.5rem;
+}
+
+/* activity */
+.activity-link-user-img {
+	padding-right: 1rem;
+	display: flex;
+  align-items: center;
 }
 
 
