@@ -2,10 +2,9 @@
     $sights = $sightList->index();
 @endphp
 
-<div class="row">
-
-    @foreach ($sights as $s)
-    <div class="card sight-card" style="width: 18rem;">
+@foreach ($sights as $s)
+<div class="card-container">
+    <div class="card sight-card">
         <img src="data:image/jpeg;base64,{{base64_encode($s->image)}}"/>
         <div class="card-body">
             <div class="row">
@@ -19,8 +18,8 @@
             @endif
         </div>
     </div>
-    @endforeach
-
 </div>
+@endforeach
+
 
 {{ $sights->links('vendor.pagination.bootstrap-4') }}

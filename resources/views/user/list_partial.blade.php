@@ -1,8 +1,8 @@
-<div class="row">
-    @php($users = $userList->index())
+@php($users = $userList->index())
 
-        @foreach ($users as $u)
-        <div class="card user-card" style="width: 18rem;">
+    @foreach ($users as $u)
+    <div class="card-container">
+        <div class="card user-card">
             <div class="card-title d-flex justify-content-center">
                 <img class="user-avatar" src="data:image/jpeg;base64,{{base64_encode($u->avatar)}}"/>
                 {{$u->link}}
@@ -24,9 +24,9 @@
             </div>
           </div>
         </div>
-        @endforeach
-
     </div>
+@endforeach
+
 
 {{ $users->links('vendor.pagination.bootstrap-4') }}
 

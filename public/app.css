@@ -283,6 +283,11 @@ div.card {
   box-shadow: 0 15px 10px -15px rgba(0, 0, 0, 0.3);
   padding: 1rem;
   margin: 0.5rem;
+  height: 95%;
+}
+
+div.card-container {
+  width: 25%;
 }
 
 /* activity */
@@ -292,6 +297,11 @@ div.card {
   align-items: center;
 }
 
+@media screen and (max-width: 1024px) {
+  div.card-container {
+    width: 50%;
+  }
+}
 @media screen and (max-width: 767px) {
   ul#footer-links {
     flex-direction: column;
@@ -299,6 +309,11 @@ div.card {
 
   body {
     margin-bottom: 12rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  div.card-container {
+    width: 100%;
   }
 }
 

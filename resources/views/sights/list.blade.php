@@ -6,9 +6,14 @@
 
 @section('content')
 
-    <h1>{!! $sightList->title() !!}</h1>
+    <div class="container info-block">
+        <h1>{!! $sightList->title() !!}</h1>
 
-    @include('sights.list_partial') 
+        <div class="info-block-body">
+    
+            @include('sights.list_partial') 
+        </div>
+    </div>
 
 @endsection
 
