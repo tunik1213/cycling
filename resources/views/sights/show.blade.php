@@ -27,7 +27,9 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">{{ $sight->district->area->link }}</li>
                     <li class="breadcrumb-item"><a href="{{ route('districts.show',$sight->district->id) }}">{{ $sight->district->name }} район</a></li>
-                    {{-- <li class="breadcrumb-item active" aria-current="page">{{ $sight->name }}</li> --}}
+                    @if(!empty($sight->locality))
+                        <li class="breadcrumb-item active" aria-current="page">{{ $sight->locality }}</li>
+                    @endif
                 </ol>
             </nav>
         @endif
