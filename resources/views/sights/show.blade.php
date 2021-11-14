@@ -33,7 +33,7 @@
         @endif
 
         <div id="sight-author">
-            <strong>Автор:</strong>
+            <strong>Додав:</strong>
             @if($sight->user)
                 <a href="{{route('userProfile',$sight->user->id)}}">{{ $sight->user->fullname }}</a>
             @else
