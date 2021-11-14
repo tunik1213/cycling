@@ -64,6 +64,8 @@ class SightController extends Controller
 
     public function importKML()
     {
+        // TODO locality
+
         $parser = Parser::fromFile('/var/www/html/cycling/tmp/sights.kml');
         
         $kml = $parser->getKml();
@@ -266,7 +268,8 @@ class SightController extends Controller
             'user_id' => Auth::user()->id,
             'category_id' => (int)$request->category,
             'sub_category_id' => $request->subcategory ?? null,
-            'radius' => $request->radius
+            'radius' => $request->radius,
+            'locality' => $request->locality ?? null
         ]);
 
         return redirect()->route('sights.show',['sight'=>$s])->with('success','Пам\'ятка успiшно створена.');
@@ -343,6 +346,7 @@ class SightController extends Controller
         $sight->category_id = $request->category;
         $sight->sub_category_id = $request->subcategory ?? null;
         $sight->radius = $request->radius;
+        $sight->locality = $request->locality ?? null;
         $sight->save();
 
         CheckInvites::dispatchAfterResponse($sight);

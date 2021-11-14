@@ -68,6 +68,11 @@
             <input name="district_id" id="district_id" type="hidden" value="{{ $sight->district->id ?? '' }}" />
 
             <div class="form-group">
+                <strong>Населений пункт (необов'язково):</strong>
+                <input type="text" name="locality" class="form-control" placeholder="{{$sight->locality}}" value="{{ $sight->locality }}" autocomplete="off">
+            </div>
+
+            <div class="form-group">
                 <strong>Назва:</strong>
                 <input type="text" name="name" class="form-control" placeholder="{{$sight->name}}" value="{{ $sight->name }}" autocomplete="off">
             </div>
