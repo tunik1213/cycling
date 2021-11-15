@@ -37,7 +37,9 @@ class Sight extends Model
         parent::boot();
 
         static::saving(function($sight) {            
-            $sight->map_image = $sight->map_image();
+            if ($sight->isDirty('lat') || $sight->isDirty('lng')) {
+                $sight->map_image = $sight->map_image();
+            }
         });
 
     }
