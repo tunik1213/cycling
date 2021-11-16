@@ -6,9 +6,9 @@
         <div class="pull-left">
             <h2>Редагувати пам'ятку</h2>
         </div>
-        <div class="pull-right">
+{{--         <div class="pull-right">
             <a href="{{ route('sights.index') }}">← Назад</a>
-        </div>
+        </div> --}}
     </div>
 </div>
 
@@ -33,6 +33,24 @@
     @method('PUT')
 
     <div id="map"></div>
+
+    <div class="form-group row">
+        <div class="col col-9">
+            <strong>Координати (Ctrl+V):</strong>
+            <div class="row">
+                <div class="col col-6">
+                    <input type="text" id="lat" name="lat" value="{{$sight->lat }}" class="form-control" placeholder="Широта" autocomplete="off">
+                </div>
+                <div class="col col-6">
+                    <input type="text" id="lng" name="lng" value="{{$sight->lng }}" class="form-control" placeholder="Довгота" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <div class="col col-3">
+            <strong>Радiус, м</strong>
+            <input type="number" id="radius" name="radius" value="{{ old('radius') ?? 25 }}" class="form-control" placeholder="Радiус" autocomplete="off">
+        </div>
+    </div>
 
     <div class="row">
 
@@ -80,18 +98,6 @@
             </div>
 
             <div class="form-group row">
-                <strong>Координати (Ctrl+V):</strong>
-                <div class="col">
-                    <input type="text" id="lat" name="lat" value="{{ $sight->lat }}" class="form-control" placeholder="Широта" autocomplete="off">
-                </div>
-                <div class="col">
-                    <input type="text" id="lng" name="lng" value="{{ $sight->lng }}" class="form-control" placeholder="Довгота" autocomplete="off">
-                </div>
-                <div class="col-12">
-                    <strong>Радiус, м</strong>
-                    <input type="number" id="radius" name="radius" value="{{ $sight->radius }}" class="form-control" placeholder="Радiус" autocomplete="off">
-                </div>
-
                 <div class="form-group">
                     <strong>Знiнити фото:</strong>
                     <input type="file" name="sight_image" id="sight_image" class="form-control">
