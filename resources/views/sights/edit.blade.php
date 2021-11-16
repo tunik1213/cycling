@@ -32,6 +32,7 @@
     @csrf
     @method('PUT')
 
+    <strong>Вкажiть точку на картi або введiть координати нижче вручну</strong>
     <div id="map"></div>
 
     <div class="form-group row">
