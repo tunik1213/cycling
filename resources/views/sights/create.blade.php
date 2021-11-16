@@ -6,9 +6,9 @@
         <div class="pull-left">
             <h2>Додати нову пам'ятку</h2>
         </div>
-        <div class="pull-right">
+{{--         <div class="pull-right">
             <a href="{{ route('sights.index') }}">← Назад</a>
-        </div>
+        </div> --}}
     </div>
 </div>
 
@@ -30,6 +30,27 @@
 
 <form action="{{ route('sights.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
+
+    <strong>Вкажiть точку на картi або введiть координати нижче вручну</strong>
+    <div id="map"></div>
+
+    <div class="form-group row">
+        <div class="col col-9">
+            <strong>Координати (Ctrl+V):</strong>
+            <div class="row">
+                <div class="col col-6">
+                    <input type="text" id="lat" name="lat" value="{{ old('lat') }}" class="form-control" placeholder="Широта" autocomplete="off">
+                </div>
+                <div class="col col-6">
+                    <input type="text" id="lng" name="lng" value="{{ old('lng') }}" class="form-control" placeholder="Довгота" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <div class="col col-3">
+            <strong>Радiус, м</strong>
+            <input type="number" id="radius" name="radius" value="{{ old('radius') ?? 25 }}" class="form-control" placeholder="Радiус" autocomplete="off">
+        </div>
+    </div>
 
     <div class="row">
 
@@ -77,18 +98,7 @@
                 <input type="text" name="name" class="form-control" placeholder="наприклад, Пейзажна алея" value="{{ old('name') }}" autocomplete="off">
             </div>
 
-            <div class="form-group row">
-                <strong>Координати (Ctrl+V):</strong>
-                <div class="col">
-                    <input type="text" id="latitude" name="lat" value="{{ old('lat') }}" class="form-control" placeholder="Широта" autocomplete="off">
-                </div>
-                <div class="col">
-                    <input type="text" id="longitude" name="lng" value="{{ old('lng') }}" class="form-control" placeholder="Довгота" autocomplete="off">
-                </div>
-                <div class="col-12">
-                    <strong>Радiус, м</strong>
-                    <input type="number" id="radius" name="radius" value="{{ old('radius') ?? 25 }}" class="form-control" placeholder="Радiус" autocomplete="off">
-                </div>
+            <div class="form-group">
 
                 <div class="col-12">
                     <div class="form-group">

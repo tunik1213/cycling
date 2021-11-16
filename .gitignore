@@ -16,3 +16,4 @@ yarn-error.log
 app/Http/Controllers/TestController.php
 /tmp
 composer.phar
+resources/views/test.blade.php

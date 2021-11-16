@@ -32,6 +32,8 @@
     @csrf
     @method('PUT')
 
+    <div id="map"></div>
+
     <div class="row">
 
         <div class="col-xs-12 col-sm-12 col-md-6">
@@ -80,10 +82,10 @@
             <div class="form-group row">
                 <strong>Координати (Ctrl+V):</strong>
                 <div class="col">
-                    <input type="text" id="latitude" name="lat" value="{{ $sight->lat }}" class="form-control" placeholder="Широта" autocomplete="off">
+                    <input type="text" id="lat" name="lat" value="{{ $sight->lat }}" class="form-control" placeholder="Широта" autocomplete="off">
                 </div>
                 <div class="col">
-                    <input type="text" id="longitude" name="lng" value="{{ $sight->lng }}" class="form-control" placeholder="Довгота" autocomplete="off">
+                    <input type="text" id="lng" name="lng" value="{{ $sight->lng }}" class="form-control" placeholder="Довгота" autocomplete="off">
                 </div>
                 <div class="col-12">
                     <strong>Радiус, м</strong>
