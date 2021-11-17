@@ -362,10 +362,15 @@ class SightController extends Controller
      */
     public function destroy(int $id)
     {
-         Sight::find($id)->delete();
+        DB::beginTransaction();
 
-         return redirect()->route('sights.index')
-                       ->with('success','Пам\'ятку успiшно видалено');
+        DB::statement('delete from visits where sight_id = ?',[$id]);
+        Sight::find($id)->delete();
+        
+        DB::commit();
+
+        return redirect()->route('sights.index')
+           ->with('success','Пам\'ятку успiшно видалено');
     }
 
     public function getImage(int $id)
