@@ -249,7 +249,7 @@ class SightController extends Controller
         if ($request->sight_image) {
             $imagePath = $request->sight_image->path();
             $image = Image::make($imagePath)
-                ->fit(300)
+                ->fit(500)
                 ->encode('jpg', 75);
         } else {
             $image = null;
@@ -335,7 +335,7 @@ class SightController extends Controller
         $sight->name = $request->name;
         if ($request->sight_image) {
             $sight->image = Image::make($request->sight_image->path())
-                ->fit(300)
+                ->fit(500)
                 ->encode('jpg', 75);
         }
         $sight->approx_location = Sight::getApprox($request->lat,$request->lng);

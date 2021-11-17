@@ -46,7 +46,7 @@
 
 
     function fillEditorContent(e) {
-        this.setContent(`{!! str_replace('`','\'',$sight->description) ?? '' !!}`);
+        this.setContent(`{!! str_replace('`','\'',$sight->description ?? '' ) !!}`);
     }
 
     $('select#category').change(function(e){
