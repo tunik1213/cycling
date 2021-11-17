@@ -12,6 +12,8 @@
     </div>
 </div>
 
+<div id="response-container">
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -23,10 +25,10 @@
 @endif
 
     @if ($message = Session::get('error'))
-        <div class="alert alert-warning">
-            <p>{!! $message !!}</p>
-        </div>
+        {!! $message !!}
     @endif
+
+</div>
 
 <form action="{{ route('sights.store') }}" method="POST" enctype="multipart/form-data">
     @csrf

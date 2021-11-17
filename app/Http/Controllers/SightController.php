@@ -237,13 +237,13 @@ class SightController extends Controller
             'category' => 'required|integer|min:1'
         ]);
 
-        $approx = Sight::getApprox($request->lat,$request->lng);
-        $found = Sight::where('approx_location',$approx)->first();
-
-        if ($found != null) {
-            $error_text = 'Пам\'ятка з такими координамати iснує<br/>
-            <a href="'.route('sights.show',$found->id).'">'.$found->name.'</a>';
-            return redirect()->route('sights.create')->with('error',$error_text);
+        $found = $this->_find($request->lat,$request->lng);
+        if($found != null) {
+            $error_text = view('sights.exists',['sight'=>$found])->render();
+            return redirect()
+                ->route('sights.create')
+                ->with('error',$error_text)
+                ->withInput();
         }
 
         if ($request->sight_image) {
@@ -321,15 +321,13 @@ class SightController extends Controller
             'category' => 'required|integer|min:1'
         ]);
 
-        $approx = Sight::getApprox($request->lat,$request->lng);
-        $found = Sight::where('approx_location',$approx)
-            ->where('id','<>',$id)
-            ->first();
-
-        if ($found != null) {
-            $error_text = 'Пам\'ятка з такими координамати iснує<br/>
-            <a href="'.route('sights.show',$found->id).'">'.$found->name.'</a>';
-            return redirect()->route('sights.edit',$id)->with('error',$error_text);
+        $found = $this->_find($request->lat,$request->lng,$id);
+        if($found != null) {
+            $error_text = view('sights.exists',['sight'=>$found])->render();
+            return redirect()
+                ->route('sights.edit',$id)
+                ->with('error',$error_text)
+                ->withInput();
         }
 
         $sight = Sight::find($id);
@@ -385,5 +383,21 @@ class SightController extends Controller
         return view('sights.list',[
             'sightList'=>$list
         ]);
+    }
+
+    public function find(Request $request, $lat, $lng) 
+    {
+        $found = $this->_find($lat,$lng,$request->sight ?? null);
+        if($found!=null) return view('sights.exists',['sight'=>$found]);
+        return null;
+    }
+
+    private function _find($lat,$lng,$sight_id=null) : ?Sight
+    {
+        $approx = Sight::getApprox($lat,$lng);
+        $found = Sight::where('approx_location',$approx);
+        if(!empty($sight_id)) $found = $found->where('id','<>',$sight_id);
+            
+        return $found->first();
     }
 }

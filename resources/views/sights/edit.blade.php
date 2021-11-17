@@ -12,6 +12,8 @@
     </div>
 </div>
 
+<div id="response-container">
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -23,10 +25,10 @@
 @endif
 
     @if ($message = Session::get('error'))
-        <div class="alert alert-warning">
-            <p>{!! $message !!}</p>
-        </div>
+        {!! $message !!}
     @endif
+
+</div>
 
 <form action="{{ route('sights.update',$sight->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
@@ -40,10 +42,10 @@
             <strong>Координати (Ctrl+V):</strong>
             <div class="row">
                 <div class="col col-6">
-                    <input type="text" id="lat" name="lat" value="{{$sight->lat }}" class="form-control" placeholder="Широта" autocomplete="off">
+                    <input type="text" id="lat" name="lat" value="{{ old('lat') ?? $sight->lat }}" class="form-control" placeholder="Широта" autocomplete="off">
                 </div>
                 <div class="col col-6">
-                    <input type="text" id="lng" name="lng" value="{{$sight->lng }}" class="form-control" placeholder="Довгота" autocomplete="off">
+                    <input type="text" id="lng" name="lng" value="{{ old('lng') ?? $sight->lng }}" class="form-control" placeholder="Довгота" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -90,12 +92,12 @@
 
             <div class="form-group">
                 <strong>Населений пункт (необов'язково):</strong>
-                <input type="text" name="locality" class="form-control" placeholder="{{$sight->locality}}" value="{{ $sight->locality }}" autocomplete="off">
+                <input type="text" name="locality" class="form-control" placeholder="{{ old('locality') ?? $sight->locality}}" value="{{ $sight->locality }}" autocomplete="off">
             </div>
 
             <div class="form-group">
                 <strong>Назва:</strong>
-                <input type="text" name="name" class="form-control" placeholder="{{$sight->name}}" value="{{ $sight->name }}" autocomplete="off">
+                <input type="text" name="name" class="form-control" placeholder="{{$sight->name}}" value="{{ old('name') ??  $sight->name }}" autocomplete="off">
             </div>
 
             <div class="form-group row">
@@ -109,7 +111,7 @@
         <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <label for="description">Опис:</label>
-                <textarea class="form-control" name="description" id="description" rows="3">{{$sight->description}}</textarea>
+                <textarea class="form-control" name="description" id="description" rows="3">{{ old('description') ?? $sight->description}}</textarea>
             </div>
         </div>
         

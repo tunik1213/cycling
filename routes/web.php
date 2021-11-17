@@ -69,6 +69,7 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
+Route::get('/sights/find/{lat},{lng}',[SightController::class, 'find'])->name('findSight');
 
 
 Route::get('/export/subcategories',[CategoryController::class, 'exportSubCategories']);

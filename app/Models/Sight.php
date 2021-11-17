@@ -30,6 +30,11 @@ class Sight extends Model
         'locality'
     ];
 
+    protected $hidden = [
+        'image',
+        'map_image'
+    ];
+
     //public int $visitsCount;
 
     public static function boot() {

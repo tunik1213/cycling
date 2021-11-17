@@ -36,12 +36,12 @@
         }
     });
 
-    $('#latitude').on('paste', function(e){
+    $('#lat').on('paste', function(e){
         e.preventDefault();
         cl_text = e.originalEvent.clipboardData.getData('text');
         coords = cl_text.split(',');
-        $('#latitude').val(coords[0].trim());
-        $('#longitude').val(coords[1].trim());
+        $('#lat').val(coords[0].trim());
+        $('#lng').val(coords[1].trim());
     });
 
 
@@ -93,6 +93,12 @@
         var updateCoordinates = function (lat, lng) {
           document.getElementById('lat').value = lat;
           document.getElementById('lng').value = lng;
+
+          $.get( "/sights/find/"+lat+','+lng, { sight: {{$sight->id ?? 'null'}} } )
+            .done(function( data ) {
+                $('#response-container').html(data);
+                $('button[type=submit]').prop('disabled', Boolean(data));
+            });
         }
 
         var initMap = function () {
