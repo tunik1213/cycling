@@ -40,6 +40,8 @@ class UserController extends Controller
     public function profile(Request $request, ?int $id=null)
     {
         $user = ($id==null) ? Auth::user() : User::find($id);
+        if(!$user) return redirect(route('login'));
+        
 
         $topSightsVisited = new SightList($request);
         $topSightsVisited->user = $user;
