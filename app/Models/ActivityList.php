@@ -36,6 +36,7 @@ class ActivityList extends ListModel
         $query = DB::table('activities as a')
             ->leftjoin('visits as v','v.act_id','=','a.id')
             ->selectRaw('a.id as id,count(v.id) as count')
+            ->selectRaw('(select count(*) from visits where act_id=a.id) as sight_count')
             ->groupBy('a.id')
             ->orderBy('a.start_date','desc');
 
@@ -53,6 +54,7 @@ class ActivityList extends ListModel
         foreach($collection as &$entry) {
             $a = Activity::find($entry->id);
             $a->count = $entry->count;
+            $a->sight_count = $entry->sight_count;
             $entry = $a;
         }
         $query->setCollection(collect($collection));
