@@ -147,6 +147,9 @@ a.navbar-brand{
 .font-color-strava {
 	color: $strava-color;
 }
+a.font-color-strava {
+	font-size: small;
+}
 .login-strava-btn {
 	border: 1px solid $strava-color;
 	font-size: 1.5rem;
