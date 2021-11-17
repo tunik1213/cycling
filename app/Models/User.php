@@ -74,6 +74,7 @@ class User extends Authenticatable
                 $activity = Activity::where('strava_id',$a->id)->first();
                 if ($activity != null) continue;
                 if (empty($a->map->summary_polyline)) continue;
+                if ($a->type != 'Ride') continue;
 
                 $activity = Activity::create([
                     'user_id' => $this->id,
