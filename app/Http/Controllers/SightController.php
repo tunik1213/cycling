@@ -256,6 +256,7 @@ class SightController extends Controller
         }
 
         $descr = prepare_external_links($request->description);
+        $approx = Sight::getApprox($request->lat,$request->lng);
 
         $s = Sight::create([
             'district_id' => (int)$request->district_id,
@@ -337,6 +338,7 @@ class SightController extends Controller
                 ->fit(300)
                 ->encode('jpg', 75);
         }
+        $sight->approx_location = Sight::getApprox($request->lat,$request->lng);
         $sight->lat = $request->lat;
         $sight->lng = $request->lng;
         $sight->description = prepare_external_links($request->description);
