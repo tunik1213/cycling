@@ -48,7 +48,18 @@
         </p>
 
         @if(Auth::user()->moderator ?? false)
-            <a class="btn btn-primary" href="{{ route('sights.edit',$sight->id) }}"><i class="fas fa-edit"></i> Редагувати</a>
+        <div class="row sight-buttons">
+            <div class="col">
+                <a class="btn btn-primary" href="{{ route('sights.edit',$sight->id) }}"><i class="fas fa-edit"></i> Редагувати</a>
+            </div>
+            <div class="col">
+                <form action="{{ route('sights.destroy',$sight->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Видалити</button>
+                </form>
+            </div>
+        </div>
         @endif
     </div>
 

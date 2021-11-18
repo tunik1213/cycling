@@ -72,6 +72,15 @@ img.in-container {
   max-height: 100%;
 }
 
+.sight-buttons {
+  padding-bottom: 1rem;
+  align-items: stretch;
+}
+
+.sight-buttons a, .sight-buttons button {
+  width: 100%;
+}
+
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
