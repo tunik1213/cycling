@@ -118,10 +118,14 @@ class SightController extends Controller
                     .env('GOOGLE_MAPS_SERVICE_KEY')
                 ));
 
-                $area='';$district='';
+               // dd($google_data->results);
+
+
+                $area='';$district='';$locality='';
                 foreach($google_data->results as $r) {
                     foreach($r->address_components as $a) {
                         foreach($a->types as $t) {
+                            if($t == 'locality') $locality = $a->short_name;
                             if($t == 'administrative_area_level_2') $district = $a->short_name;
                             if($t == 'administrative_area_level_1') $area = $a->short_name;
                         }
@@ -170,9 +174,10 @@ class SightController extends Controller
                             'lng' => $lng,
                             'approx_location' => $approx,
                             'description' => $descr,
-                            'user_id' => 0,
+                            'user_id' => 27,
                             'category_id' => 4,
-                            'sub_category_id' => 72
+                            'sub_category_id' => 72,
+                            'locality' => $locality
                         ]);
 
                 echo 'created '.$s->id;
