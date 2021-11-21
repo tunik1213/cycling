@@ -33,7 +33,8 @@ class AuthController extends Controller
 
         Auth::login($user, $remember = env('APP_DEBUG'));
 
-        return redirect('/');
+        $url = $request->session()->pull('redirect_uri', '/');
+        return redirect($url);
     }
 
     private function findOrCreateUser($athlete) : User 
