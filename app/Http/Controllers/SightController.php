@@ -19,7 +19,7 @@ class SightController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['show','index','getImage']);
+        $this->middleware('auth')->except(['show','getImage','list']);
         $this->middleware('moderator')->only(['destroy','edit','update']);
     }
 
