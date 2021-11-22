@@ -71,7 +71,7 @@
         </a>
     </div>
 
-    <div class="row">
+    <div class="container">
         @include('user.top',['userList'=>$topUsers])
     </div>
 
