@@ -225,6 +225,17 @@ class SightController extends Controller
         return view('sights.create');
     }
 
+    public function messages()
+    {
+        return [
+            'name.required' => 'Уведiть назву пам\'ятки!',
+            'district_id.required' => 'Вкажiть район!',
+            'lng.required' => 'Не вказано довготу!',
+            'lat.required' => 'Не вказано широту!',
+            'category.*' => 'Виберiть категорiю!'
+        ];
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -240,7 +251,7 @@ class SightController extends Controller
             'lat' => 'required',
             'lng' => 'required',
             'category' => 'required|integer|min:1'
-        ]);
+        ], $this->messages());
 
         $found = $this->_find($request->lat,$request->lng);
         if($found != null) {
@@ -325,7 +336,7 @@ class SightController extends Controller
             'lat' => 'required',
             'lng' => 'required',
             'category' => 'required|integer|min:1'
-        ]);
+        ], $this->messages());
 
         $found = $this->_find($request->lat,$request->lng,$id);
         if($found != null) {

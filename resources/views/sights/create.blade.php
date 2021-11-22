@@ -77,7 +77,7 @@
             </div>
 
             <div class="form-group">
-                <strong>Пiдкатегорiя:</strong>
+                <strong>Пiдкатегорiя (необов'язково):</strong>
                 <select disabled id="subcategory" name="subcategory" class="form-select" aria-label="Пiдкатегорiя">
                     <option selected value="0">Виберiть пiдкатегорiю</option>
                 </select>
