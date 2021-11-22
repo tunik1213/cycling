@@ -15,6 +15,8 @@ class ActivityList extends ListModel
 {
     use HasFactory;
 
+    public ?Activity $activity;
+
     public function __construct(Request $request)
     {
         parent::__construct($request);
@@ -27,7 +29,10 @@ class ActivityList extends ListModel
             $user = User::find($request->input('user')) ?? null;
             if($user) $this->user = $user;
         }
-
+        if($request->input('activity')){
+            $activity = Activity::find($request->input('activity')) ?? null;
+            if($activity) $this->activity = $activity;
+        }
     }
 
     public function index()
@@ -45,6 +50,9 @@ class ActivityList extends ListModel
         }
         if(!empty($this->user)) {
             $query = $query->where('a.user_id', $this->user->id);
+        }
+        if(!empty($this->activity)) {
+            $query = $query->where('a.id', $this->activity->id);
         }
         $query = $query
             ->paginate(40)

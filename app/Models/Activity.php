@@ -24,9 +24,4 @@ class Activity extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function sights()
-    {
-        //return $this->belongsToMany(Sight::class);
-    }
-
 }

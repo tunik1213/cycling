@@ -3,7 +3,7 @@
 
 	<div class="container page-title">
 		<div class="row">
-			<div class="col col-3 col-lg-2">
+			<div class="col col-3 col-lg-2 col-xl-1">
 				<img src="data:image/jpeg;base64,{{base64_encode($user->avatar)}}" />
 			</div>
 			<div class="col col-lg-9">

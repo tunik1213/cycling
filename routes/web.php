@@ -51,6 +51,7 @@ Route::get('/user/{id?}', [UserController::class, 'profile'])->name('userProfile
 Route::get('/sights/list', [SightController::class, 'list'])->name('sights.list');
 
 Route::get('/activities', [ActivityController::class, 'list'])->name('activities');
+Route::get('/activity/{id}', [ActivityController::class, 'show'])->name('activity');
 
 
 Route::resource('areas', AreaController::class);

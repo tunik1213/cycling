@@ -9,12 +9,10 @@
 	</div>
 	<div class="activity-link-text">
 		<div class="activity-link-title">
-			<a rel="nofollow" target="_blank" href="https://www.strava.com/activities/{{$activity->strava_id}}">
-				{{$name}}
-			</a>
+			<a href="{{route('activity',$activity->id)}}">{{$name}}</a>
 			@if($activity->sight_count > 0)
 				@php($text = (string)$activity->sight_count . ' ' . nouns_declension($activity->sight_count,'пам\'ятка вiдвiдана','пам\'ятки вiдвiданi','пам\'яток вiдвiдано'))
-				<span title="{{$text}}" class="badge">{{$activity->sight_count}}</span>
+				&nbsp;<span title="{{$text}}" class="badge">{{$activity->sight_count}}</span>
 			@endif
 		</div>
 		<div class="activity-link-body">

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\SightCategory as Category;
 use App\Models\SightSubCategory as SubCategory;
 use App\Models\User;
+use App\Models\Activity;
 
 class SightList extends ListModel
 {
@@ -18,6 +19,7 @@ class SightList extends ListModel
     public ?SightCategory $category;
     public ?SightSubCategory $subcategory;
     public ?User $author;
+    public ?Activity $activity;
 
     public function __construct(Request $request)
     {
@@ -44,6 +46,12 @@ class SightList extends ListModel
         if($request->input('author')) {
             $author = User::find($request->input('author')) ?? null;
             if($author) $this->author = $author;
+        }
+
+        $this->activity = null;
+        if($request->input('activity')) {
+            $activity = Activity::find($request->input('activity')) ?? null;
+            if($activity) $this->activity = $activity;
         }
 
 
@@ -78,6 +86,10 @@ class SightList extends ListModel
         }
         if(!empty($this->author)) {
             $sights = $sights->where('s.user_id',$this->author->id);
+        }
+
+        if(!empty($this->activity)) {
+            $sights = $sights->where('a.id',$this->activity->id);
         }
         
         return $sights;
@@ -125,6 +137,10 @@ class SightList extends ListModel
                 .(($links) ? $this->author->link : $this->author->fullname);
         }
 
+        if(!empty($this->activity)) {
+            return 'Вiдвiданi пам\'ятки';
+        }
+
         return 'Список пам\'яток';
     }
 
@@ -135,6 +151,7 @@ class SightList extends ListModel
         if (!empty($this->category)) $result['category'] = $this->category->id;
         if (!empty($this->subcategory)) $result['subcategory'] = $this->subcategory->id;
         if (!empty($this->author)) $result['author'] = $this->author->id;
+        if (!empty($this->activity)) $result['activity'] = $this->activity->id;
 
         return $result;
     }
