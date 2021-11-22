@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\ListModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\SightCategory;
-use App\Models\SightSubCategory;
+use App\Models\SightCategory as Category;
+use App\Models\SightSubCategory as SubCategory;
 use App\Models\User;
 
 class SightList extends ListModel
