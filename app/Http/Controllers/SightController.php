@@ -111,58 +111,58 @@ class SightController extends Controller
                 }
 
 
-$district_id = 19;
-$locality = 'Черкаси';
-               //  $google_data = json_decode(file_get_contents(
-               //      'https://maps.google.com/maps/api/geocode/json?latlng='
-               //      .$lat.','.$lng
-               //      .'&sensor=false&language=uk&key='
-               //      .env('GOOGLE_MAPS_SERVICE_KEY')
-               //  ));
+//$district_id = 19;
+//$locality = 'Черкаси';
+                $google_data = json_decode(file_get_contents(
+                    'https://maps.google.com/maps/api/geocode/json?latlng='
+                    .$lat.','.$lng
+                    .'&sensor=false&language=uk&key='
+                    .env('GOOGLE_MAPS_SERVICE_KEY')
+                ));
 
-               // // dd($google_data->results);
-
-
-               //  $area='';$district='';$locality='';
-               //  foreach($google_data->results as $r) {
-               //      foreach($r->address_components as $a) {
-               //          foreach($a->types as $t) {
-               //              if($t == 'locality') $locality = $a->short_name;
-               //              if($t == 'administrative_area_level_2') $district = $a->short_name;
-               //              if($t == 'administrative_area_level_1') $area = $a->short_name;
-               //          }
-               //      }
-               //  }
+               // dd($google_data->results);
 
 
-               //  $district = trim(str_replace('район','',$district));
-               //  if (empty($district)) {
-               //      echo 'empty district<br/>';
-               //      continue;
-               //  }
-               //  $district_id = District::where('name',$district)->first()->id ?? null;
-               //  if($district_id==null) {
-               //      $area = trim(str_replace('область','',$area));
-               //      $area_id = Area::where('name',$area)->first()->id ?? null;
-               //      if($area_id == null) {
-               //          if($area=='Київська обл.' || $area == 'місто Київ') {
-               //              $area_id = 33;
-               //              $district_id = 126;
-               //          } else {
-               //              echo'area does not exist: '.$area.'<br />';
-               //              continue;
-               //          }
-               //      }
+                $area='';$district='';$locality='';
+                foreach($google_data->results as $r) {
+                    foreach($r->address_components as $a) {
+                        foreach($a->types as $t) {
+                            if($t == 'locality') $locality = $a->short_name;
+                            if($t == 'administrative_area_level_2') $district = $a->short_name;
+                            if($t == 'administrative_area_level_1') $area = $a->short_name;
+                        }
+                    }
+                }
 
-               //      if (empty($district_id)) {
-               //          echo 'creating district: '.$district.'<br />';
-               //          $new_district = District::create([
-               //              'area_id'=>$area_id,
-               //              'name'=>$district
-               //          ]);
-               //          $district_id = $new_district->id;
-               //      }
-               //  }
+
+                $district = trim(str_replace('район','',$district));
+                if (empty($district)) {
+                    echo 'empty district<br/>';
+                    continue;
+                }
+                $district_id = District::where('name',$district)->first()->id ?? null;
+                if($district_id==null) {
+                    $area = trim(str_replace('область','',$area));
+                    $area_id = Area::where('name',$area)->first()->id ?? null;
+                    if($area_id == null) {
+                        if($area=='Київська обл.' || $area == 'місто Київ') {
+                            $area_id = 33;
+                            $district_id = 126;
+                        } else {
+                            echo'area does not exist: '.$area.'<br />';
+                            continue;
+                        }
+                    }
+
+                    if (empty($district_id)) {
+                        echo 'creating district: '.$district.'<br />';
+                        $new_district = District::create([
+                            'area_id'=>$area_id,
+                            'name'=>$district
+                        ]);
+                        $district_id = $new_district->id;
+                    }
+                }
 
                 $image = Image::make($img_path)
                     ->fit(300)
@@ -177,8 +177,8 @@ $locality = 'Черкаси';
                             'approx_location' => $approx,
                             'description' => $descr,
                             'user_id' => 0,
-                            'category_id' => 3,
-                            'sub_category_id' => null,
+                            'category_id' => 4,
+                            'sub_category_id' => 69,
                             'locality' => $locality
                         ]);
 
