@@ -65,10 +65,15 @@ class SightList extends ListModel
             ->leftjoin('users as u','u.id','=','a.user_id')
             ->leftjoin('districts as d','d.id','=','s.district_id')
             ->selectRaw('s.id,count(v.id) as count')
-            ->groupBy('s.id')
-            //->having('count','>',0)
-            ->orderByRaw('count desc,s.name');
+            ->groupBy('s.id');
+            
+        if(empty($this->activity)) {
+            $sights = $sights->orderByRaw('count desc,s.name');
+        } else {
+            $sights = $sights->orderByRaw('v.id');
+        }
 
+            
         if(!empty($this->user))
             $sights = $sights->where('a.user_id',$this->user->id);
 
