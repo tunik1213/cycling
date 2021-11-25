@@ -59,7 +59,8 @@ img.in-container {
     max-height: 100%;
 }
 .sight-buttons {
-	padding-bottom: 1rem;
+	    padding: 2rem 0;
+    max-width: 30rem;
 	align-items: stretch;
 }
 .sight-buttons a, .sight-buttons button {
@@ -271,9 +272,18 @@ div.card-container {
   align-items: center;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 992px) {
+	.mobile {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 992px) {
 	div.card-container {
 	  width: 50%;
+	}
+	.desktop {
+		display: none;
 	}
 }
 

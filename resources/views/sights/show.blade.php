@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('head')
+    <title>{{env('APP_NAME')}}: {{$sight->name}}</title>
+@endsection
+
 @section('content')
 
 @if (Session::get('success'))
@@ -9,15 +14,21 @@
 @endif
 
 <div class="row">
-    <div class="col-sm-4 col-xs-12">
+    <div class="col-lg-4 col-12">
         @if(!empty($sight->image))
             <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->image)}}" alt="Фото {{$sight->name}}">
         @else
             <span>Фото вiдсутнє</span>
         @endif
+
+        <div class="desktop">
+            <a href="{{$sight->gm_link()}}" target="_blank" rel="nofollow">
+            <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->map_image)}}" alt="Мапа {{$sight->name}}"> 
+            </a>
+        </div>
     </div>
 
-    <div class="col-xl-4 col-sm-8 col-xs-12">
+    <div class="col-lg-8 col-xs-12">
         <h2>{{ $sight->name }}</h2>
 
         {{$sight->categoryLink}}
@@ -65,11 +76,13 @@
 
 
 
-    <div class="col-xl-4 col-md-12">
+    <div class="col-lg-4 col-12 mobile">
         <a href="{{$sight->gm_link()}}" target="_blank" rel="nofollow">
             <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->map_image)}}" alt="Мапа {{$sight->name}}"> 
         </a>
     </div>
+
+
 
     <div class="container">
         @include('user.top',['userList'=>$topUsers])
