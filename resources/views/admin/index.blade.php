@@ -9,6 +9,7 @@
 		<li><a href="{{route('districts.index')}}">Райони</a></li>
 		<li><a href="{{route('sights.index')}}">Пам'ятки</a></li>
 		<li><a href="{{route('users.index')}}">Люди</a></li>
+		<li><a href="{{route('subcategories.index')}}">Пiдкатегорiї</a></li>
 	</ul>
 
 @endsection

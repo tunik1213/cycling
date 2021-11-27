@@ -11,6 +11,7 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\MainController;
 
 /*
@@ -74,3 +75,7 @@ Route::get('/sights/find/{lat},{lng}',[SightController::class, 'find'])->name('f
 
 
 Route::get('/export/subcategories',[CategoryController::class, 'exportSubCategories']);
+
+
+
+Route::resource('subcategories', SubCategoryController::class);

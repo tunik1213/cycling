@@ -24,7 +24,7 @@ class CategoryController extends Controller
     }
     public function exportSubCategories(Request $request)
     {
-        $result = SubCategory::where('category',$request->input('id'))
+        $result = SubCategory::where('category_id',$request->input('id'))
             ->select(['id','name'])
             ->orderBy('name')
             ->get();
