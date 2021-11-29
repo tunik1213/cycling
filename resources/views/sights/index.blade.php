@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Список пам'яток</h2>
+                <h2>Адмiнiстратор: список пам'яток</h2>
             </div>
 
             <div class="pull-right">
@@ -38,11 +38,13 @@
 
     <table class="table table-bordered">
         <tr>
+            <th></th>
             <th>Назва</th>
             <th>Фото</th>
         </tr>
         @foreach ($sights as $s)
         <tr>
+            <td><input type="checkbox" sight="{{$s->id}}"></td>
             <td>
                 <a href="{{ route('sights.show',$s->id) }}">{{ $s->name }}</a>
                 <div class="row">
@@ -58,19 +60,59 @@
             </td>
             <td><img src="data:image/jpeg;base64,{{base64_encode($s->image)}}" /></td>
             <td width="1">
-                <a class="btn btn-primary" href="{{ route('sights.edit',$s->id) }}"><i class="fas fa-edit"></i></a>
-            </td>
-            <td width="1">
-                <form action="{{ route('sights.destroy',$s->id) }}" method="POST">
-   
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                </form>
+                <div class="container">
+                    <div class="row">
+                        <a class="btn btn-primary" href="{{ route('sights.edit',$s->id) }}"><i class="fas fa-edit"></i></a>
+                    </div>
+                    <form action="{{ route('sights.destroy',$s->id) }}" method="POST">
+                        <br />
+                    <div class="row">       
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach
     </table>
+
+    <div id="mass-edit-form" style="border: 1px solid gray; padding: 1rem;">
+        <h2>Змiнити вiдмiченi</h2>
+
+        <div class="form-group">
+            <strong>Категорiя:</strong>
+            <select id="category" name="category" class="form-select" aria-label="Категорiя">
+                @if(empty($sight->category))
+                    <option selected value="0">Виберiть категорiю</option>
+                @endif
+
+                @foreach(\App\Models\SightCategory::all() as $cat)
+                    @php
+                        $selected = ($cat->id == ($sight->category->id ?? null)) ? 'selected' : '';
+                    @endphp
+                    <option {{$selected}} value="{{$cat->id}}">
+                       {{$cat->name}}
+                    </option>
+
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <strong>Пiдкатегорiя:</strong>
+            <select disabled id="subcategory" name="subcategory" class="form-select" aria-label="Пiдкатегорiя">
+            </select>
+        </div>
+
+        <br />
+
+        <button id="mass-save" type="submit">Зберегти</button>
+
+    </div>
+
+    <br />
 
     {{ $sights->links('vendor.pagination.bootstrap-4') }}
 
@@ -100,6 +142,45 @@
         });
             
         
+
+    $('select#category').change(function(e){
+        var id = $(this).find(":selected").attr('value');
+        $.ajax({
+            url: "/export/subcategories",
+            data:"id="+id ,
+            success: function(data){
+                var s = $('select#subcategory');
+                s.removeAttr('disabled').find('option').remove();
+
+                s.append('<option value="">Виберіть підкатегорію</option>');
+                $.each(data,function(i,cat) {
+                    s.append('<option value="'+cat.id+'">'+cat.name+'</option>');
+                });
+                s.append('<option value="0">Інше (Важко відповісти)</option>');
+            }
+        });
+    });
+
+
+    $('#mass-save').click(function(e) {
+        var sights = [];
+        $('input[type=checkbox]:checked').each(function(i, obj) {
+            sights.push($(obj).attr('sight'));
+        });
+        var data = new Object();
+        data['sights'] = sights;
+        data['category'] = $('select#category').find(":selected").attr('value');
+        data['subcategory'] = $('select#subcategory').find(":selected").attr('value');
+
+        $.ajax({
+            url: '/sights/massUpdate',
+            data: data,
+            type: 'post',
+            async: false
+        });
+        location.reload();
+    });
+
 
     });
 </script>

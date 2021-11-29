@@ -4,7 +4,7 @@
 @endphp
 
 @if($type=='css')
-    <link href="{{ asset('build/20211125193017.css') }}{{$gz}}" rel="stylesheet">
+    <link href="{{ asset('build/20211129154055.css') }}{{$gz}}" rel="stylesheet">
 @elseif($type=='js')
-    <script src="{{ asset('build/20211125193017.js') }}{{$gz}}"></script>
+    <script src="{{ asset('build/20211129154055.js') }}{{$gz}}"></script>
 @endif

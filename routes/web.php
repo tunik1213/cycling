@@ -50,6 +50,7 @@ Route::get('/user/getAvatarImage/{id?}', [UserController::class, 'getAvatarImage
 Route::get('/user/list', [UserController::class, 'list'])->name('users.list');
 Route::get('/user/{id?}', [UserController::class, 'profile'])->name('userProfile');
 Route::get('/sights/list', [SightController::class, 'list'])->name('sights.list');
+Route::post('/sights/massUpdate', [SightController::class, 'massUpdate']);
 
 Route::get('/activities', [ActivityController::class, 'list'])->name('activities');
 Route::get('/activity/{id}', [ActivityController::class, 'show'])->name('activity');

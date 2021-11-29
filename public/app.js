@@ -1,10 +1,15 @@
 $(document).ready(function(){
-	scrollTopButton();
+
+	$.ajaxSetup({
+	    headers: {
+	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    }
+	});
 
 	
+	scrollTopButton();
 
-
-})
+});
 
 
 var scrollTopButton = function() {

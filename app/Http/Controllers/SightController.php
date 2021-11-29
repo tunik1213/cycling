@@ -20,7 +20,7 @@ class SightController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['show','getImage','list']);
-        $this->middleware('moderator')->only(['destroy','edit','update']);
+        $this->middleware('moderator')->only(['destroy','edit','update','index','massUpdate']);
     }
 
     public function import(Request $request, string $loc, ?int $district_id) {
@@ -212,11 +212,26 @@ class SightController extends Controller
             ->when($area, function ($query, $area) {
                 return $query->where('districts.area_id', $area->id);
             })
-            ->paginate(20)
+            ->paginate(100)
             ->appends(request()->query());
 
         return view('sights.index', ['sights'=>$sights, 'area'=>$area]);
     }
+
+    public function massUpdate(Request $request) {
+        if (!$request->input('sights')) return;
+
+        foreach ($request->input('sights') as $s_id) {
+            $s = Sight::find($s_id);
+            if(!$s) continue;
+            
+            if ($request->input('category')) $s->category_id = $request->input('category');
+            if ($request->input('subcategory')) $s->sub_category_id = $request->input('subcategory');
+            $s->save();
+        }
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
