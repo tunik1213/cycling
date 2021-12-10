@@ -13,6 +13,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\VisitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,3 +81,7 @@ Route::get('/export/subcategories',[CategoryController::class, 'exportSubCategor
 
 
 Route::resource('subcategories', SubCategoryController::class);
+
+Route::get('/getVisitsAWS', [VisitController::class,'getVisitsAWS']);
+
+

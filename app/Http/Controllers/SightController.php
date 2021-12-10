@@ -306,6 +306,8 @@ class SightController extends Controller
             'locality' => $request->locality ?? null
         ]);
 
+        CheckInvites::dispatchAfterResponse($s);
+
         return redirect()->route('sights.show',['sight'=>$s])->with('success','Пам\'ятка успiшно створена.');
     }
 
@@ -382,6 +384,7 @@ class SightController extends Controller
         $sight->locality = $request->locality ?? null;
         $sight->save();
 
+        // TODO only if dirdy coord or rad
         CheckInvites::dispatchAfterResponse($sight);
 
         return redirect()->route('sights.show',['sight'=>$sight])->with('success','Пам\'ятку успiшно змiнено');

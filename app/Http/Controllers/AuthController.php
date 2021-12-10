@@ -8,7 +8,7 @@ use App\Models\User;
 use Intervention\Image\ImageManagerStatic as Image;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\Jobs\CheckInvites;
+use App\Jobs\ImportActivities;
 
 class AuthController extends Controller
 {
@@ -25,11 +25,12 @@ class AuthController extends Controller
         $user->access_token = $token->access_token;
         $user->refresh_token = $token->refresh_token;
         $user->save();
-        try {
-            $user->importActivities();
-        } catch (\Throwable $e) {
-            report($e);
-        }
+        // try {
+        //     $user->importActivities();
+        // } catch (\Throwable $e) {
+        //     report($e);
+        // }
+        ImportActivities::dispatchAfterResponse($user);
 
         Auth::login($user, $remember = env('APP_DEBUG'));
 

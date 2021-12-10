@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Sight;
 use App\Models\Activity;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class Visit extends Model
 {
@@ -64,5 +65,104 @@ having count(*) > 1');
             DB::statement($q);
         }
 
+    }
+
+    // забирает из aws s3 все рассчитанные посещения
+    public static function retrievеAllVisits()
+    {
+        $bucketName = 'visits12345';
+
+        $sdk = new \Aws\Sdk([
+            'version' => 'latest',
+            'region' => env('AWS_DEFAULT_REGION')
+        ]);
+
+        $s3Client = $sdk->createS3();
+        
+        $result = $s3Client->listObjects([
+            'Bucket' => $bucketName,
+        ]);
+
+        $objList = $result->get('Contents');
+
+        foreach($objList as $objEntry) {
+            $key = $objEntry['Key'];
+            $result = $s3Client->getObject([
+                'Bucket' => $bucketName,
+                'Key'    => $key
+            ]);
+            $fileContent = $result['Body'];
+
+            Self::_importVisits($fileContent);
+
+            $result = $s3Client->deleteObject([
+                'Bucket' => $bucketName,
+                'Key'    => $key
+            ]);
+
+        }
+    }
+
+    private static function _importVisits($rawData)
+    {
+        $data = json_decode($rawData);
+        
+        foreach($data->visits as $v) {
+            $found = Visit::where('act_id',$v->activity)
+                ->where('sight_id',$v->sight)
+                ->first();
+            if($found != null) continue;
+
+            Visit::create([
+                'act_id'=> $v->activity,
+                'sight_id'=> $v->sight
+            ]);
+        }
+
+    }
+
+
+// finding visits via aws
+    // by user
+    public static function findVisitsUser(User $user)
+    {
+        $data = [
+            'user' => $user->id,
+            'activities' => [],
+            'sights' => [],
+        ];
+
+        foreach ($user->activities as $a) {
+            array_push($data['activities'],
+            [
+                'id' => $a->id,
+                'polyline' => $a->summary_polyline
+            ]);
+        }
+
+        $sights = Sight::orderBy('id')->get();
+        foreach($sights as $s) {
+            array_push($data['sights'],
+            [
+                'id' => $s->id,
+                'lat' => $s->lat,
+                'lng' => $s->lng,
+                'radius' => $s->radius
+            ]);
+        }
+
+        $json = collect($data)->toJson();
+
+        $response = Http::withBody(
+            $json,'application/json'
+        )->put('https://a2afp1u4hg.execute-api.eu-central-1.amazonaws.com/v1/checkinvites/user'.$user->id);
+
+        Self::retrievеAllVisits();
+
+    }
+    // by sight
+    public static function findVisitsSight(Sight $sight)
+    {
+        
     }
 }
