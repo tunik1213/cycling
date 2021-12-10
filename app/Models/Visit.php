@@ -157,8 +157,6 @@ having count(*) > 1');
             $json,'application/json'
         )->put('https://a2afp1u4hg.execute-api.eu-central-1.amazonaws.com/v1/checkinvites/user'.$user->id);
 
-        Self::retrievеAllVisits();
-
     }
     // by sight
     public static function findVisitsSight(Sight $sight)
