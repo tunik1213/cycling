@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "alexpechkarev/google-maps": "^8.0",
+        "aws/aws-php-sns-message-validator": "^1.6",
         "aws/aws-sdk-php": "^3.208",
         "codetoad/strava": "^1.0",
         "doctrine/dbal": "^3.2",
