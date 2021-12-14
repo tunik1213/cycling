@@ -8,6 +8,7 @@ use App\Models\Sight;
 use App\Models\Activity;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Aws\S3\S3Client;
 
 class Visit extends Model
 {
@@ -84,6 +85,7 @@ having count(*) > 1');
         ]);
 
         $objList = $result->get('Contents');
+	if(empty($objList)) return;
 
         foreach($objList as $objEntry) {
             $key = $objEntry['Key'];

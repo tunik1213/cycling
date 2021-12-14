@@ -83,5 +83,6 @@ Route::get('/export/subcategories',[CategoryController::class, 'exportSubCategor
 Route::resource('subcategories', SubCategoryController::class);
 
 Route::get('/getVisitsAWS', [VisitController::class,'getVisitsAWS']);
+Route::post('/postVisitsAWS', [VisitController::class,'postVisitsAWS']);
 
 

@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 use App\Models\User;
+use App\Models\Visit;
 
 class ImportActivities implements ShouldQueue
 {
