@@ -12,6 +12,7 @@ use Strava;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\SightList;
+use App\Models\Visit;
 
 class User extends Authenticatable
 {
@@ -66,6 +67,7 @@ class User extends Authenticatable
 
         $perPage=200; // похоже что это максимальное число, которое разрешает страва. Выбрано с целью экономии вызовов к api
         $page=1;
+        $imported = [];
 
         do { echo $page; echo('<br/>');
             $acts = Strava::activities($this->access_token,$page,$perPage,null,$after);
@@ -84,9 +86,15 @@ class User extends Authenticatable
                     'name' => $a->name
                 ]);
                 $activity->save();
+
+                array_push($imported,$activity);
             }
             $page += 1;
         } while (count($acts) ?? 0 > 0);
+
+        if(count($imported)>0) {
+            Visit::findVisitsActivities($imported);
+        }
     }
 
     public function topSightsVisited()

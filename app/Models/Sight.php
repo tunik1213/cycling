@@ -9,6 +9,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\District;
 use App\Models\User;
 use App\Models\SightCategory;
+use App\Jobs\CheckInvites;
 
 class Sight extends Model
 {
@@ -45,6 +46,11 @@ class Sight extends Model
             if ($sight->isDirty('lat') || $sight->isDirty('lng')) {
                 $sight->map_image = $sight->map_image();
             }
+
+            if ($sight->isDirty('lat') || $sight->isDirty('lng') || $sight->isDirty('radius')) {
+                CheckInvites::dispatchAfterResponse($sight);
+            }
+
         });
 
     }

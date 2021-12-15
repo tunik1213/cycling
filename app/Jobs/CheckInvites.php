@@ -52,9 +52,6 @@ class CheckInvites implements ShouldQueue
 
 
         // 2. Найти новые посещения
-        $acts = Activity::all();
-        foreach($acts as $a) {
-            Visit::searchInvites($a, $this->sight);
-        }
+        Visit::findVisitsSight($this->sight);
     }
 }

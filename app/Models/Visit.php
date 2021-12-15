@@ -9,6 +9,7 @@ use App\Models\Activity;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Aws\S3\S3Client;
+use Illuminate\Support\Facades\Log;
 
 class Visit extends Model
 {
@@ -128,8 +129,9 @@ having count(*) > 1');
     // by user
     public static function findVisitsUser(User $user)
     {
+        if(empty($user->activities->count())) return;
+
         $data = [
-            'user' => $user->id,
             'activities' => [],
             'sights' => [],
         ];
@@ -155,14 +157,85 @@ having count(*) > 1');
 
         $json = collect($data)->toJson();
 
-        $response = Http::withBody(
-            $json,'application/json'
-        )->put('https://a2afp1u4hg.execute-api.eu-central-1.amazonaws.com/v1/checkinvites/user'.$user->id);
+        Self::sendToAWS($json,$filename='user'.$user->id);
 
     }
+
     // by sight
     public static function findVisitsSight(Sight $sight)
     {
+        $data = [
+            'activities' => [],
+            'sights' => [],
+        ];
+
+        $acts = Activity::orderBy('id')->get();
+        foreach ($acts as $a) {
+            array_push($data['activities'],
+            [
+                'id' => $a->id,
+                'polyline' => $a->summary_polyline
+            ]);
+        }
+
+        $sights = Sight::orderBy('id')->get();
+        foreach($sights as $s) {
+            array_push($data['sights'],
+            [
+                'id' => $s->id,
+                'lat' => $s->lat,
+                'lng' => $s->lng,
+                'radius' => $s->radius
+            ]);
+        }
+
+        $json = collect($data)->toJson();
+
+        Self::sendToAWS($json,$filename='sight'.$sight->id);
+
         
+    }
+
+    // by activities
+    public static function findVisitsActivities(Array $acts)
+    {
+        $data = [
+            'activities' => [],
+            'sights' => [],
+        ];
+
+        foreach ($acts as $a) {
+            array_push($data['activities'],
+            [
+                'id' => $a->id,
+                'polyline' => $a->summary_polyline
+            ]);
+        }
+
+        array_push($data['sights'],
+            [
+                'id' => $sight->id,
+                'lat' => $sight->lat,
+                'lng' => $sight->lng,
+                'radius' => $sight->radius
+            ]);
+
+        $json = collect($data)->toJson();
+
+        Self::sendToAWS($json,$filename='sight'.$sight->id);
+
+        
+    }
+
+
+    private static function sendToAWS($json, $filename)
+    {
+        if (env('APP_DEBUG')) {
+            file_put_contents('/var/www/html/cycling/tmp/'.$filename, $json);
+        } else {
+            $response = Http::withBody(
+                $json,'application/json'
+            )->put('https://a2afp1u4hg.execute-api.eu-central-1.amazonaws.com/v1/checkinvites/'.$filename);
+        }
     }
 }

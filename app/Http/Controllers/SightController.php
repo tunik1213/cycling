@@ -8,7 +8,6 @@ use App\Models\Sight;
 use App\Models\District;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
-use App\Jobs\CheckInvites;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use StepanDalecky\KmlParser\Parser;
@@ -306,8 +305,6 @@ class SightController extends Controller
             'locality' => $request->locality ?? null
         ]);
 
-        CheckInvites::dispatchAfterResponse($s);
-
         return redirect()->route('sights.show',['sight'=>$s])->with('success','Пам\'ятка успiшно створена.');
     }
 
@@ -383,9 +380,6 @@ class SightController extends Controller
         $sight->radius = $request->radius;
         $sight->locality = $request->locality ?? null;
         $sight->save();
-
-        // TODO only if dirdy coord or rad
-        CheckInvites::dispatchAfterResponse($sight);
 
         return redirect()->route('sights.show',['sight'=>$sight])->with('success','Пам\'ятку успiшно змiнено');
     }

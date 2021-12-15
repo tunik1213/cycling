@@ -36,6 +36,5 @@ class ImportActivities implements ShouldQueue
     public function handle()
     {
         $this->user->importActivities();
-        Visit::findVisitsUser($this->user);
     }
 }
