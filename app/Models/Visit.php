@@ -212,17 +212,21 @@ having count(*) > 1');
             ]);
         }
 
-        array_push($data['sights'],
+
+	$sights = Sight::orderBy('id')->get();
+        foreach($sights as $s) {
+            array_push($data['sights'],
             [
-                'id' => $sight->id,
-                'lat' => $sight->lat,
-                'lng' => $sight->lng,
-                'radius' => $sight->radius
+                'id' => $s->id,
+                'lat' => $s->lat,
+                'lng' => $s->lng,
+                'radius' => $s->radius
             ]);
+        }
 
         $json = collect($data)->toJson();
 
-        Self::sendToAWS($json,$filename='sight'.$sight->id);
+        Self::sendToAWS($json,$filename='activities'.count($acts));
 
         
     }
