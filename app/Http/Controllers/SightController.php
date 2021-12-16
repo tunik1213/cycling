@@ -63,8 +63,6 @@ class SightController extends Controller
 
     public function importKML()
     {
-        // TODO locality
-
         $parser = Parser::fromFile('/var/www/html/cycling/tmp/sights.kml');
         
         $kml = $parser->getKml();
@@ -175,9 +173,9 @@ class SightController extends Controller
                             'lng' => $lng,
                             'approx_location' => $approx,
                             'description' => $descr,
-                            'user_id' => 0,
-                            'category_id' => 4,
-                            'sub_category_id' => 69,
+                            'user_id' => 27,
+                            'category_id' => 3,
+                            'sub_category_id' => 0,
                             'locality' => $locality
                         ]);
 
