@@ -48,7 +48,7 @@ class Sight extends Model
             }
 
             if ($sight->isDirty('lat') || $sight->isDirty('lng') || $sight->isDirty('radius')) {
-                CheckInvites::dispatchAfterResponse($sight);
+                CheckInvites::dispatch($sight);
             }
 
         });
