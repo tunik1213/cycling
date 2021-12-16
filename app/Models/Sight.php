@@ -46,11 +46,12 @@ class Sight extends Model
             if ($sight->isDirty('lat') || $sight->isDirty('lng')) {
                 $sight->map_image = $sight->map_image();
             }
+        });
 
+        static::saved(function($sight){
             if ($sight->isDirty('lat') || $sight->isDirty('lng') || $sight->isDirty('radius')) {
                 CheckInvites::dispatch($sight);
             }
-
         });
 
     }
