@@ -51,7 +51,7 @@
         </div>
         <div class="col col-3">
             <strong>Радiус, м</strong>
-            <input type="number" id="radius" name="radius" value="{{ old('radius') ?? 25 }}" class="form-control" placeholder="Радiус" autocomplete="off">
+            <input type="number" id="radius" name="radius" value="{{ old('radius') ?? $sight->radius }}" class="form-control" placeholder="Радiус" autocomplete="off">
         </div>
     </div>
 
