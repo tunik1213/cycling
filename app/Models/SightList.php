@@ -102,8 +102,12 @@ class SightList extends ListModel
 
     public function isNotEmpty()
     {
+        return !$this->isEmpty();
+    }
+    public function isEmpty()
+    {
         $result = $this->query()->limit(1)->first();
-        return (!empty($result));
+        return empty($result);
     }
 
     public function index()

@@ -17,27 +17,6 @@ class CrontabController extends Controller
         $this->gm = \GoogleMaps::load('directions');
     }
 
-    public function checkInvites() : void 
-    {
-
-        $maxSigEver = DB::select('select max(id) as id from sights')[0]->id;
-        $maxActivityEver = DB::select('select max(id) as id from activities')[0]->id;
-
-        $uncheckedActivities = Activity::where('max_sight_verified','<',$maxSigEver)->get();
-
-        foreach($uncheckedActivities as $act) {
-
-            $uncheckedSights = Sight::where('max_activity_verified','<',$maxActivityEver)->get();
-
-            foreach($uncheckedSights as $sight) {
-                Visit::searchInvites($act,$sight);
-            }
-            DB::statement('update activities set max_sight_verified = ? where id = ?',[$maxSigEver,$act->id]);
-        }
-        DB::statement('update sights set max_activity_verified = ?',[$maxActivityEver]);
-        
-    }
-
     public function parseActivityNames() : void
     {
 	$acts = Activity::whereNull('name')->get();

@@ -1,9 +1,8 @@
 @php
+	$itsMe = false;
 	$user = $topSights->user;
-	$loading = false; $itsMe = false;
 	if(!empty($user)) {
 		$itsMe = ($user->id == (Auth::user()->id ?? null));
-		if ($itsMe) $loading = !$user->allSightsVerified();
 	}
 
 	$wich = (empty($topSights->author)? 'вiдвiданих' : 'створених') . ' ';
@@ -21,11 +20,11 @@
 
 	 		@if(!empty($user))
 
-				@if($user->activities->count() == 0)
+				@if(($user->activities->count() == 0) && ($user->created_at->timestamp < strtotime('-1 hour') ))
 					@php($show_total_link = false)
 					<p>Не вдалося iмпортувати данi @if($itsMe) по Вашим заїздам@endif зi Strava</p>
 				@else
-					@if($loading)
+					@if($itsMe && $topSights->isEmpty())
 						@php($show_total_link = false)
 						<span class="spinner-border spinner-border-sm" role="status"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;

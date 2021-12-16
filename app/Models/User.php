@@ -119,16 +119,6 @@ class User extends Authenticatable
         return $this->firstname.' '.$this->lastname;
     }
 
-    public function allSightsVerified() : bool
-    {
-        $maxSigEver = DB::select('select max(id) as id from sights')[0]->id;
-        $minSigVerified = DB::select('
-            select min(max_sight_verified) as id 
-            from activities
-            where user_id = ?',[$this->id])[0]->id;
-        return ($minSigVerified==$maxSigEver);
-    }
-
     public function getRegisteredAtAttribute() {
         return view('user.registered_at',['user'=>$this]);
     }
