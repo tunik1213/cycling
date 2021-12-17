@@ -1,3 +1,8 @@
+@section('head')
+	<title>{{env('APP_NAME')}}: {{$user->fullname}}</title>
+@endsection
+
+
 @extends('layout')
 @section('content')
 

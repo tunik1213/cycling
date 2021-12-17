@@ -2,8 +2,6 @@
     $sights = $sightList->index();
 @endphp
 
-<div class="info-block-body">
-
 
 @foreach ($sights as $s)
 <div class="card-container">
@@ -23,7 +21,5 @@
     </div>
 </div>
 @endforeach
-
-</div>
 
 {{ $sights->links('vendor.pagination.bootstrap-4') }}
