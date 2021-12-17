@@ -136,7 +136,10 @@ class DistrictController extends Controller
 
     public function getImage(int $id)
     {
-        $img = District::find($id)->image;
+        $d=District::find($id);
+        if($d==null) return;
+
+        $img = $d->image;
 
         header("Content-Type: image/jpg");
         header("Content-Length: " . strlen($img));

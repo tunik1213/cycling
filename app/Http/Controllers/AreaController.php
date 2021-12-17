@@ -133,7 +133,10 @@ class AreaController extends Controller
 
     public function getImage(int $id)
     {
-        $img = Area::find($id)->image;
+        $a = Area::find($id);
+        if($a==null) return;
+
+        $img = $a->image;
 
         header("Content-Type: image/jpg");
         header("Content-Length: " . strlen($img));
