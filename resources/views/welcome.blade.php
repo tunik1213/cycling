@@ -1,3 +1,8 @@
+@section('head')
+    <title>{{env('APP_NAME')}}: сайт для веломандрівників</title>
+@endsection
+
+
 @extends('layout')
 
 @section('content')
