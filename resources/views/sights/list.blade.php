@@ -7,8 +7,10 @@
 @section('content')
 
     <div class="container info-block">
-        <h1>{!! $sightList->title() !!}</h1>
-        @include('sights.list_partial') 
+        <h1 class="info-block-header">{!! $sightList->title() !!}</h1>
+        <div class="info-block-body">
+            @include('sights.list_partial') 
+        </div>
     </div>
 
 @endsection

@@ -82,6 +82,10 @@ img.in-container {
   width: 100%;
 }
 
+ul.pagination {
+  padding: 1rem 0;
+}
+
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
@@ -337,6 +341,15 @@ div.card-container {
 
   body {
     margin-bottom: 12rem;
+  }
+
+  ul.pagination > li:nth-child(6),
+ul.pagination > li:nth-child(7),
+ul.pagination > li:nth-child(8),
+ul.pagination > li:nth-child(9),
+ul.pagination > li:nth-child(10),
+ul.pagination > li:nth-child(11) {
+    display: none;
   }
 }
 @media screen and (max-width: 500px) {
