@@ -8,9 +8,9 @@
 
     <div class="container info-block">
         <h1 class="info-block-header">{!! $sightList->title() !!}</h1>
-        <div class="info-block-body">
-            @include('sights.list_partial') 
-        </div>
+        
+        @include('sights.list_partial') 
+        
     </div>
 
 @endsection

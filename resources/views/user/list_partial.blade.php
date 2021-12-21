@@ -1,5 +1,5 @@
 @php($users = $userList->index())
-
+<div class="info-block-body">
     @foreach ($users as $u)
     <div class="card-container">
         <div class="card user-card">
@@ -16,8 +16,8 @@
           </div>
         </div>
     </div>
-@endforeach
-
+    @endforeach
+</div>
 
 {{ $users->links('vendor.pagination.bootstrap-4') }}
 

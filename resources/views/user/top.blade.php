@@ -6,9 +6,9 @@
 	@if($users->count()>0)
 		<div class="container info-block">
 		<h2 class="info-block-header">{{$userList->title()}}</h2>
-		<div class="info-block-body">
-			@include('user.list_partial',['users'=>$users])
-		</div>
+
+		@include('user.list_partial',['users'=>$users])
+
 		<div class="info-block-footer">
 			<a class="link-secondary" href="{{$userList->listRoute()}}">Переглянути всi</a>
 		</div>

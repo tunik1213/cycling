@@ -12,9 +12,9 @@
 <div class="top-sights">
 	<div class="container info-block">
 		<h2 class="info-block-header">{{$title}}</h2>
-		<div class="info-block-body">
-			@include('sights.list_partial',['sightList'=>$topSights])
-		</div>
+
+		@include('sights.list_partial',['sightList'=>$topSights])
+
 		<div class="info-block-footer">
 			@php($show_total_link = true)
 
