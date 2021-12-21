@@ -141,7 +141,7 @@ class SightList extends ListModel
         }
 
         if(!empty($this->author)) {
-            return 'Список пам\'яток, якi створи'
+            return 'Список пам\'яток, якi дода'
                 .$this->author->gender('в','ла').' '
                 .(($links) ? $this->author->link : $this->author->fullname);
         }
