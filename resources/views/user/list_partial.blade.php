@@ -9,16 +9,7 @@
             </div>
           
           <div class="card-body">
-            @if(isset($u->count))
-            <div class="row">
-                @php($getParams=$userList->filters(['user'=>$u->id]))
-                @if(empty($userList->sight))
-                    <a class="link-secondary" href="{{route('sights.list',$getParams)}}">{{$u->count}} пам'яток вiдвiдано</a>
-                @else
-                    <a class="link-secondary" href="{{route('activities',$getParams)}}">{{$u->count}} вiдвiдувань</a>
-                @endif
-            </div>
-            @endif
+            {{$u->count_link ?? ''}}
             <div class="row">
                 {{$u->stravalink}}
             </div>

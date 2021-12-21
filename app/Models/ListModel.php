@@ -17,6 +17,7 @@ class ListModel
     public ?Sight $sight;
     public ?District $district;
     public ?Area $area;
+    public ?User $author;
 
     public function __construct(Request $request)
     {
@@ -45,6 +46,7 @@ class ListModel
         if (!empty($this->sight)) $result['sight'] = $this->sight->id;
         if (!empty($this->district)) $result['district'] = $this->district->id;
         if (!empty($this->area)) $result['area'] = $this->area->id;
+        if (!empty($this->author)) $result['author'] = $this->author->id;
 
         return array_merge($result,$arr);
     }

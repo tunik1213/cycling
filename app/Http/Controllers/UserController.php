@@ -11,6 +11,7 @@ use App\Models\Area;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\UserList;
+use App\Models\AuthorList;
 use App\Models\SightList;
 
 class UserController extends Controller
@@ -71,6 +72,15 @@ class UserController extends Controller
     public function list(Request $request)
     {
         $list = new UserList($request);
+
+        return view('user.index',[
+            'userList'=>$list
+        ]);
+    }
+
+    public function authors(Request $request)
+    {
+        $list = new AuthorList($request);
 
         return view('user.index',[
             'userList'=>$list

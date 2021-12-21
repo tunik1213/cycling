@@ -20,4 +20,7 @@
 
     @include('user.top',['userList'=>$topUsers])
 
+
+    @include('user.top',['userList'=>$topAuthors])
+
 @endsection

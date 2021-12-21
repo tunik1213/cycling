@@ -8,7 +8,7 @@ use App\Models\ListModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class UserList extends ListModel
+class AuthorList extends ListModel
 {
     use HasFactory;
 
@@ -16,30 +16,20 @@ class UserList extends ListModel
     {
         parent::__construct($request);
 
-        if($request->input('sight')){
-            $sight = Sight::find($request->input('sight')) ?? null;
-            if($sight) $this->sight = $sight;
-        }
-
     }
 
     public function index()
     {
-        $users = DB::table('visits as v')
-            ->join('activities as a','a.id','=','v.act_id')
-            ->join('sights as s','s.id','=','v.sight_id')
+        $users = DB::table('sights as s')
+            //->leftJoin('visits as v','v.sight_id','=','s.id')
             ->join('districts as d','d.id','=','s.district_id')
-            ->join('users as u','u.id','=','a.user_id')
-            ->selectRaw('a.user_id as id')
-            ->groupBy('a.user_id')
-            ->orderByRaw('2 desc');
+            ->join('users as u','u.id','=','s.user_id')
+            ->whereNotNull('u.avatar')
+            ->selectRaw('u.id as id')
+            ->selectRaw('count(distinct(s.id)) as count')
+            ->groupBy('u.id')
+            ->orderByRaw('count(distinct(s.id))  desc');
 
-        if(empty($this->sight)) {
-            $users = $users->selectRaw('count(distinct(v.sight_id)) as count');
-        } else {
-            $users = $users->where('v.sight_id',$this->sight->id);
-            $users = $users->selectRaw('count(v.sight_id) as count');
-        }
 
         if(!empty($this->district)) {
             $users = $users->where('d.id',$this->district->id);
@@ -61,7 +51,7 @@ class UserList extends ListModel
                 'userList' => $this,
                 'count' => $entry->count,
                 'user' => $u,
-                'getParams' => $this->filters(['user'=>$u->id])
+                'getParams' => $this->filters(['author'=>$u->id])
             ]);
             $entry = $u;
         }
@@ -72,15 +62,15 @@ class UserList extends ListModel
 
     public function title()
     {
-        return 'Топ мандрiвникiв';
+        return 'Найкращi автори';
     }
 
     public function count_link_text()
     {
-        return 'пам\'яток вiдвiдано';
+        return 'пам\'яток додано';
     }
     public function listRoute()
     {
-        return route('users.list',$this->filters());
+        return route('authors.list',$this->filters());
     }
 }

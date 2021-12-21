@@ -77,7 +77,12 @@ class SightController extends Controller
 
                 $name = $s->getName();
                 echo '<hr/><br/>importing '.$name.'<br/><br/>';
-                $descr = $s->getDescription();
+                try {
+                    $descr = $s->getDescription();    
+                } catch(\Throwable $e) {
+                    $descr = '';
+                }
+                
 
                 preg_match('/<img.*?>/im', $descr, $matches);
                 $img=$matches[0] ?? '';
@@ -106,7 +111,6 @@ class SightController extends Controller
                     echo('found '.$found->id);
                     continue;
                 }
-
 
 //$district_id = 19;
 //$locality = 'Черкаси';
@@ -186,6 +190,8 @@ class SightController extends Controller
                 } catch(\Throwable $e) {
                     echo 'error importing '.$name.'<br/>';
                     echo    $e->getMessage().'<br/>';
+                    if(env('APP_DEBUG')) throw $e;
+                    
                     continue;
                 }
 
