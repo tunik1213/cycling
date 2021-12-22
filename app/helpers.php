@@ -45,3 +45,8 @@ function nouns_declension($num, $str_one, $str_two, $str_five)
 
     return $str_five;
 }
+//Стандартный lcfirst не работает для кириллицы
+function custom_lcfirst($str, $e='utf-8') {
+    $fc = mb_strtolower(mb_substr($str, 0, 1, $e), $e);
+    return $fc.mb_substr($str, 1, mb_strlen($str, $e), $e);
+}

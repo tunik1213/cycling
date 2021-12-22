@@ -85,7 +85,7 @@
 
 
     <div class="container">
-        @include('user.top',['userList'=>$topUsers])
+        @include('user.top',['userList'=>$topUsers,'list_title'=>'Топ мандрiвникiв'])
     </div>
 
 </div>

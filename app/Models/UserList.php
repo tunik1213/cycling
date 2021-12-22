@@ -72,7 +72,25 @@ class UserList extends ListModel
 
     public function title()
     {
-        return 'Топ мандрiвникiв';
+        $result = 'Топ мандрiвникiв';
+
+        if(!empty($this->sight)) 
+            $result = 'Мандрiвники, якi вiдвiдали '. custom_lcfirst($this->sight->name);
+
+        return $result;
+    }
+
+    public function h1()
+    {
+        $result = 'Топ мандрiвникiв';
+
+        if(!empty($this->sight)) 
+            $result = 'Мандрiвники, якi вiдвiдали 
+        <a href="'.route('sights.show',$this->sight->id).'">'
+        . custom_lcfirst($this->sight->name)
+        .'</a>';
+
+        return $result;
     }
 
     public function count_link_text()

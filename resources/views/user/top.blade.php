@@ -5,7 +5,7 @@
 <div class="top-users">
 	@if($users->count()>0)
 		<div class="container info-block">
-		<h2 class="info-block-header">{{$userList->title()}}</h2>
+		<h2 class="info-block-header">{{$list_title ?? $userList->title()}}</h2>
 
 		@include('user.list_partial',['users'=>$users])
 
