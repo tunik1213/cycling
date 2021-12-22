@@ -84,6 +84,13 @@
             </div>
 
             <div class="form-group">
+                <strong>Область:</strong>
+                <input type="text" name="area" id="area" class="form-control" placeholder="Почнiть набирати назву областi" value="{{ $sight->area->name ?? '' }}" autocomplete="off">
+            </div>
+
+            <input name="area_id" id="area_id" type="hidden" value="{{ $sight->area->id ?? '' }}" />
+
+            <div class="form-group">
                 <strong>Район:</strong>
                 <input type="text" name="district" id="district" class="form-control" placeholder="Почнiть набирати назву району" value="{{ $sight->district->name ?? '' }}" autocomplete="off">
             </div>

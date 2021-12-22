@@ -23,6 +23,7 @@ class Sight extends Model
         'lng',
         'approx_location',
         'image',
+        'area_id',
         'district_id',
         'map_image',
         'category_id',
@@ -56,6 +57,10 @@ class Sight extends Model
 
     }
 
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
     public function district()
     {
         return $this->belongsTo(District::class);

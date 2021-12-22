@@ -146,4 +146,15 @@ class DistrictController extends Controller
 
         echo($img);
     }
+
+    public function export(int $area_id)
+    {
+        $result = District::where('area_id',$area_id)
+            ->select(['id','name as label'])
+            ->orderBy('name')
+            ->get();
+
+        return response()->json($result);
+
+    }
 }

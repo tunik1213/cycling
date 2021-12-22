@@ -63,6 +63,8 @@ class SightController extends Controller
 
     public function importKML()
     {
+        // TODO area_id
+
         $parser = Parser::fromFile('/var/www/html/cycling/tmp/sights.kml');
         
         $kml = $parser->getKml();
@@ -206,6 +208,7 @@ class SightController extends Controller
      */
     public function index(Request $request)
     {
+        // TODO точки без района
 
         $area_id = $request->input('area') ?? null;
         $area = Area::find($area_id);
@@ -249,7 +252,7 @@ class SightController extends Controller
     {
         return [
             'name.required' => 'Уведiть назву пам\'ятки!',
-            'district_id.required' => 'Вкажiть район!',
+            'area_id.required' => 'Вкажiть область!',
             'lng.required' => 'Не вказано довготу!',
             'lat.required' => 'Не вказано широту!',
             'category.*' => 'Виберiть категорiю!'
@@ -267,7 +270,7 @@ class SightController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'district_id' => 'required',
+            'area_id' => 'required',
             'lat' => 'required',
             'lng' => 'required',
             'category' => 'required|integer|min:1'
@@ -295,6 +298,7 @@ class SightController extends Controller
         $approx = Sight::getApprox($request->lat,$request->lng);
 
         $s = Sight::create([
+            'area_id' => (int)$request->area_id,
             'district_id' => (int)$request->district_id,
             'name' => $request->name,
             'image'=> $image,
@@ -352,7 +356,7 @@ class SightController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'district_id' => 'required',
+            'area_id' => 'required',
             'lat' => 'required',
             'lng' => 'required',
             'category' => 'required|integer|min:1'
@@ -378,6 +382,7 @@ class SightController extends Controller
         $sight->lat = $request->lat;
         $sight->lng = $request->lng;
         $sight->description = prepare_external_links($request->description);
+        $sight->area_id = $request->area_id;
         $sight->district_id = $request->district_id;
         $sight->category_id = $request->category;
         $sight->sub_category_id = $request->subcategory ?? null;

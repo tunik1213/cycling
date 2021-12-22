@@ -78,6 +78,7 @@ Route::get('/sights/find/{lat},{lng}',[SightController::class, 'find'])->name('f
 
 
 Route::get('/export/subcategories',[CategoryController::class, 'exportSubCategories']);
+Route::get('/export/districts/{area_id}',[DistrictController::class, 'export']);
 
 
 

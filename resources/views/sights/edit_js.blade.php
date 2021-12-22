@@ -1,5 +1,5 @@
 @php
-    $districts = App\Models\District::orderBy('name')->get();
+    $areas = App\Models\Area::orderBy('name')->get();
 
     $lat = $sight->lat ?? old('lat');
     $lng = $sight->lng ?? old('lng');
@@ -22,11 +22,27 @@
         window.onbeforeunload = null;
     });
 
-    var districts = [
-        @foreach($districts as $d)
-            {label: "{{ $d->name }}", id: "{{ $d->id }}"}, 
+    var areas = [
+        @foreach($areas as $a)
+            {label: "{{ $a->name }}", id: "{{ $a->id }}"}, 
         @endforeach
         ];
+    var districts = []; 
+
+    $('#area').autocomplete({
+        source: areas,
+        minLength: 0,
+        select: function(e, ui) {
+            districts = [];    
+            $('#area_id').val(ui.item.id);
+            $.getJSON('/export/districts/'+ui.item.id, function( json ) {
+                $('#district' ).autocomplete('option', 'source', json)
+                $('#district_id').val('');
+                $('#district').val('').trigger('focus');
+
+            });
+        }
+    });
 
     $('#district').autocomplete({
         source: districts,
@@ -34,6 +50,21 @@
         select: function(e, ui) {
             $("#district_id").val(ui.item.id);
         }
+    });
+
+    var area_id = $("#area_id").val();
+    if (area_id) {
+        $.getJSON('/export/districts/'+area_id, function( json ) {
+            $('#district' ).autocomplete('option', 'source', json)
+        });
+    }
+
+    $('#district').change(function(e){
+        if($(this).val()=='') $('#district_id').val('');
+    })
+
+    $('#area, #district').focus(function() {
+        $(this).autocomplete('search', $(this).val())
     });
 
     $('#lat').on('paste', function(e){

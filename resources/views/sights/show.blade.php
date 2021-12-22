@@ -33,17 +33,18 @@
 
         {{$sight->categoryLink}}
 
-        @if($sight->district)
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">{{ $sight->district->area->link }}</li>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">{{ $sight->area->link }}</li>
+                @if(!empty($sight->district))
                     <li class="breadcrumb-item"><a href="{{ route('districts.show',$sight->district->id) }}">{{ $sight->district->name }} район</a></li>
-                    @if(!empty($sight->locality))
-                        <li class="breadcrumb-item active" aria-current="page">{{ $sight->locality }}</li>
-                    @endif
-                </ol>
-            </nav>
-        @endif
+                @endif
+                @if(!empty($sight->locality))
+                    <li class="breadcrumb-item active" aria-current="page">{{ $sight->locality }}</li>
+                @endif
+            </ol>
+        </nav>
 
         <div id="sight-author">
             <strong>Додав:</strong>
