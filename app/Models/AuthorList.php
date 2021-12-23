@@ -64,6 +64,10 @@ class AuthorList extends ListModel
     {
         return 'Найкращi автори';
     }
+    public function h1()
+    {
+        return 'Найкращi автори';
+    }
 
     public function count_link_text()
     {

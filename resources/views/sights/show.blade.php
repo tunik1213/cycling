@@ -47,7 +47,7 @@
         </nav>
 
         <div id="sight-author">
-            <strong>Додав:</strong>
+            <strong>Дода{{$sight->user->gender('в','ла')}}:</strong>
             @if($sight->user)
                 <a href="{{route('userProfile',$sight->user->id)}}">{{ $sight->user->fullname }}</a>
             @else
