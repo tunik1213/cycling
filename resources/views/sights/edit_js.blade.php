@@ -150,14 +150,14 @@
                 position: myLatlng,
                 @endif
                 map: map,
-                draggable: true
+                draggable: false
               });
           
 
-          marker.addListener('dragend', function(e) {
-            var position = marker.getPosition();
-            updateCoordinates(position.lat(), position.lng())
-          });
+//          marker.addListener('dragend', function(e) {
+//            var position = marker.getPosition();
+//            updateCoordinates(position.lat(), position.lng())
+//          });
 
           map.addListener('click', function(e) {
             marker.setPosition(e.latLng);
