@@ -313,7 +313,9 @@ class SightController extends Controller
             'locality' => $request->locality ?? null
         ]);
 
-        return redirect()->route('sights.show',['sight'=>$s])->with('success','Пам\'ятка успiшно створена.');
+        $success_message = 'Пам\'ятка успiшно створена! '
+        .'<a href="'.route('sights.create').'"><i class="fas fa-plus"></i>Додати ще</a>';
+        return redirect()->route('sights.show',['sight'=>$s])->with('success',$success_message);
     }
 
     /**

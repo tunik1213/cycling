@@ -39,7 +39,9 @@ Route::middleware('moderator')->group(function () {
     Route::get('/sight/import/{location}/{district_id?}',[SightController::class, 'import']);
     Route::get('/sight/importAll',[SightController::class,'importAll']);
     Route::get('/user/index',[UserController::class,'index'])->name('users.index');
-    Route::get('/sight/importKML',[SightController::class,'importKML']);
+    Route::get('/sights/importKML',[SightController::class,'importKML']);
+    Route::get('/sights/moderation',[SightController::class,'moderation'])->name('moderation');
+
 });
 
 Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites'])->name('checkInvites')->middleware('localhost');

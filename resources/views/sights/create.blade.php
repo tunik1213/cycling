@@ -98,7 +98,7 @@
             <input name="district_id" id="district_id" type="hidden" value="{{ old('district_id') }}" />
 
             <div class="form-group">
-                <strong>Населений пункт (необов'язково):</strong>
+                <strong>Населений пункт:</strong>
                 <input type="text" name="locality" class="form-control" placeholder="наприклад, с. Широке" value="{{ old('locality') }}" autocomplete="off">
             </div>
 

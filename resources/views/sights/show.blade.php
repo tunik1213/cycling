@@ -8,9 +8,20 @@
 
 @if (Session::get('success'))
     <div class="alert alert-success">
-        <p>{{Session::get('success')}}</p>
-        <a class="link-secondary" href="{{route('sights.index')}}">← Повернутись до списку</a>
+        <p>{!!Session::get('success')!!}</p>
     </div>
+@endif
+
+@if(!$sight->isPublic())
+    <div class="alert alert-warning"><p>
+        Наразi пам'ятка очiкує схвалення модератора
+
+        @if($sight->author == Auth::user())
+            
+        @else
+            
+        @endif
+    </div></p>
 @endif
 
 <div class="row">

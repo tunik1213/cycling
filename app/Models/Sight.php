@@ -10,6 +10,8 @@ use App\Models\District;
 use App\Models\User;
 use App\Models\SightCategory;
 use App\Jobs\CheckInvites;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Sight extends Model
 {
@@ -29,7 +31,8 @@ class Sight extends Model
         'category_id',
         'sub_category_id',
         'radius',
-        'locality'
+        'locality',
+        'moderator'
     ];
 
     protected $hidden = [
@@ -47,11 +50,16 @@ class Sight extends Model
             if ($sight->isDirty('lat') || $sight->isDirty('lng')) {
                 $sight->map_image = $sight->map_image();
             }
+            if (!$sight->isPublic() && Auth::user()->moderator) {
+                $sight->moderator = Auth::user()->id;
+            }
         });
 
         static::saved(function($sight){
-            if ($sight->isDirty('lat') || $sight->isDirty('lng') || $sight->isDirty('radius')) {
-                CheckInvites::dispatch($sight);
+            if (Auth::user()->moderator) {
+                if ($sight->isDirty('lat') || $sight->isDirty('lng') || $sight->isDirty('radius')) {
+                    CheckInvites::dispatch($sight);
+                }
             }
         });
 
@@ -76,6 +84,10 @@ class Sight extends Model
     public function subcategory()
     {
         return $this->belongsTo(SightSubCategory::class,'sub_category_id');
+    }
+    public function moderator()
+    {
+        return $this->belongsTo(User::class,'moderatedBy');
     }
 
     public static function import_google_maps($data,$district_id) : void
@@ -148,5 +160,18 @@ class Sight extends Model
             return view('sights.category_link',['sight'=>$this]);
         else
             return '';
+    }
+
+    public function isPublic() : bool
+    {
+        return ($this->moderator != null);
+    }
+    public static function unmoderated()
+    {
+        return Sight::whereNull('moderator')->get();
+    }
+    public static function unmoderated_count()
+    {
+        return DB::select('select count(*) as count from sights where moderator is null;')[0]->count;
     }
 }
