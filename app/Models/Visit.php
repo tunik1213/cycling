@@ -31,7 +31,7 @@ class Visit extends Model
             array_push($pairedPoly,['lat'=>$poly[$i],'lng'=>$poly[$i+1]]);
         }
 
-        return \GeometryLibrary\PolyUtil::isLocationOnPath($point,$pairedPoly,$tolerance = $sight->radius,$geodesic = false);
+        return \GeometryLibrary\PolyUtil::isLocationOnPath($point,$pairedPoly,$tolerance = $sight->radius,$geodesic = true);
 
     }
 
@@ -52,6 +52,22 @@ class Visit extends Model
                 'sight_id'=> $sight->id
             ]);
         }
+    }
+
+    // удаляет все посещения, начиная с указанной даты, и пересчитывает заезды заново
+    public static function recalculate(string $dateFrom)
+    {
+        db::statement('delete from visits where created_at > ?',[$dateFrom]);
+
+        $acts = Activity::where('created_at','>',$dateFrom)->get();
+        
+        foreach (Sight::all() as $s) {
+            foreach ($acts as $a) {
+                Self::searchInvites($a,$s);
+            }
+        }
+
+
     }
 
     public static function removeDuplicates()
