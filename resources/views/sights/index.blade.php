@@ -60,11 +60,15 @@
             </td>
             <td><img src="data:image/jpeg;base64,{{base64_encode($s->image)}}" /></td>
             <td width="1">
+                @php
+                    $params = ['sight'=>$s->id];
+                    if (isset($moderation_uri)) $params['moderation_uri'] = $moderation_uri;
+                @endphp
                 <div class="container">
                     <div class="row">
-                        <a class="btn btn-primary" href="{{ route('sights.edit',$s->id) }}"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-primary" href="{{ route('sights.edit',$params) }}"><i class="fas fa-edit"></i></a>
                     </div>
-                    <form action="{{ route('sights.destroy',$s->id) }}" method="POST">
+                    <form action="{{ route('sights.destroy',$params) }}" method="POST">
                         <br />
                     <div class="row">       
                             @csrf
@@ -179,6 +183,10 @@
             async: false
         });
         location.reload();
+    });
+
+    $('#area').focus(function() {
+        $(this).autocomplete('search', $(this).val())
     });
 
 

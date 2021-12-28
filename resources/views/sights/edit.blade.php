@@ -34,6 +34,10 @@
     @csrf
     @method('PUT')
 
+    @if(isset($moderation_uri))
+        <input type="hidden" name="moderation_uri" value="{{$moderation_uri}}" />
+    @endif
+
     <strong>Вкажiть точку на картi або введiть координати нижче вручну</strong>
     <div id="map"></div>
 

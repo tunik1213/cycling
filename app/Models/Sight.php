@@ -166,11 +166,7 @@ class Sight extends Model
     {
         return ($this->moderator != null);
     }
-    public static function unmoderated()
-    {
-        return Sight::whereNull('moderator')->get();
-    }
-    public static function unmoderated_count()
+    public static function unmoderated_count() : int
     {
         return DB::select('select count(*) as count from sights where moderator is null;')[0]->count;
     }

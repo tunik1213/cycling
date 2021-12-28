@@ -342,9 +342,14 @@ class SightController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(int $id)
+    public function edit(Request $request,int $id)
     {
-        return view('sights.edit',['sight'=>Sight::find($id)]);
+        $params = [
+            'sight'=>Sight::find($id),
+            'moderation_uri' => $request->input('moderation_uri')
+        ];
+        
+        return view('sights.edit',$params);
     }
 
     /**
@@ -392,7 +397,9 @@ class SightController extends Controller
         $sight->locality = $request->locality ?? null;
         $sight->save();
 
-        return redirect()->route('sights.show',['sight'=>$sight])->with('success','Пам\'ятку успiшно змiнено');
+        $url = $request->input('moderation_uri', route('sights.show',['sight'=>$sight]));
+
+        return redirect($url)->with('success','Пам\'ятку успiшно змiнено');
     }
 
     /**
@@ -447,5 +454,27 @@ class SightController extends Controller
         if(!empty($sight_id)) $found = $found->where('id','<>',$sight_id);
             
         return $found->first();
+    }
+
+    public function moderation(Request $request)
+    {
+        $area_id = $request->input('area') ?? null;
+        $area = Area::find($area_id);
+
+        $sights = Sight::leftJoin('districts','districts.id','=','sights.district_id')
+            ->whereNull('sights.moderator')
+            ->select(['sights.*'])
+            ->when($area, function ($query, $area) {
+                return $query->where('districts.area_id', $area->id);
+            })
+            ->paginate(20)
+            ->appends(request()->query());
+
+        return view('sights.index', [
+            'sights'=>$sights, 
+            'area'=>$area, 
+            'moderation_uri'=>$request->getRequestUri()
+        ]);
+
     }
 }
