@@ -116,14 +116,13 @@ class SightController extends Controller
 
 //$district_id = 19;
 //$locality = 'Черкаси';
-                $google_data = json_decode(file_get_contents(
-                    'https://maps.google.com/maps/api/geocode/json?latlng='
+                $url = 'https://maps.google.com/maps/api/geocode/json?latlng='
                     .$lat.','.$lng
                     .'&sensor=false&language=uk&key='
-                    .env('GOOGLE_MAPS_SERVICE_KEY')
-                ));
+                    .env('GOOGLE_MAPS_UNRESTRICTED_KEY');
+                $google_data = json_decode(file_get_contents($url));
 
-               // dd($google_data->results);
+               //dd($google_data->results);
 
 
                 $area='';$district='';$locality='';

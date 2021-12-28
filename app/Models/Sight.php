@@ -145,7 +145,7 @@ class Sight extends Model
     {
         $imagePath = 
             'https://maps.googleapis.com/maps/api/staticmap?key='
-            .env('GOOGLE_MAPS_SERVICE_KEY')
+            .env('GOOGLE_MAPS_UNRESTRICTED_KEY')
             .'&size=400x400&zoom=14&markers=|'
             .$this->string_coordinates();
         $img = Image::make($imagePath)
