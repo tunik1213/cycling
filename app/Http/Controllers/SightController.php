@@ -182,7 +182,8 @@ class SightController extends Controller
                             'user_id' => 27,
                             'category_id' => 3,
                             'sub_category_id' => 0,
-                            'locality' => $locality
+                            'locality' => $locality,
+                            'moderator' => 1
                         ]);
 
                 echo 'created '.$s->id;
