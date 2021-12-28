@@ -199,6 +199,28 @@ a.font-color-strava {
   background: rgba(255, 255, 255, 0.3);
 }
 
+#right-header * {
+  font-size: 1.2rem;
+}
+
+#right-header .badge {
+  background-color: #57cfb0;
+  font-size: 0.9rem;
+}
+
+#right-header ul.dropdown-menu {
+  background-color: #57cfb0;
+  padding: 0;
+}
+
+#right-header .dropdown-menu > li {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+#right-header .dropdown-menu .dropdown-item:hover {
+  background-color: #57cfb0;
+}
+
 #right-header-login-link {
   display: block;
   padding: 1rem;

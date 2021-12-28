@@ -63,9 +63,9 @@
                     @if($user->moderator)
                         <li><a class="dropdown-item text-warning" href="{{route('admin')}}"><i class="fas fa-users-cog"></i>Адмiнiстратор</a></li>
                         <li><a class="dropdown-item text-warning" href="{{route('moderation')}}">
-                            <i class="fas fa-spell-check"></i>
+                            <i class="fas fa-user-check"></i>
                             Модерацiя
-                            <span class="badge badge-light">{{\App\Models\Sight::unmoderated_count()}}</span>
+                            <span class="badge">{{\App\Models\Sight::unmoderated_count()}}</span>
                             </a>
                         </li>
                     @endif
