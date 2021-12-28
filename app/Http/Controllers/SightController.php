@@ -114,7 +114,8 @@ class SightController extends Controller
                     continue;
                 }
 
-//$district_id = 19;
+$district_id = null;
+$area_id = 42;
 //$locality = 'Черкаси';
                 $url = 'https://maps.google.com/maps/api/geocode/json?latlng='
                     .$lat.','.$lng
@@ -136,33 +137,34 @@ class SightController extends Controller
                     }
                 }
 
-
-                $district = trim(str_replace('район','',$district));
-                if (empty($district)) {
-                    echo 'empty district<br/>';
-                    continue;
-                }
-                $district_id = District::where('name',$district)->first()->id ?? null;
-                if($district_id==null) {
-                    $area = trim(str_replace('область','',$area));
-                    $area_id = Area::where('name',$area)->first()->id ?? null;
-                    if($area_id == null) {
-                        if($area=='Київська обл.' || $area == 'місто Київ') {
-                            $area_id = 33;
-                            $district_id = 126;
-                        } else {
-                            echo'area does not exist: '.$area.'<br />';
-                            continue;
-                        }
+                if(empty($area_id)) {
+                    $district = trim(str_replace('район','',$district));
+                    if (empty($district)) {
+                        echo 'empty district<br/>';
+                        continue;
                     }
+                    $district_id = District::where('name',$district)->first()->id ?? null;
+                    if($district_id==null) {
+                        $area = trim(str_replace('область','',$area));
+                        $area_id = Area::where('name',$area)->first()->id ?? null;
+                        if($area_id == null) {
+                            if($area=='Київська обл.' || $area == 'місто Київ') {
+                                $area_id = 33;
+                                $district_id = 126;
+                            } else {
+                                echo'area does not exist: '.$area.'<br />';
+                                continue;
+                            }
+                        }
 
-                    if (empty($district_id)) {
-                        echo 'creating district: '.$district.'<br />';
-                        $new_district = District::create([
-                            'area_id'=>$area_id,
-                            'name'=>$district
-                        ]);
-                        $district_id = $new_district->id;
+                        if (empty($district_id)) {
+                            echo 'creating district: '.$district.'<br />';
+                            $new_district = District::create([
+                                'area_id'=>$area_id,
+                                'name'=>$district
+                            ]);
+                            $district_id = $new_district->id;
+                        }
                     }
                 }
 
