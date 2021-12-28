@@ -171,6 +171,7 @@ class SightController extends Controller
                     ->encode('jpg', 75);
 
                 $s = Sight::create([
+                            'area_id' => $area_id ?? District::find($district_id)->area_id,
                             'district_id' => $district_id,
                             'name' => $name,
                             'image'=> $image,
