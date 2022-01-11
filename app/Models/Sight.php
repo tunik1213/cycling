@@ -50,13 +50,13 @@ class Sight extends Model
             if ($sight->isDirty('lat') || $sight->isDirty('lng')) {
                 $sight->map_image = $sight->map_image();
             }
-            if (!$sight->isPublic() && Auth::user()->moderator) {
+            if (!$sight->isPublic() && Auth::user()->moderator ?? false) {
                 $sight->moderator = Auth::user()->id;
             }
         });
 
         static::saved(function($sight){
-            if (Auth::user()->moderator) {
+            if (Auth::user()->moderator ?? false) {
                 if ($sight->isDirty('lat') || $sight->isDirty('lng') || $sight->isDirty('radius')) {
                     CheckInvites::dispatch($sight);
                 }
@@ -84,10 +84,6 @@ class Sight extends Model
     public function subcategory()
     {
         return $this->belongsTo(SightSubCategory::class,'sub_category_id');
-    }
-    public function moderator()
-    {
-        return $this->belongsTo(User::class,'moderatedBy');
     }
 
     public static function import_google_maps($data,$district_id) : void
