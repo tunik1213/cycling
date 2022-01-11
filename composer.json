@@ -11,6 +11,7 @@
         "aws/aws-sdk-php": "^3.208",
         "codetoad/strava": "^1.0",
         "doctrine/dbal": "^3.2",
+        "doctrine/inflector": "^2.0",
         "emcconville/google-map-polyline-encoding-tool": "^1.3",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
