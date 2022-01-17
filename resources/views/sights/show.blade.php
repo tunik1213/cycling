@@ -71,6 +71,9 @@
         </p>
 
         @if(Auth::user()->moderator ?? false)
+        <div id="sight-radius">
+            <strong>Радiус: </strong>{{$sight->radius}}м
+        </div>
         <div class="row sight-buttons">
             <div class="col">
                 <a class="btn btn-primary" href="{{ route('sights.edit',$sight->id) }}"><i class="fas fa-edit"></i> Редагувати</a>
