@@ -46,6 +46,8 @@ class ListModel
         if (!empty($this->sight)) $data['sight'] = $this->sight->id;
         if (!empty($this->district)) $data['district'] = $this->district->id;
         if (!empty($this->area)) $data['area'] = $this->area->id;
+        if (!empty($this->category)) $data['category'] = $this->category->id;
+        if (!empty($this->subcategory)) $data['subcategory'] = $this->subcategory->id;
         if (!empty($this->author)) $data['author'] = $this->author->id;
 
         $result = array_merge($data,$add);

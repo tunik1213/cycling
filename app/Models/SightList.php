@@ -70,6 +70,13 @@ class SightList extends ListModel
             $sights = $sights->where('d.area_id',$this->area->id);
         }
 
+        if(!empty($this->category)) {
+            $sights = $sights->where('s.category_id',$this->category->id);
+        }
+        if(!empty($this->subcategory)) {
+            $sights = $sights->where('s.sub_category_id',$this->subcategory->id);
+        }
+
         if(empty($this->activity)) {
             $sights = $sights->orderByRaw('count desc,s.name');
         } else {
@@ -105,6 +112,33 @@ class SightList extends ListModel
 
     }
 
+    public function categories()
+    {
+        $result = $this->query()
+            ->join('sight_categories as cats','cats.id','=','s.category_id')
+            ->join('sight_sub_categories as subcats','subcats.id','=','s.sub_category_id')
+            ->select([
+                'cats.id as category_id',
+                'cats.name as category_name',
+                'subcats.id as subcategory_id',
+                'subcats.name as subcategory_name'
+            ])
+            ->orderBy('cats.name','asc')
+            ->orderBy('subcats.name','asc')
+            ->distinct()
+            ->get();
+
+        $cats = [];
+        foreach ($result as $r){
+            $cat = $cats[$r->category_id] ?? ['name'=>$r->category_name,'subcats'=>[]];
+            $cat['subcats'][$r->subcategory_id] = $r->subcategory_name;
+            $cats[$r->category_id] = $cat;
+        }
+
+        return $cats;
+
+    }
+
     private function query()
     {
         $sights = DB::table('sights as s')
@@ -116,12 +150,6 @@ class SightList extends ListModel
         if(!empty($this->user))
             $sights = $sights->where('a.user_id',$this->user->id);
 
-        if(!empty($this->category)) {
-            $sights = $sights->where('s.category_id',$this->category->id);
-        }
-        if(!empty($this->subcategory)) {
-            $sights = $sights->where('s.sub_category_id',$this->subcategory->id);
-        }
         if(!empty($this->author)) {
             $sights = $sights->where('s.user_id',$this->author->id);
         }
@@ -190,8 +218,6 @@ class SightList extends ListModel
     {
         $result = parent::filters($add,$remove);
 
-        if (!empty($this->category)) $result['category'] = $this->category->id;
-        if (!empty($this->subcategory)) $result['subcategory'] = $this->subcategory->id;
         if (!empty($this->author)) $result['author'] = $this->author->id;
         if (!empty($this->activity)) $result['activity'] = $this->activity->id;
 
