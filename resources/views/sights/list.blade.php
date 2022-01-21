@@ -9,6 +9,16 @@
     <div class="container info-block">
         <h1 class="info-block-header">{!! $sightList->title() !!}</h1>
 
+        <div class="" id="enabled-filters">
+            {{-- <span>Вiдбiр:</span> --}}
+            
+            @include('sights.enabled-filter',['filterName'=>'area'])
+            @include('sights.enabled-filter',['filterName'=>'district'])
+            @include('sights.enabled-filter',['filterName'=>'category'])
+            @include('sights.enabled-filter',['filterName'=>'subcategory'])
+
+        </div>
+
         <div class="row">
             <div class="col-xl-2 col-lg-3 info-block-sidebar desktop">
                 <div class="filter-block">
