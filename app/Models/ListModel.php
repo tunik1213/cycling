@@ -39,16 +39,22 @@ class ListModel
         $this->sight = null;
     }
 
-    public function filters($arr=[])
+    public function filters($add=[],$remove=[])
     {
-        $result = [];
-        if (!empty($this->user)) $result['user'] = $this->user->id;
-        if (!empty($this->sight)) $result['sight'] = $this->sight->id;
-        if (!empty($this->district)) $result['district'] = $this->district->id;
-        if (!empty($this->area)) $result['area'] = $this->area->id;
-        if (!empty($this->author)) $result['author'] = $this->author->id;
+        $data = [];
+        if (!empty($this->user)) $data['user'] = $this->user->id;
+        if (!empty($this->sight)) $data['sight'] = $this->sight->id;
+        if (!empty($this->district)) $data['district'] = $this->district->id;
+        if (!empty($this->area)) $data['area'] = $this->area->id;
+        if (!empty($this->author)) $data['author'] = $this->author->id;
 
-        return array_merge($result,$arr);
+        $result = array_merge($data,$add);
+
+        foreach($remove as $r) {
+            if(isset($result[$r])) unset($result[$r]);
+        }
+
+        return $result;
     }
 
 }

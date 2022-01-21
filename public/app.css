@@ -86,6 +86,41 @@ ul.pagination {
   padding: 1rem 0;
 }
 
+.filter-block-title {
+  font-size: 1.5rem;
+  padding-top: 0.5rem;
+}
+
+ul.folding {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.caret {
+  cursor: pointer;
+  user-select: none;
+}
+
+.caret::before {
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  transform: rotate(90deg);
+}
+
+ul.folding.nested {
+  display: none;
+  margin-left: 21px;
+}
+
+ul.folding.active {
+  display: block;
+}
+
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
@@ -345,6 +380,11 @@ div.card-container {
 @media screen and (min-width: 992px) {
   .mobile {
     display: none;
+  }
+}
+@media screen and (max-width: 1200px) {
+  div.card-container {
+    width: 33.333333%;
   }
 }
 @media screen and (max-width: 992px) {

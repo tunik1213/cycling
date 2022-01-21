@@ -57,25 +57,11 @@ class SightList extends ListModel
 
     }
 
-    private function query()
+    private function sights_query()
     {
-        $sights = DB::table('sights as s')
-            ->leftjoin('visits as v','v.sight_id','=','s.id')
-            ->leftjoin('activities as a','a.id','=','v.act_id')
-            ->leftjoin('users as u','u.id','=','a.user_id')
-            ->leftjoin('districts as d','d.id','=','s.district_id')
+        $sights =  $this->query()
             ->selectRaw('s.id,count(v.id) as count')
             ->groupBy('s.id');
-            
-        if(empty($this->activity)) {
-            $sights = $sights->orderByRaw('count desc,s.name');
-        } else {
-            $sights = $sights->orderByRaw('v.id');
-        }
-
-            
-        if(!empty($this->user))
-            $sights = $sights->where('a.user_id',$this->user->id);
 
         if(!empty($this->district)) {
             $sights = $sights->where('d.id',$this->district->id);
@@ -83,6 +69,53 @@ class SightList extends ListModel
         if(!empty($this->area)) {
             $sights = $sights->where('d.area_id',$this->area->id);
         }
+
+        if(empty($this->activity)) {
+            $sights = $sights->orderByRaw('count desc,s.name');
+        } else {
+            $sights = $sights->orderByRaw('v.id');
+        }
+
+        return $sights;
+    }
+
+    public function locations()
+    {
+        $result = $this->query()
+            ->join('areas','areas.id','=','d.area_id')
+            ->select([
+                'areas.id as area_id',
+                'areas.name as area_name',
+                'd.id as district_id',
+                'd.name as district_name'
+            ])
+            ->orderBy('areas.name','asc')
+            ->orderBy('d.name','asc')
+            ->distinct()
+            ->get();
+
+        $areas = [];
+        foreach ($result as $r){
+            $a = $areas[$r->area_id] ?? ['name'=>$r->area_name,'districts'=>[]];
+            $a['districts'][$r->district_id] = $r->district_name;
+            $areas[$r->area_id] = $a;
+        }
+
+        return $areas;
+
+    }
+
+    private function query()
+    {
+        $sights = DB::table('sights as s')
+            ->leftjoin('visits as v','v.sight_id','=','s.id')
+            ->leftjoin('activities as a','a.id','=','v.act_id')
+            ->leftjoin('users as u','u.id','=','a.user_id')
+            ->leftjoin('districts as d','d.id','=','s.district_id');
+            
+        if(!empty($this->user))
+            $sights = $sights->where('a.user_id',$this->user->id);
+
         if(!empty($this->category)) {
             $sights = $sights->where('s.category_id',$this->category->id);
         }
@@ -106,13 +139,13 @@ class SightList extends ListModel
     }
     public function isEmpty()
     {
-        $result = $this->query()->limit(1)->first();
+        $result = $this->sights_query()->limit(1)->first();
         return empty($result);
     }
 
     public function index()
     {
-        $sights = $this->query();
+        $sights = $this->sights_query();
 
         if(empty($this->limit)) {
             $sights = $sights->paginate(24)->appends($this->request->query());
@@ -153,9 +186,9 @@ class SightList extends ListModel
         return 'Список пам\'яток';
     }
 
-    public function filters($arr=[])
+    public function filters($add=[],$remove=[])
     {
-        $result = parent::filters($arr);
+        $result = parent::filters($add,$remove);
 
         if (!empty($this->category)) $result['category'] = $this->category->id;
         if (!empty($this->subcategory)) $result['subcategory'] = $this->subcategory->id;

@@ -5,9 +5,10 @@ $(document).ready(function(){
 	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	    }
 	});
-
 	
 	scrollTopButton();
+
+	listTree();
 
 });
 
@@ -24,4 +25,16 @@ var scrollTopButton = function() {
 	$("#scroll-top-button").click(function () {
    		$("html").scrollTop(0);
 	});
+}
+
+var listTree = function() {
+	var toggler = document.getElementsByClassName("caret");
+	var i;
+
+	for (i = 0; i < toggler.length; i++) {
+	  toggler[i].addEventListener("click", function() {
+	    this.parentElement.querySelector(".nested").classList.toggle("active");
+	    this.classList.toggle("caret-down");
+	  });
+	}
 }
