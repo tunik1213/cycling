@@ -19,9 +19,15 @@
 
         </div>
 
+        <div class="row mobile">
+            <a id="toggle-mobile-filters" class="link-secondary" href="#">
+                <i class="fas fa-filter"></i> Фільтрувати список
+            </a>
+        </div>
+
         <div class="row">
-            <div class="col-xl-2 col-lg-3 info-block-sidebar desktop">
-                <div class="filter-block">
+            <div class="col-xl-2 col-lg-3 desktop" id="info-block-sidebar">
+                <div id="filter-block">
                     <hr/>
                     <p class="filter-block-title">Розташування</p>
                     <ul id="filter-locations" class="folding">
@@ -57,6 +63,7 @@
                             </ul>
                         </li>
                     @endforeach
+                    <br/>
                 </div>
 
             </div>

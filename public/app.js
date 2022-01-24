@@ -28,6 +28,12 @@ var scrollTopButton = function() {
 }
 
 var listTree = function() {
+
+	$('#toggle-mobile-filters').click(function(e){
+		$('#info-block-sidebar').toggle();
+		e.preventDefault();
+	});
+
 	var toggler = document.getElementsByClassName("caret");
 	var i;
 
