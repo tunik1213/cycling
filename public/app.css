@@ -100,6 +100,10 @@ ul.folding {
   margin: 0;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .caret {
   cursor: pointer;
   user-select: none;
@@ -108,20 +112,19 @@ ul.folding {
 .caret::before {
   color: black;
   display: inline-block;
-  margin-right: 6px;
 }
 
-.caret-down::before {
-  transform: rotate(90deg);
+li.active > .caret {
+  transform: rotate(180deg);
+}
+
+li.active > ul.nested.folding {
+  display: block;
 }
 
 ul.folding.nested {
   display: none;
   margin-left: 21px;
-}
-
-ul.folding.active {
-  display: block;
 }
 
 .enabled-filter {
