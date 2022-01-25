@@ -312,7 +312,7 @@ $area_id = 42;
             'user_id' => Auth::user()->id,
             'category_id' => (int)$request->category,
             'sub_category_id' => $request->subcategory ?? null,
-            'radius' => $request->radius,
+            'radius' => $request->radius ?? 25,
             'locality' => $request->locality ?? null
         ]);
 

@@ -53,10 +53,13 @@
                 </div>
             </div>
         </div>
+
+        @if(Auth::user()->moderator)
         <div class="col col-3">
             <strong>Радiус, м</strong>
             <input type="number" id="radius" name="radius" value="{{ old('radius') ?? $sight->radius }}" class="form-control" placeholder="Радiус" autocomplete="off">
         </div>
+        @endif
     </div>
 
     <div class="row">
