@@ -75,7 +75,10 @@ ul.pagination {
 .filter-block-title {
 	font-size: 1.5rem;
 }
-ul.folding {
+#filter-block hr {
+	margin: 1rem 0;
+}
+ul.folding * {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
@@ -99,7 +102,7 @@ li.active > ul.nested.folding {
 }
 ul.folding.nested {
   display: none;
-  margin-left: 21px;
+  margin-left: 15px;
 }
 .enabled-filter {
 	display: inline;
