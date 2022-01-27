@@ -17,6 +17,66 @@ body {
 html,body {
 	 background-color: $background-body;
 }
+#banner-bg {
+	background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+	background-image: url('/images/welcome-image-winter.jpg');
+	    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    text-align: center;
+    
+}
+#banner-bg {
+		height: 100vh;
+}
+#banner-space {
+	height: calc(100vh - #{$header-height});
+}
+#banner-bg #banner-layout {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    background: linear-gradient(
+    		$background-header calc(#{$header-height}/2),
+    		rgba(255,255,255,0) calc(#{$header-height}*2)
+    );
+}
+#banner-bg span {
+	color: $font-color-light;
+}
+#banner-bg #title-1 {
+		display: none;
+	font-size: calc(1rem + 2vw);
+}
+#banner-bg #main-title {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+	font-size: 10vw;
+	letter-spacing: 0.5em;
+  text-transform: uppercase;
+  text-shadow: $background-header 1px 1px 5px;
+}
+#banner-bg #title-2 {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	font-size: calc(1rem + 1vw);
+    padding: 0.5rem 0;
+}
+#login-page {
+	position: relative;
+	text-align: center;
+}
 .footer {
   position: absolute;
   bottom: 0;
@@ -130,6 +190,7 @@ body > .container {
 }
 #header {
 	@extend %bg-header;
+	height: $header-height;
 }
 #header a {
 	color: $font-color-light;
@@ -197,18 +258,34 @@ a.navbar-brand{
 }
 
 #auth-link-place {
-	padding-top: 10%;
-	margin-bottom: 10%;
+	    padding-top: 10%;
+    margin-bottom: 10%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
 }
 .font-color-strava {
-	color: $strava-color;
+	color: $strava-color !important;
+}
+.bg-dim {
+	background: rgba(0, 0, 0, 0.4);
 }
 a.font-color-strava {
 	font-size: small;
 }
-.login-strava-btn {
-	border: 1px solid $strava-color;
-	font-size: 1.5rem;
+#login-strava-btn {
+	border: 2px solid #FFFFFF;
+    font: 700 18px/30px expressway, sans-serif;
+    color: #FFFFFF;
+    font-weight: 700;
+    margin: 0 auto;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: inline-block;
+    padding: 5px 20px;
 }
 #right-header{
 	background: rgba(255,255,255,.3);

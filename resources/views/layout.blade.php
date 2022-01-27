@@ -76,6 +76,8 @@
       </div>
     </div>
 
+    @yield('banner')
+
     <!-- Begin page content -->
     <main role="main" class="container">
         @yield('content')

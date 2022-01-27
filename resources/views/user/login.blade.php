@@ -1,8 +1,9 @@
 @extends('layout')
 @section('content')
 
-	<center><h1>Приєднуйся!</h1></center>
-
+	<div id="login-page">
+	<h1>Приєднуйся!</h1>
 	@include('user.login_btn')
+	</div>
 
 @endsection
