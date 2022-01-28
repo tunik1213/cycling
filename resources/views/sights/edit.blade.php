@@ -12,24 +12,6 @@
     </div>
 </div>
 
-<div id="response-container">
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-    @if ($message = Session::get('error'))
-        {!! $message !!}
-    @endif
-
-</div>
-
 <form action="{{ route('sights.update',$sight->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -40,6 +22,25 @@
 
     <strong>Вкажiть точку на картi або введiть координати нижче вручну</strong>
     <div id="map"></div>
+
+    <div id="response-container">
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+        @if ($message = Session::get('error'))
+            {!! $message !!}
+        @endif
+
+    </div>
+
 
     <div class="form-group row">
         <div class="col col-9">

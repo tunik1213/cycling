@@ -73,6 +73,12 @@
         coords = cl_text.split(',');
         $('#lat').val(coords[0].trim());
         $('#lng').val(coords[1].trim());
+
+        checkExisting();
+    });
+
+    $('#lat, #lng').change(function(e){
+        checkExisting();
     });
 
 
@@ -125,7 +131,15 @@
           document.getElementById('lat').value = lat;
           document.getElementById('lng').value = lng;
 
-          $.get( "/sights/find/"+lat+','+lng, { sight: {{$sight->id ?? 'null'}} } )
+          checkExisting();
+        }
+
+        var checkExisting = function() {
+            lat = $('#lat').val();
+            lng = $('#lng').val();
+            if(!lat || !lng) return;
+
+            $.get( "/sights/find/"+lat+','+lng, { sight: {{$sight->id ?? 'null'}} } )
             .done(function( data ) {
                 $('#response-container').html(data);
                 $('button[type=submit]').prop('disabled', Boolean(data));
