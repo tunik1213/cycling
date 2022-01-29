@@ -15,6 +15,7 @@ class Activity extends Model
         'strava_id',
         'user_id',
         'start_date',
+        'polyline',
         'summary_polyline',
         'name'
     ];

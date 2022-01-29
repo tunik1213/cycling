@@ -82,6 +82,7 @@ class User extends Authenticatable
                     'user_id' => $this->id,
                     'strava_id' => $a->id,
                     'start_date' => Carbon::parse($a->start_date),
+                    'polyline' => $a->map->polyline ?? null,
                     'summary_polyline' => $a->map->summary_polyline,
                     'name' => $a->name
                 ]);
