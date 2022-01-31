@@ -56,6 +56,11 @@
                     Область: <a href="{{ route('areas.show',$s->district->area->id) }}">{{$s->district->area->name}}</a>
                 @endif
                 <br />
+                @if($s->user)
+                        Автор:
+                        <a href="{{route('userProfile',$s->user->id)}}">{{ $s->user->fullname }}</a>
+                        <br />
+                @endif
                 Вiдкрити <a class="link-secondary" target="_blank" href="{{$s->gm_link()}}">google maps</a>
             </td>
             <td><img src="data:image/jpeg;base64,{{base64_encode($s->image)}}" /></td>
