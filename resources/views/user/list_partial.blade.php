@@ -10,9 +10,9 @@
           
           <div class="card-body">
             {{$u->count_link ?? ''}}
-            <div class="row">
+            {{-- <div class="row">
                 {{$u->stravalink}}
-            </div>
+            </div> --}}
           </div>
         </div>
     </div>
