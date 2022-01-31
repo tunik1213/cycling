@@ -13,9 +13,9 @@
         <div class="row">
             <span>{{$u->registeredAt}}</span>
         </div>
-        <div class="row">
+        {{-- <div class="row">
             {{$u->stravalink}}
-        </div>
+        </div> --}}
       </div>
     </div>
     @endforeach
