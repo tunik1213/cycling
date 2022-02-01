@@ -27,7 +27,7 @@
 <div class="row">
     <div class="col-lg-4 col-12">
         @if(!empty($sight->image))
-            <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->image)}}" alt="Фото {{$sight->name}}">
+            <img class="sight-image" src="{{route('sights.image',$sight->id)}}" alt="Фото {{$sight->name}}">
         @else
             <span>Фото вiдсутнє</span>
         @endif
