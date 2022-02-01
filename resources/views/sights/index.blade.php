@@ -67,7 +67,6 @@
             <td width="1">
                 @php
                     $params = ['sight'=>$s->id];
-                    if (isset($moderation_uri)) $params['moderation_uri'] = $moderation_uri;
                 @endphp
                 <div class="container">
                     <div class="row">

@@ -317,7 +317,7 @@ $area_id = 42;
         ]);
 
         $success_message = 'Пам\'ятка успiшно створена! '
-        .'<a href="'.route('sights.create').'"><i class="fas fa-plus"></i>Додати ще</a>';
+        .'<a href="'.route('sights.create').'"><i class="fas fa-plus"></i> Додати ще</a>';
         return redirect()->route('sights.show',['sight'=>$s])->with('success',$success_message);
     }
 
