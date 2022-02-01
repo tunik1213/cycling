@@ -493,6 +493,11 @@ div.card-container {
   div.card-container {
     width: 33.333333%;
   }
+
+  .top-users .card-container:last-child,
+.top-sights .card-container:last-child {
+    display: none;
+  }
 }
 @media screen and (max-width: 992px) {
   div.card-container {
@@ -501,6 +506,11 @@ div.card-container {
 
   .desktop {
     display: none;
+  }
+
+  .top-users .card-container:last-child,
+.top-sights .card-container:last-child {
+    display: block;
   }
 }
 @media screen and (max-width: 767px) {
