@@ -25,13 +25,17 @@
             @include('sights.enabled-filter',['filterName'=>'category'])
             @include('sights.enabled-filter',['filterName'=>'subcategory'])
 
+            @if(!empty($sightList->search))
+                <a title="Вiдмiнити пошук" href="{{route('sights.list',$sightList->filters([],['search']))}}" class="enabled-filter">
+                    Пошук: {{trim($sightList->search)}}
+                    &nbsp;
+                    <i class="fas fa-times-circle"></i></a>
+                </a>
+            @endif
+
         </div>
 
-        <div class="row mobile">
-            <a id="toggle-mobile-filters" class="link-secondary" href="#">
-                <i class="fas fa-filter"></i> Фільтрувати список
-            </a>
-        </div>
+        
 
         <div class="row">
             <div class="col-xl-2 col-lg-3 desktop" id="info-block-sidebar">
@@ -84,8 +88,22 @@
             </div>
             
             <div class="col-xl-10 col-lg-9">
+
+                <div id="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" class="form-control" placeholder="Пошук">
+                </div>
+
+                <div class="row mobile">
+                    <a id="toggle-mobile-filters" class="link-secondary" href="#">
+                        <i class="fas fa-filter"></i> Фільтрувати список
+                    </a>
+                </div>
+
+
                 @include('sights.list_partial') 
             </div>
+
         </div>
     </div>
 

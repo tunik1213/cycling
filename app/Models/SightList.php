@@ -235,6 +235,11 @@ class SightList extends ListModel
 
         if (!empty($this->author)) $result['author'] = $this->author->id;
         if (!empty($this->activity)) $result['activity'] = $this->activity->id;
+        if (!empty($this->search) && !isset($remove['search'])) $result['search'] = $this->search;
+
+        foreach($remove as $r) {
+            if(isset($result[$r])) unset($result[$r]);
+        }
 
         return $result;
     }

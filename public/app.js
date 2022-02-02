@@ -10,8 +10,19 @@ $(document).ready(function(){
 
 	listTree();
 
+	$('#search-input').on('keydown', function(e) {
+        if (e.keyCode == 13) search($(this).val());
+    });
+
 });
 
+var search = function(query_text) {
+	var url = new URL(window.location.href);
+	var params = url.searchParams;
+	params.set('search',query_text);
+	url.search = params.toString();
+    window.location.replace(url.toString());
+}
 
 var scrollTopButton = function() {
 	$(window).scroll(function() {

@@ -131,6 +131,7 @@ ul.pagination {
 }
 #toggle-mobile-filters {
 	line-height: 2.5rem;
+	padding-left: calc(1rem + 10px);
 }
 .filter-block-title {
 	font-size: 1.5rem;
@@ -173,6 +174,26 @@ ul.folding.nested {
 	padding: 5px 10px;
 	background: $background-body;
 	white-space: nowrap;
+}
+
+#search-container {
+	position: relative;
+	padding: 5px;
+}
+#search-container .fa-search {
+	position: absolute;
+  top: 15px;
+  left: 13px;
+}
+#search-container input#search-input {
+	padding-left: 35px;
+  background-color: $background-body;
+  border: 0;
+  height: auto;
+  border: 1px solid $border-color-light;
+}
+#search-container input#search-input:focus {
+	box-shadow: none;
 }
 
 /* Custom page CSS
