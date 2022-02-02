@@ -20,6 +20,7 @@ class SightList extends ListModel
     public ?SightSubCategory $subcategory;
     public ?User $author;
     public ?Activity $activity;
+    public ?string $search;
 
     public function __construct(Request $request)
     {
@@ -54,6 +55,7 @@ class SightList extends ListModel
             if($activity) $this->activity = $activity;
         }
 
+        $this->search = $request->input('search') ?? null;
 
     }
 
@@ -82,6 +84,19 @@ class SightList extends ListModel
         } else {
             $sights = $sights->orderByRaw('v.id');
         }
+
+        if(!empty($this->search)) {
+            $search_array = explode(' ',$this->search);
+            foreach ($search_array as &$q) {
+                $q = '+'.trim($q).'*';
+            }
+            $search_query = implode(' ',$search_array);
+            $sights = $sights->whereRaw(
+                "MATCH(s.name) AGAINST('$search_query' IN BOOLEAN MODE)"
+            );
+        }
+
+        //dd($sights->toSql());
 
         return $sights;
     }
