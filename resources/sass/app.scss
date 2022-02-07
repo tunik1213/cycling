@@ -60,6 +60,8 @@ html,body {
     top: 30%;
     left: 0;
     right: 0;
+}
+#banner-bg #main-title-text {
 	font-size: 10vw;
 	letter-spacing: 0.5em;
   text-transform: uppercase;
@@ -73,9 +75,18 @@ html,body {
 	font-size: calc(1rem + 1vw);
     padding: 0.5rem 0;
 }
+#banner-bg #title-3 {
+	font-size: 2rem;
+}
 #login-page {
 	position: relative;
 	text-align: center;
+}
+.welcome-page-dop-info {
+	color: $font-color-light;
+	margin: 0 auto;
+  max-width: 35rem;
+  padding-top: 1rem;
 }
 .footer {
   position: absolute;
@@ -490,6 +501,9 @@ div.card-container {
 		font-size: 3.5rem;
 	}
 	#right-header * {
+		font-size: 1rem;
+	}
+	#banner-bg #title-3 {
 		font-size: 1rem;
 	}
 }

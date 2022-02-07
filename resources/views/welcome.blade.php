@@ -17,17 +17,19 @@
 
         <div class="container">
 
-            <div>
-                <span id="main-title">Velocian</span>
+            <div id="main-title">
+                <div class="">
+                    <span id="title-3">Проєкт створено для веломандрівників Україною</span>
+                </div>
+                <span id="main-title-text">Velocian</span>
             </div>
             
             <div>
                 <span id="title-2" class="bg-dim">Лосем можна і не бути, а туристом - обов'язково!</span>
             </div>
 
-            
-                @include('user.login_btn')
-            
+            @include('user.login_btn')
+
         </div>
     </div>
 

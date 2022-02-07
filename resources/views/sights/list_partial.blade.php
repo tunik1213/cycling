@@ -11,7 +11,19 @@
             <div class="row">
                 <a href="{{ route('sights.show',$s->id) }}">{{ $s->name }}</a>
             </div>
+            <div class="row">
+                @if(!empty($s->locality))
+                    <span>{{ $s->locality }}</span>
+                @endif
+                @if(!empty($s->district))
+                    <span>{{ $s->district->name }} р-н </span>
+                @endif
+                @if(!empty($s->area))
+                    <span>{{ $s->area->name }} обл. </span>
+                @endif
+            </div>
             @if($s->count)
+            <br/>
             <div class="row">
                 @php($getParams = $sightList->filters(['sight'=>$s->id]))
                 <a class="link-secondary" href="{{route('activities',$getParams)}}">{{$s->count}} вiдвiдувань</a>

@@ -100,8 +100,14 @@
                     </a>
                 </div>
 
-
-                @include('sights.list_partial') 
+                @if($sightList->isNotEmpty())
+                    @include('sights.list_partial') 
+                @else
+                    <br />
+                    <p>На жаль, за Вашим запитом нiчого не знайдено :( </p>
+                    <p>Спробуйте змiнити параметри пошуку, або, Ви можете <a href="{{route('sights.create')}}"> додати </a> пам'ятку, якої не вистачає</p>
+                    <p>← Повернутись <a href="{{route('main')}}">на головну</a></p>
+                @endif
             </div>
 
         </div>

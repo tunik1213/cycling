@@ -66,6 +66,9 @@ html, body {
   top: 30%;
   left: 0;
   right: 0;
+}
+
+#banner-bg #main-title-text {
   font-size: 10vw;
   letter-spacing: 0.5em;
   text-transform: uppercase;
@@ -81,9 +84,20 @@ html, body {
   padding: 0.5rem 0;
 }
 
+#banner-bg #title-3 {
+  font-size: 2rem;
+}
+
 #login-page {
   position: relative;
   text-align: center;
+}
+
+.welcome-page-dop-info {
+  color: #fff;
+  margin: 0 auto;
+  max-width: 35rem;
+  padding-top: 1rem;
 }
 
 .footer {
@@ -565,6 +579,10 @@ ul.pagination > li:nth-child(11) {
   }
 
   #right-header * {
+    font-size: 1rem;
+  }
+
+  #banner-bg #title-3 {
     font-size: 1rem;
   }
 }
