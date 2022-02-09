@@ -83,7 +83,7 @@ html,body {
 }
 #banner-bg #title-3 {
 	position: absolute;
-	top: 1rem;
+	top: 1.5rem;
 	font-size: calc(1rem - -1vw);
 }
 #login-page {
@@ -528,8 +528,8 @@ div.card-container {
 	#banner-bg #title-3 {
 		font-size: 1rem;
 	}
-	#login-btn-dop-info, #title-3 {
-			font-size: smaller;
+	#login-btn-dop-info, #title-3, #title-2 {
+			font-size: smaller !important;
 	}
 }
 
