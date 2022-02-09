@@ -120,6 +120,13 @@
                     </div>
                 </div>
 
+                <div class="col-12">
+                    <div class="form-group">
+                        <strong>Лiцензiя (якщо потрiбно):</strong>
+                        <input type="text" name="license" id="license" class="form-control" value="{{ old('license') }}" autocomplete="off">
+                    </div>
+                </div>
+
             </div>
 
         </div>

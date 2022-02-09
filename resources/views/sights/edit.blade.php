@@ -121,6 +121,13 @@
                     <input type="file" name="sight_image" id="sight_image" class="form-control">
                 </div>
             </div>
+
+            <div class="col-12">
+                <div class="form-group">
+                    <strong>Лiцензiя (якщо потрiбно):</strong>
+                    <input type="text" name="license" id="license" class="form-control" value="{{$sight->license}}" autocomplete="off">
+                </div>
+            </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6">

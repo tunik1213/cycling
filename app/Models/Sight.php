@@ -32,7 +32,8 @@ class Sight extends Model
         'sub_category_id',
         'radius',
         'locality',
-        'moderator'
+        'moderator',
+        'license'
     ];
 
     protected $hidden = [

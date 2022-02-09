@@ -313,7 +313,8 @@ $area_id = 42;
             'category_id' => (int)$request->category,
             'sub_category_id' => $request->subcategory ?? null,
             'radius' => $request->radius ?? 25,
-            'locality' => $request->locality ?? null
+            'locality' => $request->locality ?? null,
+            'license' => $request->license ?? null
         ]);
 
         $success_message = 'Пам\'ятка успiшно створена! '
@@ -398,6 +399,7 @@ $area_id = 42;
         $sight->sub_category_id = $request->subcategory ?? null;
         $sight->radius = $request->radius;
         $sight->locality = $request->locality ?? null;
+        $sight->license = $request->license ?? null;
         $sight->save();
 
         $url = $request->input('moderation_uri', route('sights.show',['sight'=>$sight]));
