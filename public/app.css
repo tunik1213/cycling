@@ -37,6 +37,7 @@ html, body {
 
 #banner-bg {
   height: 100vh;
+  overflow: hidden;
 }
 
 #banner-space {
@@ -49,30 +50,33 @@ html, body {
   bottom: 0;
   right: 0;
   top: 0;
-  background: linear-gradient(#2ab5d3 calc(80px/2), rgba(255, 255, 255, 0) calc(80px*2));
+  /*    background: linear-gradient(
+      		$background-header calc(80px/2),
+      		rgba(255,255,255,0) calc(80px*2)
+      );
+  */
+  background: linear-gradient(rgba(42, 181, 211, 0.4) calc(80px/2), rgba(0, 0, 0, 0.4) calc(80px*2));
 }
 
 #banner-bg span {
   color: #fff;
 }
 
-#banner-bg #title-1 {
-  display: none;
-  font-size: calc(1rem + 2vw);
+#banner-bg #main-title {
+  position: relative;
+  top: 20vh;
+  padding-top: 2rem;
+  text-align: center;
 }
 
-#banner-bg #main-title {
-  position: absolute;
-  top: 30%;
-  left: 0;
-  right: 0;
+#banner-bg * {
+  text-shadow: #212529 1px 1px 5px;
 }
 
 #banner-bg #main-title-text {
   font-size: 10vw;
   letter-spacing: 0.5em;
   text-transform: uppercase;
-  text-shadow: #2ab5d3 1px 1px 5px;
 }
 
 #banner-bg #title-2 {
@@ -80,12 +84,14 @@ html, body {
   bottom: 0;
   left: 0;
   right: 0;
-  font-size: calc(1rem + 1vw);
-  padding: 0.5rem 0;
+  font-size: calc(1rem + 0.5vw);
+  z-index: 2;
 }
 
 #banner-bg #title-3 {
-  font-size: 2rem;
+  position: absolute;
+  top: 1rem;
+  font-size: calc(1rem + 1vw);
 }
 
 #login-page {
@@ -341,12 +347,17 @@ a.navbar-brand {
 }
 
 #auth-link-place {
-  padding-top: 10%;
+  padding-top: 5%;
   margin-bottom: 10%;
   position: absolute;
   top: 50%;
   left: 0;
   right: 0;
+}
+
+#auth-link-container {
+  position: relative;
+  display: inline;
 }
 
 .font-color-strava {
@@ -366,13 +377,22 @@ a.font-color-strava {
   font: 700 18px/30px expressway, sans-serif;
   color: #FFFFFF;
   font-weight: 700;
-  margin: 0 auto;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   display: inline-block;
   padding: 5px 20px;
+}
+
+ul#login-btn-dop-info {
+  position: absolute;
+  left: 0;
+  list-style-type: disclosure-closed;
+  margin-right: -10rem;
+  text-align: left;
+  padding-left: 1.3rem;
+  padding-top: 1rem;
 }
 
 #right-header {
@@ -584,6 +604,10 @@ ul.pagination > li:nth-child(11) {
 
   #banner-bg #title-3 {
     font-size: 1rem;
+  }
+
+  #login-btn-dop-info, #title-3 {
+    font-size: smaller;
   }
 }
 

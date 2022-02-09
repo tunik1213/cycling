@@ -9,18 +9,12 @@
 
 @guest
     <div id="banner-bg">
-        <div id="banner-layout">
-            <div>
-                <span id="title-1">Сайт веломандрівника</span>
-            </div>
-        </div>
+        <div id="banner-layout"></div>
 
-        <div class="container">
+        <div class="">
 
-            <div id="main-title">
-                <div class="">
-                    <span id="title-3">Проєкт створено для веломандрівників Україною</span>
-                </div>
+            <div id="main-title" >
+                <span id="title-3">Для твоїх веломандрівок Україною</span>
                 <span id="main-title-text">Velocian</span>
             </div>
             
