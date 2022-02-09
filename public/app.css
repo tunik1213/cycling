@@ -84,14 +84,14 @@ html, body {
   bottom: 0;
   left: 0;
   right: 0;
-  font-size: calc(1rem + 0.5vw);
+  font-size: calc(1rem - -0.5vw);
   z-index: 2;
 }
 
 #banner-bg #title-3 {
   position: absolute;
   top: 1rem;
-  font-size: calc(1rem + 1vw);
+  font-size: calc(1rem - -1vw);
 }
 
 #login-page {
@@ -388,6 +388,7 @@ a.font-color-strava {
 ul#login-btn-dop-info {
   position: absolute;
   left: 0;
+  top: 2rem;
   list-style-type: disclosure-closed;
   margin-right: -10rem;
   text-align: left;
