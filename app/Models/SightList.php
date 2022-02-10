@@ -61,49 +61,22 @@ class SightList extends ListModel
 
     private function sights_query()
     {
-        $sights =  $this->query()
+        $sights = $this->query_all_filters()
             ->selectRaw('s.id,count(v.id) as count')
             ->groupBy('s.id');
-
-        if(!empty($this->district)) {
-            $sights = $sights->where('d.id',$this->district->id);
-        }
-        if(!empty($this->area)) {
-            $sights = $sights->where('d.area_id',$this->area->id);
-        }
-
-        if(!empty($this->category)) {
-            $sights = $sights->where('s.category_id',$this->category->id);
-        }
-        if(!empty($this->subcategory)) {
-            $sights = $sights->where('s.sub_category_id',$this->subcategory->id);
-        }
 
         if(empty($this->activity)) {
             $sights = $sights->orderByRaw('count desc,s.name');
         } else {
             $sights = $sights->orderByRaw('v.id');
-        }
-
-        if(!empty($this->search)) {
-            $search_array = explode(' ',$this->search);
-            foreach ($search_array as &$q) {
-                $q = '+'.trim($q).'*';
-            }
-            $search_query = implode(' ',$search_array);
-            $sights = $sights->whereRaw(
-                "MATCH(s.name) AGAINST('$search_query' IN BOOLEAN MODE)"
-            );
-        }
-
-        //dd($sights->toSql());
+        };
 
         return $sights;
     }
 
     public function locations()
     {
-        $result = $this->query()
+        $result = $this->query_user_filters()
             ->join('areas','areas.id','=','d.area_id')
             ->select([
                 'areas.id as area_id',
@@ -129,7 +102,7 @@ class SightList extends ListModel
 
     public function categories()
     {
-        $result = $this->query()
+        $result = $this->query_user_filters()
             ->join('sight_categories as cats','cats.id','=','s.category_id')
             ->join('sight_sub_categories as subcats','subcats.id','=','s.sub_category_id')
             ->select([
@@ -154,35 +127,13 @@ class SightList extends ListModel
 
     }
 
-    private function query()
-    {
-        $sights = DB::table('sights as s')
-            ->leftjoin('visits as v','v.sight_id','=','s.id')
-            ->leftjoin('activities as a','a.id','=','v.act_id')
-            ->leftjoin('users as u','u.id','=','a.user_id')
-            ->leftjoin('districts as d','d.id','=','s.district_id');
-            
-        if(!empty($this->user))
-            $sights = $sights->where('a.user_id',$this->user->id);
-
-        if(!empty($this->author)) {
-            $sights = $sights->where('s.user_id',$this->author->id);
-        }
-
-        if(!empty($this->activity)) {
-            $sights = $sights->where('a.id',$this->activity->id);
-        }
-        
-        return $sights;
-    }
-
     public function isNotEmpty()
     {
         return !$this->isEmpty();
     }
     public function isEmpty()
     {
-        $result = $this->sights_query()->limit(1)->first();
+        $result = $this->query_all_filters()->limit(1)->first();
         return empty($result);
     }
 
@@ -243,4 +194,112 @@ class SightList extends ListModel
 
         return $result;
     }
+
+    public function geoJsonData()
+    {
+        $result = [
+            'type'=> 'FeatureCollection', 
+            'features' => []
+        ];
+        if (empty($this->filters())) return $result;
+
+        $data = $this
+        ->query_all_filters()
+        ->select([
+            's.id',
+            's.user_id as author',
+            's.name',
+            's.lat',
+            's.lng',
+            's.area_id',
+            's.district_id',
+            's.category_id',
+            's.sub_category_id',
+            's.locality',
+        ])
+        ->distinct()
+        ->reorder()
+        ->get();
+
+        foreach($data as $d) {
+            $feature = [
+                'type' => 'feature',
+                'geometry' => [
+                    'type' => 'point',
+                    'coordinates' => [$d->lat,$d->lng]
+                ],
+                'properties' => [
+                    'title' => $d->name,
+                    'url' => route('sights.show',$d->id),
+                    'photos' => [route('sights.image',$d->id)]
+                ]
+            ];
+            array_push($result['features'],$feature);
+        }
+
+        return $result;
+    }
+
+
+    private function base_query()
+    {
+        return DB::table('sights as s')
+            ->leftjoin('visits as v','v.sight_id','=','s.id')
+            ->leftjoin('activities as a','a.id','=','v.act_id')
+            ->leftjoin('users as u','u.id','=','a.user_id')
+            ->leftjoin('districts as d','d.id','=','s.district_id');
+    }
+
+    private function query_user_filters()
+    {
+        $sights = $this->base_query();
+
+        if(!empty($this->user))
+            $sights = $sights->where('a.user_id',$this->user->id);
+
+        if(!empty($this->author)) {
+            $sights = $sights->where('s.user_id',$this->author->id);
+        }
+
+        if(!empty($this->activity)) {
+            $sights = $sights->where('a.id',$this->activity->id);
+        }
+        
+        return $sights;
+    }
+
+    private function query_all_filters()
+    {
+        $sights = $this->query_user_filters();
+
+        if(!empty($this->district)) {
+            $sights = $sights->where('d.id',$this->district->id);
+        }
+        if(!empty($this->area)) {
+            $sights = $sights->where('d.area_id',$this->area->id);
+        }
+
+        if(!empty($this->category)) {
+            $sights = $sights->where('s.category_id',$this->category->id);
+        }
+        if(!empty($this->subcategory)) {
+            $sights = $sights->where('s.sub_category_id',$this->subcategory->id);
+        }
+
+        if(!empty($this->search)) {
+            $search_array = explode(' ',$this->search);
+            foreach ($search_array as &$q) {
+                $q = '+'.trim($q).'*';
+            }
+            $search_query = implode(' ',$search_array);
+            $sights = $sights->whereRaw(
+                "MATCH(s.name) AGAINST('$search_query' IN BOOLEAN MODE)"
+            );
+        }
+
+        //dd($sights->toSql());
+
+        return $sights;
+    }
+
 }
