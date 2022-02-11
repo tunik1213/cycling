@@ -2,6 +2,9 @@
 
 @section('head')
     <title>{{env('APP_NAME')}}: {{$sight->name}}</title>
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+       crossorigin=""/>
 @endsection
 
 @section('content')
@@ -35,10 +38,10 @@
             <span>Фото вiдсутнє</span>
         @endif
 
-        <div class="desktop">
-            <a href="{{$sight->gm_link()}}" target="_blank" rel="nofollow">
+        <div class="desktop" id="desktop-map">
+            {{-- <a href="{{$sight->gm_link()}}" target="_blank" rel="nofollow">
             <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->map_image)}}" alt="Мапа {{$sight->name}}"> 
-            </a>
+            </a> --}}
         </div>
     </div>
 
@@ -94,13 +97,11 @@
 
 
 
-    <div class="col-lg-4 col-12 mobile">
-        <a href="{{$sight->gm_link()}}" target="_blank" rel="nofollow">
+    <div class="col-lg-4 col-12 mobile" id="mobile-map">
+        {{-- <a href="{{$sight->gm_link()}}" target="_blank" rel="nofollow">
             <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->map_image)}}" alt="Мапа {{$sight->name}}"> 
-        </a>
+        </a> --}}
     </div>
-
-
 
     <div class="container">
         @include('user.top',['userList'=>$topUsers,'list_title'=>'Топ мандрiвникiв'])
@@ -109,5 +110,29 @@
 </div>
         
         
+
+@endsection
+
+
+@section('javascript')
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+
+   <script type="text/javascript">
+        var latlng = [{{$sight->lat}}, {{$sight->lng}}];
+        var mapSelector = 'desktop-map';
+        if(!$('#'+mapSelector).is(':visible')) {
+            mapSelector = 'mobile-map';
+        }
+        var map = L.map(mapSelector).setView(latlng, 13);
+        //L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/1/1/0?access_token={{env('MAPBOX_TOKEN')}}', {
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+        }).addTo(map);
+
+        var marker = L.marker(latlng).addTo(map);
+   </script>
 
 @endsection

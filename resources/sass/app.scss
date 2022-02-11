@@ -145,6 +145,15 @@ img.in-container {
 .sight-buttons a, .sight-buttons button {
 	width: 100%;
 }
+#desktop-map {
+	height: 400px;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+#mobile-map {
+	height: 500px;
+	margin-bottom: 1rem;
+}
 ul.pagination {
 	padding: 1rem 0;
 }
