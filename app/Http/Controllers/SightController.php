@@ -18,7 +18,7 @@ class SightController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['show','getImage','list']);
+        $this->middleware('auth')->except(['show','getImage','list', 'geoJSON']);
         $this->middleware('moderator')->only(['destroy','edit','update','index','massUpdate']);
     }
 

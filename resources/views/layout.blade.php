@@ -36,6 +36,8 @@
     @yield('markup')
 
     @if(env('APP_DEBUG'))
+        <link rel="stylesheet" href="/leaflet.css">
+        <link rel="stylesheet" href="/MarkerCluster.css">
         <link rel="stylesheet" href="/app.css">
     @else
         @include('production_asserts',['type' => 'css'])
@@ -105,11 +107,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 
-@if(env('APP_DEBUG'))
-    <script src="/app.js"></script>
-@else
-    @include('production_asserts',['type' => 'js'])
-@endif
+    <script src="/leaflet.js"></script>
+    <script src="/leaflet.markercluster.js"></script>
+
+
 
 @yield('javascript')
 

@@ -162,13 +162,13 @@ class SightList extends ListModel
     public function title(bool $links=true) : string
     {
         if(!empty($this->user)) {
-            return 'Список пам\'яток, якi вiдвiда'
+            return 'Визначні місця, якi вiдвiда'
                 .$this->user->gender('в','ла').' '
                 .(($links) ? $this->user->link : $this->user->fullname);
         }
 
         if(!empty($this->author)) {
-            return 'Список пам\'яток, якi дода'
+            return 'Визначні місця, які дода'
                 .$this->author->gender('в','ла').' '
                 .(($links) ? $this->author->link : $this->author->fullname);
         }
@@ -201,7 +201,7 @@ class SightList extends ListModel
             'type'=> 'FeatureCollection', 
             'features' => []
         ];
-        if (empty($this->filters())) return $result;
+        //if (empty($this->filters())) return $result;
 
         $data = $this
         ->query_all_filters()
@@ -209,6 +209,7 @@ class SightList extends ListModel
             's.id',
             's.user_id as author',
             's.name',
+            's.description',
             's.lat',
             's.lng',
             's.area_id',
@@ -223,13 +224,14 @@ class SightList extends ListModel
 
         foreach($data as $d) {
             $feature = [
-                'type' => 'feature',
+                'type' => 'Feature',
                 'geometry' => [
-                    'type' => 'point',
-                    'coordinates' => [$d->lat,$d->lng]
+                    'type' => 'Point',
+                    'coordinates' => [$d->lng,$d->lat]
                 ],
                 'properties' => [
                     'title' => $d->name,
+                    'description' => $d->description ?? '',
                     'url' => route('sights.show',$d->id),
                     'photos' => [route('sights.image',$d->id)]
                 ]
@@ -238,6 +240,11 @@ class SightList extends ListModel
         }
 
         return $result;
+    }
+
+    public function geoJsonUrl()
+    {
+        return route('sightsGeoJSON',$this->filters());
     }
 
 

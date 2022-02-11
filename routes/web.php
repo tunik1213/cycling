@@ -41,8 +41,8 @@ Route::middleware('moderator')->group(function () {
     Route::get('/user/index',[UserController::class,'index'])->name('users.index');
     Route::get('/sights/importKML',[SightController::class,'importKML']);
     Route::get('/sights/moderation',[SightController::class,'moderation'])->name('moderation');
-    Route::get('/sights/geoJSON',[SightController::class,'geoJSON'])->name('sightsGeoJSON');
 });
+Route::get('/sights/geoJSON',[SightController::class,'geoJSON'])->name('sightsGeoJSON');
 
 Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites'])->name('checkInvites')->middleware('localhost');
 Route::get('/crontab/parseActivityNames',[CrontabController::class,'parseActivityNames'])->middleware('localhost');
@@ -79,7 +79,6 @@ Route::get('/sights/find/{lat},{lng}',[SightController::class, 'find'])->name('f
 
 Route::get('/export/subcategories',[CategoryController::class, 'exportSubCategories']);
 Route::get('/export/districts/{area_id}',[DistrictController::class, 'export']);
-
 
 
 Route::resource('subcategories', SubCategoryController::class);

@@ -223,10 +223,17 @@ ul.folding.nested {
 #search-container input#search-input:focus {
 	box-shadow: none;
 }
-
+img.marker-preview {
+	max-width: 100%;
+	max-height: 100%;
+}
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
+#map {
+	height: 40vh;
+	margin-bottom: 1rem;
+}
 
 body > .container {
   padding: 1rem;

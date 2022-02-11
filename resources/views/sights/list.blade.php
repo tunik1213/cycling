@@ -35,12 +35,13 @@
 
         </div>
 
+        <div id="map"></div>
+
         
 
         <div class="row">
             <div class="col-xl-2 col-lg-3 desktop" id="info-block-sidebar">
                 <div id="filter-block">
-                    <hr/>
                     <p class="filter-block-title">Розташування</p>
                     <ul id="filter-locations" class="folding">
                         @php($getParams = $sightList->filters([],['area','district']))
@@ -117,4 +118,31 @@
 
 
 @section('javascript')
+
+   <script type="text/javascript">
+
+        var map = L.map('map');
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+        }).addTo(map);
+
+        var geoJsonUrl = '{!!$sightList->geoJsonUrl()!!}';
+
+        $.getJSON(geoJsonUrl, function(data) {
+            var geojson = L.geoJson(data, {
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup('<a target="_blank" href="' + feature.properties.url + '">' + feature.properties.title + '</a>'
+                        +'<img class="marker-preview" src="'+feature.properties.photos[0]+'" />');
+                }
+            });
+            var markers = L.markerClusterGroup();
+            markers.addLayer(geojson);
+            map.fitBounds(geojson.getBounds());
+            //map.addLayer(markers);
+            markers.addTo(map);
+        });
+
+   </script>
 @endsection
