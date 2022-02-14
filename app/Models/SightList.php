@@ -207,16 +207,9 @@ class SightList extends ListModel
         ->query_all_filters()
         ->select([
             's.id',
-            's.user_id as author',
             's.name',
-            's.description',
             's.lat',
-            's.lng',
-            's.area_id',
-            's.district_id',
-            's.category_id',
-            's.sub_category_id',
-            's.locality',
+            's.lng'
         ])
         ->distinct()
         ->reorder()
@@ -231,7 +224,6 @@ class SightList extends ListModel
                 ],
                 'properties' => [
                     'title' => $d->name,
-                    'description' => $d->description ?? '',
                     'url' => route('sights.show',$d->id),
                     'photos' => [route('sights.image',$d->id)]
                 ]

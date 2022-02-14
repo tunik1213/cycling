@@ -486,6 +486,7 @@ $area_id = 42;
     public function geoJSON(Request $request)
     {
         $list = new SightList($request);
-        return response()->json($list->geoJsonData());
+        return response()->json($list->geoJsonData(), 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+        JSON_UNESCAPED_UNICODE);
     }
 }
