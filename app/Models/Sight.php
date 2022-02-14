@@ -37,8 +37,7 @@ class Sight extends Model
     ];
 
     protected $hidden = [
-        'image',
-        'map_image'
+        'image'
     ];
 
     //public int $visitsCount;
@@ -48,10 +47,7 @@ class Sight extends Model
         parent::boot();
 
         static::saving(function($sight) {            
-            if ($sight->isDirty('lat') || $sight->isDirty('lng')) {
-                $sight->map_image = $sight->map_image();
-            }
-            if (!$sight->isPublic() && Auth::user()->moderator ?? false) {
+                if (!$sight->isPublic() && Auth::user()->moderator ?? false) {
                 $sight->moderator = Auth::user()->id;
             }
         });
