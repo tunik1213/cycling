@@ -3,7 +3,7 @@
 )
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
 
     <meta charset="utf-8">
