@@ -72,7 +72,13 @@ class SightController extends Controller
         
         $folders = $document->getFolders();
         foreach($folders as $folder) {
-            $sights = $folder->getPlacemarks();
+            try {
+                $sights = $folder->getPlacemarks();
+            } catch(\Throwable $e) {
+                    echo    $e->getMessage().'<br/>';
+                    continue;
+            }
+
             foreach($sights as $s) {
 
                 try {
@@ -114,8 +120,8 @@ class SightController extends Controller
                     continue;
                 }
 
-$district_id = null;
-$area_id = 42;
+// $district_id = null;
+// $area_id = 42;
 //$locality = 'Черкаси';
                 $url = 'https://maps.google.com/maps/api/geocode/json?latlng='
                     .$lat.','.$lng
