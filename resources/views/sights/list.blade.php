@@ -35,9 +35,9 @@
 
         </div>
 
-        <div id="map"></div>
-
-        
+        @if($sightList->isNotEmpty())
+            <div id="map"></div>
+        @endif        
 
         <div class="row">
             <div class="col-xl-2 col-lg-3 desktop" id="info-block-sidebar">
