@@ -83,7 +83,7 @@
 
 
     function fillEditorContent(e) {
-        this.setContent(`{!! str_replace('`','\'',$sight->description ?? '' ) !!}`);
+        this.setContent(`{!! str_replace('`','\'',$sight->description ?? old('description') ?? '' ) !!}`);
     }
 
     $('select#category').change(function(e){
@@ -97,7 +97,7 @@
 
                 s.append('<option value="">Виберіть підкатегорію</option>');
                 $.each(data,function(i,cat) {
-                    selected=(cat.id=={{$sight->subcategory->id ?? 'null'}})?'selected':'';
+                    selected=(cat.id=={{$sight->subcategory->id ?? old('subcategory') ?? 'null'}})?'selected':'';
                     s.append('<option '+selected+' value="'+cat.id+'">'+cat.name+'</option>');
                 });
                 s.append('<option value="0">Інше (Важко відповісти)</option>');

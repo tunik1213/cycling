@@ -83,7 +83,9 @@
             <div class="form-group">
                 <strong>Пiдкатегорiя (необов'язково):</strong>
                 <select disabled id="subcategory" name="subcategory" class="form-select" aria-label="Пiдкатегорiя">
-                    <option selected value="0">Виберiть пiдкатегорiю</option>
+                    @if(empty(old('subcategory')))
+                        <option selected value="0">Виберiть пiдкатегорiю</option>
+                    @endif
                 </select>
             </div>
 
@@ -116,7 +118,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <strong>Фото:</strong>
-                        <input type="file" name="sight_image" id="sight_image" class="form-control">
+                        <input type="file" name="sight_image" id="sight_image" class="form-control" value="{{old('sight_image')}}">
                     </div>
                 </div>
 
