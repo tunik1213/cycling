@@ -15,9 +15,15 @@ cat \
 
 gzip -c -1 "${build_root}/${build_name}.css" > "${build_root}/${build_name}.cssgz"
 
+
+cat "${public_dir}/leaflet.js" > "${build_root}/${build_name}.js"
+echo $'\n\n' >> "${build_root}/${build_name}.js"
+cat "${public_dir}/leaflet.markercluster.js" >> "${build_root}/${build_name}.js"
+echo $'\n\n' >> "${build_root}/${build_name}.js"
+
 cat \
 	"${public_dir}/app.js"\
-| uglifyjs --compress --mangle -o "${build_root}/${build_name}.js"
+| uglifyjs --compress --mangle >> "${build_root}/${build_name}.js"
 
 gzip -c -1 "${build_root}/${build_name}.js" > "${build_root}/${build_name}.jsgz"
 
