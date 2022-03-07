@@ -1,3 +1,8 @@
+@php
+    $moderator = Auth::user()->moderator ?? false;
+    $lv = App\Models\SightVersion::lastVersion($sight);
+@endphp
+
 @extends('layout')
 @section('content')
 
@@ -47,20 +52,18 @@
             <strong>Координати (Ctrl+V):</strong>
             <div class="row">
                 <div class="col col-6">
-                    <input type="text" id="lat" name="lat" value="{{ old('lat') ?? $sight->lat }}" class="form-control" placeholder="Широта" autocomplete="off">
+                    <input type="text" id="lat" name="lat" value="{{ old('lat') ?? $sight->lat }}" class="form-control @if($sight->lat != $orig->lat) changed-input @endif" placeholder="Широта" autocomplete="off">
                 </div>
                 <div class="col col-6">
-                    <input type="text" id="lng" name="lng" value="{{ old('lng') ?? $sight->lng }}" class="form-control" placeholder="Довгота" autocomplete="off">
+                    <input type="text" id="lng" name="lng" value="{{ old('lng') ?? $sight->lng }}" class="form-control @if($sight->lng != $orig->lng) changed-input @endif" placeholder="Довгота" autocomplete="off">
                 </div>
             </div>
         </div>
 
-        @if(Auth::user()->moderator)
         <div class="col col-3">
             <strong>Радiус, м</strong>
-            <input type="number" id="radius" name="radius" value="{{ old('radius') ?? $sight->radius }}" class="form-control" placeholder="Радiус" autocomplete="off">
+            <input type="number" id="radius" name="radius" value="{{ old('radius') ?? $sight->radius }}" class="form-control @if($sight->radius != $orig->radius) changed-input @endif" placeholder="Радiус" autocomplete="off">
         </div>
-        @endif
     </div>
 
     <div class="row">
@@ -68,7 +71,7 @@
         <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <strong>Категорiя:</strong>
-                <select id="category" name="category" class="form-select" aria-label="Категорiя">
+                <select id="category" name="category" class="form-select @if($sight->category != $orig->category) changed-input @endif" aria-label="Категорiя">
                     @if(empty($sight->category))
                         <option selected value="0">Виберiть категорiю</option>
                     @endif
@@ -87,45 +90,46 @@
 
             <div class="form-group">
                 <strong>Пiдкатегорiя: (необов'язково)</strong>
-                <select disabled id="subcategory" name="subcategory" class="form-select" aria-label="Пiдкатегорiя">
+                <select disabled id="subcategory" name="subcategory" class="form-select @if($sight->subcategory != $orig->subcategory) changed-input @endif" aria-label="Пiдкатегорiя">
                 </select>
             </div>
 
             <div class="form-group">
                 <strong>Область:</strong>
-                <input type="text" name="area" id="area" class="form-control" placeholder="Почнiть набирати назву областi" value="{{ $sight->area->name ?? '' }}" autocomplete="off">
+                <input type="text" name="area" id="area" class="form-control @if($sight->area != $orig->area) changed-input @endif" placeholder="Почнiть набирати назву областi" value="{{ $sight->area->name ?? '' }}" autocomplete="off">
             </div>
 
             <input name="area_id" id="area_id" type="hidden" value="{{ $sight->area->id ?? '' }}" />
 
             <div class="form-group">
                 <strong>Район:</strong>
-                <input type="text" name="district" id="district" class="form-control" placeholder="Почнiть набирати назву району" value="{{ $sight->district->name ?? '' }}" autocomplete="off">
+                <input type="text" name="district" id="district" class="form-control @if($sight->district != $orig->district) changed-input @endif" placeholder="Почнiть набирати назву району" value="{{ $sight->district->name ?? '' }}" autocomplete="off">
             </div>
 
             <input name="district_id" id="district_id" type="hidden" value="{{ $sight->district->id ?? '' }}" />
 
             <div class="form-group">
                 <strong>Населений пункт:</strong>
-                <input type="text" name="locality" class="form-control" placeholder="{{ old('locality') ?? $sight->locality}}" value="{{ $sight->locality }}" autocomplete="off">
+                <input type="text" name="locality" class="form-control @if($sight->locality != $orig->locality) changed-input @endif" placeholder="{{ old('locality') ?? $sight->locality}}" value="{{ $sight->locality }}" autocomplete="off">
             </div>
 
             <div class="form-group">
                 <strong>Назва:</strong>
-                <input type="text" name="name" class="form-control" placeholder="{{$sight->name}}" value="{{ old('name') ??  $sight->name }}" autocomplete="off">
+                <input type="text" name="name" class="form-control @if($sight->name != $orig->name) changed-input @endif" placeholder="{{$sight->name}}" value="{{ old('name') ??  $sight->name }}" autocomplete="off">
             </div>
 
             <div class="form-group row">
                 <div class="form-group">
                     <strong>Знiнити фото:</strong>
-                    <input type="file" name="sight_image" id="sight_image" class="form-control">
+                    <input type="file" name="sight_image" id="sight_image" class="form-control @if($sight->image != $orig->image) changed-input @endif">
                 </div>
+                <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->image)}}"> 
             </div>
 
             <div class="col-12">
                 <div class="form-group">
                     <strong>Лiцензiя (якщо потрiбно):</strong>
-                    <input type="text" name="license" id="license" class="form-control" value="{{$sight->license}}" autocomplete="off">
+                    <input type="text" name="license" id="license" class="form-control @if($sight->license != $orig->license) changed-input @endif" value="{{$sight->license}}" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -133,7 +137,7 @@
         <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <label for="description">Опис:</label>
-                <textarea class="form-control" name="description" id="description" rows="3">{{ old('description') ?? $sight->description}}</textarea>
+                <textarea class="form-control @if($sight->description != $orig->description) changed-input @endif" name="description" id="description" rows="3">{{ old('description') ?? $sight->description}}</textarea>
             </div>
         </div>
         
@@ -141,9 +145,16 @@
 
     <br />
     <div class="row">
-        <p><button type="submit" class="btn btn-primary">Зберегти</button></p>
+        <p><button type="submit" class="btn btn-primary">Зберегти</button>
+        @if($moderator && !empty($lv))
+            <a href="{{route('sights.rollback',$sight->id)}}" class="btn btn-danger"><i class="fas fa-ban"></i> Скасувати правку</a>
+        @endif
+        </p>
     </div>
 </form>
+
+
+
 @endsection
 
 @section('javascript')

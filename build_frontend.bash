@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x #echo on
 
 build_name=$(date "+%Y%m%d%H%M%S")
 public_dir=/var/www/html/cycling/public
@@ -11,7 +12,7 @@ cat \
 	"${public_dir}/leaflet.css"\
 	"${public_dir}/MarkerCluster.css"\
 	"${public_dir}/app.css"\
-| yui-compressor --type css -o "${build_root}/${build_name}.css"
+| uglifycss > "${build_root}/${build_name}.css"
 
 gzip -c -1 "${build_root}/${build_name}.css" > "${build_root}/${build_name}.cssgz"
 

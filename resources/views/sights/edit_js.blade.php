@@ -121,7 +121,12 @@
             browser_spellcheck: true,
             relative_urls: false,
             height : '350'
-        });
+        }).then(function(editors) {
+            $('#description.changed-input').closest('.form-group').find('#description_ifr').addClass('changed-input');
+        });;
+
+
+
 
 
 

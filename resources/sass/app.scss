@@ -56,6 +56,9 @@ html,body {
     		rgba(0, 0, 0, 0.4) calc(#{$header-height}*2)
     );
 }
+.changed-input {
+	background-color: #f1f1b5 !important;
+}
 #banner-bg span {
 	color: $font-color-light;
 }
@@ -472,7 +475,7 @@ img.sight-image {
 
 /* card */
 div.card {
-		box-shadow: 0 15px 10px -15px rgb(0 0 0 / 30%);
+    box-shadow: 0 15px 10px -15px rgb(0 0 0 / 30%);
 		padding: 1rem;
     margin: 0.5rem;
     height: 95%;

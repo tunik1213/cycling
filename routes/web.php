@@ -68,6 +68,7 @@ Route::get('/districts/{id}/image', [DistrictController::class, 'getImage'])->na
 
 Route::resource('sights', SightController::class);
 Route::get('/sights/{id}/image', [SightController::class, 'getImage'])->name('sights.image');
+Route::get('/sights/{id}/rollback', [SightController::class, 'rollback'])->name('sights.rollback');
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 

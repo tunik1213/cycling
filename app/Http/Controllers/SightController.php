@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\Http;
 use StepanDalecky\KmlParser\Parser;
 use App\Models\SightList;
 use App\Models\UserList;
+use App\Models\SightVersion;
 
 class SightController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth')->except(['show','getImage','list', 'geoJSON']);
-        $this->middleware('moderator')->only(['destroy','edit','update','index','massUpdate']);
+        $this->middleware('moderator')->only(['destroy','index','massUpdate']);
     }
 
     public function import(Request $request, string $loc, ?int $district_id) {
@@ -354,8 +355,20 @@ class SightController extends Controller
      */
     public function edit(Request $request,int $id)
     {
+        $s = Sight::find($id);
+        if(empty($s)) abort(404);
+
+        $lv = SightVersion::lastVersion($s);
+        if(empty($lv)) {
+            $orig = $s;
+        } else {
+            $orig = Sight::unserialize($lv->data);
+        }
+
+
         $params = [
-            'sight'=>Sight::find($id),
+            'sight'=>$orig,
+            'orig' => $s,
             'moderation_uri' => $request->input('moderation_uri')
         ];
         
@@ -389,6 +402,8 @@ class SightController extends Controller
         }
 
         $sight = Sight::find($id);
+        if(!$sight->canEdit()) return abort(403);
+
         $sight->name = $request->name;
         if ($request->sight_image) {
             $sight->image = Image::make($request->sight_image->path())
@@ -494,5 +509,18 @@ class SightController extends Controller
         $list = new SightList($request);
         return response()->json($list->geoJsonData(), 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
         JSON_UNESCAPED_UNICODE);
+    }
+
+    public function rollback(Request $request, $id)
+    {
+        $sight = Sight::find($id);
+        if(empty($sight)) abort(404);
+
+        $lv = SightVersion::lastVersion($sight);
+        if(!empty($lv)) $lv->delete();
+
+        return redirect()
+                ->route('sights.show',$id)
+                ->with('success','Правку успiшно скасовано');
     }
 }
