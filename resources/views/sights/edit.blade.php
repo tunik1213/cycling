@@ -133,7 +133,7 @@
             <div class="col-12">
                 <div class="form-group">
                     <strong>Лiцензiя (якщо потрiбно):</strong>
-                    <input type="text" name="license" id="license" class="form-control @if($sight->license != $orig->license) changed-input @endif" value="{{$sight->license}}" autocomplete="off">
+                    <input type="text" name="license" id="license" class="form-control @if($sight->license != $orig->license) changed-input @endif" value="{{old('license') ?? $sight->license}}" autocomplete="off">
                 </div>
             </div>
         </div>
