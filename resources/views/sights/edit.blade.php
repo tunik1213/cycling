@@ -123,7 +123,11 @@
                     <strong>Знiнити фото:</strong>
                     <input type="file" name="sight_image" id="sight_image" class="form-control @if($sight->image != $orig->image) changed-input @endif">
                 </div>
-                <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->image)}}"> 
+                @if(!empty($sight->image))
+                    <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->image)}}"> 
+                @else
+                    <p>Фото вiдсутнє</p>
+                @endif
             </div>
 
             <div class="col-12">
