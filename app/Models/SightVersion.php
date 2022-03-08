@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Sight;
 use App\Models\User;
@@ -29,5 +30,10 @@ class SightVersion extends Model
             ->whereNull('moderator')
             ->orderBy('id','desc')
             ->first();
+    }
+
+    public static function unmoderated_count() : int
+    {
+        return DB::select('select count(*) as count from sight_versions where moderator is null;')[0]->count;
     }
 }

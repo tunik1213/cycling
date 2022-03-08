@@ -504,6 +504,30 @@ class SightController extends Controller
 
     }
 
+
+    public function edits(Request $request)
+    {
+        $area_id = $request->input('area') ?? null;
+        $area = Area::find($area_id);
+
+        $sights = Sight::join('sight_versions','sight_versions.sight_id','=','sights.id')
+            ->leftJoin('districts','districts.id','=','sights.district_id')
+            ->whereNull('sight_versions.moderator')
+            ->select(['sights.*'])
+            ->when($area, function ($query, $area) {
+                return $query->where('districts.area_id', $area->id);
+            })
+            ->paginate(20)
+            ->appends(request()->query());
+
+        return view('sights.index', [
+            'sights'=>$sights, 
+            'area'=>$area, 
+            'moderation_uri'=>$request->getRequestUri()
+        ]);
+
+    }
+
     public function geoJSON(Request $request)
     {
         $list = new SightList($request);

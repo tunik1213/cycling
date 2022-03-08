@@ -70,6 +70,12 @@
                             <span class="badge">{{\App\Models\Sight::unmoderated_count()}}</span>
                             </a>
                         </li>
+                        <li><a class="dropdown-item text-warning" href="{{route('sights.edits')}}">
+                            <i class="fas fa-edit"></i>
+                            Правки
+                            <span class="badge">{{\App\Models\SightVersion::unmoderated_count()}}</span>
+                            </a>
+                        </li>
                     @endif
                 </ul>
             </div>

@@ -41,6 +41,7 @@ Route::middleware('moderator')->group(function () {
     Route::get('/user/index',[UserController::class,'index'])->name('users.index');
     Route::get('/sights/importKML',[SightController::class,'importKML']);
     Route::get('/sights/moderation',[SightController::class,'moderation'])->name('moderation');
+    Route::get('/sights/edits',[SightController::class,'edits'])->name('sights.edits');
 });
 Route::get('/sights/geoJSON',[SightController::class,'geoJSON'])->name('sightsGeoJSON');
 
