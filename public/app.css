@@ -119,6 +119,10 @@ html, body {
   background-color: #596668;
 }
 
+.admin-item {
+  background-color: #b78086;
+}
+
 a {
   color: #2ab5d3;
   text-decoration: auto;

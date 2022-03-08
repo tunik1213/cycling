@@ -63,14 +63,14 @@
                     <li><a class="dropdown-item" id="add-header-button" href={{route('sights.create')}}><i class="fas fa-plus"></i>Додати точку</a></li>
                     <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i>Вийти</a></li>
                     @if($user->moderator)
-                        <li><a class="dropdown-item text-warning" href="{{route('admin')}}"><i class="fas fa-users-cog"></i>Адмiнiстратор</a></li>
-                        <li><a class="dropdown-item text-warning" href="{{route('moderation')}}">
+                        <li><a class="dropdown-item admin-item" href="{{route('admin')}}"><i class="fas fa-users-cog"></i>Адмiнiстратор</a></li>
+                        <li><a class="dropdown-item admin-item" href="{{route('moderation')}}">
                             <i class="fas fa-user-check"></i>
                             Модерацiя
                             <span class="badge">{{\App\Models\Sight::unmoderated_count()}}</span>
                             </a>
                         </li>
-                        <li><a class="dropdown-item text-warning" href="{{route('sights.edits')}}">
+                        <li><a class="dropdown-item admin-item" href="{{route('sights.edits')}}">
                             <i class="fas fa-edit"></i>
                             Правки
                             <span class="badge">{{\App\Models\SightVersion::unmoderated_count()}}</span>

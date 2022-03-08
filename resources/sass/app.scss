@@ -106,6 +106,9 @@ html,body {
   line-height: 60px; /* Vertically center the text there */
   background-color: $background-footer;
 }
+.admin-item {
+	background-color: #b78086;
+}
 a {
 	color: $font-color-link; 
 	text-decoration: auto;
