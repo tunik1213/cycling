@@ -191,9 +191,6 @@
 </script>
 
 <style>
-.tox-notifications-container,.tox-statusbar {
-    display: none !important;
-}
 #map {
    margin: 1rem 0;
    height: 20rem;

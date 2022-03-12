@@ -56,6 +56,9 @@ html,body {
     		rgba(0, 0, 0, 0.4) calc(#{$header-height}*2)
     );
 }
+.tox-notifications-container,.tox-statusbar {
+    display: none !important;
+}
 .changed-input {
 	background-color: #f1f1b5 !important;
 }
@@ -478,8 +481,8 @@ img.sight-image {
 
 /* card */
 div.card {
-    box-shadow: 0 15px 10px -15px rgb(0 0 0 / 30%);
-		padding: 1rem;
+    	box-shadow: 0 15px 10px -15px #999;
+	padding: 1rem;
     margin: 0.5rem;
     height: 95%;
 }
@@ -492,6 +495,20 @@ div.card-container {
 	padding-right: 1rem;
 	display: flex;
   align-items: center;
+}
+
+/* route */
+.add-sight-to-route-button {
+	position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+}
+.add-sight-to-route-button-message {
+	position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1rem;
+    display: none;
 }
 
 @media screen and (min-width: 992px) {

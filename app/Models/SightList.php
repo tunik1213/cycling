@@ -11,6 +11,7 @@ use App\Models\SightCategory as Category;
 use App\Models\SightSubCategory as SubCategory;
 use App\Models\User;
 use App\Models\Activity;
+use App\Models\Route;
 
 class SightList extends ListModel
 {
@@ -21,6 +22,7 @@ class SightList extends ListModel
     public ?User $author;
     public ?Activity $activity;
     public ?string $search;
+    public ?Route $routeAdd;
 
     public function __construct(Request $request)
     {
@@ -56,6 +58,12 @@ class SightList extends ListModel
         }
 
         $this->search = $request->input('search') ?? null;
+
+        $this->routeAdd = null;
+        if($request->input('routeAdd')) {
+            $route = Route::find($request->input('routeAdd')) ?? null;
+            if($route) $this->routeAdd = $route;
+        }
 
     }
 
@@ -161,6 +169,12 @@ class SightList extends ListModel
 
     public function title(bool $links=true) : string
     {
+        if(!empty($this->routeAdd)) {
+            return 'Додати точку до веломаршруту '
+                . $this->routeAdd->name;
+            
+        }
+
         if(!empty($this->user)) {
             return 'Визначні місця, якi вiдвiда'
                 .$this->user->gender('в','ла').' '
@@ -187,6 +201,7 @@ class SightList extends ListModel
         if (!empty($this->author)) $result['author'] = $this->author->id;
         if (!empty($this->activity)) $result['activity'] = $this->activity->id;
         if (!empty($this->search) && !isset($remove['search'])) $result['search'] = $this->search;
+        if (!empty($this->routeAdd) && !isset($remove['routeAdd'])) $result['routeAdd'] = $this->routeAdd->id;
 
         foreach($remove as $r) {
             if(isset($result[$r])) unset($result[$r]);

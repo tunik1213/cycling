@@ -13,6 +13,7 @@ use App\Jobs\CheckInvites;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\SightVersion;
+use App\Models\Route;
 
 class Sight extends Model
 {
@@ -210,6 +211,11 @@ class Sight extends Model
         $result->fill($data);
 
         return $result;
+    }
+
+    public function routes()
+    {
+        return $this->belongsToMany(Route::class);
     }
 
 }

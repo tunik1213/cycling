@@ -14,9 +14,12 @@ $(document).ready(function(){
         if (e.keyCode == 13) search($(this).val());
     });
 
+    $('.add-sight-to-route-button').on('click', addSightToRoute);
+
+
 });
 
-var search = function(query_text) {
+const search = function(query_text) {
 	var url = new URL(window.location.href);
 	var params = url.searchParams;
 	params.set('search',query_text);
@@ -24,7 +27,7 @@ var search = function(query_text) {
     window.location.replace(url.toString());
 }
 
-var scrollTopButton = function() {
+const scrollTopButton = function() {
 	$(window).scroll(function() {
 	    if ($(this).scrollTop()) {
 	        $('#scroll-top-button').fadeIn();
@@ -38,7 +41,7 @@ var scrollTopButton = function() {
 	});
 }
 
-var listTree = function() {
+const listTree = function() {
 
 	$('#toggle-mobile-filters').click(function(e){
 		$('#info-block-sidebar').toggle();
@@ -48,5 +51,43 @@ var listTree = function() {
 	$('i.caret').click(function(e){
 		$(this).closest('li').toggleClass('active');
 	});
+
+}
+
+const setAlert = function(element,classname,message) {
+	element
+		.removeClass('alert-danger alert-success alert-warning')
+		.addClass(classname)
+		.html(message)
+		.show();
+}
+
+function addSightToRoute(e) {
+	e.preventDefault();
+
+	const btn = $(this);
+	const sightCard = btn.closest('.sight-card');
+	const sight = sightCard.attr('sight-id');
+	const url = new URL(window.location.href);
+	const params = url.searchParams;
+	const route = params.get('routeAdd');
+
+	var result = $.ajax('/routes/addSight/',{
+		data: {sight: sight,route: route},
+		async: false,
+	
+	});
+
+	if(result.status==200) {
+		respData = result.responseJSON;
+		message = respData.message;
+		classname = respData.success ? 'alert-success' : 'alert-warning';
+	} else {
+		message = 'Сталася помилка';
+		classname = 'alert-danger';
+	}
+
+	alert = sightCard.find('.add-sight-to-route-button-message');
+	setAlert(alert,classname,message);
 
 }
