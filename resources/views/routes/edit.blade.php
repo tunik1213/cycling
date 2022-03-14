@@ -3,6 +3,11 @@
 @endphp
 
 @extends('layout')
+
+@section('head')
+    <link href='/draganddrop.css' rel='stylesheet' type='text/css'>
+@endsection
+
 @section('content')
 
 <div class="row">
@@ -15,7 +20,7 @@
 
 <form action="{{ route('routes.update',$route->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @method('PUT')
+    @method('POST')
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -59,13 +64,27 @@
                 </div>
             </div>
 
-
-            <div id="route-list-edit"></div>
-
             <br />
-            <a href="{{route('sights.list',['routeAdd'=>$route->id])}}"><i class="fa fa-plus"></i> Додати точку</a>
+
+            <div id="route-list-edit">
+                <h3>Точоки маршрута</h3>
+                <div id="route-list-edit-locations" class=" list-group">
+                    @foreach($route->sights()->get() as $s)
+                    <div class="list-group-item list-group-item-action" sight="{{$s->id}}">
+                        <div class="image" ><img src="data:image/jpeg;base64,{{base64_encode($s->image)}}"/></div>
+                        <div class="name"><a href="{{ route('sights.show',$s->id) }}">{{ $s->name }}</a></div>
+                        <a class="remove" title="Прибрати" href="#"><i class="fa-solid fa-xmark"></i></a>
+                    </div>
+                    @endforeach
+                </div>
+                <a class="add-link" href="{{route('sights.list',['routeAdd'=>$route->id])}}"><i class="fa fa-plus"></i> Додати точку</a>
+            </div>
+
+            <input type="hidden" name="sights" id="sights">
 
         </div>
+
+        <input type="hidden" name="finished" id="finished">
 
         <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
@@ -78,9 +97,9 @@
 
     <br />
     <div class="row">
-        <p><button type="submit" class="btn btn-primary">Зберегти</button>
+        <p><button type="submit" finish="0" class="btn btn-primary">Зберегти</button>
         @if(!$route->finished)
-            <a href="{{route('routes.publish',$route->id)}}" class="btn btn-warning"><i class="fas fa-flag-checkered"></i> Опублiкувати маршрут</a>
+            <button type="submit" finish="1" class="btn btn-warning"><i class="fas fa-flag-checkered"></i> Опублiкувати маршрут</button>
         @endif
         </p>
     </div>
@@ -92,12 +111,31 @@
 
 @section('javascript')
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src='/draganddrop.js' type='text/javascript'></script>
+
 <script type="text/javascript">
-    function fillEditorContent(e) {
-        this.setContent(`{!! str_replace('`','\'',$route->description ?? old('description') ?? '' ) !!}`);
+    $('#route-list-edit a.remove').on('click',removeSightFromRoute);
+    $('#route-list-edit-locations').sortable({container: '#route-list-edit-locations', nodes: '.list-group-item'});
+    $('button[type="submit"]').on('click',save);
+
+
+
+    function save(e) {
+        $ids = '';
+        $('#route-list-edit-locations .list-group-item').each(function(){
+            $ids = $ids + $(this).attr('sight')+',';
+        });
+        $('input#sights').val($ids);
+        
+        $('input#finished').val($(this).attr('finish'));
     }
 
-tinymce.init({
+    function removeSightFromRoute(e) {
+        $(this).closest('.list-group-item').remove();
+        e.preventDefault();
+    }
+
+    tinymce.init({
         selector: '#description',
         language: 'uk',
         plugins: 'link, emoticons, lists, charmap, paste, textcolor',
@@ -112,5 +150,10 @@ tinymce.init({
         relative_urls: false,
         height : '350'
     });
+
+    function fillEditorContent(e) {
+        this.setContent(`{!! str_replace('`','\'',$route->description ?? old('description') ?? '' ) !!}`);
+    }
+
 </script>
 @endsection

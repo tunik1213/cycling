@@ -91,8 +91,7 @@ Route::post('/postVisitsAWS', [VisitController::class,'postVisitsAWS']);
 Route::get('/routes/edit/{id?}',[RouteController::class,'edit'])->name('routes.edit');
 Route::get('/routes/publish/{id?}',[RouteController::class,'publish'])->name('routes.publish');
 Route::post('routes/update/{id?}',[RouteController::class,'update'])->name('routes.update');
-
-
 route::get('/routes/addSight/',[RouteController::class,'addSight'])->name('ajax.addToRoute');
+Route::get('/routes/{id}',[RouteController::class,'show'])->name('routes.show');
 
 

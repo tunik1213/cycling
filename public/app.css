@@ -491,6 +491,30 @@ div.card-container {
   bottom: -1rem;
   display: none; }
 
+#route-list-edit {
+  padding: 1rem 0; }
+
+#route-list-edit a.add-link {
+  line-height: 3rem; }
+
+#route-list-edit .remove {
+  position: absolute;
+  right: 1rem;
+  color: red;
+  font-size: 1.2rem; }
+
+#route-list-edit-locations img {
+  max-width: 100%; }
+
+#route-list-edit-locations .image {
+  width: 15%;
+  display: inline;
+  float: left; }
+
+#route-list-edit-locations .name {
+  display: inline;
+  padding: 1rem; }
+
 @media screen and (min-width: 992px) {
   .mobile {
     display: none; } }

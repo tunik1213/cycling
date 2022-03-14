@@ -16,14 +16,14 @@ class Route extends Model
 
     public function sights()
     {
-        return $this->belongsToMany(Sight::class)->withPivot('row_number');;
+        return $this->belongsToMany(Sight::class)->withPivot('row_number')->orderBy('row_number');
     }
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public static function current_editing()
+    public static function find_or_create()
     {
         $user = Auth::user();
         if(empty($user)) return null;
@@ -34,4 +34,33 @@ class Route extends Model
         ]);
     }
 
+    public static function current_editing()
+    {
+        $user = Auth::user();
+        if(empty($user)) return null;
+
+        return Self::where([
+            'user_id' => $user->id,
+            'finished' => false
+        ])->first();
+    }
+
+    public function canEdit() : bool
+    {
+        $user = Auth::user();
+        if(empty($user)) return false;
+
+        if($user->moderator) return true;
+
+        if($this->finished) return false;
+
+        if($this->user_id == $user->id) return true;
+
+        return false;
+    }
+
+    public function isPublic() : bool
+    {
+        return ($this->moderator != null);
+    }
 }
