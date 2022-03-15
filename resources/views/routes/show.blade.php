@@ -52,9 +52,10 @@
 
         @if($route->canEdit())
         <div class="row route-buttons">
-            <div class="col">
-                <a class="btn btn-primary" href="{{ route('routes.edit',$route->id) }}"><i class="fas fa-edit"></i> Редагувати</a>
-            </div>
+            <p>
+                <a class="btn btn-primary" href="{{ route('routes.edit',$route->id) }}"><i class="fas fa-edit"></i> Редагувати </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="add-link" href="{{route('sights.list',['routeAdd'=>$route->id])}}"><i class="fa fa-plus"></i> Додати точку </a>
+            </p>
         </div>
         @endif
     </div>

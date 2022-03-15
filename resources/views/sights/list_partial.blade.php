@@ -5,7 +5,7 @@
 <div class="info-block-body">
 @foreach ($sights as $s)
 <div class="card-container">
-    <div class="card sight-card" sight-id="{{$s->id}}">
+    <div class="card sight-card">
         <img src="data:image/jpeg;base64,{{base64_encode($s->image)}}"/>
         <div class="card-body">
             <div class="row">
@@ -31,11 +31,7 @@
             @endif
 
             @if(!empty($sightList->routeAdd))
-                <div class="add-sight-to-route-button">
-                    <a class="btn btn-primary" href="#" title="Додати точку в маршрут"><i class="fas fa-route"></i></a>
-                </div>
-                <div class="alert add-sight-to-route-button-message" role="alert">
-                </div>
+                @include('sights.route_add_button',['sight_id'=>$s->id])
             @endif
         </div>
     </div>

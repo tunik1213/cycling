@@ -68,6 +68,7 @@ Route::resource('districts', DistrictController::class);
 Route::get('/districts/{id}/image', [DistrictController::class, 'getImage'])->name('districts.image');
 
 Route::resource('sights', SightController::class);
+Route::get('/sights/{id}/getMapPopupView',[SightController::class,'getMapPopupView']);
 Route::get('/sights/{id}/image', [SightController::class, 'getImage'])->name('sights.image');
 Route::get('/sights/{id}/rollback', [SightController::class, 'rollback'])->name('sights.rollback');
 

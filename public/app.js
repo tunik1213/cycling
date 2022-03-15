@@ -15,6 +15,8 @@ $(document).ready(function(){
     });
 
     $('.add-sight-to-route-button').on('click', addSightToRoute);
+    $('#map').on('click','.add-sight-to-route-button',addSightToRoute);
+    
 
 
 });
@@ -66,8 +68,8 @@ function addSightToRoute(e) {
 	e.preventDefault();
 
 	const btn = $(this);
-	const sightCard = btn.closest('.sight-card');
-	const sight = sightCard.attr('sight-id');
+	const container = btn.closest('.container');
+	const sight = container.attr('sight-id');
 	const url = new URL(window.location.href);
 	const params = url.searchParams;
 	const route = params.get('routeAdd');
@@ -87,7 +89,7 @@ function addSightToRoute(e) {
 		classname = 'alert-danger';
 	}
 
-	alert = sightCard.find('.add-sight-to-route-button-message');
+	alert = container.find('.add-sight-to-route-button-message');
 	setAlert(alert,classname,message);
 
 }

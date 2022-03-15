@@ -547,4 +547,13 @@ class SightController extends Controller
                 ->route('sights.show',$id)
                 ->with('success','Правку успiшно скасовано');
     }
+
+    public function getMapPopupView (Request $request, int $id)
+    {
+        $sight = Sight::find($id);
+        if(empty($sight)) abort(404);
+
+        return view('sights.mapPopup',['sight'=>$sight]);
+        
+    }
 }

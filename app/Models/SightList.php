@@ -238,9 +238,7 @@ class SightList extends ListModel
                     'coordinates' => [$d->lng,$d->lat]
                 ],
                 'properties' => [
-                    'title' => $d->name,
-                    'url' => route('sights.show',$d->id),
-                    'photos' => [route('sights.image',$d->id)]
+                    'id' => $d->id
                 ]
             ];
             array_push($result['features'],$feature);
