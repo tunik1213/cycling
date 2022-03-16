@@ -297,6 +297,9 @@ a.navbar-brand{
 	max-width: 6rem;
 	margin: 0 0 1rem 0;
 }
+.sight-card, .card-body {
+	position: relative;
+}
 .sight-card img {
 	max-height: 20rem;
 	min-height: 10rem;
@@ -500,33 +503,42 @@ div.card-container {
 /* route */
 .add-sight-to-route-button {
 	position: absolute;
-    right: 1rem;
-    bottom: 1rem;
+    right: 0;
+    bottom: 0;
 }
 .add-sight-to-route-button * {
 	color: white;
 }
+.add-sight-to-route-button > a:focus {
+	border: 0 !important;
+	box-shadow: none !important;
+}
 .add-sight-to-route-button-message {
 	position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1rem;
-    display: none;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  display: none;
 }
 #route-list-edit {
 	padding: 1rem 0;
 }
-#route-list-edit a.add-link {
-	line-height: 3rem;
-}
-#route-list-edit .remove {
-	position: absolute;
-	right: 1rem;
-	color: red;
-	font-size: 1.2rem;
+#route-list-edit-locations {
+	margin-bottom: 1rem;
 }
 #route-list-edit-locations img {
 	max-width: 100%;
+}
+#route-list-edit-locations .list-group-item {
+	display: flex;
+}
+#route-list-edit-locations .remove {
+	position: absolute;
+	right: 1rem;
+	top: 0;
+	color: red;
+	font-size: 1.2rem;
 }
 #route-list-edit-locations .image {
 	width: 15%;
@@ -535,7 +547,7 @@ div.card-container {
 }
 #route-list-edit-locations .name {
 	display: inline;
-	padding: 1rem;
+	padding: 0 1rem;
 }
 
 @media screen and (min-width: 992px) {

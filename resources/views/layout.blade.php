@@ -67,7 +67,7 @@
                     @if(empty($editing_route))
                         Створити веломаршрут
                     @else
-                        Редагувати веломаршрут <span class="badge">{{$editing_route->sights()->count()}}</span>
+                        Мiй веломаршрут <span id="my-route-count" class="badge">{{$editing_route->sights()->count()}}</span>
                     @endif
                     </a></li>
 

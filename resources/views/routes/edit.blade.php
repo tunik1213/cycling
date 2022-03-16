@@ -59,7 +59,7 @@
 
             <div class="col-12">
                 <div class="form-group">
-                    <strong>Лiцензiя (якщо потрiбно):</strong>
+                    <strong>Посилання на джерело (якщо потрiбно):</strong>
                     <input type="text" name="license" id="license" class="form-control" value="{{old('license') ?? $route->license}}" autocomplete="off">
                 </div>
             </div>
@@ -67,7 +67,7 @@
             <br />
 
             <div id="route-list-edit">
-                <h3>Точоки маршрута</h3>
+                <h3>Точки маршрута</h3>
                 <div id="route-list-edit-locations" class=" list-group">
                     @foreach($route->sights()->get() as $s)
                     <div class="list-group-item list-group-item-action" sight="{{$s->id}}">
@@ -77,10 +77,11 @@
                     </div>
                     @endforeach
                 </div>
-                <a class="add-link" href="{{route('sights.list',['routeAdd'=>$route->id])}}"><i class="fa fa-plus"></i> Додати точку</a>
+                <button type="submit" id="add-button" class="btn btn-secondary"><i class="fa fa-plus"></i> Додати точку</button>
             </div>
 
             <input type="hidden" name="sights" id="sights">
+            <input type="hidden" name="redirect" id="redirect">
 
         </div>
 
@@ -128,6 +129,8 @@
         $('input#sights').val($ids);
         
         $('input#finished').val($(this).attr('finish'));
+
+        if($(this).is('#add-button')) $('input#redirect').val('{{route('sights.list',['routeAdd'=>$route->id])}}');
     }
 
     function removeSightFromRoute(e) {

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateRoutesTable extends Migration
 {
@@ -21,11 +22,12 @@ class CreateRoutesTable extends Migration
             $table->text('description')->nullable();
             $table->boolean('finished')->default(false);
             $table->integer('moderator')->nullable();
-            $table->binary('image')->nullable();
             $table->string('license')->nullable();
             $table->index('user_id');
 
         });
+
+        DB::statement("ALTER TABLE routes ADD image MEDIUMBLOB");
 
         Schema::create('route_sight',function(Blueprint $table) {
             $table->integer('row_number');

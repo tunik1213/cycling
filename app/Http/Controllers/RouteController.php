@@ -69,15 +69,25 @@ class RouteController extends Controller
         if(empty($route->user_id)) $route->user_id = $user->id;
         $route->license = $request->license;
 
-        foreach(explode(',',$request->sights) as $index=>$s_id) {
-            if(empty($s_id)) continue;
-            $sights[$s_id] = ['row_number' => ++$index];
+        if(!empty($request->sights)) {
+            foreach(explode(',',$request->sights) as $index=>$s_id) {
+                if(empty($s_id)) continue;
+                $sights[$s_id] = ['row_number' => ++$index];
+            }
+
+            $route->sights()->sync($sights);
         }
 
-        $route->sights()->sync($sights);
+
         $route->save();
 
-        return redirect(route('routes.show',$id))->with('success','Змiни успiшно збережено');
+
+        if(empty($request->redirect)) {
+            return redirect(route('routes.show',$id))->with('success','Змiни успiшно збережено');
+        } else {
+            return redirect($request->redirect);
+        }
+        
     }
 
     public function show(Request $request, int $id)
@@ -87,5 +97,15 @@ class RouteController extends Controller
 
         return view('routes.show',['route'=>$route]);
 
+    }
+
+    public function getImage(int $id)
+    {
+        $img = Route::find($id)->image ?? null;
+
+        header("Content-Type: image/jpg");
+        header("Content-Length: " . strlen($img));
+
+        echo($img);
     }
 }

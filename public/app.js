@@ -84,6 +84,10 @@ function addSightToRoute(e) {
 		respData = result.responseJSON;
 		message = respData.message;
 		classname = respData.success ? 'alert-success' : 'alert-warning';
+		if(respData.success) {
+			const badgeVal = parseInt($('#my-route-count').html());
+			$('#my-route-count').html(badgeVal+1);
+		}
 	} else {
 		message = 'Сталася помилка';
 		classname = 'alert-danger';
@@ -91,5 +95,10 @@ function addSightToRoute(e) {
 
 	alert = container.find('.add-sight-to-route-button-message');
 	setAlert(alert,classname,message);
+
+	
+
+
+	// todo animate moving image to right header
 
 }
