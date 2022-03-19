@@ -85,6 +85,9 @@ class RouteController extends Controller
             $route->sights()->sync($sights);
         }
 
+        $route->distance = $request->distance;
+        $route->grunt_percent = $request->grunt_percent; 
+
 
         $route->save();
 

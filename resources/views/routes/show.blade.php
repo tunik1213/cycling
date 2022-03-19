@@ -27,15 +27,19 @@
         @if(!empty($route->logo_image))
             <img class="route-logo-image" src="{{route('routes.image',['id'=>$route->id,'type'=>'logo'])}}" alt="Веломаршрут {{$route->name}}">
         @endif
-
-         @if(!empty($route->license))
-            <div class="lisence-text">{!! $route->license !!}</div>
-        @endif
     </div>
 
     <div class="col-12 col-sm-8">
         <h2>{{ $route->name }}</h2>
 
+        <div id="distance">
+            <strong>Дистанцiя: </strong>{{$route->distance}}км
+        </div>
+
+        <div id="grunt_percent">
+            <strong>Ґрунт/асфальт: </strong>{{$route->grunt_percent}}/{{100-$route->grunt_percent}}
+        </div>
+        
         <div id="route-author">
             @if($route->user)
                 <strong>Дода{{$route->user->gender('в','ла')}}: </strong>
@@ -44,6 +48,10 @@
                 <strong>Джерело: </strong>
             @endif
         </div>
+
+        @if(!empty($route->license))
+            {!! $route->license !!}
+        @endif
 
         @if($route->canEdit())
         <div class="route-buttons">

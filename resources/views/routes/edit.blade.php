@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<form action="{{ route('routes.update',$route->id) }}" method="POST" enctype="multipart/form-data">
+<form id="route-edit-form" action="{{ route('routes.update',$route->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('POST')
 
@@ -81,6 +81,18 @@
                 <textarea class="form-control" name="description" id="description" rows="3">{{ old('description') ?? $route->description}}</textarea>
             </div>
 
+            <div class="form-group">
+                <label for="distance" class="form-label">Дистанцiя (км):</label>
+                <input type="number" name="distance" id="distance" class="form-control" value="{{old('distance') ?? $route->distance}}" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <br />
+                <label class="form-label" for="grunt_percent">Ґрунт\асфальт:</label>
+                <input type="range" min="0" max="100" value="{{old('grunt_percent') ?? $route->grunt_percent ?? 50 }}" class="slider v-center" id="grunt_percent" name="grunt_percent" step="10">
+                <label id="range-value" class="v-center"></label>
+            </div>
+
         </div>
 
         <input type="hidden" name="finished" id="finished">
@@ -131,7 +143,14 @@
     $('#route-list-edit-locations').sortable({container: '#route-list-edit-locations', nodes: '.list-group-item'});
     $('button[type="submit"]').on('click',save);
 
+    $('input#grunt_percent').on('input', updateGruntPercent);
+    updateGruntPercent();
 
+    function updateGruntPercent() {
+        const grunt = $('input#grunt_percent').val();
+        const asphalt = 100 - grunt;
+        $('#range-value').html(''+grunt+'/'+asphalt);
+    }
 
     function save(e) {
         $ids = '';
