@@ -454,6 +454,11 @@ ul#login-btn-dop-info {
   border-radius: 10rem;
   background-color: #2ab5d3; }
 
+.right-bottom {
+  position: absolute;
+  right: 0;
+  bottom: 0; }
+
 /* sight */
 img.sight-image {
   max-width: 100%;
@@ -464,6 +469,9 @@ img.sight-image {
 .lisence-text {
   text-align: right;
   font-size: smaller; }
+
+.sight-buttons > .col {
+  margin-bottom: 1rem; }
 
 /* card */
 div.card {
@@ -482,12 +490,7 @@ div.card-container {
   align-items: center; }
 
 /* route */
-.add-sight-to-route-button {
-  position: absolute;
-  right: 0;
-  bottom: 0; }
-
-.add-sight-to-route-button * {
+.add-sight-to-route-button a {
   color: white; }
 
 .add-sight-to-route-button > a:focus {
@@ -529,6 +532,16 @@ div.card-container {
 #route-list-edit-locations .name {
   display: inline;
   padding: 0 1rem; }
+
+.route-map-image, .route-logo-image {
+  max-width: 100%;
+  width: 100%; }
+
+.route-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 1rem 0; }
 
 @media screen and (min-width: 992px) {
   .mobile {

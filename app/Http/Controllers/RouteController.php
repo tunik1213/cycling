@@ -55,10 +55,17 @@ class RouteController extends Controller
         if(!$route->canEdit()) return abort(403);
 
         $route->name = $request->name;
-        if ($request->image) {
-            $route->image = Image::make($request->image->path())
+
+        if ($request->logo_image) {
+            $route->logo_image = Image::make($request->logo_image->path())
+                ->fit(200)
                 ->encode('jpg', 75);
         }
+        if ($request->map_image) {
+            $route->map_image = Image::make($request->map_image->path())
+                ->encode('jpg', 75);
+        }
+
         $route->description = $request->description;
         $route->finished = $request->finished ?? false;
 
@@ -99,9 +106,9 @@ class RouteController extends Controller
 
     }
 
-    public function getImage(int $id)
+    public function getImage(int $id, string $type)
     {
-        $img = Route::find($id)->image ?? null;
+        $img = Route::find($id)[$type.'_image'] ?? null;
 
         header("Content-Type: image/jpg");
         header("Content-Length: " . strlen($img));

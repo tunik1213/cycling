@@ -47,13 +47,25 @@
 
             <div class="form-group row">
                 <div class="form-group">
-                    <strong>Знiнити фото:</strong>
-                    <input type="file" name="image" id="image" class="form-control">
+                    <strong>Титульне зображення (лого):</strong>
+                    <input type="file" name="logo_image" id="logo_image" class="form-control">
                 </div>
-                @if(!empty($route->image))
-                    <img class="route-image" src="data:image/jpeg;base64,{{base64_encode($route->image)}}"> 
+                @if(!empty($route->logo_image))
+                    <img class="route-logo-image" src="data:image/jpeg;base64,{{base64_encode($route->logo_image)}}"> 
                 @else
-                    <p>Фото вiдсутнє</p>
+                    <p>Зображення вiдсутнє</p>
+                @endif
+            </div>
+
+            <div class="form-group row">
+                <div class="form-group">
+                    <strong>Зображення мапи:</strong>
+                    <input type="file" name="map_image" id="map_image" class="form-control">
+                </div>
+                @if(!empty($route->map_image))
+                    <img class="route-map-image" src="data:image/jpeg;base64,{{base64_encode($route->map_image)}}"> 
+                @else
+                    <p>Зображення вiдсутнє</p>
                 @endif
             </div>
 

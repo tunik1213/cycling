@@ -56,20 +56,12 @@ const listTree = function() {
 
 }
 
-const setAlert = function(element,classname,message) {
-	element
-		.removeClass('alert-danger alert-success alert-warning')
-		.addClass(classname)
-		.html(message)
-		.show();
-}
-
 function addSightToRoute(e) {
 	e.preventDefault();
 
 	const btn = $(this);
 	const container = btn.closest('.container');
-	const sight = container.attr('sight-id');
+	const sight = btn.attr('sight-id');
 	const url = new URL(window.location.href);
 	const params = url.searchParams;
 	const route = params.get('routeAdd');
@@ -94,7 +86,15 @@ function addSightToRoute(e) {
 	}
 
 	alert = container.find('.add-sight-to-route-button-message');
-	setAlert(alert,classname,message);
+	if(alert.length > 0) {
+		alert
+		.removeClass('alert-danger alert-success alert-warning')
+		.addClass(classname)
+		.html(message)
+		.show();
+	} else {
+		btn.html('<div class="btn '+classname+'"><i class="fas fa-check"></i> Додано</div>');
+	}
 
 	
 

@@ -27,7 +27,8 @@ class CreateRoutesTable extends Migration
 
         });
 
-        DB::statement("ALTER TABLE routes ADD image MEDIUMBLOB");
+        DB::statement("ALTER TABLE routes ADD logo_image MEDIUMBLOB");
+        DB::statement("ALTER TABLE routes ADD map_image MEDIUMBLOB");
 
         Schema::create('route_sight',function(Blueprint $table) {
             $table->integer('row_number');

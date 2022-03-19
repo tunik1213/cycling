@@ -1,6 +1,7 @@
 @php
     $moderator = Auth::user()->moderator ?? false;
     $lv = App\Models\SightVersion::lastVersion($sight);
+    $route = App\Models\Route::current_editing() ?? null;
 @endphp
 
 @extends('layout')
@@ -48,11 +49,6 @@
             <span>Фото вiдсутнє</span>
         @endif
 
-        <div class="desktop" id="desktop-map">
-            {{-- <a href="{{$sight->gm_link()}}" target="_blank" rel="nofollow">
-            <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->map_image)}}" alt="Мапа {{$sight->name}}"> 
-            </a> --}}
-        </div>
     </div>
 
     <div class="col-lg-8 col-xs-12">
@@ -108,8 +104,16 @@
                 </form>
             </div>
             @endif
+
+            @if(!empty($route))
+                <div class="col add-sight-to-route-button" sight-id="{{$sight->id}}">
+                    <a class="btn btn-secondary" href="#"><i class="fas fa-route"></i> В маршрут</a>
+                </div>
+                
+            @endif
         </div>
         @endif
+
     </div>
 
 
