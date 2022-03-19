@@ -508,28 +508,28 @@ div.card-container {
 #route-list-edit {
   padding: 1rem 0; }
 
-#route-list-edit-locations {
+.list-group {
   margin-bottom: 1rem; }
 
-#route-list-edit-locations img {
+.list-group img {
   max-width: 100%; }
 
-#route-list-edit-locations .list-group-item {
+.list-group .list-group-item {
   display: flex; }
 
-#route-list-edit-locations .remove {
+.list-group .remove {
   position: absolute;
   right: 1rem;
   top: 0;
   color: red;
   font-size: 1.2rem; }
 
-#route-list-edit-locations .image {
+.list-group .image {
   width: 15%;
   display: inline;
   float: left; }
 
-#route-list-edit-locations .name {
+.list-group .name {
   display: inline;
   padding: 0 1rem; }
 

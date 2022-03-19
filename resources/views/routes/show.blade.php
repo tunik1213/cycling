@@ -61,6 +61,18 @@
         {!! $route->description !!}
     </p>
 </div>
+
+@if($route->sights()->count()>0)
+<div class="list-group">
+@foreach($route->sights()->get() as $s)
+    <div class="list-group-item list-group-item-action">
+        <div class="image" ><img src="data:image/jpeg;base64,{{base64_encode($s->image)}}"/></div>
+        <div class="name"><a href="{{ route('sights.show',$s->id) }}">{{ $s->name }}</a></div>
+    </div>
+@endforeach
+</div>
+@endif
+
 <div class="row">
     @if(!empty($route->map_image))
         <img class="route-map-image" src="{{route('routes.image',['id'=>$route->id,'type'=>'map'])}}" alt="Мапа веломаршруту {{$route->name}}">
