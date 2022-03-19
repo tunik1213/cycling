@@ -76,7 +76,16 @@
                 </div>
             </div>
 
-            <br />
+            <div class="form-group">
+                <label for="description">Опис:</label>
+                <textarea class="form-control" name="description" id="description" rows="3">{{ old('description') ?? $route->description}}</textarea>
+            </div>
+
+        </div>
+
+        <input type="hidden" name="finished" id="finished">
+
+        <div class="col-xs-12 col-sm-12 col-md-6">
 
             <div id="route-list-edit">
                 <h3>Точки маршрута</h3>
@@ -95,15 +104,6 @@
             <input type="hidden" name="sights" id="sights">
             <input type="hidden" name="redirect" id="redirect">
 
-        </div>
-
-        <input type="hidden" name="finished" id="finished">
-
-        <div class="col-xs-12 col-sm-12 col-md-6">
-            <div class="form-group">
-                <label for="description">Опис:</label>
-                <textarea class="form-control" name="description" id="description" rows="3">{{ old('description') ?? $route->description}}</textarea>
-            </div>
         </div>
         
     </div>
