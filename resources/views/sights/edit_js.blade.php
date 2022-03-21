@@ -121,7 +121,12 @@
             browser_spellcheck: true,
             relative_urls: false,
             height : '350'
-        });
+        }).then(function(editors) {
+            $('#description.changed-input').closest('.form-group').find('#description_ifr').addClass('changed-input');
+        });;
+
+
+
 
 
 
@@ -186,9 +191,6 @@
 </script>
 
 <style>
-.tox-notifications-container,.tox-statusbar {
-    display: none !important;
-}
 #map {
    margin: 1rem 0;
    height: 20rem;

@@ -14,7 +14,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\VisitController;
-
+use App\Http\Controllers\RouteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +41,7 @@ Route::middleware('moderator')->group(function () {
     Route::get('/user/index',[UserController::class,'index'])->name('users.index');
     Route::get('/sights/importKML',[SightController::class,'importKML']);
     Route::get('/sights/moderation',[SightController::class,'moderation'])->name('moderation');
+    Route::get('/sights/edits',[SightController::class,'edits'])->name('sights.edits');
 });
 Route::get('/sights/geoJSON',[SightController::class,'geoJSON'])->name('sightsGeoJSON');
 
@@ -67,7 +68,9 @@ Route::resource('districts', DistrictController::class);
 Route::get('/districts/{id}/image', [DistrictController::class, 'getImage'])->name('districts.image');
 
 Route::resource('sights', SightController::class);
+Route::get('/sights/{id}/getMapPopupView',[SightController::class,'getMapPopupView']);
 Route::get('/sights/{id}/image', [SightController::class, 'getImage'])->name('sights.image');
+Route::get('/sights/{id}/rollback', [SightController::class, 'rollback'])->name('sights.rollback');
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
@@ -85,5 +88,12 @@ Route::resource('subcategories', SubCategoryController::class);
 
 Route::get('/getVisitsAWS', [VisitController::class,'getVisitsAWS']);
 Route::post('/postVisitsAWS', [VisitController::class,'postVisitsAWS']);
+
+Route::get('/routes/edit/{id?}',[RouteController::class,'edit'])->name('routes.edit');
+Route::get('/routes/publish/{id?}',[RouteController::class,'publish'])->name('routes.publish');
+Route::post('routes/update/{id?}',[RouteController::class,'update'])->name('routes.update');
+route::get('/routes/addSight/',[RouteController::class,'addSight'])->name('ajax.addToRoute');
+Route::get('/routes/{id}/{type}', [RouteController::class, 'getImage'])->name('routes.image');
+Route::get('/routes/{id}',[RouteController::class,'show'])->name('routes.show');
 
 

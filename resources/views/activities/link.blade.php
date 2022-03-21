@@ -5,7 +5,9 @@
 
 <div class="d-flex activity-link-container {{$class ?? ''}}">
 	<div class="activity-link-user-img">
-		<img class="user-avatar" src="data:image/jpeg;base64,{{base64_encode($activity->user->avatar)}}">
+		<a href={{route('userProfile',$activity->user->id)}}>
+			<img class="user-avatar" src="data:image/jpeg;base64,{{base64_encode($activity->user->avatar)}}">
+		</a>
 	</div>
 	<div class="activity-link-text">
 		<div class="activity-link-title">

@@ -29,6 +29,10 @@
                 <a class="link-secondary" href="{{route('activities',$getParams)}}">{{$s->count}} вiдвiдувань</a>
             </div>
             @endif
+
+            @if(!empty($sightList->routeAdd))
+                @include('sights.route_add_button',['sight_id'=>$s->id])
+            @endif
         </div>
     </div>
 </div>

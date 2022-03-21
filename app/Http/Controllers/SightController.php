@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\Http;
 use StepanDalecky\KmlParser\Parser;
 use App\Models\SightList;
 use App\Models\UserList;
+use App\Models\SightVersion;
 
 class SightController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth')->except(['show','getImage','list', 'geoJSON']);
-        $this->middleware('moderator')->only(['destroy','edit','update','index','massUpdate']);
+        $this->middleware('moderator')->only(['destroy','index','massUpdate']);
     }
 
     public function import(Request $request, string $loc, ?int $district_id) {
@@ -354,8 +355,20 @@ class SightController extends Controller
      */
     public function edit(Request $request,int $id)
     {
+        $s = Sight::find($id);
+        if(empty($s)) abort(404);
+
+        $lv = SightVersion::lastVersion($s);
+        if(empty($lv)) {
+            $orig = $s;
+        } else {
+            $orig = Sight::unserialize($lv->data);
+        }
+
+
         $params = [
-            'sight'=>Sight::find($id),
+            'sight'=>$orig,
+            'orig' => $s,
             'moderation_uri' => $request->input('moderation_uri')
         ];
         
@@ -389,6 +402,8 @@ class SightController extends Controller
         }
 
         $sight = Sight::find($id);
+        if(!$sight->canEdit()) return abort(403);
+
         $sight->name = $request->name;
         if ($request->sight_image) {
             $sight->image = Image::make($request->sight_image->path())
@@ -489,10 +504,56 @@ class SightController extends Controller
 
     }
 
+
+    public function edits(Request $request)
+    {
+        $area_id = $request->input('area') ?? null;
+        $area = Area::find($area_id);
+
+        $sights = Sight::join('sight_versions','sight_versions.sight_id','=','sights.id')
+            ->leftJoin('districts','districts.id','=','sights.district_id')
+            ->whereNull('sight_versions.moderator')
+            ->select(['sights.*'])
+            ->when($area, function ($query, $area) {
+                return $query->where('districts.area_id', $area->id);
+            })
+            ->paginate(20)
+            ->appends(request()->query());
+
+        return view('sights.index', [
+            'sights'=>$sights, 
+            'area'=>$area, 
+            'moderation_uri'=>$request->getRequestUri()
+        ]);
+
+    }
+
     public function geoJSON(Request $request)
     {
         $list = new SightList($request);
         return response()->json($list->geoJsonData(), 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
         JSON_UNESCAPED_UNICODE);
+    }
+
+    public function rollback(Request $request, $id)
+    {
+        $sight = Sight::find($id);
+        if(empty($sight)) abort(404);
+
+        $lv = SightVersion::lastVersion($sight);
+        if(!empty($lv)) $lv->delete();
+
+        return redirect()
+                ->route('sights.show',$id)
+                ->with('success','Правку успiшно скасовано');
+    }
+
+    public function getMapPopupView (Request $request, int $id)
+    {
+        $sight = Sight::find($id);
+        if(empty($sight)) abort(404);
+
+        return view('sights.mapPopup',['sight'=>$sight]);
+        
     }
 }

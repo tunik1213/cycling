@@ -56,6 +56,12 @@ html,body {
     		rgba(0, 0, 0, 0.4) calc(#{$header-height}*2)
     );
 }
+.tox-notifications-container,.tox-statusbar {
+    display: none !important;
+}
+.changed-input {
+	background-color: #f1f1b5 !important;
+}
 #banner-bg span {
 	color: $font-color-light;
 }
@@ -102,6 +108,9 @@ html,body {
   width: 100%;
   line-height: 60px; /* Vertically center the text there */
   background-color: $background-footer;
+}
+.admin-item {
+	background-color: #b78086;
 }
 a {
 	color: $font-color-link; 
@@ -227,6 +236,12 @@ img.marker-preview {
 	max-width: 100%;
 	max-height: 100%;
 }
+.v-center {
+	vertical-align: middle;
+}
+#route-edit-form .form-group {
+	    margin-bottom: 1rem;
+}
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
@@ -287,6 +302,9 @@ a.navbar-brand{
 	max-height: 6rem;
 	max-width: 6rem;
 	margin: 0 0 1rem 0;
+}
+.sight-card, .card-body {
+	position: relative;
 }
 .sight-card img {
 	max-height: 20rem;
@@ -456,6 +474,11 @@ ul#login-btn-dop-info {
 	border-radius: 10rem;
 	background-color: $background-header;
 }
+.right-bottom {
+	position: absolute;
+    right: 0;
+    bottom: 0;
+}
 
 /* sight */
 img.sight-image {
@@ -468,12 +491,15 @@ img.sight-image {
 	text-align: right;
 	font-size: smaller;
 }
+.sight-buttons > .col {
+	margin-bottom: 1rem;
+}
 
 
 /* card */
 div.card {
-		box-shadow: 0 15px 10px -15px rgb(0 0 0 / 30%);
-		padding: 1rem;
+    	box-shadow: 0 15px 10px -15px #999;
+	padding: 1rem;
     margin: 0.5rem;
     height: 95%;
 }
@@ -486,6 +512,61 @@ div.card-container {
 	padding-right: 1rem;
 	display: flex;
   align-items: center;
+}
+
+/* route */
+.add-sight-to-route-button a {
+	color: white;
+}
+.add-sight-to-route-button > a:focus {
+	border: 0 !important;
+	box-shadow: none !important;
+}
+.add-sight-to-route-button-message {
+	position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  display: none;
+}
+#route-list-edit {
+	padding: 1rem 0;
+}
+.list-group {
+	margin-bottom: 1rem;
+}
+.list-group img {
+	max-width: 100%;
+}
+.list-group .list-group-item {
+	display: flex;
+}
+.list-group .remove {
+	position: absolute;
+	right: 1rem;
+	top: 0;
+	color: red;
+	font-size: 1.2rem;
+}
+.list-group .image {
+	width: 15%;
+	display: inline;
+	float: left;
+}
+.list-group .name {
+	display: inline;
+	padding: 0 1rem;
+}
+.route-map-image, .route-logo-image {
+	max-width: 100%;
+	width: 100%;
+}
+.route-buttons {
+	    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+        padding: 1rem 0;
 }
 
 @media screen and (min-width: 992px) {

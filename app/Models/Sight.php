@@ -12,44 +12,55 @@ use App\Models\SightCategory;
 use App\Jobs\CheckInvites;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\SightVersion;
+use App\Models\Route;
 
 class Sight extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'name',
-        'description',
-        'lat',
-        'lng',
-        'approx_location',
-        'image',
-        'area_id',
-        'district_id',
-        'map_image',
-        'category_id',
-        'sub_category_id',
-        'radius',
-        'locality',
-        'moderator',
-        'license'
-    ];
+    protected $guarded = [];
 
     protected $hidden = [
         'image'
     ];
 
-    //public int $visitsCount;
-
     public static function boot() {
   
         parent::boot();
 
-        static::saving(function($sight) {            
-                if (!$sight->isPublic() && Auth::user()->moderator ?? false) {
-                $sight->moderator = Auth::user()->id;
+        static::saving(function($sight) {   
+
+            $user = Auth::user();
+            if(empty($user)) return false;
+
+            $lv = SightVersion::lastVersion($sight);
+
+            if ($user->moderator) {
+                if(!empty($lv)) {
+                    $lv->moderator = $user->id;
+                    $lv->save();
+                }
+
+                if (!$sight->isPublic()) {
+                    $sight->moderator = $user->id;
+                }
+            } else {
+
+                if(empty($lv)) {
+                    $lv = SightVersion::create([
+                        'sight_id' => $sight->id,
+                        'user_id' => $user->id,
+                        'data' => $sight->serialize()
+                    ]);
+                } else {
+                    $lv->data = $sight->serialize();
+                    $lv->save(); 
+                }
+                
+                return false;
             }
+
         });
 
         static::saved(function($sight){
@@ -81,6 +92,10 @@ class Sight extends Model
     public function subcategory()
     {
         return $this->belongsTo(SightSubCategory::class,'sub_category_id');
+    }
+    public function versions()
+    {
+        return $this->hasMany(SightVersion::class);
     }
 
     public static function import_google_maps($data,$district_id) : void
@@ -163,4 +178,44 @@ class Sight extends Model
     {
         return DB::select('select count(*) as count from sights where moderator is null;')[0]->count;
     }
+
+    public function canEdit() : bool
+    {
+        $u = Auth::user();
+        if(empty($u)) return false;
+
+        if($u->moderator) return true;
+
+        $lv = SightVersion::lastVersion($this);
+        if(empty($lv)) return true;
+        if($lv->user_id == $u->id) return true;
+
+        return false;
+
+    }
+
+    public function serialize()
+    {
+        $a = $this->toArray();
+        $a['image'] = base64_encode($this->image);
+        return serialize($a);
+    }
+
+    public static function unserialize($str)
+    {
+        $data = unserialize($str);
+        $data['image'] = base64_decode($data['image']);
+        //return Self::hydrate($data);
+
+        $result = new Sight;
+        $result->fill($data);
+
+        return $result;
+    }
+
+    public function routes()
+    {
+        return $this->belongsToMany(Route::class);
+    }
+
 }

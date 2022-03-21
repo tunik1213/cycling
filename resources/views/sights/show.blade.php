@@ -1,3 +1,9 @@
+@php
+    $moderator = Auth::user()->moderator ?? false;
+    $lv = App\Models\SightVersion::lastVersion($sight);
+    $route = App\Models\Route::current_editing() ?? null;
+@endphp
+
 @extends('layout')
 
 @section('head')
@@ -13,15 +19,23 @@
 @endif
 
 @if(!$sight->isPublic())
-    <div class="alert alert-warning"><p>
-        Наразi пам'ятка очiкує схвалення модератора
+    <div class="alert alert-warning">
+        <p>Наразi пам'ятка очiкує схвалення модератора</p>
+    </div>
+@endif
 
-        @if($sight->author == Auth::user())
-            
-        @else
-            
-        @endif
-    </div></p>
+@if(!empty($lv))
+
+    @if($moderator)
+        <div class="alert alert-warning">
+            <p>Увага! {{$lv->user->link}} {{$lv->user->gender('внiс','внесла')}} змiни до данної точки! Необхiдно перевiрити!</p>
+        </div>
+    @elseif($lv->user_id == Auth::user()->id)
+        <div class="alert alert-warning">
+            <p>Спасибi, вашi змiни збережено! Вони вiдобразяться одразу як будуть схваленi модератором</p>
+        </div>
+    @endif
+
 @endif
 
 <div class="row">
@@ -35,11 +49,6 @@
             <span>Фото вiдсутнє</span>
         @endif
 
-        <div class="desktop" id="desktop-map">
-            {{-- <a href="{{$sight->gm_link()}}" target="_blank" rel="nofollow">
-            <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->map_image)}}" alt="Мапа {{$sight->name}}"> 
-            </a> --}}
-        </div>
     </div>
 
     <div class="col-lg-8 col-xs-12">
@@ -73,14 +82,20 @@
             {!! $sight->description !!}
         </p>
 
-        @if(Auth::user()->moderator ?? false)
+        @if($moderator)
         <div id="sight-radius">
             <strong>Радiус: </strong>{{$sight->radius}}м
         </div>
+        
+        @endif
+
+        @if($sight->canEdit())
         <div class="row sight-buttons">
             <div class="col">
                 <a class="btn btn-primary" href="{{ route('sights.edit',$sight->id) }}"><i class="fas fa-edit"></i> Редагувати</a>
             </div>
+
+            @if($moderator)
             <div class="col">
                 <form action="{{ route('sights.destroy',$sight->id) }}" method="POST">
                 @csrf
@@ -88,8 +103,17 @@
                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Видалити</button>
                 </form>
             </div>
+            @endif
+
+            @if(!empty($route))
+                <div class="col add-sight-to-route-button" sight-id="{{$sight->id}}">
+                    <a class="btn btn-secondary" href="#"><i class="fas fa-route"></i> В маршрут</a>
+                </div>
+                
+            @endif
         </div>
         @endif
+
     </div>
 
 
