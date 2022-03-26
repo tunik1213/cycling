@@ -12,6 +12,10 @@ use App\Jobs\ImportActivities;
 
 class AuthController extends Controller
 {
+    public function login(Request $request){
+        return view('user.login');
+    }
+
     public function Strava(Request $request) 
     {
         return Strava::authenticate($scope='read,profile:read_all,activity:read');

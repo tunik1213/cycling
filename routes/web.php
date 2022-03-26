@@ -29,9 +29,7 @@ use App\Http\Controllers\Controller;
 
 Route::get('/', [MainController::class, 'main'])->name('main');
 
-Route::get('/login',function(){
-    return view('user.login');
-})->name('login');
+Route::get('/login',[AuthController::class,'login'])->name('login')->middleware('guest');
 Route::get('/strava_auth',[AuthController::class, 'strava'])->name('strava_login');
 Route::get('/strava_auth_callback',[AuthController::class, 'StravaCallBack'])->name('strava_callback');
 
