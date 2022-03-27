@@ -60,7 +60,7 @@
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                     <li><a class="dropdown-item" href="{{route('userProfile')}}"><i class="fas fa-user"></i>Мій профіль</a></li>
-                    <li><a class="dropdown-item" id="add-header-button" href={{route('sights.create')}}><i class="fas fa-plus"></i>Додати точку</a></li>
+                    <li><a class="dropdown-item" id="add-header-button" href={{route('sights.create')}}><i class="fas fa-plus"></i>Додати локацію</a></li>
 
                     @php($editing_route = App\Models\Route::current_editing())
                     <li><a class="dropdown-item" id="add-header-button" href={{route('routes.edit')}}><i class="fas fa-route"></i>

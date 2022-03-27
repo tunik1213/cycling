@@ -17,7 +17,7 @@
     <div class="container info-block">
         <h1 class="info-block-header">{!! $sightList->title() !!}</h1>
         @if(!empty($sightList->routeAdd))
-        <p>Не вистачає потрiбної пам'ятки? Будь-ласка, <a href="{{route('sights.create')}}">додай!</a></p>
+        <p>Не вистачає потрiбної локації? Будь-ласка, <a href="{{route('sights.create')}}">додай!</a></p>
         @endif
 
         <div class="" id="enabled-filters">

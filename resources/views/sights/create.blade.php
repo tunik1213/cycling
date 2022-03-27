@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Додати нову пам'ятку</h2>
+            <h2>Додати нову локацію</h2>
         </div>
 {{--         <div class="pull-right">
             <a href="{{ route('sights.index') }}">← Назад</a>
