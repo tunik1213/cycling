@@ -2,6 +2,7 @@
 
 @section('head')
     <title>{{env('APP_NAME')}}: сайт веломандрівника</title>
+    <meta property="og:image" content="{{asset('/images/welcome-image-winter.jpg')}}" />
 @endsection
 
 
