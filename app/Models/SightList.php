@@ -170,28 +170,28 @@ class SightList extends ListModel
     public function title(bool $links=true) : string
     {
         if(!empty($this->routeAdd)) {
-            return 'Додати точку до веломаршруту '
+            return 'Додати локацію до веломаршруту '
                 . $this->routeAdd->name;
             
         }
 
         if(!empty($this->user)) {
-            return 'Визначні місця, якi вiдвiда'
+            return 'Локації, якi вiдвiда'
                 .$this->user->gender('в','ла').' '
                 .(($links) ? $this->user->link : $this->user->fullname);
         }
 
         if(!empty($this->author)) {
-            return 'Визначні місця, які дода'
+            return 'Локації, які дода'
                 .$this->author->gender('в','ла').' '
                 .(($links) ? $this->author->link : $this->author->fullname);
         }
 
         if(!empty($this->activity)) {
-            return 'Вiдвiданi пам\'ятки';
+            return 'Вiдвiданi локації';
         }
 
-        return 'Список пам\'яток';
+        return 'Список локацій';
     }
 
     public function filters($add=[],$remove=[])
