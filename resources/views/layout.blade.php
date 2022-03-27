@@ -106,8 +106,6 @@
         @yield('content')
     </main>
 
-    <br />
-
     <footer class="footer">
       <div class="container">
         <ul id="footer-links">

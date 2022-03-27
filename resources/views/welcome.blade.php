@@ -1,15 +1,15 @@
+@extends('layout')
+
 @section('head')
     <title>{{env('APP_NAME')}}: сайт веломандрівника</title>
 @endsection
 
 
-@extends('layout')
-
 @section('banner')
 
 @guest
 
-    @include('user.login')
+    @include('user.login_partial')
 
 @endguest
 
