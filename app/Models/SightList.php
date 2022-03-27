@@ -263,7 +263,7 @@ class SightList extends ListModel
     {
         $result = DB::table('sights as s')
             ->leftjoin('districts as d','d.id','=','s.district_id');
-        if(!empty($this->user)) {
+        if(!empty($this->user) || !empty($this->activity)) {
             $result = $result
             ->leftjoin('visits as v','v.sight_id','=','s.id')
             ->leftjoin('activities as a','a.id','=','v.act_id')
