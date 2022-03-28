@@ -49,6 +49,8 @@
             <span>Фото вiдсутнє</span>
         @endif
 
+        <div class="desktop" id="desktop-map"></div>
+
     </div>
 
     <div class="col-lg-8 col-xs-12">
