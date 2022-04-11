@@ -7,6 +7,7 @@ use App\Models\UserList;
 use App\Models\SightList;
 use App\Models\AuthorList;
 use Illuminate\Support\Facades\Auth;
+use App\Models\StaticPage;
 
 class MainController extends Controller
 {
@@ -27,5 +28,14 @@ class MainController extends Controller
             'topSights'=>$topSights,
             'topAuthors'=>$topAuthors
         ]);
+    }
+
+    public function staticPage(string $page_name)
+    {
+        $p = StaticPage::where('name',$page_name)->first();
+        if(empty($p)) abort(404);
+
+        return view('static_page',['page'=>$p]);
+
     }
 }

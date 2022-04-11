@@ -20,7 +20,7 @@
 
 @if(!$sight->isPublic())
     <div class="alert alert-warning">
-        <p>Наразi пам'ятка очiкує схвалення модератора</p>
+        <p>Наразi локація очiкує схвалення модератора</p>
     </div>
 @endif
 
@@ -28,7 +28,7 @@
 
     @if($moderator)
         <div class="alert alert-warning">
-            <p>Увага! {{$lv->user->link}} {{$lv->user->gender('внiс','внесла')}} змiни до данної точки! Необхiдно перевiрити!</p>
+            <p>Увага! {{$lv->user->link}} {{$lv->user->gender('внiс','внесла')}} змiни до данної локації! Необхiдно перевiрити!</p>
         </div>
     @elseif($lv->user_id == Auth::user()->id)
         <div class="alert alert-warning">
@@ -48,6 +48,8 @@
         @else
             <span>Фото вiдсутнє</span>
         @endif
+
+        <div class="desktop" id="desktop-map"></div>
 
     </div>
 

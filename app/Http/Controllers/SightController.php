@@ -19,8 +19,14 @@ class SightController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['show','getImage','list', 'geoJSON']);
-        $this->middleware('moderator')->only(['destroy','index','massUpdate']);
+        if(env('RESTRICT_MODE')) {
+             $this->middleware('auth')->except([]);
+            $this->middleware('moderator')->only(['destroy','edit','update','index','massUpdate','show','getImage','list', 'geoJSON']);
+        } else {
+            $this->middleware('auth')->except(['show','getImage','list', 'geoJSON']);
+            $this->middleware('moderator')->only(['destroy','index','massUpdate']);
+        }
+        
     }
 
     public function import(Request $request, string $loc, ?int $district_id) {

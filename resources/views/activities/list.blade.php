@@ -10,7 +10,7 @@
     @endif
 
     @if($actList->sight)
-        <h4>Пам'ятка @include('sights.link',['sight'=>$actList->sight])</h4>
+        <h4>Локація @include('sights.link',['sight'=>$actList->sight])</h4>
     @endif
 
     <br />

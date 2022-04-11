@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Редагувати пам'ятку</h2>
+            <h2>Редагувати локацію</h2>
         </div>
 {{--         <div class="pull-right">
             <a href="{{ route('sights.index') }}">← Назад</a>

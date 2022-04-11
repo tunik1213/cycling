@@ -15,6 +15,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,9 +29,7 @@ use App\Http\Controllers\RouteController;
 
 Route::get('/', [MainController::class, 'main'])->name('main');
 
-Route::get('/login',function(){
-    return view('user.login');
-})->name('login');
+Route::get('/login',[AuthController::class,'login'])->name('login')->middleware('guest');
 Route::get('/strava_auth',[AuthController::class, 'strava'])->name('strava_login');
 Route::get('/strava_auth_callback',[AuthController::class, 'StravaCallBack'])->name('strava_callback');
 
@@ -96,4 +95,6 @@ route::get('/routes/addSight/',[RouteController::class,'addSight'])->name('ajax.
 Route::get('/routes/{id}/{type}', [RouteController::class, 'getImage'])->name('routes.image');
 Route::get('/routes/{id}',[RouteController::class,'show'])->name('routes.show');
 
+
+Route::get('/{static_page_name}',[MainController::class,'staticPage']);
 

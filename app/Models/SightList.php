@@ -69,9 +69,15 @@ class SightList extends ListModel
 
     private function sights_query()
     {
-        $sights = $this->query_all_filters()
+        $sights = $this->query_all_filters();
+        if(!empty($this->user)) {
+           $sights = $sights
             ->selectRaw('s.id,count(v.id) as count')
-            ->groupBy('s.id');
+            ->groupBy('s.id'); 
+        } else {
+            $sights = $sights
+            ->selectRaw('s.id,0 as count');
+        }
 
         if(empty($this->activity)) {
             $sights = $sights->orderByRaw('count desc,s.name');
@@ -170,28 +176,28 @@ class SightList extends ListModel
     public function title(bool $links=true) : string
     {
         if(!empty($this->routeAdd)) {
-            return 'Додати точку до веломаршруту '
+            return 'Додати локацію до веломаршруту '
                 . $this->routeAdd->name;
             
         }
 
         if(!empty($this->user)) {
-            return 'Визначні місця, якi вiдвiда'
+            return 'Локації, якi вiдвiда'
                 .$this->user->gender('в','ла').' '
                 .(($links) ? $this->user->link : $this->user->fullname);
         }
 
         if(!empty($this->author)) {
-            return 'Визначні місця, які дода'
+            return 'Локації, які дода'
                 .$this->author->gender('в','ла').' '
                 .(($links) ? $this->author->link : $this->author->fullname);
         }
 
         if(!empty($this->activity)) {
-            return 'Вiдвiданi пам\'ятки';
+            return 'Вiдвiданi локації';
         }
 
-        return 'Список пам\'яток';
+        return 'Список локацій';
     }
 
     public function filters($add=[],$remove=[])
@@ -255,11 +261,15 @@ class SightList extends ListModel
 
     private function base_query()
     {
-        return DB::table('sights as s')
+        $result = DB::table('sights as s')
+            ->leftjoin('districts as d','d.id','=','s.district_id');
+        if(!empty($this->user) || !empty($this->activity)) {
+            $result = $result
             ->leftjoin('visits as v','v.sight_id','=','s.id')
             ->leftjoin('activities as a','a.id','=','v.act_id')
-            ->leftjoin('users as u','u.id','=','a.user_id')
-            ->leftjoin('districts as d','d.id','=','s.district_id');
+            ->leftjoin('users as u','u.id','=','a.user_id');
+        }
+        return $result;
     }
 
     private function query_user_filters()

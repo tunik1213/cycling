@@ -4,7 +4,7 @@
 			<img class="in-container" src="data:image/jpeg;base64,{{base64_encode($sight->image)}}" />
 		</div>
 		<div class="col col-xs-8 col-sm-10">
-			<p>Пам'ятка з такими координамати iснує</p>
+			<p>Локація з такими координамати iснує</p>
 			<a href="{{route('sights.show',$sight->id)}}">{{$sight->name}}</a>
 		</div>
 	</div>

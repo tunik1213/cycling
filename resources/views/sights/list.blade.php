@@ -17,7 +17,7 @@
     <div class="container info-block">
         <h1 class="info-block-header">{!! $sightList->title() !!}</h1>
         @if(!empty($sightList->routeAdd))
-        <p>Не вистачає потрiбної пам'ятки? Будь-ласка, <a href="{{route('sights.create')}}">додай!</a></p>
+        <p>Не вистачає потрiбної локації? Будь-ласка, <a href="{{route('sights.create')}}">додай!</a></p>
         @endif
 
         <div class="" id="enabled-filters">
@@ -109,7 +109,7 @@
                 @else
                     <br />
                     <p>На жаль, за вашим запитом нiчого не знайдено :( </p>
-                    <p>Спробуйте змiнити параметри пошуку, або, <a href="{{route('sights.create')}}"> додайте </a> пам'ятку, якої не вистачає</p>
+                    <p>Спробуйте змiнити параметри пошуку, або, <a href="{{route('sights.create')}}"> додайте </a> локацію, якої не вистачає</p>
                     <p>← Повернутись <a href="{{route('main')}}">на головну</a></p>
                 @endif
             </div>

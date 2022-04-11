@@ -56,7 +56,7 @@
         @if($route->canEdit())
         <div class="route-buttons">
             <a class="btn btn-primary" href="{{ route('routes.edit',$route->id) }}"><i class="fas fa-edit"></i> Редагувати </a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a class="add-link btn btn-secondary" href="{{route('sights.list',['routeAdd'=>$route->id])}}"><i class="fa fa-plus"></i>&nbsp;Додати&nbsp;точку </a>
+            <a class="add-link btn btn-secondary" href="{{route('sights.list',['routeAdd'=>$route->id])}}"><i class="fa fa-plus"></i>&nbsp;Додати&nbsp;локацію </a>
         </div>
         @endif
 

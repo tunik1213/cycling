@@ -13,6 +13,6 @@
 			<a class="link-secondary" href="{{$userList->listRoute()}}">Переглянути всi</a>
 		</div>
 	@else
-		{{-- <h2>Стань першим, хто вiдвiдає пам'ятку {{$sight->name}}</h2> --}}
+		{{-- <h2>Стань першим, хто вiдвiдає локацію {{$sight->name}}</h2> --}}
 	@endif
 </div>
