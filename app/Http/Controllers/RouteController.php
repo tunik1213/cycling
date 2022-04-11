@@ -35,12 +35,12 @@ class RouteController extends Controller
         $route = Route::find($request->input('route')) ?? Route::find_or_create();
         if(empty($route)) return abort(404);
 
-        $success = true; $message='Пам\'ятку успiшно додано в маршрут';
+        $success = true; $message='Локацiю успiшно додано в маршрут';
 
         $found = $route->sights()->find($sight);
         if(!empty($found)){
             $success=false;
-            $message='Дана пам\'ятка вже є у маршрутi';
+            $message='Дана локацiя вже є у маршрутi';
         } else {
             $rowCount = $route->sights()->count();
             $route->sights()->attach($sight, ['row_number' => $rowCount+1]);
