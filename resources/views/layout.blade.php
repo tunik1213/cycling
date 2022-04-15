@@ -91,6 +91,12 @@
                             <span class="badge">{{\App\Models\SightVersion::unmoderated_count()}}</span>
                             </a>
                         </li>
+                        <li><a class="dropdown-item admin-item" href="{{route('feedback.new')}}">
+                            <i class="fa-solid fa-comment-dots"></i>
+                            Вiдгуки
+                            <span class="badge">{{\App\Models\Feedback::unmoderated_count()}}</span>
+                            </a>
+                        </li>
                     @endif
                 </ul>
             </div>
@@ -111,7 +117,7 @@
         <ul id="footer-links">
             <li><a href="/">На головну</a></li>
             <li><a href="/about">Про проєкт</a></li>
-            <li><a href="#">Залишити відгук</a></li>
+            <li><a href="{{route('feedback.form')}}">Залишити відгук</a></li>
         </ul>
       </div>
     </footer>
