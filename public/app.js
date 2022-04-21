@@ -17,7 +17,7 @@ $(document).ready(function(){
     $('.add-sight-to-route-button').on('click', addSightToRoute);
     $('#map').on('click','.add-sight-to-route-button',addSightToRoute);
     
-
+	$('[data-toggle="tooltip"]').tooltip();
 
 });
 

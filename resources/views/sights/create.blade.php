@@ -52,7 +52,7 @@
         </div>
         @if(Auth::user()->moderator)
         <div class="col col-4">
-            <strong>Радiус, м</strong>&nbsp;&nbsp;<i class="fa-regular fa-circle-question" alt="Використовується для зарахування вiдвiдування" title="Використовується для зарахування вiдвiдування"></i>
+            <strong>Радiус, м</strong>&nbsp;&nbsp;<i class="fa-regular fa-circle-question" data-toggle="tooltip" title="Використовується для зарахування вiдвiдування"></i>
             <input type="number" id="radius" name="radius" value="{{ old('radius') ?? 25 }}" class="form-control" placeholder="Радiус" autocomplete="off">
         </div>
         @endif
