@@ -262,6 +262,10 @@ body > .container {
 #header {
 	@extend %bg-header;
 	height: $header-height;
+
+	position: sticky;
+    top: 0;
+    z-index: 9999;
 }
 #header a {
 	color: $font-color-light;
