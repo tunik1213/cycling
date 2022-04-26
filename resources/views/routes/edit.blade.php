@@ -110,7 +110,7 @@
                     </div>
                     @endforeach
                 </div>
-                <button type="submit" id="add-button" class="btn btn-secondary"><i class="fa fa-plus"></i> Додати Локацію</button>
+                <button type="submit" id="add-button" class="btn btn-secondary"><i class="fa fa-plus"></i> Додати локацію</button>
             </div>
 
             <input type="hidden" name="sights" id="sights">
