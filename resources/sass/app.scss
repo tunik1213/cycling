@@ -27,7 +27,7 @@ html,body {
     right: 0;
     left: 0;
     top: 0;
-    z-index: 1;
+    z-index: 20;
     text-align: center;
     
 }
@@ -265,7 +265,7 @@ body > .container {
 
 	position: sticky;
     top: 0;
-    z-index: 9999;
+    z-index: 10;
 }
 #header a {
 	color: $font-color-light;
