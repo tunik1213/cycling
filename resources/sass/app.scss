@@ -248,6 +248,7 @@ img.marker-preview {
 #map {
 	height: 40vh;
 	margin-bottom: 1rem;
+	z-index: 1;
 }
 
 body > .container {
