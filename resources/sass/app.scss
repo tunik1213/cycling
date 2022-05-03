@@ -248,6 +248,8 @@ img.marker-preview {
 #map {
 	height: 40vh;
 	margin-bottom: 1rem;
+}
+#map, #desktop-map, #mobile-map {
 	z-index: 1;
 }
 
