@@ -163,6 +163,12 @@ img.in-container {
 	height: 500px;
 	margin-bottom: 1rem;
 }
+#map-preview #desktop-map, #map-preview #mobile-map {
+	display: none;
+}
+#map-preview {
+	padding-bottom: 1rem;
+}
 ul.pagination {
 	padding: 1rem 0;
 }

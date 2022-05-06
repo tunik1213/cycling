@@ -40,6 +40,7 @@
 
         @if($sightList->isNotEmpty())
             <div id="map"></div>
+            <div id="map-preview"></div>
         @endif        
 
         <div class="row">
@@ -145,8 +146,7 @@
                 if(e.layer._popup == undefined){
                     $.ajax('/sights/'+e.layer.feature.properties.id+'/getMapPopupView',{
                         success: function(result) {
-                            e.layer.bindPopup(result);
-                            e.layer.openPopup();
+                            $('#map-preview').html(result);
                         }
                     });
                 }

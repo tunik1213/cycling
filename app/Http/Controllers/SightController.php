@@ -559,7 +559,7 @@ class SightController extends Controller
         $sight = Sight::find($id);
         if(empty($sight)) abort(404);
 
-        return view('sights.mapPopup',['sight'=>$sight]);
+        return view('sights.show_partial',['sight'=>$sight]);
         
     }
 }
