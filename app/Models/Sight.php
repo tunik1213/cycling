@@ -34,6 +34,8 @@ class Sight extends Model
             $user = Auth::user();
             if(empty($user)) return false;
 
+            if(empty($sight->id)) return true; // перше створення, зберігаємо як є, без версій
+
             $lv = SightVersion::lastVersion($sight);
 
             if ($user->moderator) {
@@ -48,6 +50,8 @@ class Sight extends Model
             } else {
 
                 if(empty($lv)) {
+                    if(!$sight->isPublic() && $sight->user_id == $user->id) return true; // правка своєї локації до того як вона пройде модерацію теж зберігаємо одразу, без версіонування
+
                     $lv = SightVersion::create([
                         'sight_id' => $sight->id,
                         'user_id' => $user->id,
