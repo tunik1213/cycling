@@ -13,7 +13,7 @@ class DistrictController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('moderator')->except(['index', 'show', 'getImage']);
+        $this->middleware('moderator')->except(['index', 'show', 'getImage', 'export']);
     }
 
     private function areas() {
