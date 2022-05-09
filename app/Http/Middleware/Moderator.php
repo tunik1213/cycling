@@ -25,6 +25,6 @@ class Moderator
         if (env('APP_DEBUG')) return $next($request);
 
         
-        return new Response(view('static.forbidden'));
+        return new Response(view('static.forbidden'),403);
     }
 }

@@ -17,7 +17,7 @@ $(document).ready(function(){
     $('.add-sight-to-route-button').on('click', addSightToRoute);
     $('#map').on('click','.add-sight-to-route-button',addSightToRoute);
     
-
+	$('[data-toggle="tooltip"]').tooltip();
 
 });
 
@@ -96,9 +96,44 @@ function addSightToRoute(e) {
 		btn.html('<div class="btn '+classname+'"><i class="fas fa-check"></i> Додано</div>');
 	}
 
+	sightImg = btn.closest('.sight-card').find('img');
+	animateToCart(sightImg);
 	
 
+}
 
-	// todo animate moving image to right header
+function animateToCart(imgtodrag)
+{
+    var cart = $('div#right-header');
 
+    if (imgtodrag) {
+        if ((imgtodrag.length === 0) || (!imgtodrag.is(':visible')))
+            return;
+
+        var imgclone = imgtodrag.clone()
+                .offset({
+                    top: imgtodrag.offset().top,
+                    left: imgtodrag.offset().left
+                })
+                .css({
+                    'opacity': '0.5',
+                    'position': 'absolute',
+                    'height': imgtodrag.height(),
+                    'width': imgtodrag.width(),
+                    'z-index': '1000000'
+                })
+                .appendTo($('body'))
+                .animate({
+                    'top': cart.offset().top + 10,
+                    'left': cart.offset().left + 10,
+                    'width': 75,
+                    'height': 75
+                }, 500);
+        imgclone.animate({
+            'width': 0,
+            'height': 0
+        }, function () {
+            $(this).remove()
+        });
+    }
 }

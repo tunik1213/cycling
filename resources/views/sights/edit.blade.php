@@ -48,7 +48,7 @@
 
 
     <div class="form-group row">
-        <div class="col col-9">
+        <div class="col col-8">
             <strong>Координати (Ctrl+V):</strong>
             <div class="row">
                 <div class="col col-6">
@@ -60,8 +60,8 @@
             </div>
         </div>
 
-        <div class="col col-3">
-            <strong>Радiус, м</strong>
+        <div class="col col-4">
+            <strong>Радiус, м</strong>&nbsp;&nbsp;<i class="fa-regular fa-circle-question" data-toggle="tooltip" title="Використовується для зарахування вiдвiдування"></i>
             <input type="number" id="radius" name="radius" value="{{ old('radius') ?? $sight->radius }}" class="form-control @if($sight->radius != $orig->radius) changed-input @endif" placeholder="Радiус" autocomplete="off">
         </div>
     </div>

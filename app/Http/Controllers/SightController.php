@@ -23,7 +23,7 @@ class SightController extends Controller
              $this->middleware('auth')->except([]);
             $this->middleware('moderator')->only(['destroy','edit','update','index','massUpdate','show','getImage','list', 'geoJSON']);
         } else {
-            $this->middleware('auth')->except(['show','getImage','list', 'geoJSON']);
+            $this->middleware('auth')->except(['show','getImage','list', 'geoJSON','getMapPopupView']);
             $this->middleware('moderator')->only(['destroy','index','massUpdate']);
         }
         
@@ -559,7 +559,7 @@ class SightController extends Controller
         $sight = Sight::find($id);
         if(empty($sight)) abort(404);
 
-        return view('sights.mapPopup',['sight'=>$sight]);
+        return view('sights.show_partial',['sight'=>$sight]);
         
     }
 }

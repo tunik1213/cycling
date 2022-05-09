@@ -27,7 +27,7 @@ html,body {
     right: 0;
     left: 0;
     top: 0;
-    z-index: 1;
+    z-index: 20;
     text-align: center;
     
 }
@@ -163,6 +163,12 @@ img.in-container {
 	height: 500px;
 	margin-bottom: 1rem;
 }
+#map-preview #desktop-map, #map-preview #mobile-map {
+	display: none;
+}
+#map-preview {
+	padding-bottom: 1rem;
+}
 ul.pagination {
 	padding: 1rem 0;
 }
@@ -249,6 +255,9 @@ img.marker-preview {
 	height: 40vh;
 	margin-bottom: 1rem;
 }
+#map, #desktop-map, #mobile-map {
+	z-index: 1;
+}
 
 body > .container {
   padding: 1rem;
@@ -262,6 +271,10 @@ body > .container {
 #header {
 	@extend %bg-header;
 	height: $header-height;
+
+	position: sticky;
+    top: 0;
+    z-index: 10;
 }
 #header a {
 	color: $font-color-light;

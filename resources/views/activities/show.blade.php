@@ -39,6 +39,11 @@
 			'sightList'=>$sights
 		])
 	</div>
+	@if($activity->user == Auth::user())
+	<div class="container"><br />
+		<p>Не вистачає потрiбної локації? Будь-ласка, <a href="{{route('sights.create')}}">додай!</a></p>
+	</div>
+	@endif
 </div>
 
 

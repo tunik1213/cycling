@@ -95,7 +95,7 @@ class UserList extends ListModel
 
     public function count_link_text()
     {
-        return 'пам\'яток вiдвiдано';
+        return 'локацiй вiдвiдано';
     }
     public function listRoute()
     {

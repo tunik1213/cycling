@@ -100,7 +100,7 @@
         <div class="col-xs-12 col-sm-12 col-md-6">
 
             <div id="route-list-edit">
-                <h3>Точки маршрута</h3>
+                <h3>Локації маршрута</h3>
                 <div id="route-list-edit-locations" class=" list-group">
                     @foreach($route->sights()->get() as $s)
                     <div class="list-group-item list-group-item-action" sight="{{$s->id}}">
@@ -110,7 +110,7 @@
                     </div>
                     @endforeach
                 </div>
-                <button type="submit" id="add-button" class="btn btn-secondary"><i class="fa fa-plus"></i> Додати точку</button>
+                <button type="submit" id="add-button" class="btn btn-secondary"><i class="fa fa-plus"></i> Додати локацію</button>
             </div>
 
             <input type="hidden" name="sights" id="sights">

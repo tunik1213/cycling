@@ -16,6 +16,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FeedbackController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -94,6 +95,13 @@ Route::post('routes/update/{id?}',[RouteController::class,'update'])->name('rout
 route::get('/routes/addSight/',[RouteController::class,'addSight'])->name('ajax.addToRoute');
 Route::get('/routes/{id}/{type}', [RouteController::class, 'getImage'])->name('routes.image');
 Route::get('/routes/{id}',[RouteController::class,'show'])->name('routes.show');
+
+
+
+Route::get('/feedback/new',[FeedbackController::class,'new'])->name('feedback.new');
+Route::post('/feedback/create',[FeedbackController::class,'create'])->name('feedback.create');
+Route::post('/feedback/read',[FeedbackController::class,'read'])->name('feedback.read');
+Route::get('/feedback/form',[FeedbackController::class,'form'])->name('feedback.form');
 
 
 Route::get('/{static_page_name}',[MainController::class,'staticPage']);

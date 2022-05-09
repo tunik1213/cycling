@@ -71,7 +71,7 @@ class AuthorList extends ListModel
 
     public function count_link_text()
     {
-        return 'пам\'яток додано';
+        return 'локацiй додано';
     }
     public function listRoute()
     {
