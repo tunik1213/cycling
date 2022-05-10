@@ -8,6 +8,7 @@
     }).addTo(map);
 
     var geoJsonUrl = '{!!$sightList->geoJsonUrl()!!}';
+    var selectedMarker=null;
 
     $.getJSON(geoJsonUrl, function(data) {
         var geojson = L.geoJson(data, {
@@ -18,13 +19,18 @@
         });
         var markers = L.markerClusterGroup();
         markers.on('click', function (e) {
-            if(e.layer._popup == undefined){
-                $.ajax('/sights/'+e.layer.feature.properties.id+'/getMapPopupView',{
-                    success: function(result) {
-                        $('#map-preview').html(result);
-                    }
-                });
-            }
+            if(selectedMarker != null) selectedMarker.setIcon(new L.Icon.Default);
+
+            var selectedMarkerIcon = L.icon({
+                iconUrl: '/images/marker-icon-red.png'
+            });
+            selectedMarker = e.layer;
+            selectedMarker.setIcon(selectedMarkerIcon);
+            $.ajax('/sights/'+e.layer.feature.properties.id+'/getMapPopupView',{
+                success: function(result) {
+                    $('#map-preview').html(result);
+                }
+            });
         });
         markers.addLayer(geojson);
         map.fitBounds(geojson.getBounds());
