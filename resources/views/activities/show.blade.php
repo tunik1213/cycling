@@ -33,15 +33,22 @@
 			</div>
 		</div>
 	</div>
-	<h3>{{$sights->title()}}</h3>
-	<div class="row">
-		@include('sights.list_partial',[
-			'sightList'=>$sights
-		])
-	</div>
+	@if($sights->isNotEmpty())
+		<h3>{{$sights->title()}}</h3>
+
+        <div id="map"></div>
+        <div id="map-preview"></div>
+
+		<div class="row">
+			@include('sights.list_partial',[
+				'sightList'=>$sights
+			])
+		</div>
+	@endif
+
 	@if($activity->user == Auth::user())
 	<div class="container"><br />
-		<p>Не вистачає потрiбної локації? Будь-ласка, <a href="{{route('sights.create')}}">додай!</a></p>
+		<p>Не вистачає відвіданої локації? Будь-ласка, <a href="{{route('sights.create')}}">додай!</a></p>
 	</div>
 	@endif
 </div>
@@ -52,4 +59,9 @@
 
 
 
+@endsection
+
+
+@section('javascript')
+	@include('sights.map_js',['sightList'=>$sights])
 @endsection
