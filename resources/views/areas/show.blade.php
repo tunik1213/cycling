@@ -16,7 +16,7 @@
 
         <div class="col-sm-6 col-xs-12">
 
-            <img src="{{ route('areas.image',$area->id) }}" alt="Герб {{$area->name}} область"/>
+            <img style="min-height: 100%;" src="{{ route('areas.image',$area->id) }}" alt="Герб {{$area->name}} область"/>
             
         </div>
 
