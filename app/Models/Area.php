@@ -23,4 +23,9 @@ class Area extends Model
     {
         return view('areas.link',['area'=>$this]);
     }
+
+    public function getDisplayNameAttribute()
+    {
+        return $this->name . (($this->name=='Крим')?'':' область');
+    }
 }

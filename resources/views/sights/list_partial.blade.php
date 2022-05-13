@@ -19,7 +19,7 @@
                     <span>{{ $s->district->name }} р-н </span>
                 @endif
                 @if(!empty($s->area))
-                    <span>{{ $s->area->name }} обл. </span>
+                    <span>{{ $s->area->displayName }}</span>
                 @endif
             </div>
             @if($s->count)
