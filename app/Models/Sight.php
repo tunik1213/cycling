@@ -34,6 +34,12 @@ class Sight extends Model
             $user = Auth::user();
             if(empty($user)) return false;
 
+            if ($user->moderator) {
+                if (!$sight->isPublic()) {
+                    $sight->moderator = $user->id;
+                }
+            }
+
             if(empty($sight->id)) return true; // перше створення, зберігаємо як є, без версій
 
             $lv = SightVersion::lastVersion($sight);
@@ -44,9 +50,6 @@ class Sight extends Model
                     $lv->save();
                 }
 
-                if (!$sight->isPublic()) {
-                    $sight->moderator = $user->id;
-                }
             } else {
 
                 if(empty($lv)) {
