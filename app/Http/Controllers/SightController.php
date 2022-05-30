@@ -14,6 +14,7 @@ use StepanDalecky\KmlParser\Parser;
 use App\Models\SightList;
 use App\Models\UserList;
 use App\Models\SightVersion;
+use Illuminate\Validation\ValidationException;
 
 class SightController extends Controller
 {
@@ -303,9 +304,14 @@ class SightController extends Controller
 
         if ($request->sight_image) {
             $imagePath = $request->sight_image->path();
-            $image = Image::make($imagePath)
+            try {
+                $image = Image::make($imagePath)
                 ->fit(500)
                 ->encode('jpg', 75);
+            } catch (\Throwable $e) {
+                throw ValidationException::withMessages(['sight_image' => 'Данний тип файла зображення не пiдтримується! Виберiть JPG, PNG, GIF, BMP або WebP формат зображення']);
+            }
+            
         } else {
             $image = null;
         }
