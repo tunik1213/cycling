@@ -117,6 +117,7 @@
         <ul id="footer-links">
             <li><a href="/">На головну</a></li>
             <li><a href="/about">Про проєкт</a></li>
+            <li><a href="{{route('sights.list')}}">Усі локації</a>
             <li><a href="{{route('feedback.form')}}">Залишити відгук</a></li>
         </ul>
       </div>
