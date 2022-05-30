@@ -225,4 +225,22 @@ class Sight extends Model
         return $this->belongsToMany(Route::class);
     }
 
+    public function nearbySights($tolerance = 0.01)
+    {
+        $result = Sight::whereNotNull('moderator')
+        ->whereBetween('lat', [$this->lat - $tolerance, $this->lat + $tolerance])
+        ->whereBetween('lng', [$this->lng - $tolerance, $this->lng + $tolerance])
+        ->get();
+
+
+        if ($result->count()==0) {
+            if($tolerance < 0.2) {
+                return $this->nearbySights($tolerance+0.05);
+            }
+        }
+            
+        return $result;
+         
+    }
+
 }
