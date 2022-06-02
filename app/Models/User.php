@@ -128,4 +128,11 @@ class User extends Authenticatable
     {
         return ($this->sex == 'F') ? $female : $male;
     }
+
+    public function getdefaultSightDescriptionAttribute() : string
+    {
+        if($this->id === 3) return 'Посилання: wikipedia'; // voronin
+
+        return '';
+    }
 }

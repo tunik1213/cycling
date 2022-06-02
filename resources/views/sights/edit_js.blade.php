@@ -83,7 +83,7 @@
 
 
     function fillEditorContent(e) {
-        this.setContent(`{!! str_replace('`','\'',$sight->description ?? old('description') ?? '' ) !!}`);
+        this.setContent(`{!! str_replace('`','\'',$sight->description ?? old('description') ?? Auth::user()->defaultSightDescription ) !!}`);
     }
 
     $('select#category').change(function(e){
