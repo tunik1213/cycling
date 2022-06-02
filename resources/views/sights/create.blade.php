@@ -1,3 +1,8 @@
+@php
+    $moderator = Auth::user()->moderator ?? false;
+@endphp
+
+
 @extends('layout')
 @section('content')
 
@@ -59,50 +64,55 @@
     <div class="row">
 
         <div class="col-xs-12 col-sm-12 col-md-6">
+
+            @if($moderator)
+
+                <div class="form-group">
+                    <strong>Категорiя:</strong>
+                    <select id="category" name="category" class="form-select" aria-label="Категорiя">
+                        @if(empty(old('category')))
+                            <option selected value="0">Виберiть категорiю</option>
+                        @endif
+
+                        @foreach(\App\Models\SightCategory::all() as $cat)
+                            @php
+                                $selected = ($cat->id == old('category')) ? 'selected' : '';
+                            @endphp
+                            <option {{$selected}} value="{{$cat->id}}">
+                               {{$cat->name}}
+                            </option>
+
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <strong>Пiдкатегорiя (необов'язково):</strong>
+                    <select disabled id="subcategory" name="subcategory" class="form-select" aria-label="Пiдкатегорiя">
+                        @if(empty(old('subcategory')))
+                            <option selected value="0">Виберiть пiдкатегорiю</option>
+                        @endif
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <strong>Область:</strong>
+                    <input type="text" name="area" id="area" class="form-control" placeholder="Почнiть набирати назву областi" value="{{ old('area') }}" autocomplete="off">
+                </div>
+
+                <input name="area_id" id="area_id" type="hidden" value="{{ old('area_id') }}" />
+
+                <div class="form-group">
+                    <strong>Район:</strong>
+                    <input type="text" name="district" id="district" class="form-control" placeholder="Почнiть набирати назву району" value="{{ old('district') }}" autocomplete="off">
+                </div>
+
+                <input name="district_id" id="district_id" type="hidden" value="{{ old('district_id') }}" />
+
+            @endif
+
             <div class="form-group">
-                <strong>Категорiя:</strong>
-                <select id="category" name="category" class="form-select" aria-label="Категорiя">
-                    @if(empty(old('category')))
-                        <option selected value="0">Виберiть категорiю</option>
-                    @endif
-
-                    @foreach(\App\Models\SightCategory::all() as $cat)
-                        @php
-                            $selected = ($cat->id == old('category')) ? 'selected' : '';
-                        @endphp
-                        <option {{$selected}} value="{{$cat->id}}">
-                           {{$cat->name}}
-                        </option>
-
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group">
-                <strong>Пiдкатегорiя (необов'язково):</strong>
-                <select disabled id="subcategory" name="subcategory" class="form-select" aria-label="Пiдкатегорiя">
-                    @if(empty(old('subcategory')))
-                        <option selected value="0">Виберiть пiдкатегорiю</option>
-                    @endif
-                </select>
-            </div>
-
-            <div class="form-group">
-                <strong>Область:</strong>
-                <input type="text" name="area" id="area" class="form-control" placeholder="Почнiть набирати назву областi" value="{{ old('area') }}" autocomplete="off">
-            </div>
-
-            <input name="area_id" id="area_id" type="hidden" value="{{ old('area_id') }}" />
-
-            <div class="form-group">
-                <strong>Район:</strong>
-                <input type="text" name="district" id="district" class="form-control" placeholder="Почнiть набирати назву району" value="{{ old('district') }}" autocomplete="off">
-            </div>
-
-            <input name="district_id" id="district_id" type="hidden" value="{{ old('district_id') }}" />
-
-            <div class="form-group">
-                <strong>Населений пункт:</strong>
+                <strong>Населений пункт (необов'язково):</strong>
                 <input type="text" name="locality" class="form-control" placeholder="наприклад, с. Широке" value="{{ old('locality') }}" autocomplete="off">
             </div>
 

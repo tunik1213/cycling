@@ -120,7 +120,7 @@
             contextmenu: false,
             browser_spellcheck: true,
             relative_urls: false,
-            height : '350'
+            height : {{ $moderator ? '400' : '250' }}
         }).then(function(editors) {
             $('#description.changed-input').closest('.form-group').find('#description_ifr').addClass('changed-input');
         });;

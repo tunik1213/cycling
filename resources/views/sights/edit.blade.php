@@ -69,44 +69,47 @@
     <div class="row">
 
         <div class="col-xs-12 col-sm-12 col-md-6">
-            <div class="form-group">
-                <strong>Категорiя:</strong>
-                <select id="category" name="category" class="form-select @if($sight->category != $orig->category) changed-input @endif" aria-label="Категорiя">
-                    @if(empty($sight->category))
-                        <option selected value="0">Виберiть категорiю</option>
-                    @endif
+            @if($moderator)
+                <div class="form-group">
+                    <strong>Категорiя:</strong>
+                    <select id="category" name="category" class="form-select @if($sight->category != $orig->category) changed-input @endif" aria-label="Категорiя">
+                        @if(empty($sight->category))
+                            <option selected value="0">Виберiть категорiю</option>
+                        @endif
 
-                    @foreach(\App\Models\SightCategory::all() as $cat)
-                        @php
-                            $selected = ($cat->id == ($sight->category->id ?? null)) ? 'selected' : '';
-                        @endphp
-                        <option {{$selected}} value="{{$cat->id}}">
-                           {{$cat->name}}
-                        </option>
+                        @foreach(\App\Models\SightCategory::all() as $cat)
+                            @php
+                                $selected = ($cat->id == ($sight->category->id ?? null)) ? 'selected' : '';
+                            @endphp
+                            <option {{$selected}} value="{{$cat->id}}">
+                               {{$cat->name}}
+                            </option>
 
-                    @endforeach
-                </select>
-            </div>
+                        @endforeach
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <strong>Пiдкатегорiя: (необов'язково)</strong>
-                <select disabled id="subcategory" name="subcategory" class="form-select @if($sight->subcategory != $orig->subcategory) changed-input @endif" aria-label="Пiдкатегорiя">
-                </select>
-            </div>
+                <div class="form-group">
+                    <strong>Пiдкатегорiя: (необов'язково)</strong>
+                    <select disabled id="subcategory" name="subcategory" class="form-select @if($sight->subcategory != $orig->subcategory) changed-input @endif" aria-label="Пiдкатегорiя">
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <strong>Область:</strong>
-                <input type="text" name="area" id="area" class="form-control @if($sight->area != $orig->area) changed-input @endif" placeholder="Почнiть набирати назву областi" value="{{ $sight->area->name ?? '' }}" autocomplete="off">
-            </div>
+                <div class="form-group">
+                    <strong>Область:</strong>
+                    <input type="text" name="area" id="area" class="form-control @if($sight->area != $orig->area) changed-input @endif" placeholder="Почнiть набирати назву областi" value="{{ $sight->area->name ?? '' }}" autocomplete="off">
+                </div>
 
-            <input name="area_id" id="area_id" type="hidden" value="{{ $sight->area->id ?? '' }}" />
+                <input name="area_id" id="area_id" type="hidden" value="{{ $sight->area->id ?? '' }}" />
 
-            <div class="form-group">
-                <strong>Район:</strong>
-                <input type="text" name="district" id="district" class="form-control @if($sight->district != $orig->district) changed-input @endif" placeholder="Почнiть набирати назву району" value="{{ $sight->district->name ?? '' }}" autocomplete="off">
-            </div>
+                <div class="form-group">
+                    <strong>Район:</strong>
+                    <input type="text" name="district" id="district" class="form-control @if($sight->district != $orig->district) changed-input @endif" placeholder="Почнiть набирати назву району" value="{{ $sight->district->name ?? '' }}" autocomplete="off">
+                </div>
 
-            <input name="district_id" id="district_id" type="hidden" value="{{ $sight->district->id ?? '' }}" />
+                <input name="district_id" id="district_id" type="hidden" value="{{ $sight->district->id ?? '' }}" />
+
+            @endif
 
             <div class="form-group">
                 <strong>Населений пункт:</strong>

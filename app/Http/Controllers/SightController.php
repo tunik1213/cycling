@@ -276,6 +276,24 @@ class SightController extends Controller
         ];
     }
 
+    public function rules()
+    {
+        $result = [
+            'name' => 'required',
+            'lat' => 'required',
+            'lng' => 'required'
+        ];
+
+        if (Auth::user()->moderator) {
+            $result = array_merge($result,[
+                'area_id' => 'required',
+                'category' => 'required|integer|min:1'
+            ]);
+        }
+
+        return $result;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -284,14 +302,7 @@ class SightController extends Controller
      */
     public function store(Request $request)
     {
-
-        $request->validate([
-            'name' => 'required',
-            'area_id' => 'required',
-            'lat' => 'required',
-            'lng' => 'required',
-            'category' => 'required|integer|min:1'
-        ], $this->messages());
+        $request->validate($this->rules(), $this->messages());
 
         $found = $this->_find($request->lat,$request->lng);
         if($found != null) {
@@ -320,8 +331,8 @@ class SightController extends Controller
         $approx = Sight::getApprox($request->lat,$request->lng);
 
         $s = Sight::create([
-            'area_id' => (int)$request->area_id,
-            'district_id' => (int)$request->district_id,
+            'area_id' => (int)$request->area_id  ?? null,
+            'district_id' => (int)$request->district_id ?? null,
             'name' => $request->name,
             'image'=> $image,
             'lat' => $request->lat,
@@ -329,7 +340,7 @@ class SightController extends Controller
             'approx_location' => $approx,
             'description' => $descr,
             'user_id' => Auth::user()->id,
-            'category_id' => (int)$request->category,
+            'category_id' => (int)$request->category ?? null,
             'sub_category_id' => $request->subcategory ?? null,
             'radius' => $request->radius ?? 25,
             'locality' => $request->locality ?? null,
@@ -396,13 +407,7 @@ class SightController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'area_id' => 'required',
-            'lat' => 'required',
-            'lng' => 'required',
-            'category' => 'required|integer|min:1'
-        ], $this->messages());
+        $request->validate($this->rules(), $this->messages());
 
         $found = $this->_find($request->lat,$request->lng,$id);
         if($found != null) {
@@ -426,10 +431,10 @@ class SightController extends Controller
         $sight->lat = $request->lat;
         $sight->lng = $request->lng;
         $sight->description = prepare_external_links($request->description);
-        $sight->area_id = $request->area_id;
-        $sight->district_id = $request->district_id;
-        $sight->category_id = $request->category;
-        $sight->sub_category_id = $request->subcategory ?? null;
+        if(!empty($request->area_id)) $sight->area_id = $request->area_id;
+        if(!empty($request->district_id)) $sight->district_id = $request->district_id;
+        if(!empty($request->category)) $sight->category_id = $request->category;    
+        if(!empty($request->subcategory)) $sight->sub_category_id = $request->subcategory ?? null;
         $sight->radius = $request->radius;
         $sight->locality = $request->locality ?? null;
         $sight->license = $request->license ?? null;
