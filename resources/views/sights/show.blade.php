@@ -6,7 +6,7 @@
 
 @section('content')
  
-@include('sights.show_partial')
+@include('sights.show_partial',['h1'=>true])
 
 <div class="row">
     @include('user.top',['userList'=>$topUsers,'list_title'=>'Топ мандрiвникiв'])

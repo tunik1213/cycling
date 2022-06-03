@@ -47,7 +47,13 @@
     </div>
 
     <div class="col-lg-8 col-xs-12">
-        <h2>{{ $sight->name }}</h2>
+        @if($h1 ?? false)
+            <h1>{{ $sight->name }}</h1>
+        @else
+            <div class="sihgt-title">
+                <a href="{{ route('sights.show',$sight->id) }}">{{ $sight->name }}</a>
+            </div>
+        @endif
 
         {{$sight->categoryLink}}
 

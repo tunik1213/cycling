@@ -169,6 +169,10 @@ img.in-container {
   max-height: 100%;
 }
 
+.sihgt-title {
+  font-size: 2rem;
+}
+
 .sight-buttons {
   padding: 2rem 0;
   max-width: 30rem;
