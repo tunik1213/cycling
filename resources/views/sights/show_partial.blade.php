@@ -31,7 +31,7 @@
 
 @endif
 
-<div class="row">
+<div class="row sight-container">
     <div class="col-lg-4 col-12">
         @if(!empty($sight->image))
             <img class="sight-image" src="{{route('sights.image',$sight->id)}}" alt="Фото {{$sight->name}}">

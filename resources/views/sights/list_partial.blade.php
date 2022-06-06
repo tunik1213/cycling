@@ -4,9 +4,9 @@
 
 <div class="info-block-body">
 @foreach ($sights as $s)
-<div class="card-container">
+<div class="card-container sight-container">
     <div class="card sight-card">
-        <img src="data:image/jpeg;base64,{{base64_encode($s->image)}}"/>
+        <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($s->image)}}"/>
         <div class="card-body">
             <div class="row">
                 <a href="{{ route('sights.show',$s->id) }}">{{ $s->name }}</a>

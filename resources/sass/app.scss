@@ -501,7 +501,6 @@ img.sight-image {
 	max-width: 100%;
 	min-width: 100%;
 	width: auto;
-	padding-top: 1rem;
 }
 .lisence-text {
 	text-align: right;
@@ -531,6 +530,9 @@ div.card-container {
 }
 
 /* route */
+.add-sight-to-route-button > .btn-info {
+	position: absolute;
+}
 .add-sight-to-route-button a {
 	color: white;
 }

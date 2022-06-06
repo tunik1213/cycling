@@ -158,7 +158,7 @@
             $ids = $ids + $(this).attr('sight')+',';
         });
         $('input#sights').val($ids);
-        
+
         $('input#finished').val($(this).attr('finish'));
 
         if($(this).is('#add-button')) $('input#redirect').val('{{route('sights.list',['routeAdd'=>$route->id])}}');

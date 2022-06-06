@@ -15,7 +15,7 @@ $(document).ready(function(){
     });
 
     $('.add-sight-to-route-button').on('click', addSightToRoute);
-    $('#map').on('click','.add-sight-to-route-button',addSightToRoute);
+    $('#map-preview').on('click','.add-sight-to-route-button',addSightToRoute);
     
 	$('[data-toggle="tooltip"]').tooltip();
 
@@ -93,10 +93,10 @@ function addSightToRoute(e) {
 		.html(message)
 		.show();
 	} else {
-		btn.html('<div class="btn '+classname+'"><i class="fas fa-check"></i> Додано</div>');
+		btn.html('<div class="btn btn-info '+classname+'"><i class="fas fa-check"></i>'+message+'</div>');
 	}
 
-	sightImg = btn.closest('.sight-card').find('img');
+	sightImg = btn.closest('.sight-container').find('img.sight-image');
 	animateToCart(sightImg);
 	
 
@@ -120,14 +120,15 @@ function animateToCart(imgtodrag)
                     'position': 'absolute',
                     'height': imgtodrag.height(),
                     'width': imgtodrag.width(),
+                    'min-width': '0',
                     'z-index': '1000000'
                 })
                 .appendTo($('body'))
                 .animate({
                     'top': cart.offset().top + 10,
                     'left': cart.offset().left + 10,
-                    'width': 75,
-                    'height': 75
+                    'width': '75px',
+                    'height': '75px'
                 }, 500);
         imgclone.animate({
             'width': 0,

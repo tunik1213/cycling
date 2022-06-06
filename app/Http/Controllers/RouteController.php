@@ -76,14 +76,13 @@ class RouteController extends Controller
         if(empty($route->user_id)) $route->user_id = $user->id;
         $route->license = $request->license;
 
-        if(!empty($request->sights)) {
-            foreach(explode(',',$request->sights) as $index=>$s_id) {
-                if(empty($s_id)) continue;
-                $sights[$s_id] = ['row_number' => ++$index];
-            }
-
-            $route->sights()->sync($sights);
+        $sights=[];
+        foreach(explode(',',$request->sights) as $index=>$s_id) {
+            if(empty($s_id)) continue;
+            $sights[$s_id] = ['row_number' => ++$index];
         }
+
+        $route->sights()->sync($sights);
 
         $route->distance = $request->distance;
         $route->grunt_percent = $request->grunt_percent; 

@@ -40,7 +40,7 @@
 
         @if($sightList->isNotEmpty())
             <div id="map"></div>
-            <div id="map-preview"></div>
+            <div id="map-preview" class="container"></div>
         @endif        
 
         <div class="row">
