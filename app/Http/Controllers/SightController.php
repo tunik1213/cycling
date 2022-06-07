@@ -320,7 +320,11 @@ class SightController extends Controller
                 ->fit(500)
                 ->encode('jpg', 75);
             } catch (\Throwable $e) {
-                throw ValidationException::withMessages(['sight_image' => 'Данний тип файла зображення не пiдтримується! Виберiть JPG, PNG, GIF, BMP або WebP формат зображення']);
+                if(env('APP_DEBUG')) {
+                    throw $e; 
+                } else {
+                    throw ValidationException::withMessages(['sight_image' => 'Данний тип файла зображення не пiдтримується! Виберiть JPG, PNG, GIF, BMP або WebP формат зображення']);
+                }
             }
             
         } else {
