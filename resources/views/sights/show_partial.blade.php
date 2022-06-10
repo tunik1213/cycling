@@ -81,9 +81,9 @@
             @endif
         </div>
 
-        <p id="sight-description">
+        <div id="sight-description">
             {!! $sight->description !!}
-        </p>
+        </div>
 
         @if($moderator)
         <div id="sight-radius">
