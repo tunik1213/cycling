@@ -56,6 +56,10 @@ html,body {
     		rgba(0, 0, 0, 0.4) calc(#{$header-height}*2)
     );
 }
+#sight-description img {
+	max-width: 100%;
+    height: auto;
+}
 .tox-notifications-container,.tox-statusbar {
     display: none !important;
 }

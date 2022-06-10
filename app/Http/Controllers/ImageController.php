@@ -15,7 +15,6 @@ class ImageController extends Controller
         if (!empty($_FILES['filename']['tmp_name'])) {
             $img = new Image();
             $img->image = ImageManagerStatic::make($_FILES['filename']['tmp_name'])
-                ->fit(500)
                 ->encode('jpg', 75);
             $img->save();
 
