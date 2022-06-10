@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	$.ajaxSetup({
 	    headers: {
-	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        'X-CSRF-TOKEN': csrf_token()
 	    }
 	});
 	
@@ -20,6 +20,10 @@ $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();
 
 });
+
+const csrf_token = function() {
+    return $('meta[name="csrf-token"]').attr('content');
+}
 
 const search = function(query_text) {
 	var url = new URL(window.location.href);
@@ -137,4 +141,36 @@ function animateToCart(imgtodrag)
             $(this).remove()
         });
     }
+}
+
+var uploadImage = function(blobInfo, success, failure) {
+    var xhr, formData;
+
+    xhr = new XMLHttpRequest();
+    xhr.withCredentials = false;
+    xhr.open('POST', '/upload');
+
+    xhr.onload = function() {
+        var json;
+
+        if (xhr.status != 200) {
+            failure('HTTP Error: ' + xhr.status);
+            return;
+        }
+
+        json = JSON.parse(xhr.responseText);
+
+        if (!json || typeof json.url != 'string') {
+            failure('Invalid JSON: ' + xhr.responseText);
+            return;
+        }
+
+        success(json.url);
+    };
+
+    formData = new FormData();
+    formData.append('filename', blobInfo.blob(), blobInfo.filename());
+    formData.append('_token',csrf_token());
+
+    xhr.send(formData);
 }

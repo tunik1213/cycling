@@ -21,7 +21,7 @@ class SightController extends Controller
     public function __construct()
     {
         if(env('RESTRICT_MODE')) {
-             $this->middleware('auth')->except([]);
+            $this->middleware('auth')->except([]);
             $this->middleware('moderator')->only(['destroy','edit','update','index','massUpdate','show','getImage','list', 'geoJSON']);
         } else {
             $this->middleware('auth')->except(['show','getImage','list', 'geoJSON','getMapPopupView']);
@@ -577,4 +577,5 @@ class SightController extends Controller
         return view('sights.show_partial',['sight'=>$sight]);
         
     }
+
 }

@@ -17,6 +17,7 @@ use App\Http\Controllers\VisitController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\ImageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,7 +48,6 @@ Route::get('/sights/geoJSON',[SightController::class,'geoJSON'])->name('sightsGe
 
 Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites'])->name('checkInvites')->middleware('localhost');
 Route::get('/crontab/parseActivityNames',[CrontabController::class,'parseActivityNames'])->middleware('localhost');
-
 
 Route::get('/home', [UserController::class, 'home'])->name('home');
 Route::get('/user/getAvatarImage/{id?}', [UserController::class, 'getAvatarImage'])->name('userAvatar');
@@ -106,3 +106,6 @@ Route::get('/feedback/form',[FeedbackController::class,'form'])->name('feedback.
 
 Route::get('/{static_page_name}',[MainController::class,'staticPage']);
 
+
+Route::post('/upload', [ImageController::class, 'uploadImage']);
+Route::get('/image/{id}',[ImageController::class, 'getImage']);
