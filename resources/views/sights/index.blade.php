@@ -78,6 +78,8 @@
                         <br />
                 @endif
                 Вiдкрити <a class="link-secondary" target="_blank" href="{{$s->gm_link()}}">google maps</a>
+                <br />
+                Класснicть: {{$s->classiness ?? 'Не вказано'}}
             </td>
             <td><img src="data:image/jpeg;base64,{{base64_encode($s->image)}}" /></td>
             <td width="1">
