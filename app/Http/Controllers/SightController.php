@@ -272,7 +272,8 @@ class SightController extends Controller
             'area_id.required' => 'Вкажiть область!',
             'lng.required' => 'Не вказано довготу!',
             'lat.required' => 'Не вказано широту!',
-            'category.*' => 'Виберiть категорiю!'
+            'category.*' => 'Виберiть категорiю!',
+            'classiness.*' => 'Вкажiть класнiсть!'
         ];
     }
 
@@ -287,7 +288,8 @@ class SightController extends Controller
         if (Auth::user()->moderator) {
             $result = array_merge($result,[
                 'area_id' => 'required',
-                'category' => 'required|integer|min:1'
+                'category' => 'required|integer|min:1',
+                'classiness' => 'required|integer|min:1'
             ]);
         }
 
@@ -348,7 +350,8 @@ class SightController extends Controller
             'sub_category_id' => $request->subcategory ?? null,
             'radius' => $request->radius ?? 25,
             'locality' => $request->locality ?? null,
-            'license' => $request->license ?? null
+            'license' => $request->license ?? null,
+            'classiness' => (int)$request->classiness ?? null
         ]);
 
         $success_message = 'Пам\'ятка успiшно створена! '
@@ -442,6 +445,7 @@ class SightController extends Controller
         $sight->radius = $request->radius;
         $sight->locality = $request->locality ?? null;
         $sight->license = $request->license ?? null;
+        if(!empty($request->classiness)) $sight->classiness = $request->classiness;
         $sight->save();
 
         $url = $request->input('moderation_uri', route('sights.show',['sight'=>$sight]));

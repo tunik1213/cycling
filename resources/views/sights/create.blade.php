@@ -109,6 +109,18 @@
 
                 <input name="district_id" id="district_id" type="hidden" value="{{ old('district_id') }}" />
 
+                <div class="form-group">
+                    <strong>Класнicть:</strong>
+                    <select id="classiness" name="classiness" class="form-select" aria-label="Класнiсть">
+                        @if(empty(old('classiness')))
+                            <option selected value="0">Виберiть класнiсть</option>
+                        @endif
+                        <option {{old('classiness')==1?'selected':''}} value="1">1. Найцiкавiше</option>
+                        <option {{old('classiness')==2?'selected':''}} value="2">2. Дуже цiкаве</option>
+                        <option {{old('classiness')==3?'selected':''}} value="3">3. Цiкаве</option>
+                    </select>
+                </div>
+
             @endif
 
             <div class="form-group">
