@@ -115,9 +115,13 @@
                         @if(empty(old('classiness')))
                             <option selected value="0">Виберiть класнiсть</option>
                         @endif
-                        <option {{old('classiness')==1?'selected':''}} value="1">1. Найцiкавiше</option>
-                        <option {{old('classiness')==2?'selected':''}} value="2">2. Дуже цiкаве</option>
-                        <option {{old('classiness')==3?'selected':''}} value="3">3. Цiкаве</option>
+
+                        @foreach(\App\Models\Sight::classinessList() as $i=>$c)
+                            @php
+                                $selected = old('classiness')==$i ? 'selected' : '';
+                            @endphp
+                            <option {{$selected}} value="{{$i}}">{{$c}}</option>
+                        @endforeach
                     </select>
                 </div>
 

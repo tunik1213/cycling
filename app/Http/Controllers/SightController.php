@@ -230,15 +230,22 @@ class SightController extends Controller
         $area_id = $request->input('area') ?? null;
         $area = Area::find($area_id);
 
+        $classiness = $request->input('classiness') ?? null;
+
         $sights = Sight::join('districts','districts.id','=','sights.district_id')
             ->select(['sights.*'])
             ->when($area, function ($query, $area) {
                 return $query->where('districts.area_id', $area->id);
+            })->when($classiness, function($query, $classiness) {
+                if($classiness == -1)
+                    return $query->whereNull('classiness');
+                else 
+                    return $query->where('classiness',$classiness);
             })
             ->paginate(100)
             ->appends(request()->query());
 
-        return view('sights.index', ['sights'=>$sights, 'area'=>$area]);
+        return view('sights.index', ['sights'=>$sights, 'area'=>$area, 'classiness'=>$classiness]);
     }
 
     public function massUpdate(Request $request) {
@@ -250,6 +257,7 @@ class SightController extends Controller
             
             if ($request->input('category')) $s->category_id = $request->input('category');
             if ($request->input('subcategory')) $s->sub_category_id = $request->input('subcategory');
+            if ($request->input('classiness')) $s->classiness = $request->input('classiness');
             $s->save();
         }
 

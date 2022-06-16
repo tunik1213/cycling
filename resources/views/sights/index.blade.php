@@ -23,6 +23,22 @@
             </div>
 
             <br />
+
+            <div class="form-group">
+                <strong>Вiдбiр по класностi:</strong>
+                <select id="classiness" name="classiness" class="form-select" aria-label="Класнiсть">
+                <option value="0">Виберiть</option>
+                @foreach(\App\Models\Sight::classinessList() as $i=>$c)
+                    @php
+                        $selected = ($i == $classiness) ? 'selected' : '';
+                    @endphp
+                    <option {{$selected}} value="{{$i}}">{{$c}}</option>
+                @endforeach
+                <option {{$classiness==-1 ? 'selected' : ''}} value="-1">Не вказано</option>
+                </select>
+            </div>
+
+            <br />
             
 
         </div>
@@ -116,6 +132,18 @@
 
         <br />
 
+        <div class="form-group">
+            <strong>Класснiсть:</strong>
+            <select id="set-classiness" name="set-classiness" class="form-select" aria-label="Класнiсть">
+            <option value="0">Виберiть</option>
+            @foreach(\App\Models\Sight::classinessList() as $i=>$c)
+                <option value="{{$i}}">{{$c}}</option>
+            @endforeach
+            </select>
+        </div>
+
+        <br />
+
         <button id="mass-save" type="submit">Зберегти</button>
 
     </div>
@@ -169,6 +197,15 @@
         });
     });
 
+    $('select#classiness').change(function(e){
+        var id = $(this).find(":selected").attr('value');
+        var url = new URL(window.location.href);
+        var search_params = url.searchParams;
+        search_params.set('classiness', id);
+        url.search = search_params.toString();
+        window.location.href = url.toString();
+    });
+
 
     $('#mass-save').click(function(e) {
         var sights = [];
@@ -177,8 +214,10 @@
         });
         var data = new Object();
         data['sights'] = sights;
+        data['csrf'] = csrf_token();
         data['category'] = $('select#category').find(":selected").attr('value');
         data['subcategory'] = $('select#subcategory').find(":selected").attr('value');
+        data['classiness'] = $('select#set-classiness').find(":selected").attr('value');
 
         $.ajax({
             url: '/sights/massUpdate',

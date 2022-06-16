@@ -112,12 +112,17 @@
                 <div class="form-group">
                     <strong>Класнicть:</strong>
                     <select id="classiness" name="classiness" class="form-select" aria-label="Класнiсть">
-                        @if(empty(old('classiness')))
+                        @if(empty($sight->classiness))
                             <option selected value="0">Виберiть класнiсть</option>
                         @endif
-                        <option {{$sight->classiness==1?'selected':''}} value="1">1. Найцiкавiше</option>
-                        <option {{$sight->classiness==2?'selected':''}} value="2">2. Дуже цiкаве</option>
-                        <option {{$sight->classiness==3?'selected':''}} value="3">3. Цiкаве</option>
+
+                        @foreach(\App\Models\Sight::classinessList() as $i=>$c)
+                            @php
+                                $selected = $sight->classiness==$i ? 'selected' : '';
+                            @endphp
+                            <option {{$selected}} value="{{$i}}">{{$c}}</option>
+                        @endforeach
+                        
                     </select>
                 </div>
 

@@ -243,4 +243,13 @@ class Sight extends Model
          
     }
 
+    public static function classinessList() : array {
+        return [
+            1 => '1. Найцiкавiше',
+            2 => '2. Дуже цiкаве',
+            3 => '3. Цiкаве',
+            4 => '4. Точка вiдвiдування'
+        ];
+    }
+
 }
