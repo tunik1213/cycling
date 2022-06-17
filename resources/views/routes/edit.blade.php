@@ -172,10 +172,14 @@
     tinymce.init({
         selector: '#description',
         language: 'uk',
-        plugins: 'link, emoticons, lists, charmap, paste, textcolor',
+        plugins: 'link, emoticons, lists, charmap, paste, textcolor, image',
         paste_as_text: true,
         toolbar: 'undo redo | bold italic removeformat | forecolor backcolor | bullist numlist | charmap emoticons link image media',
         menubar: false,
+        file_picker_types: 'file image media',
+        images_upload_url: '/upload',
+        automatic_uploads: true,
+        images_upload_handler: uploadImage,
         setup: function(editor) {
             editor.on('init', fillEditorContent);
         },
