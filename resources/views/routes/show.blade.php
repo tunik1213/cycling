@@ -64,10 +64,8 @@
 
 </div>
 
-<div class="row">
-    <p id="route-description">
-        {!! $route->description !!}
-    </p>
+<div class="row" id="route-description">
+    {!! $route->description !!}
 </div>
 
 @if($route->sights()->count()>0)
