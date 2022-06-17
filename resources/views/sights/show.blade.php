@@ -12,6 +12,8 @@
     @include('user.top',['userList'=>$topUsers,'list_title'=>'Топ мандрiвникiв'])
 </div>
 
+<div id="sights-nearby"></div>
+
 
 @endsection
 
@@ -32,6 +34,16 @@
         }).addTo(map);
 
         var marker = L.marker(latlng).addTo(map);
+
+
+
+        $.ajax({
+            url: '/sights/'+{{$sight->id}}+'/nearby',
+            success: function(data){
+                $('#sights-nearby').html(data)
+            }
+        });
+
    </script>
 
 @endsection

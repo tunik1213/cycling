@@ -228,8 +228,11 @@ class Sight extends Model
     public function nearbySights($tolerance = 0.01)
     {
         $result = Sight::whereNotNull('moderator')
+        ->where('id','<>',$this->id)
         ->whereBetween('lat', [$this->lat - $tolerance, $this->lat + $tolerance])
         ->whereBetween('lng', [$this->lng - $tolerance, $this->lng + $tolerance])
+        ->orderBy('classiness')
+        ->limit(4)
         ->get();
 
 

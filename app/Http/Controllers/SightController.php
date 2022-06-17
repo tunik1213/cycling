@@ -590,4 +590,14 @@ class SightController extends Controller
         
     }
 
+    public function nearby($id)
+    {
+        $sight = Sight::find($id);
+        if(empty($sight)) abort(404);
+
+        $sights = $sight->nearbySights();
+
+        if($sights->count() > 0)
+            return view('sights.nearby',['sights'=>$sights]);
+    }
 }

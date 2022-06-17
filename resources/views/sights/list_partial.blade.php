@@ -1,5 +1,5 @@
 @php
-    $sights = $sightList->index();
+    if(isset($sightList)) $sights = $sightList->index();
 @endphp
 
 <div class="info-block-body">
@@ -22,16 +22,18 @@
                     <span>{{ $s->area->displayName }}</span>
                 @endif
             </div>
-            @if($s->count)
-            <br/>
-            <div class="row">
-                @php($getParams = $sightList->filters(['sight'=>$s->id]))
-                <a class="link-secondary" href="{{route('activities',$getParams)}}">{{$s->count}} вiдвiдувань</a>
-            </div>
-            @endif
+            @if(isset($sightList))
+                @if($s->count)
+                <br/>
+                <div class="row">
+                    @php($getParams = $sightList->filters(['sight'=>$s->id]))
+                    <a class="link-secondary" href="{{route('activities',$getParams)}}">{{$s->count}} вiдвiдувань</a>
+                </div>
+                @endif
 
-            @if(!empty($sightList->routeAdd))
-                @include('sights.route_add_button',['sight_id'=>$s->id])
+                @if(!empty($sightList->routeAdd))
+                    @include('sights.route_add_button',['sight_id'=>$s->id])
+                @endif
             @endif
         </div>
     </div>
@@ -39,4 +41,6 @@
 @endforeach
 </div>
 
-{{ $sights->links('vendor.pagination.bootstrap-4') }}
+@if(isset($sightList))
+    {{ $sights->links('vendor.pagination.bootstrap-4') }}
+@endif

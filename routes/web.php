@@ -109,3 +109,4 @@ Route::get('/{static_page_name}',[MainController::class,'staticPage']);
 
 Route::post('/upload', [ImageController::class, 'uploadImage']);
 Route::get('/image/{id}',[ImageController::class, 'getImage']);
+Route::get('/sights/{id}/nearby',[SightController::class, 'nearby']);
