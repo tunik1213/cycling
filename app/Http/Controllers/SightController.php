@@ -520,6 +520,8 @@ class SightController extends Controller
         $area_id = $request->input('area') ?? null;
         $area = Area::find($area_id);
 
+	$classiness = $request->input('classiness') ?? null;
+
         $sights = Sight::leftJoin('districts','districts.id','=','sights.district_id')
             ->whereNull('sights.moderator')
             ->select(['sights.*'])
@@ -532,7 +534,8 @@ class SightController extends Controller
         return view('sights.index', [
             'sights'=>$sights, 
             'area'=>$area, 
-            'moderation_uri'=>$request->getRequestUri()
+            'moderation_uri'=>$request->getRequestUri(),
+	    'classiness' => $classiness
         ]);
 
     }
