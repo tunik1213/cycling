@@ -7,12 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Sight;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\CheckRoutePassing;
 
 class Route extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+
+    public static function boot() {
+  
+        parent::boot();
+
+        static::saved(function($route){
+            CheckRoutePassing::dispatch($route);
+        });
+
+    }
 
     public function sights()
     {

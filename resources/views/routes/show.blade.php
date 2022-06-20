@@ -73,7 +73,22 @@
 @foreach($route->sights()->get() as $s)
     <div class="list-group-item list-group-item-action">
         <div class="image" ><img src="data:image/jpeg;base64,{{base64_encode($s->image)}}"/></div>
-        <div class="name"><a href="{{ route('sights.show',$s->id) }}">{{ $s->name }}</a></div>
+        <div class="name">
+            <div class="row">
+                <a href="{{ route('sights.show',$s->id) }}">{{ $s->name }}</a>
+            </div>
+            <div class="row">
+                @if(!empty($s->locality))
+                    <span>{{ $s->locality }}</span>
+                @endif
+                @if(!empty($s->district))
+                    <span>{{ $s->district->name }} р-н </span>
+                @endif
+                @if(!empty($s->area))
+                    <span>{{ $s->area->displayName }}</span>
+                @endif
+            </div>
+        </div>
     </div>
 @endforeach
 </div>
