@@ -67,7 +67,9 @@ class RouteController extends Controller
         }
 
         $route->description = $request->description;
-        $route->finished = $request->finished ?? false;
+        if(!$route->finished) {
+            $route->finished = $request->finished ?? false;
+        }
 
         $user= Auth::user();
         if($user->moderator) {
