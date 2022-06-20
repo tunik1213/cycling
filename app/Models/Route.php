@@ -20,7 +20,9 @@ class Route extends Model
         parent::boot();
 
         static::saved(function($route){
-            CheckRoutePassing::dispatch($route);
+            if($route->finished && $route->sights()->count() > 1) {
+                CheckRoutePassing::dispatch($route);
+            }
         });
 
     }
