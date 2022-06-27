@@ -119,4 +119,15 @@ class RouteController extends Controller
 
         echo($img);
     }
+
+    public function list(Request $request)
+    {
+        $result = Route::where('finished',1)
+            ->whereNotNull('moderator')
+            ->paginate(100)
+            ->appends(request()->query())
+            ;
+
+        return view('routes.list', ['routes'=>$result]);
+    }
 }

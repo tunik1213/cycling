@@ -89,6 +89,7 @@ Route::resource('subcategories', SubCategoryController::class);
 Route::get('/getVisitsAWS', [VisitController::class,'getVisitsAWS']);
 Route::post('/postVisitsAWS', [VisitController::class,'postVisitsAWS']);
 
+Route::get('/routes/list',[RouteController::class,'list'])->name('routes.list');
 Route::get('/routes/edit/{id?}',[RouteController::class,'edit'])->name('routes.edit');
 Route::get('/routes/publish/{id?}',[RouteController::class,'publish'])->name('routes.publish');
 Route::post('routes/update/{id?}',[RouteController::class,'update'])->name('routes.update');
