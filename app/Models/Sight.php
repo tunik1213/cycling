@@ -25,6 +25,11 @@ class Sight extends Model
         'image'
     ];
 
+    public static $sources = [
+        0 => 'Google',
+        -1 => '<a rel="nofollow" target="_blank" href="https://ostriv.org/">Національний заповідник Хотиця</a>',
+    ];
+
     public static function boot() {
   
         parent::boot();

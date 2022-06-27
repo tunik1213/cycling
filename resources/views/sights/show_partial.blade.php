@@ -73,11 +73,11 @@
         </nav>
 
         <div id="sight-author">
-            @if($sight->user)
+            @if($sight->user_id > 0)
                 <strong>Дода{{$sight->user->gender('в','ла')}}: </strong>
                 <a href="{{route('userProfile',$sight->user->id)}}">{{ $sight->user->fullname }}</a>
             @else
-                <strong>Джерело: </strong>Google
+                <strong>Джерело: </strong>{!! App\Models\Sight::$sources[$sight->user_id] !!}
             @endif
         </div>
 
