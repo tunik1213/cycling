@@ -47,7 +47,7 @@
 
             <div class="form-group row">
                 <div class="form-group">
-                    <strong>Титульне зображення (лого):</strong>
+                    <strong>Титульне зображення або найкрасивiше фото з маршруту:</strong>
                     <input type="file" name="logo_image" id="logo_image" class="form-control">
                 </div>
                 @if(!empty($route->logo_image))
