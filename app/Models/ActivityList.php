@@ -33,6 +33,10 @@ class ActivityList extends ListModel
             $activity = Activity::find($request->input('activity')) ?? null;
             if($activity) $this->activity = $activity;
         }
+        if($request->input('route')){
+            $route = Route::find($request->input('route')) ?? null;
+            if($route) $this->route = $route;
+        }
     }
 
     public function index()
@@ -53,6 +57,10 @@ class ActivityList extends ListModel
         }
         if(!empty($this->activity)) {
             $query = $query->where('a.id', $this->activity->id);
+        }
+        if(!empty($this->route)) {
+            $query = $query->join('route_passes as rs','rs.act_id','=','a.id')
+            ->where('rs.route_id',$this->route->id);
         }
         $query = $query
             ->paginate(40)

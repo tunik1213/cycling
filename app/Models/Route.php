@@ -108,4 +108,9 @@ class Route extends Model
 
         return $areas;
     }
+
+    public function getLinkAttribute()
+    {
+        return view('routes.link',['route'=>$this]);
+    }
 }

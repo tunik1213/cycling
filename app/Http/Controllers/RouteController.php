@@ -7,6 +7,7 @@ use App\Models\Route;
 use App\Models\Sight;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Auth;
+use App\Models\UserList;
 
 class RouteController extends Controller
 {
@@ -106,8 +107,14 @@ class RouteController extends Controller
         $route = Route::find($id);
         if(empty($route)) abort(404);
 
-        return view('routes.show',['route'=>$route]);
+        $topUsers = new UserList($request);
+        $topUsers->limit = 4;
+        $topUsers->route = $route;
 
+        return view('routes.show',[
+            'route'=>$route,
+            'topUsers'=>$topUsers
+        ]);
     }
 
     public function getImage(int $id, string $type)

@@ -13,6 +13,10 @@
         <h4>Локація @include('sights.link',['sight'=>$actList->sight])</h4>
     @endif
 
+    @if($actList->route)
+        <h4>Маршрут @include('routes.link',['route'=>$actList->route])</h4>
+    @endif
+
     <br />
 
     <div class="list-group">

@@ -34,12 +34,20 @@ class UserList extends ListModel
             ->groupBy('a.user_id')
             ->orderByRaw('2 desc');
 
-        if(empty($this->sight)) {
-            $users = $users->selectRaw('count(distinct(v.sight_id)) as count');
+        if(!empty($this->route)) {
+            $users = $users->join('route_passes as rs','rs.act_id','=','v.act_id')
+            ->where('rs.route_id',$this->route->id)
+            ->selectRaw('count(distinct a.id) as count');
         } else {
-            $users = $users->where('v.sight_id',$this->sight->id);
-            $users = $users->selectRaw('count(v.sight_id) as count');
+            if(empty($this->sight)) {
+            $users = $users->selectRaw('count(distinct(v.sight_id)) as count');
+            } else {
+                $users = $users->where('v.sight_id',$this->sight->id);
+                $users = $users->selectRaw('count(v.sight_id) as count');
+            }
         }
+
+        
 
         if(!empty($this->district)) {
             $users = $users->where('d.id',$this->district->id);
@@ -77,6 +85,9 @@ class UserList extends ListModel
         if(!empty($this->sight)) 
             $result = 'Мандрiвники, якi вiдвiдали '. custom_lcfirst($this->sight->name);
 
+        if(!empty($this->route))
+            $result = 'Мандрiвники, якi проїхали '. $this->route->name;
+
         return $result;
     }
 
@@ -85,10 +96,13 @@ class UserList extends ListModel
         $result = 'Топ мандрiвникiв';
 
         if(!empty($this->sight)) 
-            $result = 'Мандрiвники, якi вiдвiдали 
-        <a href="'.route('sights.show',$this->sight->id).'">'
-        . custom_lcfirst($this->sight->name)
-        .'</a>';
+                $result = 'Мандрiвники, якi вiдвiдали 
+            <a href="'.route('sights.show',$this->sight->id).'">'
+            . custom_lcfirst($this->sight->name)
+            .'</a>';
+
+        if(!empty($this->route))
+            $result = 'Мандрiвники, якi проїхали '. $this->route->link;
 
         return $result;
     }

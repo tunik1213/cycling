@@ -18,6 +18,7 @@ class ListModel
     public ?District $district;
     public ?Area $area;
     public ?User $author;
+    public ?Route $route;
 
     public function __construct(Request $request)
     {
@@ -35,6 +36,11 @@ class ListModel
             if($area) $this->area = $area;
         }
 
+        if($request->input('route')){
+            $route = Route::find($request->input('route')) ?? null;
+            if($route) $this->route = $route;
+        }
+
         $this->user = null;
         $this->sight = null;
     }
@@ -49,6 +55,7 @@ class ListModel
         if (!empty($this->category)) $data['category'] = $this->category->id;
         if (!empty($this->subcategory)) $data['subcategory'] = $this->subcategory->id;
         if (!empty($this->author)) $data['author'] = $this->author->id;
+        if (!empty($this->route)) $data['route'] = $this->route->id;
 
         $result = array_merge($data,$add);
 

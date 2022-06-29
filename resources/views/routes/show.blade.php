@@ -103,8 +103,7 @@
 <div class="row">
 
     <div class="container">
-        TODO топ мандрiвникiв
-        {{-- @include('user.top',['userList'=>$topUsers,'list_title'=>'Топ мандрiвникiв']) --}}
+        @include('user.top',['userList'=>$topUsers,'list_title'=>'Топ мандрiвникiв'])
     </div>
 
 </div>
