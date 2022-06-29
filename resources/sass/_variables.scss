@@ -21,6 +21,7 @@ $font-color-bright: $background-header;
 $font-color-link: $background-header;
 $font-color-default: #111;
 $font-color-title-secondary: #424242;
+$font-color-highlight: #ffda77;
 
 
 
@@ -33,3 +34,6 @@ $header-height: 80px;
 	background: $background-header;
 	background: $background-header-gradient;
 }
+
+$footer-link-count: 5;
+$footer-link-height: 4rem;

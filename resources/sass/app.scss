@@ -106,7 +106,7 @@ html,body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: $footer-link-height;
   background-color: $background-footer;
 }
 input[type=checkbox]
@@ -128,6 +128,9 @@ a {
 }
 a:hover{
 	color: $background-footer;
+}
+.text-highlight {
+	color: $font-color-highlight !important;
 }
 table {
 	background-color: $background-light;
@@ -561,6 +564,16 @@ div.card-container {
 #route-list-edit {
 	padding: 1rem 0;
 }
+/* route-card */
+.route-card .route-logo-image {
+	display: block;
+	margin: 0 auto;
+}
+.route-card .route-title {
+	font-size: 1.5rem;
+	padding-bottom: 1rem;
+}
+
 .list-group {
 	margin-bottom: 1rem;
 }
@@ -632,7 +645,7 @@ div.card-container {
   	flex-direction: column;
 	}
 	body {
-	  margin-bottom: 15rem;
+	  margin-bottom: $footer-link-count * $footer-link-height + 2;
 	}
 	ul.pagination > li:nth-child(6),
 	ul.pagination > li:nth-child(7),

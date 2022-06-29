@@ -118,8 +118,7 @@ html, body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  line-height: 60px;
-  /* Vertically center the text there */
+  line-height: 4rem;
   background-color: #596668;
 }
 
@@ -148,6 +147,10 @@ a {
 
 a:hover {
   color: #596668;
+}
+
+.text-highlight {
+  color: #ffda77 !important;
 }
 
 table {
@@ -662,6 +665,17 @@ div.card-container {
   padding: 1rem 0;
 }
 
+/* route-card */
+.route-card .route-logo-image {
+  display: block;
+  margin: 0 auto;
+}
+
+.route-card .route-title {
+  font-size: 1.5rem;
+  padding-bottom: 1rem;
+}
+
 .list-group {
   margin-bottom: 1rem;
 }
@@ -741,7 +755,7 @@ div.card-container {
   }
 
   body {
-    margin-bottom: 15rem;
+    margin-bottom: 22rem;
   }
 
   ul.pagination > li:nth-child(6),
