@@ -36,6 +36,7 @@ class ListModel
             if($area) $this->area = $area;
         }
 
+        $this->route = null;
         if($request->input('route')){
             $route = Route::find($request->input('route')) ?? null;
             if($route) $this->route = $route;
