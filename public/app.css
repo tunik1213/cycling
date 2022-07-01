@@ -665,6 +665,11 @@ div.card-container {
   padding: 1rem 0;
 }
 
+.route-logo-image {
+  width: 100%;
+  height: auto;
+}
+
 /* route-card */
 .route-card .route-logo-image {
   display: block;
@@ -707,7 +712,7 @@ div.card-container {
   padding: 0 1rem;
 }
 
-.route-map-image, .route-logo-image, #route-description img, #sight-description img {
+.route-map-image, #route-description img, #sight-description img {
   max-width: 100%;
   height: auto;
   width: auto;

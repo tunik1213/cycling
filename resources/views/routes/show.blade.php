@@ -32,8 +32,16 @@
     <div class="col-12 col-sm-8">
         <h2>{{ $route->name }}</h2>
 
+        <div>
+            <strong>{{$route->areas()}}</strong>
+        </div>
+
         <div id="distance">
             <strong>Дистанцiя: </strong>{{$route->distance}}км
+        </div>
+
+        <div id="locations">
+            <strong>Локацiї: </strong>{{$route->sights->count()}}
         </div>
 
         <div id="grunt_percent">
