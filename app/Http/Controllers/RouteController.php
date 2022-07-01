@@ -14,6 +14,7 @@ class RouteController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['show','getImage','list']);
+        $this->middleware('moderator')->only('new');
     }
 
     public function edit(Request $request, ?int $id=null)
@@ -131,6 +132,16 @@ class RouteController extends Controller
     {
         $result = Route::where('finished',1)
             ->whereNotNull('moderator')
+            ->paginate(100)
+            ->appends(request()->query())
+            ;
+
+        return view('routes.list', ['routes'=>$result]);
+    }
+    public function new(Request $request)
+    {
+        $result = Route::where('finished',1)
+            ->whereNull('moderator')
             ->paginate(100)
             ->appends(request()->query())
             ;

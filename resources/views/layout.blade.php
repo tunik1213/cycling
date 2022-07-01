@@ -97,6 +97,12 @@
                             <span class="badge">{{\App\Models\Feedback::unmoderated_count()}}</span>
                             </a>
                         </li>
+                        <li><a class="dropdown-item admin-item" href="{{route('routes.new')}}">
+                            <i class="fa-solid fa-comment-dots"></i>
+                            Маршрути
+                            <span class="badge">{{\App\Models\Route::unmoderated_count()}}</span>
+                            </a>
+                        </li>
                     @endif
                 </ul>
             </div>

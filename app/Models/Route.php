@@ -113,4 +113,9 @@ class Route extends Model
     {
         return view('routes.link',['route'=>$this]);
     }
+
+    public static function unmoderated_count() : int
+    {
+        return DB::select('select count(*) as count from routes where moderator is null and finished=1;')[0]->count;
+    }
 }
