@@ -135,4 +135,34 @@ class User extends Authenticatable
 
         return '';
     }
+
+    public function stats() : array
+    {
+        $result = [];
+
+        $result['activities'] = $this->activities->count();
+
+        $q = DB::select('
+select count(distinct v.sight_id) count
+from visits v
+join activities a on a.id = v.act_id
+where a.user_id = :user_id
+            ',['user_id'=>$this->id]);
+        $result['sights'] = $q[0]->count ?? 0;
+
+$q = DB::select('
+select count(distinct s.area_id) areas,
+    count(distinct s.district_id) districts
+from visits v
+join activities a on a.id = v.act_id
+join sights s on s.id = v.sight_id
+where a.user_id = :user_id
+            ',['user_id'=>$this->id]);
+
+        $result['areas'] = $q[0]->areas ?? 0;
+        $result['districts'] = $q[0]->districts ?? 0;
+
+
+        return $result;
+    }
 }

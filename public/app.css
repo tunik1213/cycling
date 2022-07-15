@@ -603,6 +603,31 @@ ul#login-btn-dop-info {
   bottom: 0;
 }
 
+.user-stats {
+  margin-top: 2rem;
+  border-top: 1px solid #424242;
+  padding-bottom: 2rem;
+}
+
+.user-stat-container {
+  font-size: 2rem;
+  padding-top: 2rem;
+}
+
+.user-stat-container .stats-value {
+  font-size: 4rem;
+}
+
+.user-stat-container .stats-icon {
+  color: #2ab5d3;
+}
+
+.user-stat-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 /* sight */
 img.sight-image {
   max-width: 100%;

@@ -14,11 +14,39 @@
 			<div class="col col-lg-9">
 				<h1>{{$user->fullname}}</h1>
 				{{$user->stravaLink}}
-				@php($act_count = $user->activities->count())
-				@if($act_count>0)
-					<br/>
-					<a class="link-secondary" href="{{route('activities',['user'=>$user->id])}}">{{$act_count}} заїздів</a>
-				@endif
+				@php($stats = $user->stats())
+			
+			</div>
+		</div>
+
+		<div class="row user-stats">
+			<div class="col-md-3 col-sm-6">
+				<a class="user-stat-container link-secondary" href="{{route('activities',['user'=>$user->id])}}">
+					<div class="stats-name">Заїзди</div>
+					<div class="stats-icon"><i class="fa-solid fa-person-biking"></i></div>
+					<div class="stats-value">{{$stats['activities']}}</div>
+				</a>
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<a class="user-stat-container link-secondary" href="{{route('sights.list',['user'=>$user->id])}}">
+					<div class="stats-name">Локацiї</div>
+					<div class="stats-icon"><i class="fa-solid fa-location-dot"></i></div>
+					<div class="stats-value">{{$stats['sights']}}</div>
+				</a>
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<a class="user-stat-container link-secondary" href="{{route('areas.list',['user'=>$user->id])}}">
+					<div class="stats-name">Областi</div>
+					<div class="stats-icon"><i class="fa-solid fa-font-awesome"></i></div>
+					<div class="stats-value">{{$stats['areas']}}</div>
+				</a>
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<a class="user-stat-container link-secondary" href="#">
+					<div class="stats-name">Райони</div>
+					<div class="stats-icon"><i class="fa-solid fa-font-awesome"></i></div>
+					<div class="stats-value">{{$stats['districts']}}</div>
+				</a>
 			</div>
 		</div>
 	</div>

@@ -55,7 +55,8 @@ class UserController extends Controller
         return view('user.profile',[
             'user'=>$user,
             'topSightsVisited'=>$topSightsVisited,
-            'topSightsAuthor'=>$topSightsAuthor
+            'topSightsAuthor'=>$topSightsAuthor,
+            'stats' => $user->stats()
         ]);
 
     }
