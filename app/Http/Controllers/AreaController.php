@@ -7,6 +7,7 @@ use App\Models\Area;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\UserList;
 use App\Models\SightList;
+use App\Models\AreaList;
 
 class AreaController extends Controller
 {
@@ -142,5 +143,14 @@ class AreaController extends Controller
         header("Content-Length: " . strlen($img));
 
         echo($img);
+    }
+
+    public function list(Request $request)
+    {
+        $list = new AreaList($request);
+
+        return view('areas.list',[
+            'areaList'=>$list
+        ]);
     }
 }

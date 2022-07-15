@@ -43,6 +43,12 @@ class ListModel
         }
 
         $this->user = null;
+        if($request->input('user')){
+            $user = User::find($request->input('user')) ?? null;
+            if($user) $this->user = $user;
+        }
+
+
         $this->sight = null;
     }
 

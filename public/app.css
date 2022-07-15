@@ -572,6 +572,12 @@ ul#login-btn-dop-info {
   color: #596668;
 }
 
+.area-image {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
 /* info block */
 .info-block {
   background-color: #fff;

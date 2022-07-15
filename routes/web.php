@@ -60,9 +60,8 @@ Route::post('/sights/massUpdate', [SightController::class, 'massUpdate']);
 Route::get('/activities', [ActivityController::class, 'list'])->name('activities');
 Route::get('/activity/{id}', [ActivityController::class, 'show'])->name('activity');
 
-
+Route::get('/areas/list', [AreaController::class,'list'])->name('areas.list');
 Route::resource('areas', AreaController::class);
-Route::get('areas/list', [AreaController::class,'list'])->name('areas.list');
 Route::get('/areas/{id}/image', [AreaController::class, 'getImage'])->name('areas.image');
 
 Route::resource('districts', DistrictController::class);
