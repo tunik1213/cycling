@@ -113,6 +113,7 @@ class AreaController extends Controller
                 ->fit(200)
                 ->encode('png', 75);
         }
+        $area->license = $request->license;
         $area->save();
 
         return redirect()->route('areas.index')->with('success','Область успiшно змiнено');

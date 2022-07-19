@@ -23,7 +23,11 @@
 
         <div class="col-sm-6 col-xs-12">
             <img src="{{ route('districts.image',$district->id) }}" alt="Герб {{$district->name}} район"/>
+            @if(!empty($district->license))
+                <div class="license-small">{!! $district->license !!}</div>
+            @endif
         </div>
+
 
     </div>
     <br/>

@@ -14,13 +14,16 @@
 
     <div class="row">
 
-        <div class="col-sm-6 col-xs-12">
-
-            <img style="min-height: 100%;" src="{{ route('areas.image',$area->id) }}" alt="Герб {{$area->name}} область"/>
-            
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div>
+                <img style="min-height: 100%;" src="{{ route('areas.image',$area->id) }}" alt="Герб {{$area->name}} область"/>
+            </div>
+            @if(!empty($area->license))
+                <div class="license-small">{!! $area->license !!}</div>
+            @endif
         </div>
 
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-md-8 col-sm-6 col-xs-12">
             <strong>Райони:</strong>
             <div class="list-group">
             @foreach($area->districts as $d)

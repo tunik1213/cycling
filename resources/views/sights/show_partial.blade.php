@@ -36,7 +36,7 @@
         @if(!empty($sight->image))
             <img class="sight-image" src="{{route('sights.image',$sight->id)}}" alt="Фото {{$sight->name}}">
             @if(!empty($sight->license))
-                <div class="lisence-text">{!! $sight->license !!}</div>
+                <div class="license-text">{!! $sight->license !!}</div>
             @endif
         @else
             <span>Фото вiдсутнє</span>

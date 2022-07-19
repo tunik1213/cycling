@@ -41,6 +41,13 @@
                 </div>
             </div>
 
+            <div class="col-12">
+                <div class="form-group">
+                    <strong>Лiцензiя (якщо потрiбно):</strong>
+                    <input type="text" name="license" id="license" class="form-control" value="{{old('license') ?? $area->license}}" autocomplete="off">
+                </div>
+            </div>
+
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
               <button type="submit" class="btn btn-primary">Зберегти</button>
             </div>

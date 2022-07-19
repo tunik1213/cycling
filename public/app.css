@@ -641,9 +641,13 @@ img.sight-image {
   width: auto;
 }
 
-.lisence-text {
+.license-text {
   text-align: right;
   font-size: smaller;
+}
+
+.license-small {
+  font-size: x-small;
 }
 
 .sight-buttons > .col {

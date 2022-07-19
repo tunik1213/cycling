@@ -114,6 +114,7 @@ class DistrictController extends Controller
                 ->fit(200)
                 ->encode('png', 75);
         }
+        $district->license = $request->license;
         $district->area_id = $request->area_id;
         $district->save();
 
