@@ -112,7 +112,7 @@ class DistrictController extends Controller
         if ($request->district_image) {
             $district->image = Image::make($request->district_image->path())
                 ->fit(200)
-                ->encode('jpg', 75);
+                ->encode('png', 75);
         }
         $district->area_id = $request->area_id;
         $district->save();

@@ -111,7 +111,7 @@ class AreaController extends Controller
         if ($request->area_image) {
             $area->image = Image::make($request->area_image->path())
                 ->fit(200)
-                ->encode('jpg', 75);
+                ->encode('png', 75);
         }
         $area->save();
 
