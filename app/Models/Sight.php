@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\SightVersion;
 use App\Models\Route;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Sight extends Model
 {
@@ -258,6 +259,21 @@ class Sight extends Model
             3 => '3. Цiкаве',
             4 => '4. Точка вiдвiдування'
         ];
+    }
+
+/*    public function getImageAttribute()
+    {
+        // if (empty($this->image))
+        //     return file_get_contents(env('APP_ROOT').'/public/images/no-image.jpg');
+        // else
+            return $this->image;
+    }*/
+
+    protected function image() : Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => (empty($value)) ? file_get_contents(env('APP_ROOT').'/public/images/no-image.jpg') : $value
+        );
     }
 
 }
