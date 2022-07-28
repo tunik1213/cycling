@@ -30,11 +30,11 @@
                 <option value="0">Виберiть</option>
                 @foreach(\App\Models\Sight::classinessList() as $i=>$c)
                     @php
-                        $selected = ($i == $classiness) ? 'selected' : '';
+                        $selected = ($i == ($classiness ?? null)) ? 'selected' : '';
                     @endphp
                     <option {{$selected}} value="{{$i}}">{{$c}}</option>
                 @endforeach
-                <option {{$classiness==-1 ? 'selected' : ''}} value="-1">Не вказано</option>
+                <option {{($classiness ?? null)==-1 ? 'selected' : ''}} value="-1">Не вказано</option>
                 </select>
             </div>
 
