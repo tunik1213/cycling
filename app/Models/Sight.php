@@ -29,6 +29,7 @@ class Sight extends Model
     public static $sources = [
         0 => 'Google',
         -1 => '<a rel="nofollow" target="_blank" href="https://ostriv.org/">Національний заповідник Хотиця</a>',
+        -2 => '<a rel="nofollow" target="_blank" href="http://mycity.kherson.ua/">Моє місто - Херсон</a>',
     ];
 
     public static function boot() {
