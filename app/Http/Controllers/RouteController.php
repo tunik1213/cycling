@@ -8,6 +8,7 @@ use App\Models\Sight;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserList;
+use App\Models\Activity;
 
 class RouteController extends Controller
 {
@@ -147,5 +148,22 @@ class RouteController extends Controller
             ;
 
         return view('routes.list', ['routes'=>$result]);
+    }
+
+    public function mergeActivity(int $activityId)
+    {
+        $act = Activity::find($activityId);
+        if(empty($act)) return abort(404);
+
+        $route = Route::find_or_create();
+        if (empty($route->name)) $route->name = $act->name;
+        $rowNumber = $route->sights()->count();
+        foreach($act->visits as $v) {
+            $sight = Sight::find($v->sight_id);
+            $route->sights()->attach($sight,['row_number' =>++$rowNumber]);
+        }
+        $route->save();
+
+        return redirect(route('routes.edit',['id'=>$route->id]));
     }
 }

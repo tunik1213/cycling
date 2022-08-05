@@ -94,6 +94,7 @@ Route::get('/routes/list',[RouteController::class,'list'])->name('routes.list');
 Route::get('/routes/new',[RouteController::class,'new'])->name('routes.new');
 Route::get('/routes/edit/{id?}',[RouteController::class,'edit'])->name('routes.edit');
 Route::get('/routes/publish/{id?}',[RouteController::class,'publish'])->name('routes.publish');
+Route::get('/routes/mergeActivity/{activity_id?}',[RouteController::class,'mergeActivity'])->name('routes.mergeActivity');
 Route::post('routes/update/{id?}',[RouteController::class,'update'])->name('routes.update');
 route::get('/routes/addSight/',[RouteController::class,'addSight'])->name('ajax.addToRoute');
 Route::get('/routes/{id}/{type}', [RouteController::class, 'getImage'])->name('routes.image');

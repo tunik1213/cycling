@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Sight;
 use App\Models\User;
+use App\Models\Visit;
 
 class Activity extends Model
 {
@@ -23,6 +24,11 @@ class Activity extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function visits()
+    {
+        return $this->hasMany(Visit::class, 'act_id');
     }
 
 }

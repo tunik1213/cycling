@@ -39,6 +39,18 @@
         <div id="map"></div>
         <div id="map-preview"></div>
 
+        <div class="container">
+		@php($editing_route = App\Models\Route::current_editing())
+			<a href="{{route('routes.mergeActivity',$activity->id)}}" class="btn btn-secondary">
+				@if(empty($editing_route))
+		        	Створити маршрут на основi заїзду
+		        @else
+		        	Додати точки заїзду в маршрут
+		        @endif
+	        </a>
+        </div>
+        <br />
+
 		<div class="row">
 			@include('sights.list_partial',[
 				'sightList'=>$sights
