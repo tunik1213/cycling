@@ -508,11 +508,16 @@ class SightController extends Controller
 
     private function _find($lat,$lng,$sight_id=null) : ?Sight
     {
-        $approx = Sight::getApprox($lat,$lng);
-        $found = Sight::where('approx_location',$approx);
-        if(!empty($sight_id)) $found = $found->where('id','<>',$sight_id);
+        $sight = (empty($sight_id)) ? new Sight() : Sight::find($sight_id);
+        $sight->lat = $lat;
+        $sight->lng = $lng;
+        return $sight->findDuplicate();
+
+        // $approx = Sight::getApprox($lat,$lng);
+        // $found = Sight::where('approx_location',$approx);
+        // if(!empty($sight_id)) $found = $found->where('id','<>',$sight_id);
             
-        return $found->first();
+        // return $found->first();
     }
 
     public function moderation(Request $request)

@@ -26,6 +26,8 @@ class Sight extends Model
         'image'
     ];
 
+    private const MIN_DISTANCE_BETWEEN_POINTS = 50;
+
     public static $sources = [
         0 => 'Velocian',
         -1 => '<a rel="nofollow" target="_blank" href="https://ostriv.org/">Національний заповідник Хотиця</a>',
@@ -251,6 +253,32 @@ class Sight extends Model
             
         return $result;
          
+    }
+
+    public function findDuplicate($tolerance = 0.01) : ?Sight
+    {
+        $result = Sight::whereNotNull('moderator')
+        ->where('id','<>',$this->id)
+        ->whereBetween('lat', [$this->lat - $tolerance, $this->lat + $tolerance])
+        ->whereBetween('lng', [$this->lng - $tolerance, $this->lng + $tolerance])
+        ->get();
+
+        if ($result->count()==0) {
+            if($tolerance < 0.2) {
+                return $this->findDuplicate($tolerance+0.05);
+            }
+        } else {
+            foreach($result as $s) {
+                if($this->distanceTo($s) <= Self::MIN_DISTANCE_BETWEEN_POINTS) return $s;
+            }
+        }
+
+        return null;
+    }
+
+    public function distanceTo($sight) : float 
+    {
+        return \GeometryLibrary\SphericalUtil::computeDistanceBetween( $this, $sight);
     }
 
     public static function classinessList() : array {
