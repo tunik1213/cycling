@@ -140,23 +140,25 @@ having count(*) > 1');
             array_push($created_visits,$v->id);
         }
 
-        // проверим прохождения маршрутов по найденным посещениям локаций
-        DB::Statement('
-        insert route_passes (route_id,act_id)
-
-        with rs_counts as (
-            select rs.route_id,count(*) as cnt 
+	if(count($created_visits) > 0) {
+            // проверим прохождения маршрутов по найденным посещениям локаций
+	    DB::Statement('
+            insert route_passes (route_id,act_id)
+    
+	    with rs_counts as (
+	        select rs.route_id,count(*) as cnt 
+    	        from route_sight rs 
+    	        group by rs.route_id 
+            ) 
+	    select rs.route_id, v.act_id
             from route_sight rs 
-            group by rs.route_id 
-        ) 
-        select rs.route_id, v.act_id
-        from route_sight rs 
-        cross join visits v on v.sight_id = rs.sight_id 
-        left join rs_counts on rs_counts.route_id = rs.route_id 
-        where v.id in ('.implode(',',$created_visits).')
-        group by rs.route_id, v.act_id
-        having count(*) = avg(rs_counts.cnt);
-        ');
+	    cross join visits v on v.sight_id = rs.sight_id 
+            left join rs_counts on rs_counts.route_id = rs.route_id 
+	    where v.id in ('.implode(',',$created_visits).')
+            group by rs.route_id, v.act_id
+	    having count(*) = avg(rs_counts.cnt);
+            ');
+	}
 
 
     }
