@@ -131,7 +131,7 @@ class User extends Authenticatable
 
     public function getdefaultSightDescriptionAttribute() : string
     {
-        if($this->id === 3) return 'Посилання: wikipedia'; // voronin
+        if($this->id === 3) return '<br /><br />Посилання: wikipedia'; // voronin
 
         return '';
     }
