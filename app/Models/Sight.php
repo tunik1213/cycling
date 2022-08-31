@@ -126,9 +126,6 @@ class Sight extends Model
             if (($lat < 44) || ($lat > 53)) continue;
             $lng = (float)$loc->lng;
             if (($lng < 21) || ($lng > 41)) continue;
-            $approx = Self::getApprox($lat, $lng);
-            $found = Self::where('approx_location',$approx)->count();
-            if ($found > 0) continue;
 
             $photoRef=$point->photos[0]->photo_reference;
             $apikey = config('googlemaps.key');
@@ -139,18 +136,12 @@ class Sight extends Model
                 'name'=>$point->name,
                 'lat'=>$lat,
                 'lng'=>$lng,
-                'approx_location'=>$approx,
                 'image'=>Image::make($imgPath)->encode('jpg', 75),
                 'district_id'=>$district_id
             ]);
 
             $newSight->save();
         }
-    }
-
-    public static function getApprox($lat, $lng) : string
-    {
-        return (string)round($lat,3).':'.(string)round($lng,3);
     }
 
     public function string_coordinates() : string
@@ -274,6 +265,29 @@ class Sight extends Model
         }
 
         return null;
+    }
+
+    public function findClosest($tolerance = 0.01) : array
+    {
+        $found = [];
+
+        $result = Sight::whereNotNull('moderator')
+        ->where('id','<>',$this->id)
+        ->whereBetween('lat', [$this->lat - $tolerance, $this->lat + $tolerance])
+        ->whereBetween('lng', [$this->lng - $tolerance, $this->lng + $tolerance])
+        ->get();
+
+        if ($result->count()==0) {
+            if($tolerance < 0.2) {
+                return $this->findClosest($tolerance+0.05);
+            }
+        } else {
+            foreach($result as $s) {
+                if($this->distanceTo($s) <= Self::MIN_DISTANCE_BETWEEN_POINTS) array_push($found, $s);
+            }
+        }
+
+        return $found;
     }
 
     public function distanceTo($sight) : float 

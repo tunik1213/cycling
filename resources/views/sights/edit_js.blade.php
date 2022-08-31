@@ -151,7 +151,7 @@
             $.get( "/sights/find/"+lat+','+lng, { sight: {{$sight->id ?? 'null'}} } )
             .done(function( data ) {
                 $('#response-container').html(data);
-                $('button[type=submit]').prop('disabled', Boolean(data));
+                //$('button[type=submit]').prop('disabled', Boolean(data));
             });
         }
 

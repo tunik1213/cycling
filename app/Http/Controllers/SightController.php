@@ -121,13 +121,6 @@ class SightController extends Controller
                 $lat = max($coordinates);
                 $lng = min($coordinates);
 
-                $approx = Sight::getApprox($lat,$lng);
-                $found = Sight::where('approx_location',$approx)->first();
-                if ($found != null) {
-                    echo('found '.$found->id);
-                    continue;
-                }
-
 // $district_id = null;
 // $area_id = 42;
 //$locality = 'Черкаси';
@@ -193,7 +186,6 @@ class SightController extends Controller
                             'image'=> $image,
                             'lat' => $lat,
                             'lng' => $lng,
-                            'approx_location' => $approx,
                             'description' => $descr,
                             'user_id' => 27,
                             'category_id' => 3,
@@ -342,7 +334,6 @@ class SightController extends Controller
         }
 
         $descr = prepare_external_links($request->description);
-        $approx = Sight::getApprox($request->lat,$request->lng);
 
         $s = Sight::create([
             'area_id' => (int)$request->area_id  ?? null,
@@ -351,7 +342,6 @@ class SightController extends Controller
             'image'=> $image,
             'lat' => $request->lat,
             'lng' => $request->lng,
-            'approx_location' => $approx,
             'description' => $descr,
             'user_id' => Auth::user()->id,
             'category_id' => (int)$request->category ?? null,
@@ -442,7 +432,6 @@ class SightController extends Controller
                 ->fit(500)
                 ->encode('jpg', 75);
         }
-        $sight->approx_location = Sight::getApprox($request->lat,$request->lng);
         $sight->lat = $request->lat;
         $sight->lng = $request->lng;
         $sight->description = prepare_external_links($request->description);
@@ -502,22 +491,16 @@ class SightController extends Controller
     public function find(Request $request, $lat, $lng) 
     {
         $found = $this->_find($lat,$lng,$request->sight ?? null);
-        if($found!=null) return view('sights.exists',['sight'=>$found]);
+        if($found!=null) return view('sights.exists',['sights'=>$found]);
         return null;
     }
 
-    private function _find($lat,$lng,$sight_id=null) : ?Sight
+    private function _find($lat,$lng,$sight_id=null) : array
     {
         $sight = (empty($sight_id)) ? new Sight() : Sight::find($sight_id);
         $sight->lat = $lat;
         $sight->lng = $lng;
-        return $sight->findDuplicate();
-
-        // $approx = Sight::getApprox($lat,$lng);
-        // $found = Sight::where('approx_location',$approx);
-        // if(!empty($sight_id)) $found = $found->where('id','<>',$sight_id);
-            
-        // return $found->first();
+        return $sight->findClosest();
     }
 
     public function moderation(Request $request)
