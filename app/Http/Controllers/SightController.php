@@ -306,15 +306,6 @@ class SightController extends Controller
     {
         $request->validate($this->rules(), $this->messages());
 
-        $found = $this->_find($request->lat,$request->lng);
-        if($found != null) {
-            $error_text = view('sights.exists',['sight'=>$found])->render();
-            return redirect()
-                ->route('sights.create')
-                ->with('error',$error_text)
-                ->withInput();
-        }
-
         if ($request->sight_image) {
             $imagePath = $request->sight_image->path();
             try {
@@ -413,15 +404,6 @@ class SightController extends Controller
     public function update(Request $request, int $id)
     {
         $request->validate($this->rules(), $this->messages());
-
-        $found = $this->_find($request->lat,$request->lng,$id);
-        if($found != null) {
-            $error_text = view('sights.exists',['sight'=>$found])->render();
-            return redirect()
-                ->route('sights.edit',$id)
-                ->with('error',$error_text)
-                ->withInput();
-        }
 
         $sight = Sight::find($id);
         if(!$sight->canEdit()) return abort(403);
