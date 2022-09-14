@@ -24,7 +24,7 @@ class SightController extends Controller
             $this->middleware('auth')->except([]);
             $this->middleware('moderator')->only(['destroy','edit','update','index','massUpdate','show','getImage','list', 'geoJSON']);
         } else {
-            $this->middleware('auth')->except(['show','getImage','list', 'geoJSON','getMapPopupView']);
+            $this->middleware('auth')->except(['show','getImage','list', 'geoJSON','getMapPopupView','nearby']);
             $this->middleware('moderator')->only(['destroy','index','massUpdate']);
         }
         
