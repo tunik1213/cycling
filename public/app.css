@@ -10,15 +10,15 @@
 html {
   position: relative;
   min-height: 100%;
-  color: #111;
 }
 
 body {
   margin-bottom: 5rem;
+  color: #00344E;
 }
 
 html, body {
-  background-color: #ecfcff;
+  background-color: #E6F4F1;
 }
 
 #banner-bg {
@@ -141,12 +141,20 @@ input[type=checkbox] {
 }
 
 a {
-  color: #2ab5d3;
+  color: #91341D;
   text-decoration: auto;
 }
 
+.card-title a, .card-body a:not(.link-secondary) {
+  margin-bottom: 1rem;
+}
+
+.card a:not(.link-secondary), .list-group a:not(.link-secondary) {
+  font-size: 1.1rem;
+}
+
 a:hover {
-  color: #596668;
+  color: #d3482a;
 }
 
 .text-highlight {
@@ -273,10 +281,10 @@ ul.folding.nested {
   display: inline;
   line-height: 3rem;
   border-radius: 10rem;
-  border: 1px solid #57cfb0;
+  border: 1px solid #d3482a;
   margin-right: 1rem;
   padding: 5px 10px;
-  background: #ecfcff;
+  background: #fff;
   white-space: nowrap;
 }
 
@@ -293,7 +301,7 @@ ul.folding.nested {
 
 #search-container input#search-input {
   padding-left: 35px;
-  background-color: #ecfcff;
+  background-color: #E6F4F1;
   border: 0;
   height: auto;
   border: 1px solid #dee2e6;
@@ -442,7 +450,7 @@ a.navbar-brand {
 }
 
 .font-color-strava {
-  color: #f23f35 !important;
+  color: #d3482a !important;
 }
 
 .bg-dim {
@@ -568,6 +576,10 @@ ul#login-btn-dop-info {
   line-height: 60px;
 }
 
+#scroll-top-button:hover {
+  background-color: #d3482a;
+}
+
 .link-secondary {
   color: #596668;
 }
@@ -625,7 +637,7 @@ ul#login-btn-dop-info {
 }
 
 .user-stat-container .stats-icon {
-  color: #2ab5d3;
+  color: #d3482a;
 }
 
 .user-stat-container {

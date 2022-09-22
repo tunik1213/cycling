@@ -3,13 +3,21 @@ $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
+// color palette
+$color-bg-base: #E6F4F1;
+$color-main: #2ab5d3;
+$color-main2: #57cfb0;
+$color-bright: #d3482a;
+$color-dark: #596668;
+
+
 // background
-$background-header-left: #2ab5d3;
-$background-header-right: #57cfb0;
+$background-header-left: $color-main;
+$background-header-right: $color-main2;
 $background-header-gradient: linear-gradient(-45deg,$background-header-right,$background-header-left);
-$background-header: #2ab5d3;
-$background-body: #ecfcff;
-$background-footer: #596668;
+$background-header: $color-main;
+$background-body: $color-bg-base;
+$background-footer: $color-dark;
 $background-light: #fff;
 
 // border
@@ -17,16 +25,16 @@ $border-color-light: #dee2e6;
 
 // font 
 $font-color-light: #fff;
-$font-color-bright: $background-header;
-$font-color-link: $background-header;
-$font-color-default: #111;
+$font-color-bright: #91341D;
+$font-color-link: #91341D;
+$font-color-default: #00344E;
 $font-color-title-secondary: #424242;
 $font-color-highlight: #ffda77;
 
 
 
 // other
-$strava-color: #f23f35;
+$strava-color: #d3482a;
 $header-height: 80px;
 
 
