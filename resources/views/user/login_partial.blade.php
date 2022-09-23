@@ -8,9 +8,9 @@
             <span id="main-title-text">Velocian</span>
         </div>
 
-        <div>
+        <div id="title-2">
             <div id="scroll-prompt"></div>
-            <span id="title-2" class="bg-dim">Лосем можна і не бути, а туристом - обов'язково!</span>
+            <div class="bg-dim">Лосем можна і не бути, а туристом - обов'язково!</div>
         </div>
 
         @include('user.login_btn')

@@ -94,6 +94,7 @@ html, body {
   right: 0;
   font-size: calc(1rem - -0.5vw);
   z-index: 2;
+  color: #fff;
 }
 
 #banner-bg #title-3 {
@@ -671,10 +672,10 @@ img.sight-image {
   position: absolute;
   width: 2rem;
   height: 2rem;
-  border-right: 1px solid #d3482a;
-  border-bottom: 1px solid #d3482a;
+  border-right: 2px solid #d3482a;
+  border-bottom: 2px solid #d3482a;
   rotate: 45deg;
-  left: 50%;
+  left: calc(50vw - 1rem);
   bottom: 4rem;
   animation: ca3_fade_move_down 3s ease-in-out infinite;
 }
