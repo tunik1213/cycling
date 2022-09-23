@@ -37,8 +37,10 @@ const scrollTopButton = function() {
 	$(window).scroll(function() {
 	    if ($(this).scrollTop()) {
 	        $('#scroll-top-button').fadeIn();
+	        $('#scroll-prompt').hide();
 	    } else {
 	        $('#scroll-top-button').fadeOut();
+	        $('#scroll-prompt').show();
 	    }
 	});
 
