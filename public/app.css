@@ -182,12 +182,7 @@ table {
 
 .page-title {
   padding-bottom: 1rem;
-}
-
-.page-title img {
-  max-width: 100%;
-  border-radius: 50%;
-  margin-bottom: 1rem;
+  display: flex;
 }
 
 img.in-container {
@@ -393,6 +388,13 @@ a.navbar-brand {
   border-radius: 50%;
   max-height: 3rem;
   max-width: 3rem;
+  padding: 0;
+}
+
+.user-avatar-large {
+  border-radius: 50%;
+  max-height: 6rem;
+  max-width: 6rem;
   padding: 0;
 }
 
@@ -623,28 +625,22 @@ ul#login-btn-dop-info {
 }
 
 .user-stats {
-  margin-top: 2rem;
-  border-top: 1px solid #424242;
-  padding-bottom: 2rem;
-}
-
-.user-stat-container {
-  font-size: 2rem;
-  padding-top: 2rem;
-}
-
-.user-stat-container .stats-value {
-  font-size: 4rem;
-}
-
-.user-stat-container .stats-icon {
-  color: #d3482a;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0;
 }
 
 .user-stat-container {
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  text-align: center;
+}
+
+.user-stat-container .stats-value, .user-stat-container .stats-icon {
+  font-size: 2rem;
+}
+
+.user-stat-container .stats-icon {
+  color: #d3482a;
 }
 
 /* sight */

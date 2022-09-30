@@ -32,7 +32,7 @@
                 }
             });
         });
-        markers.addLayer(geojson);
+        markers.addLayer(geojson); 
         map.fitBounds(geojson.getBounds());
         //map.addLayer(markers);
         markers.addTo(map);
