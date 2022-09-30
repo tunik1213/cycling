@@ -64,8 +64,8 @@ Route::get('/areas/list', [AreaController::class,'list'])->name('areas.list');
 Route::resource('areas', AreaController::class);
 Route::get('/areas/{id}/image', [AreaController::class, 'getImage'])->name('areas.image');
 
+Route::get('/districts/list', [DistrictController::class,'list'])->name('districts.list');
 Route::resource('districts', DistrictController::class);
-Route::get('districts/list', [DistrictController::class,'list'])->name('districts.list');
 Route::get('/districts/{id}/image', [DistrictController::class, 'getImage'])->name('districts.image');
 
 Route::resource('sights', SightController::class);

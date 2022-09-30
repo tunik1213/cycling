@@ -24,4 +24,14 @@ class District extends Model
     {
         return $this->belongsTo(Area::class);
     }
+
+    public function getLinkAttribute()
+    {
+        return view('districts.link',['district'=>$this]);
+    }
+
+    public function getDisplayNameAttribute()
+    {
+        return $this->name . ' район';
+    }
 }

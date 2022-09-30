@@ -18,7 +18,7 @@ class AreaController extends Controller
 
     public function __construct()
     {
-        $this->middleware('moderator')->except(['index', 'show', 'getImage']);
+        $this->middleware('moderator')->except(['list', 'show', 'getImage']);
     }
     /**
      * Display a listing of the resource.

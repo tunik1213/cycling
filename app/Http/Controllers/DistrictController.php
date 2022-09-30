@@ -8,12 +8,13 @@ use App\Models\District;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\UserList;
 use App\Models\SightList;
+use App\Models\DistrictList;
 
 class DistrictController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('moderator')->except(['index', 'show', 'getImage', 'export']);
+        $this->middleware('moderator')->except(['list', 'show', 'getImage', 'export']);
     }
 
     private function areas() {
@@ -157,5 +158,14 @@ class DistrictController extends Controller
 
         return response()->json($result);
 
+    }
+
+    public function list(Request $request)
+    {
+        $list = new DistrictList($request);
+
+        return view('districts.list',[
+            'districtList'=>$list
+        ]);
     }
 }

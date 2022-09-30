@@ -43,9 +43,9 @@
 						</a>
 					</div>
 					<div class="user-stat-container">
-						<a class="link-secondary" href="#">
+						<a class="link-secondary" href="{{route('districts.list',['user'=>$user->id])}}">
 							<div class="stats-name">Райони</div>
-							<div class="stats-icon"><i class="fa-solid fa-font-awesome"></i></div>
+							<div class="stats-icon"><i class="fa-solid fa-city"></i></div>
 							<div class="stats-value">{{$stats['districts']}}</div>
 						</a>
 					</div>
