@@ -1,5 +1,6 @@
 @section('head')
 	<title>{{env('APP_NAME')}}: {{$user->fullname}}</title>
+	<meta property="og:image" content="{{route('userAvatar',$user->id)}}" />
 @endsection
 
 
