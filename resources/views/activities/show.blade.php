@@ -14,25 +14,20 @@
 
 <div class="container info-block">
 	<div class="page-title">
-		<div class="row">
-			<h1>{{$name}}</h1>
+		<div>
+			<img class="user-avatar-large" src="data:image/jpeg;base64,{{base64_encode($user->avatar)}}" />
 		</div>
-		<div class="row">
-			<div class="col col-3 col-lg-2 col-xl-1">
-				<img src="data:image/jpeg;base64,{{base64_encode($user->avatar)}}" />
-			</div>
-			<div class="col col-lg-9">
-				<p>{{$user->link}}</p>
-				<span>Заїзд {{$start_date}}</span><br />
-				<a class="font-color-strava" rel="nofollow" target="_blank" href="https://www.strava.com/activities/{{$activity->strava_id}}">
-					strava.com/activities/{{$activity->strava_id}}
-				</a>
-			</div>
-			<div class="row">
-
-			</div>
+		<div class="container">
+			<h1>{{$name}}</h1>
+			<p>{{$user->link}}</p>
+			<span>Заїзд {{$start_date}}</span><br />
+			<a class="font-color-strava" rel="nofollow" target="_blank" href="https://www.strava.com/activities/{{$activity->strava_id}}">
+				strava.com/activities/{{$activity->strava_id}}
+			</a>
 		</div>
 	</div>
+	
+
 	@if($sights->isNotEmpty())
 		<h3>{{$sights->title()}}</h3>
 
