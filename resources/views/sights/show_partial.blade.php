@@ -121,11 +121,10 @@
 
 
 
-    <div class="col-lg-4 col-12 mobile" id="mobile-map">
-        {{-- <a href="{{$sight->gm_link()}}" target="_blank" rel="nofollow">
-            <img class="sight-image" src="data:image/jpeg;base64,{{base64_encode($sight->map_image)}}" alt="Мапа {{$sight->name}}"> 
-        </a> --}}
+    <div class="container">
+        <div class="mobile" id="mobile-map"></div>
     </div>
+    
 
 </div>
 
