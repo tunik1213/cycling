@@ -48,7 +48,12 @@
 
     <div id="header">
       <div class="container" id="header-container">
-        <a class="navbar-brand" href="/">Velocian</a>
+        
+        <a class="navbar-brand" href="{{env('APP_URL')}}">
+            <img id="header-logo-image" src="{{asset('images/logo.png')}}" />
+            <span id="header-logo-text">Velocian</span>
+        </a>
+
         <div id="right-header">
             @guest
                 <a id="right-header-login-link" href="{{route('strava_login')}}"><i class="fas fa-user"></i>Вхід</a>

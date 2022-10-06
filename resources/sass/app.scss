@@ -295,6 +295,11 @@ body > .container {
     top: 0;
     z-index: 10;
 }
+#header-logo-image {
+	height: calc(#{$header-height} - 1rem);
+	margin-top: -1rem;
+	margin-right: -0.7rem;
+}
 #header a {
 	color: $font-color-light;
 }
@@ -306,10 +311,11 @@ body > .container {
 a.navbar-brand{
 		font-size: 5rem;
     font-family: "logo";
-    margin-top: 1rem;
     line-height: 4rem;
     display: inline-block;
+    margin-top: 1rem;
     margin-bottom: -0.5rem;
+    margin-left: -1.5rem;
 }
 #right-header {
 	float: right;
@@ -735,6 +741,9 @@ div.card-container {
 	}
 	#login-btn-dop-info, #title-3, #title-2 {
 			font-size: smaller !important;
+	}
+	#header-logo-image {
+		height: calc(#{$header-height} - 2rem);
 	}
 }
 
