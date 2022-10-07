@@ -350,9 +350,17 @@ body > .container {
 }
 
 #header-logo-image {
-  height: calc(80px - 1rem);
-  margin-top: -1rem;
-  margin-right: -0.7rem;
+  height: 80px;
+  width: 80px;
+  position: absolute;
+  bottom: 0;
+  left: -1rem;
+}
+
+#header-logo-text {
+  position: absolute;
+  left: calc(80px - 1rem);
+  bottom: -10px;
 }
 
 #header a {
@@ -360,9 +368,11 @@ body > .container {
 }
 
 #header-container {
+  height: 80px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  position: relative;
 }
 
 a.navbar-brand {
@@ -380,10 +390,6 @@ a.navbar-brand {
   font-size: 1.5rem;
   display: flex;
   align-items: center;
-}
-
-#right-header #userMenu {
-  margin-top: 8px;
 }
 
 #right-header .user-avatar {
@@ -860,8 +866,18 @@ ul.pagination > li:nth-child(11) {
     width: 100%;
   }
 
+  #header {
+    height: calc(80px - 20px);
+  }
+
+  #header-container {
+    padding: 0;
+    height: calc(80px - 20px);
+  }
+
   a.navbar-brand {
-    font-size: 3.5rem;
+    font-size: 3rem;
+    margin: 0;
   }
 
   #right-header * {
@@ -877,7 +893,13 @@ ul.pagination > li:nth-child(11) {
   }
 
   #header-logo-image {
-    height: calc(80px - 2rem);
+    height: calc(80px - 20px);
+    width: calc(80px - 20px);
+    left: 0;
+  }
+
+  #header-logo-text {
+    bottom: -18px;
   }
 }
 

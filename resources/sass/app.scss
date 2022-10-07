@@ -290,23 +290,31 @@ body > .container {
 #header {
 	@extend %bg-header;
 	height: $header-height;
-
 	position: sticky;
-    top: 0;
-    z-index: 10;
+  top: 0;
+  z-index: 10;
 }
 #header-logo-image {
-	height: calc(#{$header-height} - 1rem);
-	margin-top: -1rem;
-	margin-right: -0.7rem;
+	height: $logo-image-size;
+	width:	$logo-image-size;
+	position: absolute;
+  bottom: 0;
+  left: -1rem;
+}
+#header-logo-text {
+	position: absolute;
+	left: calc(#{$logo-image-size} - 1rem);
+	bottom: -10px;
 }
 #header a {
 	color: $font-color-light;
 }
 #header-container {
+	height: $header-height;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	position: relative;
 }
 a.navbar-brand{
 		font-size: 5rem;
@@ -322,9 +330,6 @@ a.navbar-brand{
 	font-size: 1.5rem;
 	display: flex;
 	align-items: center;
-}
-#right-header #userMenu{
-	margin-top: 8px;
 }
 #right-header .user-avatar {
 	margin-right: .5rem;
@@ -730,8 +735,16 @@ div.card-container {
 	div.card-container {
 	  width: 100%;
 	}
+	#header {
+		height: calc(#{$header-height} - #{$mobile-header-decrease})
+	}
+	#header-container {
+		padding: 0;
+		height: calc(#{$header-height} - #{$mobile-header-decrease})
+	}
 	a.navbar-brand {
-		font-size: 3.5rem;
+		font-size: 3rem;
+		margin: 0;
 	}
 	#right-header * {
 		font-size: 1rem;
@@ -743,7 +756,12 @@ div.card-container {
 			font-size: smaller !important;
 	}
 	#header-logo-image {
-		height: calc(#{$header-height} - 2rem);
+		height: calc(#{$logo-image-size} - #{$mobile-header-decrease});
+		width:  calc(#{$logo-image-size} - #{$mobile-header-decrease});
+		left: 0;
+	}
+	#header-logo-text {
+		bottom: -18px;
 	}
 }
 

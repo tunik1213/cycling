@@ -48,10 +48,9 @@
 
     <div id="header">
       <div class="container" id="header-container">
-        
         <a class="navbar-brand" href="{{env('APP_URL')}}">
             <img id="header-logo-image" src="{{asset('images/logo.png')}}" />
-            <span id="header-logo-text">Velocian</span>
+            <div id="header-logo-text">Velocian</div>
         </a>
 
         <div id="right-header">
