@@ -743,7 +743,7 @@ div.card-container {
 		height: calc(#{$header-height} - #{$mobile-header-decrease})
 	}
 	a.navbar-brand {
-		font-size: 3rem;
+		font-size: 3.3rem;
 		margin: 0;
 	}
 	#right-header * {
@@ -761,7 +761,7 @@ div.card-container {
 		left: 0;
 	}
 	#header-logo-text {
-		bottom: -18px;
+		bottom: -10px;
 	}
 }
 
