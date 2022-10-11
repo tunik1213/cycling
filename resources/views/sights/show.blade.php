@@ -2,6 +2,7 @@
 
 @section('head')
     <title>{{env('APP_NAME')}}: {{$sight->name}}</title>
+    <meta property="og:image" content="{{route('sights.image',$sight->id)}}" />
 @endsection
 
 @section('content')
