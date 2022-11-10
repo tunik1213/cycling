@@ -44,20 +44,22 @@ class AuthController extends Controller
 
     private function findOrCreateUser($athlete) : User 
     {
-        $existingUser = User::where('athlete_id',$athlete->id)->first();
-        if ($existingUser != null) return $existingUser;
+        $user = User::where('athlete_id',$athlete->id)->first();
+        if ($user == null) {
+            $user = User::create([
+                'athlete_id' => $athlete->id
+            ]);
+        }
 
-        $newUser = User::create([
-            'athlete_id' => $athlete->id,
-            'firstname' => $athlete->firstname,
-            'lastname' => $athlete->lastname,
-            'sex' => $athlete->sex,
-            'premium' => $athlete->premium,
-            'strava_created_at' => Carbon::parse($athlete->created_at),
-             'avatar' => Image::make($athlete->profile)
-                 ->encode('jpg', 75)
-        ]);
-        return $newUser;
+        $user->firstname = $athlete->firstname;
+        $user->lastname = $athlete->lastname,
+        $user->sex = $athlete->sex,
+        $user->premium = $athlete->premium,
+        $user->strava_created_at = Carbon::parse($athlete->created_at),
+        $user->avatar = Image::make($athlete->profile)->encode('jpg', 75)
+        $user->save();
+
+        return $user;
     }
 
     public function logout(request $request) 
