@@ -52,11 +52,11 @@ class AuthController extends Controller
         }
 
         $user->firstname = $athlete->firstname;
-        $user->lastname = $athlete->lastname,
-        $user->sex = $athlete->sex,
-        $user->premium = $athlete->premium,
-        $user->strava_created_at = Carbon::parse($athlete->created_at),
-        $user->avatar = Image::make($athlete->profile)->encode('jpg', 75)
+        $user->lastname = $athlete->lastname;
+        $user->sex = $athlete->sex;
+        $user->premium = $athlete->premium;
+        $user->strava_created_at = Carbon::parse($athlete->created_at);
+        $user->avatar = Image::make($athlete->profile)->encode('jpg', 75);
         $user->save();
 
         return $user;
