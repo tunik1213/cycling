@@ -16,6 +16,8 @@ class Localhost
      */
     public function handle(Request $request, Closure $next)
     {
+        if (env('APP_DEBUG')) return $next($request);
+
         if (
             $request->server('SERVER_ADDR') != $request->server('REMOTE_ADDR')
             && $request->server('REMOTE_ADDR') != '127.0.0.1'

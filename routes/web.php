@@ -47,7 +47,7 @@ Route::middleware('moderator')->group(function () {
 Route::get('/sights/geoJSON',[SightController::class,'geoJSON'])->name('sightsGeoJSON');
 
 Route::get('/crontab/checkInvites',[CrontabController::class,'checkInvites'])->name('checkInvites')->middleware('localhost');
-Route::get('/crontab/parseActivityNames',[CrontabController::class,'parseActivityNames'])->middleware('localhost');
+Route::get('/crontab/weekly',[CrontabController::class,'weekly'])->middleware('localhost');
 
 Route::get('/home', [UserController::class, 'home'])->name('home');
 Route::get('/user/getAvatarImage/{id?}', [UserController::class, 'getAvatarImage'])->name('userAvatar');
@@ -112,5 +112,5 @@ Route::get('/{static_page_name}',[MainController::class,'staticPage']);
 
 
 Route::post('/upload', [ImageController::class, 'uploadImage']);
-Route::get('/image/{id}',[ImageController::class, 'getImage']);
+Route::get('/image/{id}',[ImageController::class, 'getImage'])->name('getImage');
 Route::get('/sights/{id}/nearby',[SightController::class, 'nearby']);

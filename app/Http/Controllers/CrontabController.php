@@ -7,6 +7,7 @@ use App\Models\Sight;
 use App\Models\Activity;
 use App\Models\Visit;
 use Illuminate\Support\Facades\DB;
+use App\Models\Image;
 
 class CrontabController extends Controller
 {
@@ -17,43 +18,20 @@ class CrontabController extends Controller
         $this->gm = \GoogleMaps::load('directions');
     }
 
-    public function parseActivityNames() : void
+    public function weekly() : void
     {
-	$acts = Activity::whereNull('name')->get();
+	   Self::removeUnusedImages();
+    }
 
-         foreach($acts as $a) {
-            $url = 'https://www.strava.com/activities/'.$a->strava_id;
-            try {
-                $html = file_get_contents($url);
-            } catch (\Throwable $e) {
-                echo    $e->getMessage();
-                exit;
+    private static function removeUnusedImages() : void
+    {
+        $images = Image::all();
+
+        foreach ($images as $i) {
+            if($i->UsageCount() == 0) {
+                $i->delete();
             }
-            // $matches = [];
-            // preg_match('/<meta content=\'(.*?)\' property=\'twitter:title\'>/mi', $html, $matches);
-
-            $doc = new \DOMDocument();
-            libxml_use_internal_errors(true);
-            $doc->loadHTML($html);
-            libxml_use_internal_errors(false);
-
-
-            $metas = $doc->getElementsByTagName('meta');
-
-            foreach($metas as $m) {
-                $ats = $m->attributes;
-                if(($ats->getNamedItem('property')->value ?? '') == 'twitter:title') {
-                    $h1 = $ats->getNamedItem('content')->value;
-                    break;
-                }
-                
-            }
-
-
-            $a->name = $h1;
-            $a->save();
-
-         }
+        }
     }
    
 }
