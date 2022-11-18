@@ -814,6 +814,36 @@ div.card-container {
   padding: 1rem 0;
 }
 
+/* comments */
+.add-comment-form {
+  padding: 0 0 1rem 0;
+}
+
+.add-comment-form .post-comment {
+  margin-top: 1rem;
+}
+
+#comments-list {
+  flex-direction: column;
+}
+
+.comment-link-user-img {
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.comment-body {
+  padding: 1rem 0;
+  margin-top: -0.5rem;
+}
+
+.comment.new-comment {
+  background-color: #E6F4F1;
+  margin: -1rem;
+  padding: 1rem;
+}
+
 @media screen and (min-width: 992px) {
   .mobile {
     display: none;

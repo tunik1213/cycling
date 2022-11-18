@@ -14,7 +14,6 @@
 
 @endphp
 <script src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_SERVICE_KEY')}}&libraries=places&callback=initMap"></script>
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script type="text/javascript">
     
     window.onbeforeunload = function(e){return true;}

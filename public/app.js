@@ -19,6 +19,9 @@ $(document).ready(function(){
     
 	$('[data-toggle="tooltip"]').tooltip();
 
+	initTinyMCE();
+
+	$('#comments-container, #comments-list').on('click','button.post-comment',commentPost);
 });
 
 const csrf_token = function() {
@@ -176,3 +179,70 @@ var uploadImage = function(blobInfo, success, failure) {
 
     xhr.send(formData);
 }
+
+var initTinyMCE = function() {
+	tinymce.init({
+        selector: '.add-comment-form > textarea',
+        language: 'uk',
+        plugins: 'link, emoticons, paste, textcolor, image',
+        paste_as_text: true,
+        toolbar: 'undo redo | bold italic removeformat | forecolor backcolor | charmap emoticons link image media',
+        menubar: false,
+        file_picker_types: 'file image media',
+        images_upload_url: '/upload',
+        automatic_uploads: true,
+        images_upload_handler: uploadImage,
+        contextmenu: false,
+        browser_spellcheck: true,
+        relative_urls: false,
+        height: 150
+    });
+}
+
+var commentPost = function (e) {
+
+    e.stopPropagation();
+    e.preventDefault();
+
+    tinymce.triggerSave();
+    var textarea = $(this).parent().find('textarea');
+    var comment_text = textarea.val();
+    textarea.val('').blur();
+    var parent_id = $(this).closest('.comment').attr('comment-id');
+    if (parent_id === undefined) parent_id = 0;
+
+    parent_container = $('[comment-id="' + parent_id + '"] > .comment-children');
+    if (parent_container.length === 0)
+        parent_container = $('#comments-list');
+
+    commentable_type = $('#comments-container').attr('object-type');
+    commentable_id = $('#comments-container').attr('object-id');
+
+    $.ajax({
+        url: "/comments/add",
+        async: false,
+        data: {
+            _token:csrf_token(),
+            comment:comment_text,
+            commentable_id:commentable_id,
+            commentable_type: commentable_type,
+            parent_id: parent_id
+        },
+        method: "POST",
+        success: function (response) {
+            parent_container
+                .append(response);
+            $('#comments-list .add-comment-form')
+                .remove();
+            tinymce.editors[0].setContent('');
+            new_comment = parent_container.children('.comment').last().addClass('new-comment');
+            new_comment.addClass('new-comment');
+            scrollTop = new_comment.offset().top - 200;
+            $([document.documentElement, document.body]).animate({
+                scrollTop: scrollTop
+            }, 300);
+            new_comment.removeClass('new-comment', {duration:10000})
+        }
+    })
+}
+

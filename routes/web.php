@@ -18,6 +18,10 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\CommentsController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +34,7 @@ use App\Http\Controllers\ImageController;
 */
 
 Route::get('/', [MainController::class, 'main'])->name('main');
+Route::get('/test/vue', [TestController::class, 'vue']);
 
 Route::get('/login',[AuthController::class,'login'])->name('login')->middleware('guest');
 Route::get('/strava_auth',[AuthController::class, 'strava'])->name('strava_login');
@@ -114,3 +119,7 @@ Route::get('/{static_page_name}',[MainController::class,'staticPage']);
 Route::post('/upload', [ImageController::class, 'uploadImage']);
 Route::get('/image/{id}',[ImageController::class, 'getImage'])->name('getImage');
 Route::get('/sights/{id}/nearby',[SightController::class, 'nearby']);
+
+
+Route::post('/comments/add',[CommentsController::class,'addComment']);
+

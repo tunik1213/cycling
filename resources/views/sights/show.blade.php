@@ -3,11 +3,19 @@
 @section('head')
     <title>{{env('APP_NAME')}}: {{$sight->name}}</title>
     <meta property="og:image" content="{{route('sights.image',$sight->id)}}" />
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex"></script>
 @endsection
 
 @section('content')
 
 @include('sights.show_partial',['h1'=>true])
+
+<br />
+<div id="comments-container" object-id="{{$sight->id}}" object-type="sight">
+    @include('comments.list',['comments'=>$sight->comments])
+</div>
 
 <div class="row">
     @include('user.top',['userList'=>$topUsers,'list_title'=>'Топ мандрiвникiв'])

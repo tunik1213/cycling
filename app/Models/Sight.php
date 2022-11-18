@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\SightVersion;
 use App\Models\Route;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Models\Comment;
 
 class Sight extends Model
 {
@@ -113,6 +114,13 @@ class Sight extends Model
     {
         return $this->hasMany(SightVersion::class);
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
+
 
     public static function import_google_maps($data,$district_id) : void
     {

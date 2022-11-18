@@ -17,6 +17,7 @@ class Image extends Model
 
     public function UsageCount() : int
     {
+        $usage = 0;
         $img_link = route('getImage',$this->id,false);
 
         $query_text = '
@@ -25,12 +26,23 @@ from sights s
 where s.description like \'%'.$img_link.'%\'
         ';
 
-        $usage = 0;
+        $result = DB::select(DB::raw($query_text));
+        if(count($result)>0) {
+            $usage += $result[0]->count;
+        }
+
+        $query_text = '
+select count(*) count
+from comments c
+where c.text like \'%'.$img_link.'%\'
+        ';
 
         $result = DB::select(DB::raw($query_text));
         if(count($result)>0) {
-            $usage = $result[0]->count;
+            $usage += $result[0]->count;
         }
+
+
         return $usage;
     }
 }
