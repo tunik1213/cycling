@@ -327,4 +327,8 @@ class Sight extends Model
         );
     }
 
+    public function comments0() {
+        return $this->comments()->where('parent_id',0)->get();
+    }
+
 }

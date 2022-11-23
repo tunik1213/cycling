@@ -1,4 +1,4 @@
-<div class="comment">
+<div class="comment" comment-id="{{$comment->id}}">
     <div class="d-flex comment-header">
 
         <div class="comment-link-user-img">
@@ -17,5 +17,13 @@
     <div class="comment-body">
         <span> {!! html_entity_decode($comment->text) !!}</span>
     </div>
+
+    <a class="comment-link-reply" href="#">Вiдповiсти</a>
+
+    @if($comment->children->count() > 0)
+        @foreach ($comment->children as $child)
+            @include('comments.show',['comment'=>$child])
+        @endforeach
+    @endif
 
 </div>

@@ -14,7 +14,7 @@
 
 <br />
 <div id="comments-container" object-id="{{$sight->id}}" object-type="sight">
-    @include('comments.list',['comments'=>$sight->comments])
+    @include('comments.list',['comments'=>$sight->comments0()])
 </div>
 
 <div class="row">

@@ -1,27 +1,24 @@
 <div id="comments-container-input">
   <label>Залишити коментар:</label>
 
-  <div class="add-comment-form" main>
+  <div class="add-comment-form" id="add-comment-form-sample">
     <textarea class="form-control @guest restrict @endguest" rows="2"></textarea>
     <button class="post-comment btn btn-primary">Вiдправити</button>
   </div>
 </div>
 
-@if($comments->count() > 0)
-        
-  <br />
+<br />
 
-  <div class="info-block">
+<div id="comments-list-container" class="info-block @if($comments->count() == 0) invisible @endif">
 
-    <div class="info-block-header">
-      <h4> Коментарi</h4>
-    </div>
-
-    <div id="comments-list" class="info-block-body list-group">
-      @foreach ($comments as $comment)
-        @include('comments.show',['comment'=>$comment])
-      @endforeach
-    </div>
+  <div class="info-block-header">
+    <h4> Коментарi</h4>
   </div>
 
-@endif
+  <div id="comments-list" class="info-block-body">
+    @foreach ($comments as $comment)
+      @include('comments.show',['comment'=>$comment])
+    @endforeach
+  </div>
+</div>
+

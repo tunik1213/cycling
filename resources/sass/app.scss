@@ -699,15 +699,23 @@ div.card-container {
 	display: flex;
   align-items: center;
 }
-.comment-body {
-	padding: 1rem 0;
-	margin-top: -0.5rem;
+.comment {
+	padding: 1.5rem 1rem 0.5rem;
+}
+.comment > .comment {
+	padding-left: 1rem;
 }
 .comment.new-comment {
 	background-color: $background-body;
-  margin: -1rem;
-	padding: 1rem;
 }
+#add-comment-form-sample {
+	display: none;
+}
+.comment .user-avatar {
+  max-height: 2rem;
+  max-width: 2rem;
+}
+
 
 @media screen and (min-width: 992px) {
 	.mobile {

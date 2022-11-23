@@ -19,9 +19,15 @@ $(document).ready(function(){
     
 	$('[data-toggle="tooltip"]').tooltip();
 
-	initTinyMCE();
+    commentInput = $('#add-comment-form-sample')
+        .clone()
+        .removeAttr('id')
+        .insertAfter('#comments-container-input');
+	initTinyMCE(commentInput);
 
 	$('#comments-container, #comments-list').on('click','button.post-comment',commentPost);
+    $('#comments-list').on('click','a.comment-link-reply',commentReply);
+
 });
 
 const csrf_token = function() {
@@ -180,9 +186,8 @@ var uploadImage = function(blobInfo, success, failure) {
     xhr.send(formData);
 }
 
-var initTinyMCE = function() {
-	tinymce.init({
-        selector: '.add-comment-form > textarea',
+var initTinyMCE = function(target=undefined,focus=false) {
+    params = {
         language: 'uk',
         plugins: 'link, emoticons, paste, textcolor, image',
         paste_as_text: true,
@@ -195,8 +200,27 @@ var initTinyMCE = function() {
         contextmenu: false,
         browser_spellcheck: true,
         relative_urls: false,
-        height: 150
-    });
+        height: 150,
+        readonly: false,
+        setup: function (editor) {
+            editor.on('init', function (e) {
+                if(focus) editor.focus();
+            });
+            editor.on('focus', function(e) {
+                if ($(editor.getElement()).is('.restrict')) {
+                    login_popup(e);
+                }
+            });
+        }
+    }
+
+    if(target==undefined) {
+        //params['selector'] = '.add-comment-form > textarea';
+    } else {
+        params['target'] = target.find('textarea').first().get(0);
+    }
+
+	tinymce.init(params);
 }
 
 var commentPost = function (e) {
@@ -208,13 +232,16 @@ var commentPost = function (e) {
     var textarea = $(this).parent().find('textarea');
     var comment_text = textarea.val();
     textarea.val('').blur();
-    var parent_id = $(this).closest('.comment').attr('comment-id');
-    if (parent_id === undefined) parent_id = 0;
-
-    parent_container = $('[comment-id="' + parent_id + '"] > .comment-children');
-    if (parent_container.length === 0)
-        parent_container = $('#comments-list');
-
+    parent_comment = $(this).closest('.comment');
+    
+    if (parent_comment.length == 0) {
+        parent_id = 0;
+        parent_comment = $('#comments-list');
+        $('#comments-list-container').removeClass('invisible');
+    } else {
+        parent_id = parent_comment.attr('comment-id');
+    }
+    
     commentable_type = $('#comments-container').attr('object-type');
     commentable_id = $('#comments-container').attr('object-id');
 
@@ -230,12 +257,12 @@ var commentPost = function (e) {
         },
         method: "POST",
         success: function (response) {
-            parent_container
+            parent_comment
                 .append(response);
             $('#comments-list .add-comment-form')
                 .remove();
             tinymce.editors[0].setContent('');
-            new_comment = parent_container.children('.comment').last().addClass('new-comment');
+            new_comment = parent_comment.children('.comment').last().addClass('new-comment');
             new_comment.addClass('new-comment');
             scrollTop = new_comment.offset().top - 200;
             $([document.documentElement, document.body]).animate({
@@ -246,3 +273,23 @@ var commentPost = function (e) {
     })
 }
 
+var commentReply = function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    $('#comments-list').find('.add-comment-form').remove();
+
+    created = $('#add-comment-form-sample')
+        .clone()
+        .removeAttr('id')
+        .insertAfter(e.target)
+        .focus();
+
+    initTinyMCE(created, focus=true);
+
+    created.find('textarea').focus();
+}
+
+var login_popup = function(e) {
+    window.location.href = '/login'; // TODO сделать нормально
+}
