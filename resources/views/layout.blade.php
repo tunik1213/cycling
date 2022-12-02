@@ -58,11 +58,11 @@
                 <a id="right-header-login-link" href="{{route('strava_login')}}"><i class="fas fa-user"></i>Вхід</a>
             @else
             <div class="dropdown">
-                <div class="btn dropdown-toggle" id="userMenu" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="btn dropdown-toggle" id="userMenu" type="button">
                     <img class="user-avatar" src="data:image/jpeg;base64,{{base64_encode($user->avatar)}}" />
                     {{ $user->firstname }}
                 </div>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                <ul id="user-menu-list" class="dropdown-menu">
                     <li><a class="dropdown-item" href="{{route('userProfile')}}"><i class="fas fa-user"></i>Мій профіль</a></li>
                     <li><a class="dropdown-item" id="add-header-button" href={{route('sights.create')}}><i class="fas fa-plus"></i>Додати локацію</a></li>
 
@@ -138,11 +138,16 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script> --}}
+{{-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> --}}
 
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.css"/>
+
 
 @if(env('APP_DEBUG'))
     <script src="/leaflet.js"></script>

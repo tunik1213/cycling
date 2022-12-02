@@ -33,6 +33,7 @@ use App\Http\Controllers\CommentsController;
 |
 */
 
+
 Route::get('/', [MainController::class, 'main'])->name('main');
 Route::get('/test/vue', [TestController::class, 'vue']);
 
@@ -105,21 +106,23 @@ route::get('/routes/addSight/',[RouteController::class,'addSight'])->name('ajax.
 Route::get('/routes/{id}/{type}', [RouteController::class, 'getImage'])->name('routes.image');
 Route::get('/routes/{id}',[RouteController::class,'show'])->name('routes.show');
 
-
-
 Route::get('/feedback/new',[FeedbackController::class,'new'])->name('feedback.new');
 Route::post('/feedback/create',[FeedbackController::class,'create'])->name('feedback.create');
 Route::post('/feedback/read',[FeedbackController::class,'read'])->name('feedback.read');
 Route::get('/feedback/form',[FeedbackController::class,'form'])->name('feedback.form');
 
 
-Route::get('/{static_page_name}',[MainController::class,'staticPage']);
-
 
 Route::post('/upload', [ImageController::class, 'uploadImage']);
 Route::get('/image/{id}',[ImageController::class, 'getImage'])->name('getImage');
 Route::get('/sights/{id}/nearby',[SightController::class, 'nearby']);
 
-
 Route::post('/comments/add',[CommentsController::class,'addComment']);
+
+Route::get('/loginmodal', function(){
+    return view('user.login_modal');
+});
+
+Route::get('/{static_page_name}',[MainController::class,'staticPage']);
+
 

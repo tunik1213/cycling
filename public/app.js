@@ -28,6 +28,10 @@ $(document).ready(function(){
 	$('#comments-container, #comments-list').on('click','button.post-comment',commentPost);
     $('#comments-list').on('click','a.comment-link-reply',commentReply);
 
+    $('#userMenu').on('click',function(e){
+        $('ul#user-menu-list').toggle();
+    })
+
 });
 
 const csrf_token = function() {
@@ -208,7 +212,7 @@ var initTinyMCE = function(target=undefined,focus=false) {
             });
             editor.on('focus', function(e) {
                 if ($(editor.getElement()).is('.restrict')) {
-                    login_popup(e);
+                    login_popup(e,'sight_comment');
                 }
             });
         }
@@ -237,7 +241,7 @@ var commentPost = function (e) {
     if (parent_comment.length == 0) {
         parent_id = 0;
         parent_comment = $('#comments-list');
-        $('#comments-list-container').removeClass('invisible');
+        $('#comments-list-container').removeClass('hidden');
     } else {
         parent_id = parent_comment.attr('comment-id');
     }
@@ -290,6 +294,22 @@ var commentReply = function(e) {
     created.find('textarea').focus();
 }
 
-var login_popup = function(e) {
-    window.location.href = '/login'; // TODO сделать нормально
+const login_prompts = {
+    sight_comment: 'Необхiдно увiйти в свiй аккаунт для того, щоб прокомментувати цю локацiю'
+};
+
+var login_popup = function(event,what) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.blur();
+    $.get('/loginmodal', function(form) {
+        _form = $(form);
+        _form
+            .appendTo('body')
+            .modal();
+        _form
+            .find('.login-prompt')
+            .html(login_prompts[what])
+            ;
+    });
 }

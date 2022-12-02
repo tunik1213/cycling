@@ -9,7 +9,7 @@
 
 <br />
 
-<div id="comments-list-container" class="info-block @if($comments->count() == 0) invisible @endif">
+<div id="comments-list-container" class="info-block @if($comments->count() == 0) hidden @endif">
 
   <div class="info-block-header">
     <h4> Коментарi</h4>

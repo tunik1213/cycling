@@ -17,6 +17,9 @@ body {
 html,body {
 	 background-color: $background-body;
 }
+.hidden {
+	display: none;
+}
 #banner-bg {
 	background-position: center;
   background-size: cover;
@@ -401,10 +404,10 @@ a.navbar-brand{
 a.font-color-strava {
 	font-size: small;
 }
-#login-strava-btn {
+.login-strava-btn {
 	border: 2px solid #FFFFFF;
     font: 700 18px/30px expressway, sans-serif;
-    color: #FFFFFF;
+    color: $font-color-light;
     font-weight: 700;
     text-align: center;
     text-decoration: none;
@@ -453,6 +456,10 @@ ul#login-btn-dop-info {
 }
 .dropdown ul.dropdown-menu {
 	background-color: $background-header-right;
+}
+#user-menu-list {
+	list-style-type: none;
+	right: 0;
 }
 #userMenu {
 	color: $font-color-light;
@@ -594,10 +601,10 @@ img.sight-image {
 
 /* card */
 div.card {
-    	box-shadow: 0 15px 10px -15px #999;
+  box-shadow: $default-box-shadow;
 	padding: 1rem;
-    margin: 0.5rem;
-    height: 95%;
+  margin: 0.5rem;
+  height: 95%;
 }
 div.card-container {
 	  width: 25%;
@@ -715,7 +722,26 @@ div.card-container {
   max-height: 2rem;
   max-width: 2rem;
 }
-
+.jquery-modal {
+	z-index: 10 !important;
+}
+.modal {
+  overflow: visible;
+  height: auto;
+  box-shadow: $default-box-shadow !important;
+}
+.blocker {
+	background-color: rgba(0,0,0,0.5) !important;
+}
+.login-form .modal-footer {
+	justify-content: center;
+}
+.login-form .login-strava-btn {
+  border: 2px solid $border-color-light;
+  color: $strava-color;
+  margin: 3rem 2rem 1rem 2rem;
+  display: block;;
+}
 
 @media screen and (min-width: 992px) {
 	.mobile {
@@ -795,6 +821,12 @@ div.card-container {
 	}
 	#header-logo-text {
 		bottom: -10px;
+	}
+	.modal {
+		padding: 0 !important;
+	}
+	.login-form .login-strava-btn {
+		margin: 1rem 0;
 	}
 }
 

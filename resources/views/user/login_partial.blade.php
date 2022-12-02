@@ -13,7 +13,18 @@
             <div class="bg-dim">Лосем можна і не бути, а туристом - обов'язково!</div>
         </div>
 
-        @include('user.login_btn')
+
+        <div id="auth-link-place">
+            <div id="auth-link-container">
+                @include('user.login_btn')
+
+                <ul class="welcome-page-dop-info" id="login-btn-dop-info">
+                    <li>Проаналізуємо твої заїзди</li>
+                    <li>Підрахуємо пройдені веломаршрути</li>
+                    <li>Покажемо визначні місця на твоєму шляху</li>
+                </ul>
+            </div>
+        </div>
 
     </div>
 </div>
