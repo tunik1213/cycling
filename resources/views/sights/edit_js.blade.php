@@ -48,7 +48,10 @@
         minLength: 0,
         select: function(e, ui) {
             $("#district_id").val(ui.item.id);
-        }
+        },
+        // classes: {
+        //     'ui-autocomplete': 'list-group-item'
+        // }
     });
 
     var area_id = $("#area_id").val();

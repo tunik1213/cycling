@@ -544,6 +544,26 @@ ul#login-btn-dop-info {
   background-color: #57cfb0;
 }
 
+.ui-autocomplete {
+  background: #fff;
+  list-style-type: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 15px 10px -15px #999;
+}
+
+.ui-menu .ui-menu-item {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.ui-helper-hidden-accessible, ui-helper-hidden {
+  display: none;
+}
+
 #user-menu-list {
   list-style-type: none;
   right: 0;

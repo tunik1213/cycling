@@ -457,6 +457,23 @@ ul#login-btn-dop-info {
 .dropdown ul.dropdown-menu {
 	background-color: $background-header-right;
 }
+.ui-autocomplete {
+	background: $background-light;
+	list-style-type: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0;
+	border: 1px solid $border-color-light;
+	box-shadow: $default-box-shadow;
+}
+.ui-menu .ui-menu-item {
+	padding: .5rem;
+	cursor: pointer;
+}
+.ui-helper-hidden-accessible, ui-helper-hidden {
+	display: none;
+}
 #user-menu-list {
 	list-style-type: none;
 	right: 0;
