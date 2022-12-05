@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\CheckRoutePassing;
 use Illuminate\Support\Facades\DB;
+use App\Models\Comment;
 
 class Route extends Model
 {
@@ -32,9 +33,15 @@ class Route extends Model
     {
         return $this->belongsToMany(Sight::class)->withPivot('row_number')->orderBy('row_number');
     }
+    
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public static function find_or_create()
@@ -117,5 +124,9 @@ class Route extends Model
     public static function unmoderated_count() : int
     {
         return DB::select('select count(*) as count from routes where moderator is null and finished=1;')[0]->count;
+    }
+
+    public function comments0() {
+        return $this->comments()->where('parent_id',0)->get();
     }
 }

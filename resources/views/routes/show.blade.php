@@ -108,6 +108,11 @@
     @endif
 </div>
 
+<br />
+<div id="comments-container" object-id="{{$route->id}}" object-type="route">
+    @include('comments.list',['comments'=>$route->comments0()])
+</div>
+
 <div class="row">
 
     <div class="container">
