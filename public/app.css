@@ -710,8 +710,8 @@ img.sight-image {
   position: absolute;
   width: 2rem;
   height: 2rem;
-  border-right: 2px solid #d3482a;
-  border-bottom: 2px solid #d3482a;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
   rotate: 45deg;
   left: calc(50vw - 1rem);
   bottom: 4rem;
