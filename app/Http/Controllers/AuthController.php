@@ -18,6 +18,7 @@ class AuthController extends Controller
 
     public function Strava(Request $request) 
     {
+	$request->session()->put('redirect_uri', url()->previous());
         return Strava::authenticate($scope='read,profile:read_all,activity:read');
     }
 
