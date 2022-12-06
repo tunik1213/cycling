@@ -2,6 +2,7 @@
 
 @section('head')
     <title>{{env('APP_NAME')}}: сайт веломандрівника</title>
+    <meta name="description" content="Проєкт створено для велотуристів України, які користуються сервісом Strava. Система аналізує заїзди користувачів і підраховує статистику відвідування різноманітних локацій. Вимірюй подорожі не в кілометрах, а у відвіданих цікавих місцях!">
     <meta property="og:image" content="{{asset('/images/welcome-image-winter.jpg')}}" />
 @endsection
 
