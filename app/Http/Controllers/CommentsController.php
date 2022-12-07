@@ -7,6 +7,7 @@ use App\Models\Sight;
 use App\Models\Comment;
 use App\Models\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\CommentPosted;
 
 class CommentsController extends Controller
 {
@@ -37,13 +38,25 @@ class CommentsController extends Controller
         $obj = $modelClass::find($objId);
         if(empty($obj)) return;
 
+        $parent_id = (int)$_POST['parent_id'];
+
         $comment = new Comment([
             'author_id'=>Auth::id(),
-            'parent_id'=>(int)$_POST['parent_id'],
+            'parent_id'=>$parent_id,
             'text'=>$commentText
         ]);
         
         $obj->comments()->save($comment);
+
+        if(empty($parent_id)) {
+            $userToNotify = $obj->user;
+        } else {
+            $parentComment = Comment::find($parent_id);
+            $userToNotify = $parentComment->author;
+        }
+
+        if(!empty($userToNotify))
+            $userToNotify->notify(new CommentPosted($comment));
 
         return view('comments.show',['comment' => $comment]);
     }
