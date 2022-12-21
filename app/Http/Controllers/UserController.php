@@ -18,7 +18,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['getAvatarImage','list','authors']);
+        $this->middleware('auth')->except(['getAvatarImage','list','authors','profile']);
     }
 
     public function home (Request $request)
