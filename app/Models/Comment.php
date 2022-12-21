@@ -35,4 +35,10 @@ class Comment extends Model
     {
         return $this->belongsTo(Self::class, 'parent_id');
     }
+
+    public function getUrlAttribute()
+    {
+        $obj = $this->commentable_type::find($this->commentable_id);
+        return $obj->url . '#comment'.$this->id;
+    }
 }

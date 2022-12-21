@@ -123,6 +123,11 @@ Route::get('/loginmodal', function(){
     return view('user.login_modal');
 });
 
+Route::get('/notifications', [UserController::class, 'notifications'])->name('notifications');
+
+
+
+
 Route::get('/{static_page_name}',[MainController::class,'staticPage']);
 
 

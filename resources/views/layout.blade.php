@@ -57,59 +57,7 @@
             @guest
                 <a id="right-header-login-link" href="{{route('strava_login')}}"><i class="fas fa-user"></i>Вхід</a>
             @else
-            <div class="dropdown">
-                <div class="btn dropdown-toggle" id="userMenu" type="button">
-                    <img class="user-avatar" src="data:image/jpeg;base64,{{base64_encode($user->avatar)}}" />
-                    {{ $user->firstname }}
-                </div>
-                <ul id="user-menu-list" class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{route('userProfile')}}"><i class="fas fa-user"></i>Мій профіль</a></li>
-                    <li><a class="dropdown-item" id="add-header-button" href={{route('sights.create')}}><i class="fas fa-plus"></i>Додати локацію</a></li>
-
-                    @php($editing_route = App\Models\Route::current_editing())
-                    <li><a class="dropdown-item" id="add-header-button" href={{route('routes.edit')}}><i class="fas fa-route"></i>
-                    @if(empty($editing_route))
-                        Створити веломаршрут
-                    @else
-                        @if(empty($editing_route->name))
-                            Мiй веломаршрут 
-                        @else
-                            {{$editing_route->name}}
-                        @endif
-                        <span id="my-route-count" class="badge">{{$editing_route->sights()->count()}}</span>
-                    @endif
-                    </a></li>
-
-                    <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i>Вийти</a></li>
-                    @if($user->moderator)
-                        <li><a class="dropdown-item admin-item" href="{{route('admin')}}"><i class="fas fa-users-cog"></i>Адмiнiстратор</a></li>
-                        <li><a class="dropdown-item admin-item" href="{{route('moderation')}}">
-                            <i class="fas fa-user-check"></i>
-                            Модерацiя
-                            <span class="badge">{{\App\Models\Sight::unmoderated_count()}}</span>
-                            </a>
-                        </li>
-                        <li><a class="dropdown-item admin-item" href="{{route('sights.edits')}}">
-                            <i class="fas fa-edit"></i>
-                            Правки
-                            <span class="badge">{{\App\Models\SightVersion::unmoderated_count()}}</span>
-                            </a>
-                        </li>
-                        <li><a class="dropdown-item admin-item" href="{{route('feedback.new')}}">
-                            <i class="fa-solid fa-comment-dots"></i>
-                            Вiдгуки
-                            <span class="badge">{{\App\Models\Feedback::unmoderated_count()}}</span>
-                            </a>
-                        </li>
-                        <li><a class="dropdown-item admin-item" href="{{route('routes.new')}}">
-                            <i class="fa-solid fa-comment-dots"></i>
-                            Маршрути
-                            <span class="badge">{{\App\Models\Route::unmoderated_count()}}</span>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </div>
+                @include('user.account_control')
             @endguest
         </div>
       </div>
@@ -136,10 +84,7 @@
 
     <div id="scroll-top-button"><i class="fas fa-angle-up"></i></div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script> --}}
-{{-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> --}}
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>

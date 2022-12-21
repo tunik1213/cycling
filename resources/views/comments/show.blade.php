@@ -1,4 +1,4 @@
-<div class="comment" comment-id="{{$comment->id}}">
+<div class="comment" comment-id="{{$comment->id}}" scrollTo="comment{{$comment->id}}">
     <div class="d-flex comment-header">
 
         <div class="comment-link-user-img">

@@ -124,7 +124,7 @@ input[type=checkbox]
   padding: 10px;
 }
 .admin-item {
-	background-color: #b78086;
+	background-color: #b7808659;
 }
 a {
 	color: $font-color-link; 
@@ -434,7 +434,7 @@ ul#login-btn-dop-info {
 	font-size: 1.2rem;
 }
 #right-header .badge {
-	background-color: $background-header-right;
+	background-color: $color-bright;
 	font-size: 0.9rem;
 }
 #right-header ul.dropdown-menu {
@@ -729,7 +729,7 @@ div.card-container {
 .comment > .comment {
 	padding-left: 1rem;
 }
-.comment.new-comment {
+.highlight {
 	background-color: $background-body;
 }
 #add-comment-form-sample {
@@ -758,6 +758,24 @@ div.card-container {
   color: $strava-color;
   margin: 3rem 2rem 1rem 2rem;
   display: block;;
+}
+
+/* notifications */
+#header-avatar-container {
+	position: relative;
+	display: inline-block;
+}
+#user-notification-badge {
+	position: absolute;
+	right: 0;
+  top: 0;
+  background-color: $color-bright !important;
+}
+#my-route-count {
+	background-color: $background-header !important;
+}
+.highlight {
+	background-color: $font-color-highlight;
 }
 
 @media screen and (min-width: 992px) {

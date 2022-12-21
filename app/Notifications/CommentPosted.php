@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\Comment;
+use App\Models\User;
 
 class CommentPosted extends Notification
 {
@@ -43,10 +44,27 @@ class CommentPosted extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'author' => $this->comment->author_id,
+            'author_id' => $this->comment->author_id,
             'commentable_id' => $this->comment->commentable_id,
             'commentable_type' => $this->comment->commentable_type,
-            'parent_id' => $this->comment->parent_id
+            'parent_id' => $this->comment->parent_id,
+            'comment_id' => $this->comment->id
         ];
+    }
+
+    public static function render($notification)
+    {
+        $author = User::find($notification->data['author_id']);
+        $commented_object = $notification->data['commentable_type']::find($notification->data['commentable_id']);
+        $comment = Comment::find($notification->data['comment_id']);
+        $parent_comment = Comment::find($notification->data['parent_id']);
+
+        return view('notifications.new_comment',[
+            'notification'=>$notification,
+            'author' => $author,
+            'commented_object' => $commented_object,
+            'comment' => $comment,
+            'parent_comment' => $parent_comment
+        ]);
     }
 }

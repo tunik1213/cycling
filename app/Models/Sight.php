@@ -331,4 +331,9 @@ class Sight extends Model
         return $this->comments()->where('parent_id',0)->get();
     }
 
+    public function getUrlAttribute()
+    {
+        return route('sights.show', ['sight' => $this]);
+    }
+
 }

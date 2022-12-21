@@ -30,7 +30,9 @@ $(document).ready(function(){
 
     $('#userMenu').on('click',function(e){
         $('ul#user-menu-list').toggle();
-    })
+    });
+
+    scrollToHash();
 
 });
 
@@ -266,13 +268,13 @@ var commentPost = function (e) {
             $('#comments-list .add-comment-form')
                 .remove();
             tinymce.editors[0].setContent('');
-            new_comment = parent_comment.children('.comment').last().addClass('new-comment');
-            new_comment.addClass('new-comment');
+            new_comment = parent_comment.children('.comment').last();
+            new_comment.addClass('highlight');
             scrollTop = new_comment.offset().top - 200;
             $([document.documentElement, document.body]).animate({
                 scrollTop: scrollTop
             }, 300);
-            new_comment.removeClass('new-comment', {duration:10000})
+            new_comment.removeClass('highlight', {duration:10000})
         }
     })
 }
@@ -312,4 +314,18 @@ var login_popup = function(event,what) {
             .html(login_prompts[what])
             ;
     });
+}
+
+var scrollToHash = function() {
+    if(location.hash == '') return;
+
+    commentHash = location.hash.replace('#','');
+    targetElement = $('.comment[scrollto="'+commentHash+'"]');
+    if(targetElement.length == 0) return;
+
+    $("html").scrollTop(targetElement.offset().top);
+
+    targetElement.addClass('highlight');
+    targetElement.removeClass('highlight', {duration:10000})
+
 }

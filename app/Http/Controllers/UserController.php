@@ -16,6 +16,11 @@ use App\Models\SightList;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['getAvatarImage','list','authors']);
+    }
+
     public function home (Request $request)
     {
         return view('user.cabinet',['user'=>Auth::user()]);
@@ -88,4 +93,12 @@ class UserController extends Controller
         ]);
     }
 
+    public function notifications(Request $request)
+    {
+        $user = Auth::user();
+        $notifications = $user->notifications
+            ->take(20);
+
+        return view('notifications.list', ['notifications'=> $notifications]);
+    }
 }

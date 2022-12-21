@@ -142,7 +142,7 @@ input[type=checkbox] {
 }
 
 .admin-item {
-  background-color: #b78086;
+  background-color: #b7808659;
 }
 
 a {
@@ -514,7 +514,7 @@ ul#login-btn-dop-info {
 }
 
 #right-header .badge {
-  background-color: #57cfb0;
+  background-color: #d3482a;
   font-size: 0.9rem;
 }
 
@@ -870,7 +870,7 @@ div.card-container {
   padding-left: 1rem;
 }
 
-.comment.new-comment {
+.highlight {
   background-color: #E6F4F1;
 }
 
@@ -906,6 +906,27 @@ div.card-container {
   color: #d3482a;
   margin: 3rem 2rem 1rem 2rem;
   display: block;
+}
+
+/* notifications */
+#header-avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+#user-notification-badge {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: #d3482a !important;
+}
+
+#my-route-count {
+  background-color: #2ab5d3 !important;
+}
+
+.highlight {
+  background-color: #ffda77;
 }
 
 @media screen and (min-width: 992px) {

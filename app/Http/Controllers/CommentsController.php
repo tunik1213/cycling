@@ -55,7 +55,7 @@ class CommentsController extends Controller
             $userToNotify = $parentComment->author;
         }
 
-        if(!empty($userToNotify))
+        if (!empty($userToNotify) && $userToNotify->id != Auth::id())
             $userToNotify->notify(new CommentPosted($comment));
 
         return view('comments.show',['comment' => $comment]);
