@@ -28,9 +28,7 @@ $(document).ready(function(){
 	$('#comments-container, #comments-list').on('click','button.post-comment',commentPost);
     $('#comments-list').on('click','a.comment-link-reply',commentReply);
 
-    $('#userMenu').on('click',function(e){
-        $('ul#user-menu-list').toggle();
-    });
+    userMenuToggle();
 
     scrollToHash();
 
@@ -328,4 +326,16 @@ var scrollToHash = function() {
     targetElement.addClass('highlight');
     targetElement.removeClass('highlight', {duration:10000})
 
+}
+
+
+var userMenuToggle = function(e) {
+    $('#userMenu').on('click',function(e){
+        $('ul#user-menu-list').toggle();
+        e.stopPropagation();
+    });
+
+    $(document).click(function(){
+      $("#user-menu-list").hide();
+    });
 }
