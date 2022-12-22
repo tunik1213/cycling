@@ -2,6 +2,10 @@
     $moderator = Auth::user()->moderator ?? false;
     $lv = App\Models\SightVersion::lastVersion($sight);
     $route = App\Models\Route::current_editing() ?? null;
+    $activities_count = 0;
+    if(isset($activities) && $activities != null) {
+        $activities_count = $activities->count();
+    }
 @endphp
 
 
@@ -55,8 +59,11 @@
             </div>
         @endif
 
-        {{$sight->categoryLink}}
+        @if($activities_count > 0)
+            @include('activities.count_badge',['activities'=>$activities])
+        @endif
 
+        {{$sight->categoryLink}}
 
         <nav aria-label="breadcrumb">
             @if(!empty($sight->area))
@@ -80,6 +87,8 @@
                 <strong>Джерело: </strong>{!! App\Models\Sight::$sources[$sight->user_id] !!}
             @endif
         </div>
+
+        <hr />
 
         <div id="sight-description">
             {!! $sight->description !!}

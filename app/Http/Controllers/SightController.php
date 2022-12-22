@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Http;
 use StepanDalecky\KmlParser\Parser;
 use App\Models\SightList;
 use App\Models\UserList;
+use App\Models\ActivityList;
 use App\Models\SightVersion;
 use Illuminate\Validation\ValidationException;
 
@@ -559,7 +560,12 @@ class SightController extends Controller
         $sight = Sight::find($id);
         if(empty($sight)) abort(404);
 
-        return view('sights.show_partial',['sight'=>$sight]);
+        $acts = null;
+        if($request->input('user')) {
+            $acts = new ActivityList($request);
+        }
+
+        return view('sights.show_partial',['sight'=>$sight,'activities'=>$acts]);
         
     }
 

@@ -613,8 +613,9 @@ img.sight-image {
   80%  { opacity: 0;  }
   100% { transform:translate(1rem,1rem); opacity: 0; }
 }
-
-
+.breadcrumb {
+	margin: 0 !important;
+}
 
 /* card */
 div.card {
@@ -632,6 +633,32 @@ div.card-container {
 	padding-right: 1rem;
 	display: flex;
   align-items: center;
+}
+#activities-count-badge {
+	display: flex;
+	margin: 5px 0;
+}
+#activities-count-badge > a {
+	font-size: larger;
+}
+#activities-count-badge > a:hover {
+	color: $font-color-light;
+}
+.ac-badge-rectangle {
+    color: $font-color-light;
+    font-size: 1.1rem;
+    background-color: $color-bright;
+    border-color: $color-bright;
+    display: flex;
+    padding-left:.5rem;
+}
+.ac-badge-triangle {
+    width: 0;
+    height: 0;
+    border-right: 15px solid transparent;
+    border-top: 2rem solid;
+    color: $color-bright;
+    padding-left: 0.5rem;
 }
 
 /* route */
@@ -728,9 +755,6 @@ div.card-container {
 }
 .comment > .comment {
 	padding-left: 1rem;
-}
-.highlight {
-	background-color: $background-body;
 }
 #add-comment-form-sample {
 	display: none;

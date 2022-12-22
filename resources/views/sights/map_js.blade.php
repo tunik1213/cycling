@@ -1,3 +1,11 @@
+@php
+    $getParams = '';
+    $filters = $sightList->filters();
+    if(!empty($filters)) {
+        $getParams = '?'.http_build_query($filters);
+    }
+@endphp
+
 <script type="text/javascript">
 
     var map = L.map('map');
@@ -26,7 +34,7 @@
             });
             selectedMarker = e.layer;
             selectedMarker.setIcon(selectedMarkerIcon);
-            $.ajax('/sights/'+e.layer.feature.properties.id+'/getMapPopupView',{
+            $.ajax('/sights/'+e.layer.feature.properties.id+'/getMapPopupView{{$getParams}}',{
                 success: function(result) {
                     $('#map-preview').html(result);
                 }

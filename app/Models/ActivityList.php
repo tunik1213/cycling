@@ -41,7 +41,29 @@ class ActivityList extends ListModel
 
     public function index()
     {
+        $query = $this->activities_query()
+            ->paginate(40)
+            ->appends($this->request->query());
 
+        $collection = $query->getCollection()->all();
+        foreach($collection as &$entry) {
+            $a = Activity::find($entry->id);
+            $a->count = $entry->count;
+            $a->sight_count = $entry->sight_count;
+            $entry = $a;
+        }
+        $query->setCollection(collect($collection));
+
+        return $query;
+    }
+
+    public function count() : int
+    {
+        return $this->activities_query()->count();
+    }
+
+    private function activities_query()
+    {
         $query = DB::table('activities as a')
             ->leftjoin('visits as v','v.act_id','=','a.id')
             ->selectRaw('a.id as id,count(v.id) as count')
@@ -62,19 +84,12 @@ class ActivityList extends ListModel
             $query = $query->join('route_passes as rs','rs.act_id','=','a.id')
             ->where('rs.route_id',$this->route->id);
         }
-        $query = $query
-            ->paginate(40)
-            ->appends($this->request->query());
-
-        $collection = $query->getCollection()->all();
-        foreach($collection as &$entry) {
-            $a = Activity::find($entry->id);
-            $a->count = $entry->count;
-            $a->sight_count = $entry->sight_count;
-            $entry = $a;
-        }
-        $query->setCollection(collect($collection));
 
         return $query;
+    }
+
+    public function url($add=[])
+    {
+        return route('activities',$this->filters($add));
     }
 }
