@@ -563,6 +563,7 @@ class SightController extends Controller
         $acts = null;
         if($request->input('user')) {
             $acts = new ActivityList($request);
+            $acts->sight = $sight;
         }
 
         return view('sights.show_partial',['sight'=>$sight,'activities'=>$acts]);
