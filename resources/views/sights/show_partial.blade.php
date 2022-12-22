@@ -68,7 +68,7 @@
         <nav aria-label="breadcrumb">
             @if(!empty($sight->area))
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item">{{ $sight->area->link }}</li>
+                    <li class="breadcrumb-item"><i class="fa-solid fa-location-dot link-secondary"></i>{{ $sight->area->link }}</li>
                     @if(!empty($sight->district))
                         <li class="breadcrumb-item"><a href="{{ route('districts.show',$sight->district->id) }}">{{ $sight->district->name }} район</a></li>
                     @endif

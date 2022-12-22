@@ -1,3 +1,4 @@
+@charset "UTF-8";
 #header {
   background: #2ab5d3;
   background: linear-gradient(-45deg, #57cfb0, #2ab5d3);
@@ -741,6 +742,10 @@ img.sight-image {
   margin: 0 !important;
 }
 
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "▸" !important;
+}
+
 /* card */
 div.card {
   box-shadow: 0 15px 10px -15px #999;
@@ -1054,6 +1059,10 @@ ul.pagination > li:nth-child(11) {
 
   .login-form .login-strava-btn {
     margin: 1rem 0;
+  }
+
+  .breadcrumb {
+    flex-direction: column;
   }
 }
 
