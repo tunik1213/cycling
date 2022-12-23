@@ -22,13 +22,13 @@
 
 				@if(($user->activities->count() == 0) && ($user->created_at->timestamp < strtotime('-1 hour') ))
 					@php($show_total_link = false)
-					<p>Не вдалося iмпортувати данi @if($itsMe) по Вашим заїздам@endif зi Strava</p>
+					<p>Не вдалося iмпортувати данi @if($itsMe) по твоїм заїздам@endif зi Strava</p>
 				@else
 					@if($itsMe && $topSights->isEmpty())
 						@php($show_total_link = false)
 						<span class="spinner-border spinner-border-sm" role="status"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<span>Наразi проводиться аналiз Ваших заїздiв</span>
+						<span>Наразi проводиться аналiз твоїх заїздiв</span>
 						<script>
 							setTimeout(function(){
 							   window.location.reload(1);
