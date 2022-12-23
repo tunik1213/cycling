@@ -763,6 +763,7 @@ div.card-container {
   padding-right: 1rem;
   display: flex;
   align-items: center;
+  min-width: 4rem;
 }
 
 #activities-count-badge {
@@ -794,6 +795,29 @@ div.card-container {
   border-top: 2rem solid;
   color: #d3482a;
   padding-left: 0.5rem;
+}
+
+.act-list-main-img {
+  position: relative;
+}
+
+.act-list-main-img > img {
+  width: 100%;
+}
+
+.act-list-user-img > img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  border: 3px #E6F4F1 solid;
+  max-width: 50%;
+}
+
+.activities-header-info {
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
 }
 
 /* route */

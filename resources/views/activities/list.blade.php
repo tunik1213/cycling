@@ -5,17 +5,7 @@
 @extends('layout')
 @section('content')
 
-    @if($actList->user)
-        <h2>Заїзди @include('user.link',['user'=>$actList->user])</h2>
-    @endif
-
-    @if($actList->sight)
-        <h4>Локація @include('sights.link',['sight'=>$actList->sight])</h4>
-    @endif
-
-    @if($actList->route)
-        <h4>Маршрут @include('routes.link',['route'=>$actList->route])</h4>
-    @endif
+    @include('activities.list_header')
 
     <br />
 
