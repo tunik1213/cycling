@@ -45,7 +45,6 @@
 
 </head>
 <body>
-
     <div id="header">
       <div class="container" id="header-container">
         <a class="navbar-brand" href="{{env('APP_URL')}}">
