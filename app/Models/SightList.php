@@ -80,7 +80,7 @@ class SightList extends ListModel
         }
 
         if(empty($this->activity)) {
-            $sights = $sights->orderByRaw('count desc,s.name');
+            $sights = $sights->orderByRaw('count desc,isnull(s.classiness)*999');
         } else {
             $sights = $sights->orderByRaw('v.id');
         };
