@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Aws\S3\S3Client;
 use Illuminate\Support\Facades\Log;
+use App\Notifications\VisitsFound;
 
 class Visit extends Model
 {
@@ -140,27 +141,42 @@ having count(*) > 1');
             array_push($created_visits,$v->id);
         }
 
-	if(count($created_visits) > 0) {
+    	if(count($created_visits) > 0) {
+
+            // отправим уведомления юзерам о том, что найдены новые посещения
+            $result = DB::select('
+            select 
+                a.user_id,
+                count(distinct v.sight_id) count
+            from visits v
+            join activities a on a.id = v.act_id
+            where v.id in ('.implode(',',$created_visits).')
+            group by a.user_id
+            having count(distinct v.sight_id) > 0');
+
+            foreach ($result as $r) {
+                $user = User::find($r->user_id);
+                if($user) $user->notify(new VisitsFound($r->count));
+            }
+
             // проверим прохождения маршрутов по найденным посещениям локаций
-	    DB::Statement('
-            insert route_passes (route_id,act_id)
-    
-	    with rs_counts as (
-	        select rs.route_id,count(*) as cnt 
-    	        from route_sight rs 
-    	        group by rs.route_id 
-            ) 
-	    select rs.route_id, v.act_id
-            from route_sight rs 
-	    cross join visits v on v.sight_id = rs.sight_id 
-            left join rs_counts on rs_counts.route_id = rs.route_id 
-	    where v.id in ('.implode(',',$created_visits).')
-            group by rs.route_id, v.act_id
-	    having count(*) = avg(rs_counts.cnt);
-            ');
-	}
-
-
+    	    DB::Statement('
+                insert route_passes (route_id,act_id)
+        
+    	    with rs_counts as (
+    	        select rs.route_id,count(*) as cnt 
+        	        from route_sight rs 
+        	        group by rs.route_id 
+                ) 
+    	    select rs.route_id, v.act_id
+                from route_sight rs 
+    	    cross join visits v on v.sight_id = rs.sight_id 
+                left join rs_counts on rs_counts.route_id = rs.route_id 
+    	    where v.id in ('.implode(',',$created_visits).')
+                group by rs.route_id, v.act_id
+    	    having count(*) = avg(rs_counts.cnt);
+                ');
+    	}
     }
 
 
