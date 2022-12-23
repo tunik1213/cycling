@@ -10,6 +10,13 @@
 
     var map = L.map('map');
 
+    $('h1').hide();
+    $('#list-loading-text').show();
+    map.on('load', function(e){
+        $('h1').show();
+        $('#list-loading-text').hide();
+    });
+
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 18,
@@ -44,6 +51,7 @@
         map.fitBounds(geojson.getBounds());
         //map.addLayer(markers);
         markers.addTo(map);
+
     });
 
 </script>

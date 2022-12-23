@@ -746,6 +746,11 @@ img.sight-image {
   content: "▸" !important;
 }
 
+#list-loading-text {
+  display: none;
+  font-size: larger;
+}
+
 /* card */
 div.card {
   box-shadow: 0 15px 10px -15px #999;

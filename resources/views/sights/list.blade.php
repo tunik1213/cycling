@@ -16,6 +16,9 @@
 
     <div class="container info-block">
         <h1 class="info-block-header">{!! $sightList->title() !!}</h1>
+        <p  id="list-loading-text">
+            <span class="spinner-border spinner-border-sm" role="status"></span>Завантаження мапи...
+        </p>
         @if(!empty($sightList->routeAdd))
         <p>Не вистачає потрiбної локації? Будь-ласка, <a href="{{route('sights.create')}}">додай!</a></p>
         @endif
