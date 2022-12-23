@@ -5,7 +5,7 @@
 
 <div class="d-flex activity-link-container list-group-item list-group-item-action {{ $unread_class }}">
 	<div class="activity-link-user-img">
-		<p class="new-visits-count">{{$count}}</p>
+		<span class="new-visits-count">{{$count}}</span>
 	</div>
 	<div class="activity-link-text">
 		<div class="activity-link-title">
