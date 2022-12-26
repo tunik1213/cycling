@@ -9,9 +9,9 @@
 			<img class="user-avatar" src="data:image/jpeg;base64,{{base64_encode($activity->user->avatar)}}">
 		</a>
 	</div>
-	<div class="activity-link-text">
+	<a class="activity-link-text" href="{{route('activity',$activity->id)}}">
 		<div class="activity-link-title">
-			<a href="{{route('activity',$activity->id)}}">{{$name}}</a>
+			<span>{{$name}}</span>
 			@if($activity->sight_count > 0)
 				@php($text = (string)$activity->sight_count . ' ' . nouns_declension($activity->sight_count,'пам\'ятка вiдвiдана','пам\'ятки вiдвiданi','пам\'яток вiдвiдано'))
 				&nbsp;<span title="{{$text}}" class="badge">{{$activity->sight_count}}</span>
@@ -29,5 +29,5 @@
 				<a href="#" class="link-secondary">{{$activity->count}} {{$text}}</a>
 			</div>
 		@endif --}}
-	</div>
+	</a>
 </div>
