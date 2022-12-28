@@ -4,6 +4,9 @@
 @endphp
 
 <div class="d-flex activity-link-container list-group-item list-group-item-action {{ $unread_class }}">
+	<div class="activity-link-user-img">
+		<img class="user-avatar" src="{{ asset('/images/attention.png') }}">
+	</div>
 	<div class="activity-link-text">
 		<div class="activity-link-title">
 			{!! $text !!}
