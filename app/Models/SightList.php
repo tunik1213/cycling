@@ -12,6 +12,7 @@ use App\Models\SightSubCategory as SubCategory;
 use App\Models\User;
 use App\Models\Activity;
 use App\Models\Route;
+use Carbon\Carbon;
 
 class SightList extends ListModel
 {
@@ -23,6 +24,7 @@ class SightList extends ListModel
     public ?Activity $activity;
     public ?string $search;
     public ?Route $routeAdd;
+    private ?int $timestamp;
 
     public function __construct(Request $request)
     {
@@ -64,6 +66,8 @@ class SightList extends ListModel
             $route = Route::find($request->input('routeAdd')) ?? null;
             if($route) $this->routeAdd = $route;
         }
+
+        $this->timestamp = $request->input('notification');
 
     }
 
@@ -208,6 +212,7 @@ class SightList extends ListModel
         if (!empty($this->activity)) $result['activity'] = $this->activity->id;
         if (!empty($this->search) && !isset($remove['search'])) $result['search'] = $this->search;
         if (!empty($this->routeAdd) && !isset($remove['routeAdd'])) $result['routeAdd'] = $this->routeAdd->id;
+        if (!empty($this->timestamp)) $result['notification'] = $this->timestamp;
 
         foreach($remove as $r) {
             if(isset($result[$r])) unset($result[$r]);
@@ -285,6 +290,12 @@ class SightList extends ListModel
 
         if(!empty($this->activity)) {
             $sights = $sights->where('a.id',$this->activity->id);
+        }
+
+        if(!empty($this->timestamp)) {
+            $from = Carbon::createFromTimestamp($this->timestamp)->subHours(5);
+            $to = Carbon::createFromTimestamp($this->timestamp)->addHours(5);
+            $sights = $sights->whereBetween('v.created_at',[$from,$to]);
         }
         
         return $sights;

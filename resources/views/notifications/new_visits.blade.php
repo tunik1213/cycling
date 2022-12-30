@@ -9,7 +9,7 @@
 	</div>
 	<div class="activity-link-text">
 		<div class="activity-link-title">
-			<a href="{{ route('sights.list',['user'=>$notification->notifiable_id]) }}">
+			<a href="{{ route('sights.list',['user'=>$notification->notifiable_id,'notification'=>$notification->created_at->timestamp]) }}">
 				Знайдено <b>{{$count}}</b> вiдвiданих локацiй!
 			</a>
 		</div>
