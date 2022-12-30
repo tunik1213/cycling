@@ -58,8 +58,10 @@
                         @php($active=($id == $filter_area_id) ? 'active' : '')
                         @php($bold = ($active) ? 'bold' : '')
                         <li class="{{$active}}">
-                            <i class="fas fa-caret-down caret"></i>
-                            <a class="{{$bold}}" area-id="{{$id}}" href="{{route('sights.list',$getParams)}}">{{$area['name']}}</a>
+                            <div class="filter-link-container">
+                                <i class="fas fa-caret-down caret"></i>
+                                <a class="{{$bold}}" area-id="{{$id}}" href="{{route('sights.list',$getParams)}}">{{$area['name']}}</a>
+                            </div>
                             <ul class="nested folding">
                             @foreach($area['districts'] as $d_id=>$d_name)
                                 @php($getParams = $sightList->filters(['district'=>$d_id],['area']))
@@ -79,16 +81,19 @@
                         @php($getParams = $sightList->filters(['category'=>$id],['subcategory']))
                         @php($active=($id == $filter_category_id) ? 'active' : '')
                         @php($bold = ($active) ? 'bold' : '')
-                        <li class="{{$active}}"><i class="fas fa-caret-down caret"></i>
-                            <a class="{{$bold}}" category-id="{{$id}}" href="{{route('sights.list',$getParams)}}">{{$cat['name']}}</a>
-                            <ul class="nested folding">
-                            @foreach($cat['subcats'] as $s_id=>$s_name)
-                                @php($getParams = $sightList->filters(['subcategory'=>$s_id],['category']))
-                                @php($bold = ($filter_subcategory_id == $s_id) ? 'bold' : '')
-                                <li><a subcategory-id="{{$s_id}}" class="link-secondary {{$bold}}" href="{{route('sights.list',$getParams)}}">{{$s_name}}</a></li>
-                            @endforeach
-                            </ul>
-                        </li>
+                            <li class="{{$active}}">
+                                <div class="filter-link-container">
+                                    <i class="fas fa-caret-down caret"></i>
+                                    <a class="{{$bold}}" category-id="{{$id}}" href="{{route('sights.list',$getParams)}}">{{$cat['name']}}</a>
+                                </div>
+                                <ul class="nested folding">
+                                @foreach($cat['subcats'] as $s_id=>$s_name)
+                                    @php($getParams = $sightList->filters(['subcategory'=>$s_id],['category']))
+                                    @php($bold = ($filter_subcategory_id == $s_id) ? 'bold' : '')
+                                    <li><a subcategory-id="{{$s_id}}" class="link-secondary {{$bold}}" href="{{route('sights.list',$getParams)}}">{{$s_name}}</a></li>
+                                @endforeach
+                                </ul>
+                            </li>
                     @endforeach
                     <br/>
                 </div>

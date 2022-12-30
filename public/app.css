@@ -265,8 +265,9 @@ ul.folding * {
   display: inline-block;
 }
 
-li.active > .caret {
+#filter-locations li.active .caret {
   transform: rotate(180deg);
+  padding: 0 0.2rem 4px 0.6rem;
 }
 
 li.active > ul.nested.folding {
@@ -706,8 +707,29 @@ img.sight-image {
   margin-bottom: 1rem;
 }
 
-.sight-image-container {
+#map-preview {
   padding: 0;
+}
+
+#filter-locations {
+  padding-left: 0;
+}
+
+#filter-locations .caret {
+  padding: 4px 0.6rem 0 0.2rem;
+}
+
+#filter-locations .nested {
+  padding-left: 0.5rem;
+}
+
+#filter-locations li {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-link-container {
+  display: flex;
 }
 
 /* scroll prompt main login page */
@@ -755,15 +777,20 @@ img.sight-image {
   font-size: larger;
 }
 
+.buttons-container {
+  margin: 0;
+  padding: 1rem 0;
+}
+
 /* card */
-div.card {
+.card {
   box-shadow: 0 15px 10px -15px #999;
   padding: 1rem;
   margin: 0.5rem;
   height: 95%;
 }
 
-div.card-container {
+.card-container {
   width: 25%;
 }
 
@@ -1108,6 +1135,10 @@ ul.pagination > li:nth-child(11) {
 
   .breadcrumb {
     flex-direction: column;
+  }
+
+  .card {
+    margin: 0;
   }
 }
 

@@ -34,7 +34,7 @@
         <div id="map"></div>
         <div id="map-preview"></div>
 
-        <div class="container">
+        <div class="buttons-container">
 		@php($editing_route = App\Models\Route::current_editing())
 			<a href="{{route('routes.mergeActivity',$activity->id)}}" class="btn btn-secondary">
 				@if(empty($editing_route))

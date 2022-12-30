@@ -220,8 +220,9 @@ ul.folding * {
   color: black;
   display: inline-block;
 }
-li.active > .caret {
+#filter-locations li.active .caret {
   transform: rotate(180deg);
+  padding: 0 0.2rem 4px 0.6rem;
 }
 li.active > ul.nested.folding {
 	display:block;
@@ -593,8 +594,25 @@ img.sight-image {
 .sight-buttons > .col {
 	margin-bottom: 1rem;
 }
-.sight-image-container {
+#map-preview {
 	padding: 0;
+}
+
+#filter-locations {
+	padding-left: 0;
+}
+#filter-locations .caret {
+	padding: 4px 0.6rem 0 0.2rem;
+}
+#filter-locations .nested {
+	padding-left: 0.5rem;
+}
+#filter-locations li {
+	display: flex;
+	flex-direction: column;
+}
+.filter-link-container {
+	display: flex;
 }
 
 /* scroll prompt main login page */
@@ -630,16 +648,20 @@ img.sight-image {
  	display: none;
  	font-size: larger;
 }
+.buttons-container {
+	margin: 0;
+	padding: 1rem 0;
+}
 
 
 /* card */
-div.card {
+.card {
   box-shadow: $default-box-shadow;
 	padding: 1rem;
-  margin: 0.5rem;
+  margin: .5rem;
   height: 95%;
 }
-div.card-container {
+.card-container {
 	  width: 25%;
 }
 
@@ -935,6 +957,9 @@ div.card-container {
 	}
 	.breadcrumb {
 		flex-direction: column;
+	}
+	.card {
+		margin: 0;
 	}
 }
 
