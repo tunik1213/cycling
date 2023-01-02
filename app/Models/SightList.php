@@ -24,7 +24,6 @@ class SightList extends ListModel
     public ?Activity $activity;
     public ?string $search;
     public ?Route $routeAdd;
-    private ?int $timestamp;
 
     public function __construct(Request $request)
     {
@@ -66,8 +65,6 @@ class SightList extends ListModel
             $route = Route::find($request->input('routeAdd')) ?? null;
             if($route) $this->routeAdd = $route;
         }
-
-        $this->timestamp = $request->input('notification');
 
     }
 

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\Sight;
 use App\Models\User;
+use Carbon\Carbon;
 
 class ActivityList extends ListModel
 {
@@ -83,6 +84,12 @@ class ActivityList extends ListModel
         if(!empty($this->route)) {
             $query = $query->join('route_passes as rs','rs.act_id','=','a.id')
             ->where('rs.route_id',$this->route->id);
+        }
+
+        if(!empty($this->timestamp)) {
+            $from = Carbon::createFromTimestamp($this->timestamp)->subHours(5);
+            $to = Carbon::createFromTimestamp($this->timestamp)->addHours(5);
+            $query = $query->whereBetween('v.created_at',[$from,$to]);
         }
 
         return $query;

@@ -19,6 +19,7 @@ class ListModel
     public ?Area $area;
     public ?User $author;
     public ?Route $route;
+    protected ?int $timestamp;
 
     public function __construct(Request $request)
     {
@@ -50,6 +51,8 @@ class ListModel
 
 
         $this->sight = null;
+
+        $this->timestamp = $request->input('notification');
     }
 
     public function filters($add=[],$remove=[])
