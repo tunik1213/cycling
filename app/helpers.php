@@ -52,3 +52,11 @@ function custom_lcfirst($str, $e='utf-8') {
     $fc = mb_strtolower(mb_substr($str, 0, 1, $e), $e);
     return $fc.mb_substr($str, 1, mb_strlen($str, $e), $e);
 }
+function shortNumber($num) 
+{
+    $units = ['', 'K', 'M', 'B', 'T'];
+    for ($i = 0; $num >= 1000; $i++) {
+        $num /= 1000;
+    }
+    return round($num, 1) . $units[$i];
+}

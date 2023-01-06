@@ -27,7 +27,7 @@
                 <br/>
                 <div class="row">
                     @php($getParams = $sightList->filters(['sight'=>$s->id]))
-                    <a class="link-secondary" href="{{route('activities',$getParams)}}">{{$s->count}} вiдвiдувань</a>
+                    <a class="link-secondary" href="{{route('activities',$getParams)}}">{{shortNumber($s->count)}} вiдвiдувань</a>
                 </div>
                 @endif
 
