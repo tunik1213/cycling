@@ -168,8 +168,10 @@ where a.user_id = :user_id
 
     public static function update_visits_verify($key)
     {
-        if(strpos($key,'user') !== false) {
-            $user_id = str_replace('user','',$key);
+	// file_put_contents('/var/www/html/cycling/tmp/test.log',$key);
+
+        if(strpos($key,'visits-user') !== false) {
+            $user_id = str_replace('visits-user','',$key);
 
             $user = User::find($user_id);
             if ($user) {
