@@ -32,6 +32,8 @@ $(document).ready(function(){
 
     scrollToHash();
 
+    if($('script#checkCompleted').length > 0) checkCompleted();
+
 });
 
 const csrf_token = function() {
@@ -338,4 +340,17 @@ var userMenuToggle = function(e) {
     $(document).click(function(){
       $("#user-menu-list").hide();
     });
+}
+
+var checkCompleted = function() {
+    $.ajax({
+        url: '/visits/verified',
+        success: function(res) {
+            if(res == 'true') {
+                window.location.reload();
+            }
+        }
+    });
+
+    setTimeout(checkCompleted,1000);
 }

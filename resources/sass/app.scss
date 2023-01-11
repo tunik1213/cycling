@@ -549,8 +549,14 @@ ul#login-btn-dop-info {
 }
 .info-block-footer {
 		padding: 1rem;
-		display: flex;
-    align-items: center;
+}
+#visits-progress-container {
+	display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+#visits-progress-container > .spinner-border {
+	margin-right: 1rem;
 }
 .badge {
 	border-radius: 10rem;

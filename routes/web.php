@@ -124,7 +124,7 @@ Route::get('/loginmodal', function(){
 
 Route::get('/notifications', [UserController::class, 'notifications'])->name('notifications');
 
-
+route::get('/visits/verified',[VisitController::class,'visitsVerified'])->name('ajax.visitsVerified');
 
 
 Route::get('/{static_page_name}',[MainController::class,'staticPage']);
