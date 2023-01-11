@@ -165,4 +165,18 @@ where a.user_id = :user_id
 
         return $result;
     }
+
+    public static function update_visits_verify($key)
+    {
+        if(strpos($key,'user') !== false) {
+            $user_id = str_replace('user','',$key);
+
+            $user = User::find($user_id);
+            if ($user) {
+                $user->visits_verified_at = Carbon::now();
+                $user->save();
+            }
+        }
+    }
+
 }

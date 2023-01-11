@@ -93,7 +93,6 @@ Route::get('/export/districts/{area_id}',[DistrictController::class, 'export']);
 
 Route::resource('subcategories', SubCategoryController::class);
 
-Route::get('/getVisitsAWS', [VisitController::class,'getVisitsAWS']);
 Route::post('/postVisitsAWS', [VisitController::class,'postVisitsAWS']);
 
 Route::get('/routes/list',[RouteController::class,'list'])->name('routes.list');

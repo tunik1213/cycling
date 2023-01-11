@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Http;
 use Aws\S3\S3Client;
 use Illuminate\Support\Facades\Log;
 use App\Notifications\VisitsFound;
+use App\Models\User;
 
 class Visit extends Model
 {
@@ -103,7 +104,7 @@ having count(*) > 1');
         ]);
 
         $objList = $result->get('Contents');
-	if(empty($objList)) return;
+	    if(empty($objList)) return;
 
         foreach($objList as $objEntry) {
             $key = $objEntry['Key'];
@@ -119,7 +120,8 @@ having count(*) > 1');
                 'Bucket' => $bucketName,
                 'Key'    => $key
             ]);
-
+            
+            User::update_visits_verify($key);
         }
     }
 
@@ -281,7 +283,7 @@ having count(*) > 1');
 
         $json = collect($data)->toJson();
 
-        Self::sendToAWS($json,$filename='activities'.count($acts));
+        Self::sendToAWS($json,$filename='activities'.MD5(microtime());
 
         
     }
