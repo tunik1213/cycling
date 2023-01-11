@@ -94,7 +94,7 @@ class User extends Authenticatable
         } while (count($acts) ?? 0 > 0);
 
         if(count($imported)>0) {
-            Visit::findVisitsActivities($imported);
+            Visit::findVisitsActivities($imported,$this);
         }
     }
 

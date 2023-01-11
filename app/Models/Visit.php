@@ -120,7 +120,7 @@ having count(*) > 1');
                 'Bucket' => $bucketName,
                 'Key'    => $key
             ]);
-            
+
             User::update_visits_verify($key);
         }
     }
@@ -254,7 +254,7 @@ having count(*) > 1');
     }
 
     // by activities
-    public static function findVisitsActivities(Array $acts)
+    public static function findVisitsActivities(Array $acts, ?User $user=null)
     {
         $data = [
             'activities' => [],
@@ -270,7 +270,7 @@ having count(*) > 1');
         }
 
 
-	$sights = Sight::orderBy('id')->get();
+	    $sights = Sight::orderBy('id')->get();
         foreach($sights as $s) {
             array_push($data['sights'],
             [
@@ -283,8 +283,13 @@ having count(*) > 1');
 
         $json = collect($data)->toJson();
 
-        Self::sendToAWS($json,$filename='activities'.MD5(microtime());
+        if($user) {
+            $filename = 'user'.$user->id;
+        } else {
+            $filename='activities'.MD5(microtime();
+        }
 
+        Self::sendToAWS($json,$filename);
         
     }
 
