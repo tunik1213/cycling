@@ -286,7 +286,7 @@ having count(*) > 1');
         if($user) {
             $filename = 'user'.$user->id;
         } else {
-            $filename='activities'.MD5(microtime();
+            $filename='activities'.MD5(microtime());
         }
 
         Self::sendToAWS($json,$filename);
