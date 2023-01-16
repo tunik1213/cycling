@@ -24,6 +24,9 @@ class AuthController extends Controller
 
     public function StravaCallBack(Request $request) 
     {
+        $code = $request->code;
+        if(empty($code)) abort(400,'Empty code given');
+
         $token = Strava::token($request->code);
         $user = $this->findOrCreateUser($token->athlete);
 
