@@ -10,7 +10,6 @@ class FeedbackController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     public function form(Request $request)
@@ -21,7 +20,7 @@ class FeedbackController extends Controller
     public function create(Request $request)
     {
         $f = new Feedback([
-            'author_id' => Auth::user()->id,
+            'author_id' => Auth::user()->id ?? null,
             'text' => $request->text,
             'contacts' => $request->contacts
         ]);
