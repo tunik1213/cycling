@@ -219,6 +219,8 @@ class Sight extends Model
     {
         $a = $this->toArray();
         $a['image'] = base64_encode($this->image);
+        $a['lat'] = (string)$this->lat;
+        $a['lng'] = (string)$this->lng;
         return serialize($a);
     }
 

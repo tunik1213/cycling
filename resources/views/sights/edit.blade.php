@@ -6,6 +6,7 @@
     } else {
         $page_title = 'Автор правки: '.$ver_author->link;
     }
+
 @endphp
 
 @extends('layout')
@@ -62,10 +63,10 @@
             <strong>Координати (Ctrl+V):</strong>
             <div class="row">
                 <div class="col col-6">
-                    <input type="text" id="lat" name="lat" value="{{ old('lat') ?? $sight->lat }}" class="form-control @if($sight->lat != $orig->lat) changed-input @endif" placeholder="Широта" autocomplete="off">
+                    <input type="text" id="lat" name="lat" value="{{ old('lat') ?? $sight->lat }}" class="form-control @if((string)$sight->lat != (string)$orig->lat) changed-input @endif" placeholder="Широта" autocomplete="off">
                 </div>
                 <div class="col col-6">
-                    <input type="text" id="lng" name="lng" value="{{ old('lng') ?? $sight->lng }}" class="form-control @if($sight->lng != $orig->lng) changed-input @endif" placeholder="Довгота" autocomplete="off">
+                    <input type="text" id="lng" name="lng" value="{{ old('lng') ?? $sight->lng }}" class="form-control @if((string)$sight->lng != (string)$orig->lng) changed-input @endif" placeholder="Довгота" autocomplete="off">
                 </div>
             </div>
         </div>

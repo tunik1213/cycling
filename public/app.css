@@ -1047,7 +1047,7 @@ img.sight-image {
 }
 
 .notifications .error {
-  background: rgba(211, 72, 42, 0.25);
+  background: rgba(211, 72, 42, 0.1);
 }
 
 .notifications .success {
