@@ -1,8 +1,4 @@
 @php
-    $unmoderated_count = \App\Models\Sight::unmoderated_count();
-    $unmoderated_versions = \App\Models\SightVersion::unmoderated_count();
-    $unmoderated_feedback = \App\Models\Feedback::unmoderated_count();
-    $unmoderated_routes = \App\Models\Route::unmoderated_count();
     if (request()->is('notifications')) {
         $common_notification_count = 0;
     } else {
@@ -16,12 +12,21 @@
         $editing_route_sights_count = 0;
     }
 
-    $total_notification_count = 
-        $unmoderated_count +
-        $unmoderated_versions +
-        $unmoderated_feedback +
-        $unmoderated_routes +
-        $common_notification_count;
+    $total_notification_count = $common_notification_count;
+    if ($user->moderator) {
+        $unmoderated_count = \App\Models\Sight::unmoderated_count();
+        $unmoderated_versions = \App\Models\SightVersion::unmoderated_count();
+        $unmoderated_feedback = \App\Models\Feedback::unmoderated_count();
+        $unmoderated_routes = \App\Models\Route::unmoderated_count();
+        $total_notification_count = $total_notification_count
+            + $unmoderated_count
+            + $unmoderated_versions
+            + $unmoderated_feedback
+            + $unmoderated_routes
+        ;
+    }
+        
+        
 @endphp
 
 <div class="dropdown">
