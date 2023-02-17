@@ -1046,6 +1046,14 @@ img.sight-image {
   color: #fff;
 }
 
+.notifications .error {
+  background: rgba(211, 72, 42, 0.25);
+}
+
+.notifications .success {
+  background: rgba(42, 181, 211, 0.1);
+}
+
 @media screen and (min-width: 992px) {
   .mobile {
     display: none;

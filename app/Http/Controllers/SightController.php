@@ -16,6 +16,7 @@ use App\Models\UserList;
 use App\Models\ActivityList;
 use App\Models\SightVersion;
 use Illuminate\Validation\ValidationException;
+use App\Notifications\CommonNotification;
 
 class SightController extends Controller
 {
@@ -26,7 +27,7 @@ class SightController extends Controller
             $this->middleware('moderator')->only(['destroy','edit','update','index','massUpdate','show','getImage','list', 'geoJSON']);
         } else {
             $this->middleware('auth')->except(['show','getImage','list', 'geoJSON','getMapPopupView','nearby']);
-            $this->middleware('moderator')->only(['destroy','index','massUpdate']);
+            $this->middleware('moderator')->only(['destroy','index','massUpdate','rollback']);
         }
         
     }
@@ -381,15 +382,18 @@ class SightController extends Controller
         $lv = SightVersion::lastVersion($s);
         if(empty($lv)) {
             $orig = $s;
+            $ver_author = null;
         } else {
             $orig = Sight::unserialize($lv->data);
+            $ver_author = $lv->user;
         }
 
 
         $params = [
             'sight'=>$orig,
             'orig' => $s,
-            'moderation_uri' => $request->input('moderation_uri')
+            'moderation_uri' => $request->input('moderation_uri'),
+            'ver_author' => $ver_author,
         ];
         
         return view('sights.edit',$params);
@@ -548,7 +552,14 @@ class SightController extends Controller
         if(empty($sight)) abort(404);
 
         $lv = SightVersion::lastVersion($sight);
-        if(!empty($lv)) $lv->delete();
+        if(!empty($lv)) {
+            $moderator = Auth::user();
+            $text = 'Модератор '.$moderator->link.' скасував твою правку до локації '.$sight->link;
+            $image = $moderator->avatarUrl;
+            $n = new CommonNotification($text,$image,'error');
+            $lv->user->notify($n);
+            $lv->delete();
+        } 
 
         return redirect()
                 ->route('sights.show',$id)

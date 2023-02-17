@@ -11,15 +11,19 @@ class CommonNotification extends Notification
 {
     use Queueable;
     private string $text;
+    private string $image;
+    private string $class;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($text)
+    public function __construct($text,$image=null,$class=null)
     {
         $this->text = $text;
+        $this->image = $image;
+        $this->class = $class;
     }
 
     /**
@@ -42,7 +46,9 @@ class CommonNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'text' => $this->text
+            'text' => $this->text,
+            'image' => $this->image,
+            'class' => $this->class
         ];
     }
 
@@ -50,7 +56,9 @@ class CommonNotification extends Notification
     {
         return view('notifications.common',[
             'notification'=>$notification,
-            'text' => $notification->data['text']
+            'text' => $notification->data['text'],
+            'image' => $notification->data['image'] ?? asset('/images/attention.png'),
+            'class' => $notification->data['class'] ?? ''
         ]);
     }
 }

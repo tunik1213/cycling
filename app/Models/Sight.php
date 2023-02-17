@@ -16,6 +16,7 @@ use App\Models\SightVersion;
 use App\Models\Route;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Models\Comment;
+use App\Notifications\CommonNotification;
 
 class Sight extends Model
 {
@@ -58,6 +59,11 @@ class Sight extends Model
                 if(!empty($lv)) {
                     $lv->moderator = $user->id;
                     $lv->save();
+
+                    $text = 'Модератор '.$user->link.' схвалив твою правку до локації '.$sight->link;
+                    $image = $user->avatarUrl;
+                    $n = new CommonNotification($text,$image,'success');
+                    $lv->user->notify($n);
                 }
 
             } else {
@@ -336,4 +342,8 @@ class Sight extends Model
         return route('sights.show', ['sight' => $this]);
     }
 
+    public function getLinkAttribute()
+    {
+        return view('sights.link',['sight'=>$this]);
+    }
 }

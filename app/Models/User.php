@@ -181,4 +181,9 @@ where a.user_id = :user_id
         }
     }
 
+    public function getAvatarUrlAttribute() : string
+    {
+        return route('userAvatar', ['id' => $this->id]);
+    }
+
 }

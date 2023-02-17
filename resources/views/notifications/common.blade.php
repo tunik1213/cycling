@@ -3,9 +3,9 @@
     $unread_class = ($notification->unread()) ? 'highlight' : '';
 @endphp
 
-<div class="d-flex activity-link-container list-group-item list-group-item-action {{ $unread_class }}">
+<div class="d-flex activity-link-container list-group-item list-group-item-action {{ $unread_class }} {{$class}}">
 	<div class="activity-link-user-img">
-		<img class="user-avatar" src="{{ asset('/images/attention.png') }}">
+		<img class="user-avatar" src="{{ $image }}">
 	</div>
 	<div class="activity-link-text">
 		<div class="activity-link-title">

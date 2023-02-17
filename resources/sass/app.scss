@@ -876,6 +876,12 @@ img.sight-image {
   font-size: 1.5rem;
   color: $font-color-light;
 }
+.notifications .error {
+	background: rgba($color-bright, 0.25);
+}
+.notifications .success {
+	background: rgba($color-main, 0.1);
+}
 
 @media screen and (min-width: 992px) {
 	.mobile {

@@ -1,15 +1,25 @@
 @php
     $moderator = Auth::user()->moderator ?? false;
     $lv = App\Models\SightVersion::lastVersion($sight);
+    if(empty($ver_author)) {
+        $page_title = 'Редагувати локацію';
+    } else {
+        $page_title = 'Автор правки: '.$ver_author->link;
+    }
 @endphp
 
 @extends('layout')
+
+@section('head')
+    <title>Редагувати локацію</title>
+@endsection
+
 @section('content')
 
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Редагувати локацію</h2>
+            <h2>{!! $page_title !!}</h2>
         </div>
 {{--         <div class="pull-right">
             <a href="{{ route('sights.index') }}">← Назад</a>
