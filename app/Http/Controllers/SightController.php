@@ -379,6 +379,8 @@ class SightController extends Controller
         $s = Sight::find($id);
         if(empty($s)) abort(404);
 
+        if(!$s->canEdit()) abort(403);
+
         $lv = SightVersion::lastVersion($s);
         if(empty($lv)) {
             $orig = $s;
