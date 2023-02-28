@@ -22,9 +22,11 @@
         <div class="pull-left">
             <h2>{!! $page_title !!}</h2>
         </div>
-{{--         <div class="pull-right">
-            <a href="{{ route('sights.index') }}">← Назад</a>
-        </div> --}}
+        @if($moderator && !empty($lv))
+        <div class="pull-right">
+            <a target="_blank" href="{{ route('sights.show',['sight'=>$sight->id]) }}">→ Показати попередню версію</a>
+        </div>
+        @endif
     </div>
 </div>
 
