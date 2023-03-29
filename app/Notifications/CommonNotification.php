@@ -11,7 +11,7 @@ class CommonNotification extends Notification
 {
     use Queueable;
     private string $text;
-    private string $image;
+    private ?string $image;
     private string $class;
 
     /**
