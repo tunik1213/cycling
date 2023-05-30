@@ -318,7 +318,7 @@ class SightController extends Controller
                 if(env('APP_DEBUG')) {
                     throw $e; 
                 } else {
-                    throw ValidationException::withMessages(['sight_image' => 'Данний тип файла зображення не пiдтримується! Виберiть JPG, PNG, GIF, BMP або WebP формат зображення']);
+                    throw ValidationException::withMessages(['sight_image' => 'Даний тип файла зображення не пiдтримується! Виберiть JPG, PNG, GIF, BMP або WebP формат зображення']);
                 }
             }
             

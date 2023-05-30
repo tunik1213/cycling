@@ -57,6 +57,12 @@ class Sight extends Model
 
             if ($user->moderator) {
                 if(!empty($lv)) {
+
+                    if(empty($sihgt->image)) {
+                        $lv_image = Sight::unserialize($lv->data)['image'] ?? null;
+                        $sight->image = $lv_image;
+                    }
+
                     $lv->moderator = $user->id;
                     $lv->save();
 
