@@ -76,7 +76,9 @@
             <li><a href="/about">Про проєкт</a></li>
             <li><a href="{{route('sights.list')}}">Локації</a>
             <li><a href="{{route('routes.list')}}">Маршрути</a>
-            <li><a class="text-highlight" href="{{route('feedback.form')}}">Залишити відгук</a></li>
+            @auth
+                <li><a class="text-highlight" href="{{route('feedback.form')}}">Залишити відгук</a></li>
+            @endauth
         </ul>
       </div>
     </footer>

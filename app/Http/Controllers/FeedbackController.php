@@ -10,6 +10,7 @@ class FeedbackController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth')->except([]);
     }
 
     public function form(Request $request)
