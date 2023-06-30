@@ -26,7 +26,7 @@ from sights s
 where s.description like \'%'.$img_link.'%\'
         ';
 
-        $result = DB::select(DB::raw($query_text));
+        $result = DB::select(DB::raw($query_text)->getValue(DB::connection()->getQueryGrammar()));
         if(count($result)>0) {
             $usage += $result[0]->count;
         }
@@ -37,7 +37,7 @@ from comments c
 where c.text like \'%'.$img_link.'%\'
         ';
 
-        $result = DB::select(DB::raw($query_text));
+        $result = DB::select(DB::raw($query_text)->getValue(DB::connection()->getQueryGrammar()));
         if(count($result)>0) {
             $usage += $result[0]->count;
         }
