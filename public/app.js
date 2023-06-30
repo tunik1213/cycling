@@ -16,8 +16,6 @@ $(document).ready(function(){
 
     $('.add-sight-to-route-button').on('click', addSightToRoute);
     $('#map-preview').on('click','.add-sight-to-route-button',addSightToRoute);
-    
-	$('[data-toggle="tooltip"]').tooltip();
 
     commentInput = $('#add-comment-form-sample')
         .clone()
