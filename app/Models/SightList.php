@@ -31,31 +31,41 @@ class SightList extends ListModel
 
         if($request->input('user')) {
             $user = User::find($request->input('user')) ?? null;
-            if($user) $this->user = $user;
+            if($user) {
+                $this->user = $user;
+            }
         }
 
         $this->category = null;
         if($request->input('category')) {
             $category = Category::find($request->input('category')) ?? null;
-            if($category) $this->category = $category;
+            if($category) {
+                $this->category = $category;
+            }
         }
 
         $this->subcategory = null;
         if($request->input('subcategory')) {
             $subcategory = SubCategory::find($request->input('subcategory')) ?? null;
-            if($subcategory) $this->subcategory = $subcategory;
+            if($subcategory) {
+                $this->subcategory = $subcategory;
+            }
         }
 
         $this->author = null;
         if($request->input('author')) {
             $author = User::find($request->input('author')) ?? null;
-            if($author) $this->author = $author;
+            if($author) {
+                $this->author = $author;
+            }
         }
 
         $this->activity = null;
         if($request->input('activity')) {
             $activity = Activity::find($request->input('activity')) ?? null;
-            if($activity) $this->activity = $activity;
+            if($activity) {
+                $this->activity = $activity;
+            }
         }
 
         $this->search = $request->input('search') ?? null;
@@ -63,7 +73,9 @@ class SightList extends ListModel
         $this->routeAdd = null;
         if($request->input('routeAdd')) {
             $route = Route::find($request->input('routeAdd')) ?? null;
-            if($route) $this->routeAdd = $route;
+            if($route) {
+                $this->routeAdd = $route;
+            }
         }
 
     }
@@ -72,9 +84,9 @@ class SightList extends ListModel
     {
         $sights = $this->query_all_filters();
         if(!empty($this->user) || !empty($this->author)) {
-           $sights = $sights
-            ->selectRaw('s.id,count(v.id) as count')
-            ->groupBy('s.id'); 
+            $sights = $sights
+             ->selectRaw('s.id,count(v.id) as count')
+             ->groupBy('s.id');
         } else {
             $sights = $sights
             ->selectRaw('s.id,0 as count');
@@ -92,21 +104,21 @@ class SightList extends ListModel
     public function locations()
     {
         $result = $this->query_user_filters()
-            ->join('areas','areas.id','=','d.area_id')
+            ->join('areas', 'areas.id', '=', 'd.area_id')
             ->select([
                 'areas.id as area_id',
                 'areas.name as area_name',
                 'd.id as district_id',
                 'd.name as district_name'
             ])
-            ->orderBy('areas.name','asc')
-            ->orderBy('d.name','asc')
+            ->orderBy('areas.name', 'asc')
+            ->orderBy('d.name', 'asc')
             ->distinct()
             ->get();
 
         $areas = [];
-        foreach ($result as $r){
-            $a = $areas[$r->area_id] ?? ['name'=>$r->area_name,'districts'=>[]];
+        foreach ($result as $r) {
+            $a = $areas[$r->area_id] ?? ['name' => $r->area_name,'districts' => []];
             $a['districts'][$r->district_id] = $r->district_name;
             $areas[$r->area_id] = $a;
         }
@@ -118,22 +130,22 @@ class SightList extends ListModel
     public function categories()
     {
         $result = $this->query_user_filters()
-            ->join('sight_categories as cats','cats.id','=','s.category_id')
-            ->join('sight_sub_categories as subcats','subcats.id','=','s.sub_category_id')
+            ->join('sight_categories as cats', 'cats.id', '=', 's.category_id')
+            ->join('sight_sub_categories as subcats', 'subcats.id', '=', 's.sub_category_id')
             ->select([
                 'cats.id as category_id',
                 'cats.name as category_name',
                 'subcats.id as subcategory_id',
                 'subcats.name as subcategory_name'
             ])
-            ->orderBy('cats.name','asc')
-            ->orderBy('subcats.name','asc')
+            ->orderBy('cats.name', 'asc')
+            ->orderBy('subcats.name', 'asc')
             ->distinct()
             ->get();
 
         $cats = [];
-        foreach ($result as $r){
-            $cat = $cats[$r->category_id] ?? ['name'=>$r->category_name,'subcats'=>[]];
+        foreach ($result as $r) {
+            $cat = $cats[$r->category_id] ?? ['name' => $r->category_name,'subcats' => []];
             $cat['subcats'][$r->subcategory_id] = $r->subcategory_name;
             $cats[$r->category_id] = $cat;
         }
@@ -160,7 +172,7 @@ class SightList extends ListModel
             $sights = $sights->paginate(24)->appends($this->request->query());
         } else {
             $sights = $sights->limit($this->limit)->get();
-            $sights = new \Illuminate\Pagination\LengthAwarePaginator($sights,$this->limit,$this->limit);
+            $sights = new \Illuminate\Pagination\LengthAwarePaginator($sights, $this->limit, $this->limit);
         }
 
         $collection = $sights->getCollection()->all();
@@ -174,23 +186,23 @@ class SightList extends ListModel
         return $sights;
     }
 
-    public function title(bool $links=true) : string
+    public function title(bool $links = true): string
     {
         if(!empty($this->routeAdd)) {
             return 'Додати локацію до веломаршруту '
                 . $this->routeAdd->name;
-            
+
         }
 
         if(!empty($this->user)) {
             return 'Локації, якi вiдвiда'
-                .$this->user->gender('в','ла').' '
+                .$this->user->gender('в', 'ла').' '
                 .(($links) ? $this->user->link : $this->user->fullname);
         }
 
         if(!empty($this->author)) {
             return 'Локації, які дода'
-                .$this->author->gender('в','ла').' '
+                .$this->author->gender('в', 'ла').' '
                 .(($links) ? $this->author->link : $this->author->fullname);
         }
 
@@ -201,18 +213,30 @@ class SightList extends ListModel
         return 'Список локацій';
     }
 
-    public function filters($add=[],$remove=[])
+    public function filters($add = [], $remove = [])
     {
-        $result = parent::filters($add,$remove);
+        $result = parent::filters($add, $remove);
 
-        if (!empty($this->author)) $result['author'] = $this->author->id;
-        if (!empty($this->activity)) $result['activity'] = $this->activity->id;
-        if (!empty($this->search) && !isset($remove['search'])) $result['search'] = $this->search;
-        if (!empty($this->routeAdd) && !isset($remove['routeAdd'])) $result['routeAdd'] = $this->routeAdd->id;
-        if (!empty($this->timestamp)) $result['notification'] = $this->timestamp;
+        if (!empty($this->author)) {
+            $result['author'] = $this->author->id;
+        }
+        if (!empty($this->activity)) {
+            $result['activity'] = $this->activity->id;
+        }
+        if (!empty($this->search) && !isset($remove['search'])) {
+            $result['search'] = $this->search;
+        }
+        if (!empty($this->routeAdd) && !isset($remove['routeAdd'])) {
+            $result['routeAdd'] = $this->routeAdd->id;
+        }
+        if (!empty($this->timestamp)) {
+            $result['notification'] = $this->timestamp;
+        }
 
         foreach($remove as $r) {
-            if(isset($result[$r])) unset($result[$r]);
+            if(isset($result[$r])) {
+                unset($result[$r]);
+            }
         }
 
         return $result;
@@ -221,7 +245,7 @@ class SightList extends ListModel
     public function geoJsonData()
     {
         $result = [
-            'type'=> 'FeatureCollection', 
+            'type' => 'FeatureCollection',
             'features' => []
         ];
         //if (empty($this->filters())) return $result;
@@ -249,7 +273,7 @@ class SightList extends ListModel
                     'id' => $d->id
                 ]
             ];
-            array_push($result['features'],$feature);
+            array_push($result['features'], $feature);
         }
 
         return $result;
@@ -257,19 +281,19 @@ class SightList extends ListModel
 
     public function geoJsonUrl()
     {
-        return route('sightsGeoJSON',$this->filters());
+        return route('sightsGeoJSON', $this->filters());
     }
 
 
     private function base_query()
     {
         $result = DB::table('sights as s')
-            ->leftjoin('districts as d','d.id','=','s.district_id');
+            ->leftjoin('districts as d', 'd.id', '=', 's.district_id');
         if(!empty($this->user) || !empty($this->activity) || !empty($this->author)) {
             $result = $result
-            ->leftjoin('visits as v','v.sight_id','=','s.id')
-            ->leftjoin('activities as a','a.id','=','v.act_id')
-            ->leftjoin('users as u','u.id','=','a.user_id');
+            ->leftjoin('visits as v', 'v.sight_id', '=', 's.id')
+            ->leftjoin('activities as a', 'a.id', '=', 'v.act_id')
+            ->leftjoin('users as u', 'u.id', '=', 'a.user_id');
         }
         return $result;
     }
@@ -278,23 +302,24 @@ class SightList extends ListModel
     {
         $sights = $this->base_query();
 
-        if(!empty($this->user))
-            $sights = $sights->where('a.user_id',$this->user->id);
+        if(!empty($this->user)) {
+            $sights = $sights->where('a.user_id', $this->user->id);
+        }
 
         if(!empty($this->author)) {
-            $sights = $sights->where('s.user_id',$this->author->id);
+            $sights = $sights->where('s.user_id', $this->author->id);
         }
 
         if(!empty($this->activity)) {
-            $sights = $sights->where('a.id',$this->activity->id);
+            $sights = $sights->where('a.id', $this->activity->id);
         }
 
         if(!empty($this->timestamp)) {
             $from = Carbon::createFromTimestamp($this->timestamp)->subHours(5);
             $to = Carbon::createFromTimestamp($this->timestamp)->addHours(5);
-            $sights = $sights->whereBetween('v.created_at',[$from,$to]);
+            $sights = $sights->whereBetween('v.created_at', [$from,$to]);
         }
-        
+
         return $sights;
     }
 
@@ -303,25 +328,25 @@ class SightList extends ListModel
         $sights = $this->query_user_filters();
 
         if(!empty($this->district)) {
-            $sights = $sights->where('d.id',$this->district->id);
+            $sights = $sights->where('d.id', $this->district->id);
         }
         if(!empty($this->area)) {
-            $sights = $sights->where('d.area_id',$this->area->id);
+            $sights = $sights->where('d.area_id', $this->area->id);
         }
 
         if(!empty($this->category)) {
-            $sights = $sights->where('s.category_id',$this->category->id);
+            $sights = $sights->where('s.category_id', $this->category->id);
         }
         if(!empty($this->subcategory)) {
-            $sights = $sights->where('s.sub_category_id',$this->subcategory->id);
+            $sights = $sights->where('s.sub_category_id', $this->subcategory->id);
         }
 
         if(!empty($this->search)) {
-            $search_array = explode(' ',$this->search);
+            $search_array = explode(' ', $this->search);
             foreach ($search_array as &$q) {
                 $q = '+'.trim($q).'*';
             }
-            $search_query = implode(' ',$search_array);
+            $search_query = implode(' ', $search_array);
             $sights = $sights->whereRaw(
                 "MATCH(s.name) AGAINST('$search_query' IN BOOLEAN MODE)"
             );

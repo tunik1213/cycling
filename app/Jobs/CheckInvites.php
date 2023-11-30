@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\DB;
 
 class CheckInvites implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected Sight $sight;
 
@@ -33,18 +36,18 @@ class CheckInvites implements ShouldQueue
     public function handle()
     {
         // 1. Проверить существующие посещения
-        $visits = Visit::where('sight_id',$this->sight->id)->get();
+        $visits = Visit::where('sight_id', $this->sight->id)->get();
         foreach ($visits as $v) {
             $a = Activity::find($v->act_id);
 
-            if($a==null) {
+            if($a == null) {
                 DB::table('visits')
                     ->delete($v->id);
             } else {
                 if (!Visit::checkInvite($a, $this->sight)) {
                     DB::table('visits')
                         ->where('act_id', $a->id)
-                        ->where('sight_id',$this->sight->id)
+                        ->where('sight_id', $this->sight->id)
                         ->delete();
                 }
             }

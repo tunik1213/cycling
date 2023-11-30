@@ -21,11 +21,11 @@ class Area extends Model
 
     public function getLinkAttribute()
     {
-        return view('areas.link',['area'=>$this]);
+        return view('areas.link', ['area' => $this]);
     }
 
     public function getDisplayNameAttribute()
     {
-        return $this->name . (($this->name=='Крим')?'':' область');
+        return $this->name . (($this->name == 'Крим') ? '' : ' область');
     }
 }

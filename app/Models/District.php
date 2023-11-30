@@ -27,7 +27,7 @@ class District extends Model
 
     public function getLinkAttribute()
     {
-        return view('districts.link',['district'=>$this]);
+        return view('districts.link', ['district' => $this]);
     }
 
     public function getDisplayNameAttribute()

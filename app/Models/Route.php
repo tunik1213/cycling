@@ -17,11 +17,12 @@ class Route extends Model
 
     protected $guarded = [];
 
-    public static function boot() {
-  
+    public static function boot()
+    {
+
         parent::boot();
 
-        static::saved(function($route){
+        static::saved(function ($route) {
             if($route->finished && $route->sights()->count() > 1) {
                 CheckRoutePassing::dispatch($route);
             }
@@ -33,7 +34,7 @@ class Route extends Model
     {
         return $this->belongsToMany(Sight::class)->withPivot('row_number')->orderBy('row_number');
     }
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -47,9 +48,11 @@ class Route extends Model
     public static function find_or_create()
     {
         $user = Auth::user();
-        if(empty($user)) return null;
+        if(empty($user)) {
+            return null;
+        }
 
-        return Self::firstOrCreate([
+        return self::firstOrCreate([
             'user_id' => $user->id,
             'finished' => false
         ]);
@@ -58,34 +61,44 @@ class Route extends Model
     public static function current_editing()
     {
         $user = Auth::user();
-        if(empty($user)) return null;
+        if(empty($user)) {
+            return null;
+        }
 
-        return Self::where([
+        return self::where([
             'user_id' => $user->id,
             'finished' => false
         ])->first();
     }
 
-    public function canEdit() : bool
+    public function canEdit(): bool
     {
         $user = Auth::user();
-        if(empty($user)) return false;
+        if(empty($user)) {
+            return false;
+        }
 
-        if($user->moderator) return true;
+        if($user->moderator) {
+            return true;
+        }
 
-        if($this->finished) return false;
+        if($this->finished) {
+            return false;
+        }
 
-        if($this->user_id == $user->id) return true;
+        if($this->user_id == $user->id) {
+            return true;
+        }
 
         return false;
     }
 
-    public function isPublic() : bool
+    public function isPublic(): bool
     {
         return ($this->moderator != null);
     }
 
-    public function areas() : string
+    public function areas(): string
     {
         $result = DB::select('
             select a.name
@@ -95,7 +108,7 @@ class Route extends Model
             where rs.route_id = ?
             group by a.name
             order by count(*) desc
-        ',[$this->id]);
+        ', [$this->id]);
 
         switch (count($result)) {
             case 0:
@@ -109,7 +122,7 @@ class Route extends Model
                 foreach($result as $a) {
                     $areas .= $a->name . ', ';
                 };
-                $areas = substr($areas, 0, strlen($areas)-2);
+                $areas = substr($areas, 0, strlen($areas) - 2);
                 break;
         }
 
@@ -118,16 +131,17 @@ class Route extends Model
 
     public function getLinkAttribute()
     {
-        return view('routes.link',['route'=>$this]);
+        return view('routes.link', ['route' => $this]);
     }
 
-    public static function unmoderated_count() : int
+    public static function unmoderated_count(): int
     {
         return DB::select('select count(*) as count from routes where moderator is null and finished=1;')[0]->count;
     }
 
-    public function comments0() {
-        return $this->comments()->where('parent_id',0)->get();
+    public function comments0()
+    {
+        return $this->comments()->where('parent_id', 0)->get();
     }
 
     public function getUrlAttribute()

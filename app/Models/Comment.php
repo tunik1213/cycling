@@ -28,12 +28,12 @@ class Comment extends Model
 
     public function children()
     {
-        return $this->hasMany(Self::class, 'parent_id');
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     public function parent()
     {
-        return $this->belongsTo(Self::class, 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     public function getUrlAttribute()

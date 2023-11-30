@@ -16,8 +16,8 @@ class SubCategoryController extends Controller
     public function index()
     {
         $subcats = Subcat::orderBy('name')->paginate(50);
-    
-        return view('subcats.index',['subcats'=>$subcats]);
+
+        return view('subcats.index', ['subcats' => $subcats]);
     }
 
     /**
@@ -42,11 +42,11 @@ class SubCategoryController extends Controller
             'name' => 'required',
             'category_id' => 'required',
         ]);
-    
+
         Subcat::create($request->all());
-     
+
         return redirect()->route('subcategories.index')
-                        ->with('success','Пiдкатегорiю успiшно додано.');
+                        ->with('success', 'Пiдкатегорiю успiшно додано.');
     }
 
     /**
@@ -68,7 +68,7 @@ class SubCategoryController extends Controller
      */
     public function edit(int $id)
     {
-        return view('subcats.edit',['subcat'=>Subcat::find($id)]);
+        return view('subcats.edit', ['subcat' => Subcat::find($id)]);
     }
 
     /**
@@ -87,9 +87,9 @@ class SubCategoryController extends Controller
         $sightSubCategory = Subcat::find($id);
 
         $sightSubCategory->update($request->all());
-    
+
         return redirect()->route('subcategories.index')
-                        ->with('success','Пiдкатегорiю успiшно змiнено.');
+                        ->with('success', 'Пiдкатегорiю успiшно змiнено.');
     }
 
     /**
@@ -99,10 +99,11 @@ class SubCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $id)
-    {$sightSubCategory = Subcat::find($id);
+    {
+        $sightSubCategory = Subcat::find($id);
         $sightSubCategory->delete();
-    
+
         return redirect()->route('subcategories.index')
-                        ->with('success','Пiдкатегорiю успiшно видалено');
+                        ->with('success', 'Пiдкатегорiю успiшно видалено');
     }
 }

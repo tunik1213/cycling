@@ -16,9 +16,11 @@ class UserList extends ListModel
     {
         parent::__construct($request);
 
-        if($request->input('sight')){
+        if($request->input('sight')) {
             $sight = Sight::find($request->input('sight')) ?? null;
-            if($sight) $this->sight = $sight;
+            if($sight) {
+                $this->sight = $sight;
+            }
         }
 
     }
@@ -26,50 +28,50 @@ class UserList extends ListModel
     public function index()
     {
         $users = DB::table('visits as v')
-            ->join('activities as a','a.id','=','v.act_id')
-            ->join('sights as s','s.id','=','v.sight_id')
-            ->join('districts as d','d.id','=','s.district_id')
-            ->join('users as u','u.id','=','a.user_id')
+            ->join('activities as a', 'a.id', '=', 'v.act_id')
+            ->join('sights as s', 's.id', '=', 'v.sight_id')
+            ->join('districts as d', 'd.id', '=', 's.district_id')
+            ->join('users as u', 'u.id', '=', 'a.user_id')
             ->selectRaw('a.user_id as id')
             ->groupBy('a.user_id')
             ->orderByRaw('2 desc');
 
         if(!empty($this->route)) {
-            $users = $users->join('route_passes as rs','rs.act_id','=','v.act_id')
-            ->where('rs.route_id',$this->route->id)
+            $users = $users->join('route_passes as rs', 'rs.act_id', '=', 'v.act_id')
+            ->where('rs.route_id', $this->route->id)
             ->selectRaw('count(distinct a.id) as count');
         } else {
             if(empty($this->sight)) {
-            $users = $users->selectRaw('count(distinct(v.sight_id)) as count');
+                $users = $users->selectRaw('count(distinct(v.sight_id)) as count');
             } else {
-                $users = $users->where('v.sight_id',$this->sight->id);
+                $users = $users->where('v.sight_id', $this->sight->id);
                 $users = $users->selectRaw('count(v.sight_id) as count');
             }
         }
 
-        
+
 
         if(!empty($this->district)) {
-            $users = $users->where('d.id',$this->district->id);
+            $users = $users->where('d.id', $this->district->id);
         }
         if(!empty($this->area)) {
-            $users = $users->where('d.area_id',$this->area->id);
+            $users = $users->where('d.area_id', $this->area->id);
         }
 
         if(empty($this->limit)) {
             $users = $users->paginate(24)->appends($this->request->query());
         } else {
             $users = $users->limit($this->limit)->get();
-            $users = new \Illuminate\Pagination\LengthAwarePaginator($users,$this->limit,$this->limit);
+            $users = new \Illuminate\Pagination\LengthAwarePaginator($users, $this->limit, $this->limit);
         }
         $collection = $users->getCollection()->all();
         foreach($collection as &$entry) {
             $u = User::find($entry->id);
-            $u->count_link = view('user.count_link',[
+            $u->count_link = view('user.count_link', [
                 'userList' => $this,
                 'count' => $entry->count,
                 'user' => $u,
-                'getParams' => $this->filters(['user'=>$u->id])
+                'getParams' => $this->filters(['user' => $u->id])
             ]);
             $entry = $u;
         }
@@ -82,11 +84,13 @@ class UserList extends ListModel
     {
         $result = 'Топ мандрiвникiв';
 
-        if(!empty($this->sight)) 
+        if(!empty($this->sight)) {
             $result = 'Мандрiвники, якi вiдвiдали '. custom_lcfirst($this->sight->name);
+        }
 
-        if(!empty($this->route))
+        if(!empty($this->route)) {
             $result = 'Мандрiвники, якi проїхали '. $this->route->name;
+        }
 
         return $result;
     }
@@ -95,14 +99,16 @@ class UserList extends ListModel
     {
         $result = 'Топ мандрiвникiв';
 
-        if(!empty($this->sight)) 
-                $result = 'Мандрiвники, якi вiдвiдали 
-            <a href="'.route('sights.show',$this->sight->id).'">'
+        if(!empty($this->sight)) {
+            $result = 'Мандрiвники, якi вiдвiдали 
+            <a href="'.route('sights.show', $this->sight->id).'">'
             . custom_lcfirst($this->sight->name)
             .'</a>';
+        }
 
-        if(!empty($this->route))
+        if(!empty($this->route)) {
             $result = 'Мандрiвники, якi проїхали '. $this->route->link;
+        }
 
         return $result;
     }
@@ -113,6 +119,6 @@ class UserList extends ListModel
     }
     public function listRoute()
     {
-        return route('users.list',$this->filters());
+        return route('users.list', $this->filters());
     }
 }

@@ -13,17 +13,17 @@ class CrontabController extends Controller
 {
     public $gm;
 
-    public function __construct() 
+    public function __construct()
     {
         $this->gm = \GoogleMaps::load('directions');
     }
 
-    public function weekly() : void
+    public function weekly(): void
     {
-	   Self::removeUnusedImages();
+        self::removeUnusedImages();
     }
 
-    private static function removeUnusedImages() : void
+    private static function removeUnusedImages(): void
     {
         $images = Image::all();
 
@@ -33,6 +33,5 @@ class CrontabController extends Controller
             }
         }
     }
-   
-}
 
+}

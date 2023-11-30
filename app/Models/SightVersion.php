@@ -26,13 +26,13 @@ class SightVersion extends Model
 
     public static function lastVersion($sight)
     {
-        return Self::where('sight_id',$sight->id)
+        return self::where('sight_id', $sight->id)
             ->whereNull('moderator')
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->first();
     }
 
-    public static function unmoderated_count() : int
+    public static function unmoderated_count(): int
     {
         return DB::select('select count(*) as count from sight_versions where moderator is null;')[0]->count;
     }

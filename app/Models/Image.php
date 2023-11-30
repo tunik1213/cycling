@@ -10,15 +10,15 @@ class Image extends Model
 {
     use HasFactory;
 
-    public function getUrlAttribute() : string
+    public function getUrlAttribute(): string
     {
         return '/image/'.$this->id;
     }
 
-    public function UsageCount() : int
+    public function UsageCount(): int
     {
         $usage = 0;
-        $img_link = route('getImage',$this->id,false);
+        $img_link = route('getImage', $this->id, false);
 
         $query_text = '
 select count(*) count
@@ -27,7 +27,7 @@ where s.description like \'%'.$img_link.'%\'
         ';
 
         $result = DB::select(DB::raw($query_text)->getValue(DB::connection()->getQueryGrammar()));
-        if(count($result)>0) {
+        if(count($result) > 0) {
             $usage += $result[0]->count;
         }
 
@@ -38,7 +38,7 @@ where c.text like \'%'.$img_link.'%\'
         ';
 
         $result = DB::select(DB::raw($query_text)->getValue(DB::connection()->getQueryGrammar()));
-        if(count($result)>0) {
+        if(count($result) > 0) {
             $usage += $result[0]->count;
         }
 

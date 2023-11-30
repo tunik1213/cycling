@@ -59,8 +59,8 @@ class CommentPosted extends Notification
         $comment = Comment::find($notification->data['comment_id']);
         $parent_comment = Comment::find($notification->data['parent_id']);
 
-        return view('notifications.new_comment',[
-            'notification'=>$notification,
+        return view('notifications.new_comment', [
+            'notification' => $notification,
             'author' => $author,
             'commented_object' => $commented_object,
             'comment' => $comment,

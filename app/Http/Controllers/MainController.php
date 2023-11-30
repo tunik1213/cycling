@@ -21,21 +21,23 @@ class MainController extends Controller
         $topUsers->limit = 4;
 
         $topAuthors = new AuthorList($request);
-        $topAuthors->limit = 4;        
+        $topAuthors->limit = 4;
 
-        return view('welcome',[
-            'topUsers'=>$topUsers,
-            'topSights'=>$topSights,
-            'topAuthors'=>$topAuthors
+        return view('welcome', [
+            'topUsers' => $topUsers,
+            'topSights' => $topSights,
+            'topAuthors' => $topAuthors
         ]);
     }
 
     public function staticPage(string $page_name)
     {
-        $p = StaticPage::where('name',$page_name)->first();
-        if(empty($p)) abort(404);
+        $p = StaticPage::where('name', $page_name)->first();
+        if(empty($p)) {
+            abort(404);
+        }
 
-        return view('static_page',['page'=>$p]);
+        return view('static_page', ['page' => $p]);
 
     }
 }

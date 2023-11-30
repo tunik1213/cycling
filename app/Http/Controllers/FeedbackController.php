@@ -27,14 +27,14 @@ class FeedbackController extends Controller
         ]);
         $f->save();
 
-        return view('message',['class'=>'success','text'=>'Спасибi за вiдгук!']);
+        return view('message', ['class' => 'success','text' => 'Спасибi за вiдгук!']);
 
     }
 
     public function new(Request $request)
     {
         $fs = Feedback::whereNull('moderator')->get();
-        return view('feedback.index',['fs'=>$fs]);
+        return view('feedback.index', ['fs' => $fs]);
 
     }
 

@@ -1,58 +1,67 @@
 <?php
 
-function prepare_external_links(?string $html) : string
+function prepare_external_links(?string $html): string
 {
-    if(empty($html)) return '';
+    if(empty($html)) {
+        return '';
+    }
 
     $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
 
-    $dom = new DOMDocument;
-    @$dom->loadHTML($html,LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    $dom = new DOMDocument();
+    @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
     $links = $dom->getElementsByTagName('a');
 
-    foreach ($links as $link){
+    foreach ($links as $link) {
         $url = $link->getAttribute('href');
-        if (url_is_internal($url)) continue;
+        if (url_is_internal($url)) {
+            continue;
+        }
 
-        $link->setAttribute('target','_blank');
-        $link->setAttribute('rel','nofollow');
+        $link->setAttribute('target', '_blank');
+        $link->setAttribute('rel', 'nofollow');
     }
 
     $result = $dom->saveHTML();
-    return mb_convert_encoding($result,'UTF-8','HTML-ENTITIES');
+    return mb_convert_encoding($result, 'UTF-8', 'HTML-ENTITIES');
 }
-function url_is_internal(string $url) : bool
+function url_is_internal(string $url): bool
 {
     $url = trim($url);
-    if($url[0]==='/') return true;
-    if(strpos($url,env('APP_URL'))===0) return true;
+    if($url[0] === '/') {
+        return true;
+    }
+    if(strpos($url, env('APP_URL')) === 0) {
+        return true;
+    }
 
     return false;
 }
 function nouns_declension($num, $str_one, $str_two, $str_five)
 {
-    $num = $num%100;
+    $num = $num % 100;
     if ($num >= 5 && $num <= 20) {
         return $str_five;
     }
 
-    $num = $num%10;
+    $num = $num % 10;
     if ($num == 1) {
         return $str_one;
     }
 
-    if ($num >= 2 && $num <= 4){
+    if ($num >= 2 && $num <= 4) {
         return $str_two;
     }
 
     return $str_five;
 }
 //Стандартный lcfirst не работает для кириллицы
-function custom_lcfirst($str, $e='utf-8') {
+function custom_lcfirst($str, $e = 'utf-8')
+{
     $fc = mb_strtolower(mb_substr($str, 0, 1, $e), $e);
     return $fc.mb_substr($str, 1, mb_strlen($str, $e), $e);
 }
-function shortNumber($num) 
+function shortNumber($num)
 {
     $units = ['', 'K', 'M', 'B', 'T'];
     for ($i = 0; $num >= 1000; $i++) {

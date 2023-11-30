@@ -18,7 +18,7 @@ class Feedback extends Model
         return $this->belongsTo(User::class);
     }
 
-    public static function unmoderated_count() : int
+    public static function unmoderated_count(): int
     {
         return DB::select('select count(*) as count from feedback where moderator is null;')[0]->count;
     }

@@ -12,20 +12,23 @@ use App\Jobs\ImportActivities;
 
 class AuthController extends Controller
 {
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         return view('user.login');
     }
 
-    public function Strava(Request $request) 
+    public function Strava(Request $request)
     {
-	$request->session()->put('redirect_uri', url()->previous());
-        return Strava::authenticate($scope='read,profile:read_all,activity:read');
+        $request->session()->put('redirect_uri', url()->previous());
+        return Strava::authenticate($scope = 'read,profile:read_all,activity:read');
     }
 
-    public function StravaCallBack(Request $request) 
+    public function StravaCallBack(Request $request)
     {
         $code = $request->code;
-        if(empty($code)) abort(400,'Empty code given');
+        if(empty($code)) {
+            abort(400, 'Empty code given');
+        }
 
         $token = Strava::token($request->code);
         $user = $this->findOrCreateUser($token->athlete);
@@ -46,9 +49,9 @@ class AuthController extends Controller
         return redirect($url);
     }
 
-    private function findOrCreateUser($athlete) : User 
+    private function findOrCreateUser($athlete): User
     {
-        $user = User::where('athlete_id',$athlete->id)->first();
+        $user = User::where('athlete_id', $athlete->id)->first();
         if ($user == null) {
             $user = User::create([
                 'athlete_id' => $athlete->id
@@ -66,7 +69,7 @@ class AuthController extends Controller
         return $user;
     }
 
-    public function logout(request $request) 
+    public function logout(request $request)
     {
 
         Auth::logout();

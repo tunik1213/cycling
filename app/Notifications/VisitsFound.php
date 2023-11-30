@@ -48,11 +48,11 @@ class VisitsFound extends Notification
 
     public static function render($notification)
     {
-        return view('notifications.new_visits',[
-            'notification'=>$notification,
+        return view('notifications.new_visits', [
+            'notification' => $notification,
             'count' => $notification->data['count']
         ]);
     }
 
-    
+
 }

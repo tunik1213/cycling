@@ -21,11 +21,11 @@ class AreaList extends ListModel
     {
 
         $query = DB::table('areas as a')
-            ->leftjoin('sights as s','a.id','s.area_id')
-            ->leftjoin('visits as v','v.sight_id','=','s.id')
-            ->leftjoin('activities as act','act.id','=','v.act_id')
+            ->leftjoin('sights as s', 'a.id', 's.area_id')
+            ->leftjoin('visits as v', 'v.sight_id', '=', 's.id')
+            ->leftjoin('activities as act', 'act.id', '=', 'v.act_id')
             ->selectRaw('a.id as id,count(distinct s.id) as sight_count')
-            ->orderBy('sight_count','desc')
+            ->orderBy('sight_count', 'desc')
             ->groupBy('a.id');
 
         if(!empty($this->sight)) {
@@ -38,8 +38,8 @@ class AreaList extends ListModel
             $query = $query->where('act.id', $this->activity->id);
         }
         if(!empty($this->route)) {
-            $query = $query->join('route_passes as rs','rs.act_id','=','act.id')
-            ->where('rs.route_id',$this->route->id);
+            $query = $query->join('route_passes as rs', 'rs.act_id', '=', 'act.id')
+            ->where('rs.route_id', $this->route->id);
         }
 
         $query = $query
@@ -57,22 +57,24 @@ class AreaList extends ListModel
         return $query;
     }
 
-    public function title() : string
+    public function title(): string
     {
         $result = 'Список областей';
 
-        if(!empty($this->user))
+        if(!empty($this->user)) {
             $result .= ', в яких катає '.$this->user->fullname;
+        }
 
         return $result;
     }
 
-    public function h1() : string
+    public function h1(): string
     {
         $result = 'Список областей';
 
-        if(!empty($this->user))
+        if(!empty($this->user)) {
             $result .= ', в яких катає '.$this->user->link;
+        }
 
         return $result;
     }

@@ -22,21 +22,29 @@ class ActivityList extends ListModel
     {
         parent::__construct($request);
 
-        if($request->input('sight')){
+        if($request->input('sight')) {
             $sight = Sight::find($request->input('sight')) ?? null;
-            if($sight) $this->sight = $sight;
+            if($sight) {
+                $this->sight = $sight;
+            }
         }
-        if($request->input('user')){
+        if($request->input('user')) {
             $user = User::find($request->input('user')) ?? null;
-            if($user) $this->user = $user;
+            if($user) {
+                $this->user = $user;
+            }
         }
-        if($request->input('activity')){
+        if($request->input('activity')) {
             $activity = Activity::find($request->input('activity')) ?? null;
-            if($activity) $this->activity = $activity;
+            if($activity) {
+                $this->activity = $activity;
+            }
         }
-        if($request->input('route')){
+        if($request->input('route')) {
             $route = Route::find($request->input('route')) ?? null;
-            if($route) $this->route = $route;
+            if($route) {
+                $this->route = $route;
+            }
         }
     }
 
@@ -58,7 +66,7 @@ class ActivityList extends ListModel
         return $query;
     }
 
-    public function count() : int
+    public function count(): int
     {
         return $this->activities_query()->count();
     }
@@ -66,11 +74,11 @@ class ActivityList extends ListModel
     private function activities_query()
     {
         $query = DB::table('activities as a')
-            ->leftjoin('visits as v','v.act_id','=','a.id')
+            ->leftjoin('visits as v', 'v.act_id', '=', 'a.id')
             ->selectRaw('a.id as id,count(v.id) as count')
             ->selectRaw('(select count(*) from visits where act_id=a.id) as sight_count')
             ->groupBy('a.id')
-            ->orderBy('a.start_date','desc');
+            ->orderBy('a.start_date', 'desc');
 
         if(!empty($this->sight)) {
             $query = $query->where('v.sight_id', $this->sight->id);
@@ -82,21 +90,21 @@ class ActivityList extends ListModel
             $query = $query->where('a.id', $this->activity->id);
         }
         if(!empty($this->route)) {
-            $query = $query->join('route_passes as rs','rs.act_id','=','a.id')
-            ->where('rs.route_id',$this->route->id);
+            $query = $query->join('route_passes as rs', 'rs.act_id', '=', 'a.id')
+            ->where('rs.route_id', $this->route->id);
         }
 
         if(!empty($this->timestamp)) {
             $from = Carbon::createFromTimestamp($this->timestamp)->subHours(5);
             $to = Carbon::createFromTimestamp($this->timestamp)->addHours(5);
-            $query = $query->whereBetween('v.created_at',[$from,$to]);
+            $query = $query->whereBetween('v.created_at', [$from,$to]);
         }
 
         return $query;
     }
 
-    public function url($add=[])
+    public function url($add = [])
     {
-        return route('activities',$this->filters($add));
+        return route('activities', $this->filters($add));
     }
 }

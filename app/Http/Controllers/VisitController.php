@@ -20,13 +20,13 @@ class VisitController extends Controller
 
     public function postVisitsAWS(Request $request)
     {
-    	$message = Message::fromRawPostData();
-    	Visit::retrievеAllVisits();
+        $message = Message::fromRawPostData();
+        Visit::retrievеAllVisits();
     }
 
     public function visitsVerified(Request $request)
     {
         $user = Auth::user();
-        return var_export(!empty($user->visits_verified_at),true);
+        return var_export(!empty($user->visits_verified_at), true);
     }
 }

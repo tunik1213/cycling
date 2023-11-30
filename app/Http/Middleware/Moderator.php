@@ -22,9 +22,11 @@ class Moderator
             return $next($request);
         }
 
-        if (env('APP_DEBUG')) return $next($request);
+        if (env('APP_DEBUG')) {
+            return $next($request);
+        }
 
-        
-        return new Response(view('static.forbidden'),403);
+
+        return new Response(view('static.forbidden'), 403);
     }
 }

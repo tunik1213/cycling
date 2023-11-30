@@ -29,8 +29,9 @@ class ImageController extends Controller
     public function getImage($id)
     {
         $record = Image::find($id);
-        if (empty($record))
+        if (empty($record)) {
             abort(404);
+        }
 
         $img =  $record->image;
 

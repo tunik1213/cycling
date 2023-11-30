@@ -19,10 +19,14 @@ class CommentsController extends Controller
     public function addComment()
     {
         $commentText = trim(htmlspecialchars($_POST['comment']));
-        if (empty($commentText)) return;
+        if (empty($commentText)) {
+            return;
+        }
 
         $objId = (int)$_POST['commentable_id'];
-        if(empty($objId)) return;
+        if(empty($objId)) {
+            return;
+        }
 
         switch($_POST['commentable_type']) {
             case 'sight':
@@ -36,16 +40,18 @@ class CommentsController extends Controller
         }
 
         $obj = $modelClass::find($objId);
-        if(empty($obj)) return;
+        if(empty($obj)) {
+            return;
+        }
 
         $parent_id = (int)$_POST['parent_id'];
 
         $comment = new Comment([
-            'author_id'=>Auth::id(),
-            'parent_id'=>$parent_id,
-            'text'=>$commentText
+            'author_id' => Auth::id(),
+            'parent_id' => $parent_id,
+            'text' => $commentText
         ]);
-        
+
         $obj->comments()->save($comment);
 
         if(empty($parent_id)) {
@@ -55,9 +61,10 @@ class CommentsController extends Controller
             $userToNotify = $parentComment->author;
         }
 
-        if (!empty($userToNotify) && $userToNotify->id != Auth::id())
+        if (!empty($userToNotify) && $userToNotify->id != Auth::id()) {
             $userToNotify->notify(new CommentPosted($comment));
+        }
 
-        return view('comments.show',['comment' => $comment]);
+        return view('comments.show', ['comment' => $comment]);
     }
 }

@@ -55,12 +55,12 @@ class AreaController extends Controller
 
         Area::create([
             'name' => $request->name,
-            'image'=>Image::make($imagePath)
+            'image' => Image::make($imagePath)
                 ->fit(200)
                 ->encode('jpg', 75)
         ]);
 
-        return redirect()->route('areas.index')->with('success','Область успiшно створена.');
+        return redirect()->route('areas.index')->with('success', 'Область успiшно створена.');
     }
 
     /**
@@ -79,10 +79,10 @@ class AreaController extends Controller
         $topSights->limit = 4;
         $topSights->area = $area;
 
-        return view('areas.show',[
-            'area'=>$area,
-            'topUsers'=>$topUsers,
-            'topSights'=>$topSights,
+        return view('areas.show', [
+            'area' => $area,
+            'topUsers' => $topUsers,
+            'topSights' => $topSights,
         ]);
     }
 
@@ -94,7 +94,7 @@ class AreaController extends Controller
      */
     public function edit(Area $area)
     {
-        return view('areas.edit',compact('area'));
+        return view('areas.edit', compact('area'));
     }
 
     /**
@@ -116,7 +116,7 @@ class AreaController extends Controller
         $area->license = $request->license;
         $area->save();
 
-        return redirect()->route('areas.index')->with('success','Область успiшно змiнено');
+        return redirect()->route('areas.index')->with('success', 'Область успiшно змiнено');
     }
 
     /**
@@ -127,16 +127,18 @@ class AreaController extends Controller
      */
     public function destroy(int $id)
     {
-         Area::find($id)->delete();
+        Area::find($id)->delete();
 
-         return redirect()->route('areas.index')
-                       ->with('success','Область успiшно видалено');
+        return redirect()->route('areas.index')
+                      ->with('success', 'Область успiшно видалено');
     }
 
     public function getImage(int $id)
     {
         $a = Area::find($id);
-        if($a==null) return;
+        if($a == null) {
+            return;
+        }
 
         $img = $a->image;
 
@@ -150,8 +152,8 @@ class AreaController extends Controller
     {
         $list = new AreaList($request);
 
-        return view('areas.list',[
-            'areaList'=>$list
+        return view('areas.list', [
+            'areaList' => $list
         ]);
     }
 }

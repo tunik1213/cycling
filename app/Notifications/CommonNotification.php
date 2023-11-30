@@ -19,7 +19,7 @@ class CommonNotification extends Notification
      *
      * @return void
      */
-    public function __construct($text,$image=null,$class=null)
+    public function __construct($text, $image = null, $class = null)
     {
         $this->text = $text;
         $this->image = $image;
@@ -54,8 +54,8 @@ class CommonNotification extends Notification
 
     public static function render($notification)
     {
-        return view('notifications.common',[
-            'notification'=>$notification,
+        return view('notifications.common', [
+            'notification' => $notification,
             'text' => $notification->data['text'],
             'image' => $notification->data['image'] ?? asset('/images/attention.png'),
             'class' => $notification->data['class'] ?? ''

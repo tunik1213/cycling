@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\DB;
 
 class CheckRoutePassing implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected Route $route;
     /**

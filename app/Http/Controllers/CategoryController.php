@@ -12,19 +12,21 @@ class CategoryController extends Controller
     public function show(Request $request, int $id)
     {
         $cat = Category::find($id);
-        if ($cat == null) abort(404);
+        if ($cat == null) {
+            abort(404);
+        }
 
         $sights = new SightList($request);
         $sights->category = $cat;
 
-        return view('sight_categories.show',[
+        return view('sight_categories.show', [
             'category' => $cat,
-            'sightList'=> $sights
+            'sightList' => $sights
         ]);
     }
     public function exportSubCategories(Request $request)
     {
-        $result = SubCategory::where('category_id',$request->input('id'))
+        $result = SubCategory::where('category_id', $request->input('id'))
             ->select(['id','name'])
             ->orderBy('name')
             ->get();

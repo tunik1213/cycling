@@ -17,7 +17,8 @@ class DistrictController extends Controller
         $this->middleware('moderator')->except(['list', 'show', 'getImage', 'export']);
     }
 
-    private function areas() {
+    private function areas()
+    {
         return Area::orderBy('name')->get();
     }
 
@@ -34,7 +35,7 @@ class DistrictController extends Controller
      */
     public function create()
     {
-        return view('districts.create',['areas'=>$this->areas()]);
+        return view('districts.create', ['areas' => $this->areas()]);
     }
 
     /**
@@ -56,13 +57,13 @@ class DistrictController extends Controller
 
         District::create([
             'name' => $request->name,
-            'image'=>Image::make($imagePath)
+            'image' => Image::make($imagePath)
                 ->fit(200)
                 ->encode('jpg', 75),
-            'area_id'=> (int)$request->area_id
+            'area_id' => (int)$request->area_id
         ]);
 
-        return redirect()->route('districts.index')->with('success','Район успiшно створений.');
+        return redirect()->route('districts.index')->with('success', 'Район успiшно створений.');
     }
 
     /**
@@ -81,10 +82,10 @@ class DistrictController extends Controller
         $topSights->limit = 4;
         $topSights->district = $district;
 
-        return view('districts.show',[
-            'district'=>$district,
-            'topUsers'=>$topUsers,
-            'topSights'=>$topSights,
+        return view('districts.show', [
+            'district' => $district,
+            'topUsers' => $topUsers,
+            'topSights' => $topSights,
         ]);
     }
 
@@ -96,7 +97,7 @@ class DistrictController extends Controller
      */
     public function edit(District $district)
     {
-        return view('districts.edit',['district'=>$district,'areas'=>$this->areas()]);
+        return view('districts.edit', ['district' => $district,'areas' => $this->areas()]);
     }
 
     /**
@@ -119,7 +120,7 @@ class DistrictController extends Controller
         $district->area_id = $request->area_id;
         $district->save();
 
-        return redirect()->route('districts.index')->with('success','Район успiшно змiнено');
+        return redirect()->route('districts.index')->with('success', 'Район успiшно змiнено');
     }
 
     /**
@@ -130,16 +131,18 @@ class DistrictController extends Controller
      */
     public function destroy(int $id)
     {
-         District::find($id)->delete();
+        District::find($id)->delete();
 
-         return redirect()->route('districts.index')
-                       ->with('success','Район успiшно видалено');
+        return redirect()->route('districts.index')
+                      ->with('success', 'Район успiшно видалено');
     }
 
     public function getImage(int $id)
     {
-        $d=District::find($id);
-        if($d==null) return;
+        $d = District::find($id);
+        if($d == null) {
+            return;
+        }
 
         $img = $d->image;
 
@@ -151,7 +154,7 @@ class DistrictController extends Controller
 
     public function export(int $area_id)
     {
-        $result = District::where('area_id',$area_id)
+        $result = District::where('area_id', $area_id)
             ->select(['id','name as label'])
             ->orderBy('name')
             ->get();
@@ -164,8 +167,8 @@ class DistrictController extends Controller
     {
         $list = new DistrictList($request);
 
-        return view('districts.list',[
-            'districtList'=>$list
+        return view('districts.list', [
+            'districtList' => $list
         ]);
     }
 }

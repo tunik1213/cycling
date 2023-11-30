@@ -21,15 +21,17 @@ class UserController extends Controller
         $this->middleware('auth')->except(['getAvatarImage','list','authors','profile']);
     }
 
-    public function home (Request $request)
+    public function home(Request $request)
     {
-        return view('user.cabinet',['user'=>Auth::user()]);
+        return view('user.cabinet', ['user' => Auth::user()]);
     }
 
     public function getAvatarImage(int $userId = null)
     {
         $user = ($userId == null) ? auth()->user() : User::find($userId);
-        if ($user==null) return;
+        if ($user == null) {
+            return;
+        }
 
         $avatar = $user->avatar;
         if ($avatar == null) {
@@ -43,11 +45,13 @@ class UserController extends Controller
         exit;
     }
 
-    public function profile(Request $request, ?int $id=null)
+    public function profile(Request $request, ?int $id = null)
     {
-        $user = ($id==null) ? Auth::user() : User::find($id);
-        if(!$user) return redirect(route('login'));
-        
+        $user = ($id == null) ? Auth::user() : User::find($id);
+        if(!$user) {
+            return redirect(route('login'));
+        }
+
 
         $topSightsVisited = new SightList($request);
         $topSightsVisited->user = $user;
@@ -57,10 +61,10 @@ class UserController extends Controller
         $topSightsAuthor->author = $user;
         $topSightsAuthor->limit = 4;
 
-        return view('user.profile',[
-            'user'=>$user,
-            'topSightsVisited'=>$topSightsVisited,
-            'topSightsAuthor'=>$topSightsAuthor,
+        return view('user.profile', [
+            'user' => $user,
+            'topSightsVisited' => $topSightsVisited,
+            'topSightsAuthor' => $topSightsAuthor,
             'stats' => $user->stats()
         ]);
 
@@ -68,10 +72,10 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::orderBy('created_at','desc')
+        $users = User::orderBy('created_at', 'desc')
             ->paginate(24);
 
-        return view('user.adminIndex',['users'=>$users]);
+        return view('user.adminIndex', ['users' => $users]);
 
     }
 
@@ -79,8 +83,8 @@ class UserController extends Controller
     {
         $list = new UserList($request);
 
-        return view('user.index',[
-            'userList'=>$list
+        return view('user.index', [
+            'userList' => $list
         ]);
     }
 
@@ -88,8 +92,8 @@ class UserController extends Controller
     {
         $list = new AuthorList($request);
 
-        return view('user.index',[
-            'userList'=>$list
+        return view('user.index', [
+            'userList' => $list
         ]);
     }
 
@@ -99,6 +103,6 @@ class UserController extends Controller
         $notifications = $user->notifications
             ->take(20);
 
-        return view('notifications.list', ['notifications'=> $notifications]);
+        return view('notifications.list', ['notifications' => $notifications]);
     }
 }
