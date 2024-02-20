@@ -88,7 +88,7 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdn.tiny.cloud/1/h2xax4g7o52fzimu3ih6e0ng0nhceo8m1wkk9hvywyervmh7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/h2xax4g7o52fzimu3ih6e0ng0nhceo8m1wkk9hvywyervmh7/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <!-- jQuery Modal -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js"></script>
