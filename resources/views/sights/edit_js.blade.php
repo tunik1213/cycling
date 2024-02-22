@@ -118,7 +118,7 @@
             menubar: false,
             file_picker_types: 'file image media',
             images_upload_url: '/upload',
-            automatic_uploads: false,
+            automatic_uploads: true,
             images_upload_handler: uploadImage,
             setup: function(editor) {
                 editor.on('init', fillEditorContent);
