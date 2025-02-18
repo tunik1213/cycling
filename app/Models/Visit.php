@@ -213,7 +213,7 @@ having count(*) > 1');
             );
         }
 
-        $sights = Sight::orderBy('id')->get();
+        $sights = Sight::orderBy('id')->get(['id','lat','lng','radius']);
         foreach($sights as $s) {
             array_push(
                 $data['sights'],
@@ -251,7 +251,7 @@ having count(*) > 1');
             );
         }
 
-        $sights = Sight::orderBy('id')->get();
+        $sights = Sight::orderBy('id')->get(['id','lat','lng','radius']);
         foreach($sights as $s) {
             array_push(
                 $data['sights'],
@@ -290,7 +290,7 @@ having count(*) > 1');
         }
 
 
-        $sights = Sight::orderBy('id')->get();
+        $sights = Sight::orderBy('id')->get(['id','lat','lng','radius']);
         foreach($sights as $s) {
             array_push(
                 $data['sights'],
