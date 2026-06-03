@@ -194,23 +194,70 @@ class SightList extends ListModel
 
         }
 
+        $result = 'Список локацій';
+
         if(!empty($this->user)) {
-            return 'Локації, якi вiдвiда'
+            $result = 'Локації, якi вiдвiда'
                 .$this->user->gender('в', 'ла').' '
                 .(($links) ? $this->user->link : $this->user->fullname);
         }
 
         if(!empty($this->author)) {
-            return 'Локації, які дода'
+            $result = 'Локації, які дода'
                 .$this->author->gender('в', 'ла').' '
                 .(($links) ? $this->author->link : $this->author->fullname);
         }
 
         if(!empty($this->activity)) {
-            return 'Вiдвiданi локації';
+            $result = 'Вiдвiданi локації';
         }
 
-        return 'Список локацій';
+        $filterSuffix = $this->titleFilterSuffix();
+        if($filterSuffix != '') {
+            $result .= ': ' . $filterSuffix;
+        }
+        return $result;
+    }
+
+    private function titleFilterSuffix(): string
+    {
+        $parts = array_filter([
+            $this->titleLocationPart(),
+            $this->titleCategoryPart(),
+        ]);
+
+        return empty($parts) ? '' : ' ' . implode(', ', $parts);
+    }
+
+    private function titleLocationPart(): ?string
+    {
+        $area = $this->area ?? $this->district?->area;
+        if(empty($area)) {
+            return 'Вся Україна';
+        }
+        $areaName = $area?->name ?? '';
+        if($areaName != 'Крим') {
+            $areaName = $areaName . ' область';
+        }
+
+        if (empty($this->district)) {
+            return $areaName;
+        }
+
+        return trim($areaName . ' - ' . $this->district->name . ' район', ' -');
+    }
+
+    private function titleCategoryPart(): ?string
+    {
+        $category = $this->category ?? $this->subcategory?->category;
+
+        if (empty($this->subcategory)) {
+            return $category?->name;
+        }
+
+        $categoryName = $category?->name ?? '';
+
+        return trim($categoryName . ' - ' . $this->subcategory->name, ' -');
     }
 
     public function filters($add = [], $remove = [])
