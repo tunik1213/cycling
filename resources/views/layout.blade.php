@@ -43,7 +43,21 @@
         @include('production_asserts',['type' => 'css'])
     @endif
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9397290056752587"
+     crossorigin="anonymous"></script>
+
 </head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9EQFKZFYCW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9EQFKZFYCW');
+</script>
+
 <body>
     <div id="header">
       <div class="container" id="header-container">
