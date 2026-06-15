@@ -6,7 +6,7 @@
         </a> 
     </li>
 
-    @if($sight->sub_category_id ?? 0 > 0)
+    @if($sight->subcategory)
         <li class="breadcrumb-item">
             <a class="link-secondary"  href="{{route('sights.list',['subcategory'=>$sight->sub_category_id])}}">
                 {{$sight->subcategory->name}} 

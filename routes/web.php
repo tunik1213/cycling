@@ -19,6 +19,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\RobotsController;
 
 
 
@@ -33,6 +34,8 @@ use App\Http\Controllers\CommentsController;
 |
 */
 
+
+Route::get('/robots.txt', [RobotsController::class, 'show'])->name('robots');
 
 Route::get('/', [MainController::class, 'main'])->name('main');
 Route::get('/test/vue', [TestController::class, 'vue']);

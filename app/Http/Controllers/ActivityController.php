@@ -16,9 +16,11 @@ class ActivityController extends Controller
         $list = new ActivityList($request);
 
 
-        return view('activities.list', [
-            'actList' => $list
-        ]);
+        return response()
+            ->view('activities.list', [
+                'actList' => $list
+            ])
+            ->header('X-Robots-Tag', 'noindex');
 
     }
 

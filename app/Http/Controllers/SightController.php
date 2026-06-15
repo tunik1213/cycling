@@ -630,7 +630,9 @@ class SightController extends Controller
             $acts->sight = $sight;
         }
 
-        return view('sights.show_partial', ['sight' => $sight,'activities' => $acts]);
+        return response()
+            ->view('sights.show_partial', ['sight' => $sight,'activities' => $acts])
+            ->header('X-Robots-Tag', 'noindex');
 
     }
 
